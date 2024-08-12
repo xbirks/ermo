@@ -50,7 +50,7 @@ const Cursor = () => {
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [isTouchDevice]);
+  }, [isTouchDevice, animateCursor]);
 
   useEffect(() => {
     if (!isTouchDevice) {
