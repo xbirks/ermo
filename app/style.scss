@@ -60,6 +60,101 @@ button {
 
 
 
+/* MASTER STYLES */
+
+
+h1{
+    font-size: 72px;
+    font-weight: 400;
+    font-family: $owners;
+    text-transform: uppercase;
+    color: $azul-ermo;
+    text-align: left;
+    line-height: 60pt;
+
+    @include media1200px {
+        font-size: 40pt;
+        line-height: 50pt;
+    }
+
+    @include media800px {
+        font-size: 35pt;
+        line-height: 40pt;
+    }
+}
+
+h2{
+    font-size: 32px;
+    font-weight: 400;
+    font-family: $owners;
+    text-transform: uppercase;
+    color: $azul-ermo;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+h3{
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $owners;
+    color: $gris-ermo;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+h4{
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $owners;
+    color: $azul-ermo;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+p{
+    font-size: $fuente-p;
+    font-weight: 400;
+    font-family: $neue;
+    color: $gris-ermo;
+    line-height: 19pt; 
+    letter-spacing: -0.54px;
+    text-align: left;
+
+    @include media800px {
+        font-size: 12pt;
+        line-height: 16pt;
+    }
+}
+
+a{
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $owners;
+    color: $gris-ermo;
+    letter-spacing: 0.5px;
+    text-align: left;
+    text-decoration: auto;
+}
+
+::selection {
+    background-color: $amarillo-ermo; /* Fondo dorado */
+    color: $negro-ermo; /* Color del texto negro */
+    text-shadow: none; /* Sin sombra de texto */
+} ::-moz-selection{
+    background-color: $amarillo-ermo; /* Fondo dorado */
+    color: $negro-ermo; /* Color del texto negro */
+    text-shadow: none; /* Sin sombra de texto */
+}
+
+
+
+
+
+
+
+
+
 .title{
     @extend %margin-auto;
 }
@@ -82,11 +177,11 @@ button {
 
 
 .master_button{
-    width: 0%;
+    width: 100%;
 }
 .button {
     display: flex;
-    width: 7vw;
+    max-width: 300px;
     min-width: 140px;
     justify-content: space-between;
     border: solid 1.5px $azul-ermo;
@@ -163,15 +258,6 @@ button {
 }
 
 
-
-@media only screen and (max-width: 800px){
-    
-    h1{
-        font-size: 35pt;
-        line-height: 40pt;
-    }
-
-}
 
 
 
@@ -618,7 +704,7 @@ button {
   }
   
   .index__info-title {
-    margin: 30px 0 0 20px;
+    margin: 30px 0px 20px 0px;
     
     h3 {
       text-align: center;

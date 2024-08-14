@@ -68,31 +68,31 @@ const SwiperComponent = () => {
         <div className="swiper-wrapper">
           {/* Slides */}
           <div className="swiper-slide">
-            <Image src={Img1} alt="Logo 1" />
+            <Image src={Img1} alt="Logo 1" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img2} alt="Logo 2" />
+            <Image src={Img2} alt="Logo 2" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img3} alt="Logo 3" />
+            <Image src={Img3} alt="Logo 3" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img4} alt="Logo 4" />
+            <Image src={Img4} alt="Logo 4" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img5} alt="Logo 5" />
+            <Image src={Img5} alt="Logo 5" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img6} alt="Logo 6" />
+            <Image src={Img6} alt="Logo 6" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img7} alt="Logo 7" />
+            <Image src={Img7} alt="Logo 7" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img8} alt="Logo 8" />
+            <Image src={Img8} alt="Logo 8" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img9} alt="Logo 9" />
+            <Image src={Img9} alt="Logo 9" loading="eager"></Image>
           </div>
         </div>
 

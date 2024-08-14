@@ -48,7 +48,7 @@ function SliderServices() {
                 onMouseMove={handleMouseMove}
             >
                 <SliderServicesItem
-                    nameService="Motion graphics y animación 2D"
+                    nameService="Animación 2D y motion graphics"
                     descriptionService="Damos vida a tus ideas mediante técnicas avanzadas de animación, asegurando que cada detalle refleje la identidad única de tu marca. Confía en nosotros para impulsar tu mensaje con impacto visual y una ejecución impecable."
                     link="/not-found"
                 />
@@ -58,7 +58,7 @@ function SliderServices() {
                     link="/not-found"
                 />
                 <SliderServicesItem
-                    nameService="Maquetación web y diseño UI/UX"
+                    nameService="Diseño web, UI/UX y programación"
                     descriptionService="Creamos experiencias digitales que conectan. Nuestro enfoque en diseño web y UI/UX está centrado en la creación de interfaces intuitivas y atractivas que mejoran la interacción del usuario con tu marca. Y te garantizamos una navegación fluida y una estética visual que capte y mantenga la atención."
                     link="/not-found"
                 />

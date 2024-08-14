@@ -36,7 +36,7 @@ function Grid4Item({ title, description, thumbnailSrc, link, altAtribute }) {
     
       </Link>
       <div className="post__thumbnail-description">
-        <h3>{description}</h3>
+        <p>{description}</p>
       </div>
     </div>
   );
