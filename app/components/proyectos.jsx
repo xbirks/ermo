@@ -50,29 +50,25 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
 
           <div className="proyectos__vid">
 
-          <figure>
+          <div className="proyectos__mini"><figure>
             <video
-              className="#"
+              className="proyectos__video-mini"
               src={image1}
-              width={500}
-              height={500}
               autoPlay loop muted playsInline type="video/mp4"
             >
               Tu navegador no soporta la etiqueta de video.
             </video>
-          </figure>
+          </figure></div>
 
-          <figure>
+          <div className="proyectos__mini"><figure>
             <video
-              className="#"
+              className="proyectos__video-mini"
               src={image2}
-              width={500}
-              height={500}
               autoPlay loop muted playsInline type="video/mp4"
             >
               Tu navegador no soporta la etiqueta de video.
             </video>
-          </figure>
+          </figure></div>
 
           </div>
 
