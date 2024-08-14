@@ -1,6 +1,7 @@
 /* VARIABLES */
 
 $azul-ermo: #3F52FF;
+$cian-ermo: #3684F6;
 $gris-ermo: #687A7F;
 $gris-claro-ermo: #d8e2e6;
 $negro-ermo: #16161E;
@@ -56,79 +57,6 @@ $mb-xxl:148px; .mb-xxl{margin-bottom: $mb-xxl;}
 
 .spacer-xxl{
     height: 30vh;
-}
-
-
-/* MASTER STYLES */
-
-
-h1{
-    font-size: 72px;
-    font-weight: 400;
-    font-family: $owners;
-    text-transform: uppercase;
-    color: $azul-ermo;
-    text-align: left;
-    line-height: 60pt;
-}
-
-h2{
-    font-size: 32px;
-    font-weight: 400;
-    font-family: $owners;
-    text-transform: uppercase;
-    color: $azul-ermo;
-    letter-spacing: 1px;
-    text-align: left;
-}
-
-h3{
-    font-size: 18px;
-    font-weight: 400;
-    font-family: $owners;
-    color: $gris-ermo;
-    letter-spacing: 0.5px;
-    text-align: left;
-}
-
-h4{
-    font-size: 18px;
-    font-weight: 400;
-    font-family: $owners;
-    color: $azul-ermo;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    text-align: left;
-}
-
-p{
-    font-size: $fuente-p;
-    font-weight: 400;
-    font-family: $neue;
-    color: $gris-ermo;
-    line-height: 19pt; 
-    letter-spacing: -0.54px;
-    text-align: left;
-}
-
-a{
-    font-size: 18px;
-    font-weight: 400;
-    font-family: $owners;
-    color: $gris-ermo;
-    letter-spacing: 0.5px;
-    text-align: left;
-    text-decoration: auto;
-}
-
-::selection {
-    background-color: $amarillo-ermo; /* Fondo dorado */
-    color: $negro-ermo; /* Color del texto negro */
-    text-shadow: none; /* Sin sombra de texto */
-} ::-moz-selection{
-    background-color: $amarillo-ermo; /* Fondo dorado */
-    color: $negro-ermo; /* Color del texto negro */
-    text-shadow: none; /* Sin sombra de texto */
 }
 
 
