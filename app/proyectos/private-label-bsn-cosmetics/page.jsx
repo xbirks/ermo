@@ -10,8 +10,8 @@ export default function HomePage() {
       <div>
 
         <Proyectos
-            desktop="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
-            mobile="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
+            desktop="https://www.ermo.es/videos/BSN_Desktop.mp4"
+            mobile="https://www.ermo.es/videos/BSN_Mobile.mp4"
             cliente="Private Label BSN Cosmetics"
             tipo="Fotografía de producto"
             ano="2023"
