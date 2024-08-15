@@ -33,7 +33,7 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
 
           <div className="proyectos__video">
             <video
-              className="header__video-desktop"
+              className="#"
               autoPlay
               loop
               muted
@@ -54,6 +54,8 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
             <video
               className="proyectos__video-mini"
               src={image1}
+              width={500}
+              height={500}
               autoPlay loop muted playsInline type="video/mp4"
             >
               Tu navegador no soporta la etiqueta de video.
@@ -64,6 +66,8 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
             <video
               className="proyectos__video-mini"
               src={image2}
+              width={500}
+              height={500}
               autoPlay loop muted playsInline type="video/mp4"
             >
               Tu navegador no soporta la etiqueta de video.
