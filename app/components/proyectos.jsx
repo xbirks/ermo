@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from 'next/link';
 
@@ -6,17 +8,17 @@ import Contacto from "../buttons/contacto";
 import Grid4 from "./grid-4/grid-4";
 import Spacer from "../buttons/spacer";
 
-import HeaderVideo from './video-index.jsx';
+import VideoIndex from "./video-index";
 
 
 
 function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyecto, explicacion, image1, image2}) {
     return (
-      <div>
-      <HeaderVideo
+      <>
+      <VideoIndex
       desktop={desktop}
       mobile={mobile}
-      ></HeaderVideo>
+       />
 
         <div className="master__body">
 
@@ -33,7 +35,7 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
 
           <div className="proyectos__video">
             <video
-              className="#"
+              className="ermo"
               autoPlay
               loop
               muted
@@ -84,7 +86,7 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
 
         </div>
 
-      </div>
+      </>
       
     );
   }

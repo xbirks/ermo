@@ -1,4 +1,6 @@
-const VideoIndex = ({desktop, mobile}) => (
+"use client";
+
+const VideoIndex = ({ desktop, mobile }) => (
   <div className="header__video">
     <video
       className="header__video-desktop"

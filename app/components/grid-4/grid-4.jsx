@@ -34,7 +34,7 @@ function Grid4() {
         {datos.length > 0 ? (
           datos.map((item, index) => (
             <Grid4Item
-              key={index}
+              key={item.ID}
               title={item.TITULO_PROYECTO}
               description={item.DESCRIPCION}
               thumbnailSrc={item.IMG_CARATULA}

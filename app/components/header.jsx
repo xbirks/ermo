@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ermoLogo from '../assets/logo/ERMO_blue.svg'; 
+import ermoLogo from '../assets/logo/ERMO_blue.svg';
 
 const HamburgerIcon = ({ menuOpen }) => (
   <svg className={`hamburger ${menuOpen ? 'open' : ''}`} width="36" height="25" viewBox="0 0 36 25">
@@ -40,9 +40,9 @@ const MenuSlider = ({ menuOpen }) => (
       <MenuButton buttonName="Idioma" buttonEnlace="#" />
       <div className="menu__button-cafe">
         <div className="button">
-            <MenuButton buttonName="Te invito a un café" buttonEnlace="#" />
+          <MenuButton buttonName="Te invito a un café" buttonEnlace="#" />
         </div>
-        </div>
+      </div>
     </div>
   </div>
 );
@@ -55,15 +55,26 @@ const Header = () => {
     document.body.classList.toggle('no-scroll', !menuOpen);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+    document.body.classList.remove('no-scroll');
+  };
+
+    // Clean up effect to ensure no residual effects when navigating between pages
+    useEffect(() => {
+      return () => {
+        document.body.classList.remove('no-scroll');
+        setMenuOpen(false); // Ensure the menu is closed
+      };
+    }, []);
+
   return (
     <div className="header__master">
-      <Link href="/" aria-label="Inicio">
-      
+      <Link href="/" aria-label="Inicio" onClick={closeMenu}>
           <Image src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
-        
       </Link>
       <button className="menu-nav" aria-label="Menú navegación" onClick={toggleMenu}>
-        <HamburgerIcon />
+        <HamburgerIcon menuOpen={menuOpen} />
       </button>
       <MenuSlider menuOpen={menuOpen} />
     </div>

@@ -50,7 +50,7 @@ function SliderServices() {
                 <SliderServicesItem
                     nameService="Animación 2D y motion graphics"
                     descriptionService="Damos vida a tus ideas mediante técnicas avanzadas de animación, asegurando que cada detalle refleje la identidad única de tu marca. Confía en nosotros para impulsar tu mensaje con impacto visual y una ejecución impecable."
-                    link="/not-found"
+                    link="/proyectos/private-label-bsn-cosmetics"
                 />
                 <SliderServicesItem
                     nameService="Fotografía"

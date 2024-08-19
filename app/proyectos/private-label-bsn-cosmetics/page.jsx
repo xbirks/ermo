@@ -1,13 +1,9 @@
-import Image from "next/image";
-import Link from 'next/link';
-
 import Proyectos from '../../components/proyectos.jsx';
 
 
 
-export default function HomePage() {
+export default function BsnPage() {
     return (
-      <div>
 
         <Proyectos
             desktop="https://www.ermo.es/videos/BSN_Desktop.mp4"
@@ -25,9 +21,7 @@ export default function HomePage() {
             image1="https://www.ermo.es/videos/BSN_mini_1.mp4"
             image2="https://www.ermo.es/videos/BSN_mini_2.mp4"
         ></Proyectos>
-      
-
-      </div>
+   
       
     );
   }
