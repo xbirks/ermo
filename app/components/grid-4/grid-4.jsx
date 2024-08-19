@@ -1,29 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Grid4Item from './grid-4-item.jsx';
 import StandardButton from '../../buttons/standard-button.jsx';
-import proyectosData from '../../proyectos.json'; // Importa el archivo JSON
 
-function Grid4() {
-  const [datos, setDatos] = useState([]);
-
-  useEffect(() => {
-    // Simulamos una carga asíncrona de datos
-    const fetchData = () => {
-      // Aquí podrías filtrar o limitar los proyectos según tu necesidad
-      const proyectos = proyectosData.proyectos.slice(0, 4);
-      setDatos(proyectos);
-    };
-
-    // Simulamos un tiempo de carga para mostrar el mensaje de carga
-    const timeout = setTimeout(() => {
-      fetchData();
-    }, 1000); // Simula 1 segundo de carga
-
-    return () => clearTimeout(timeout); // Limpiamos el timeout si el componente se desmonta
-  }, []);
-
+// Grid4 recibe los proyectos como props.
+function Grid4({ proyectos = [] }) {
   return (
     <div className="">
       <div className="title">
@@ -31,8 +13,8 @@ function Grid4() {
       </div>
       
       <div className="index__projects">
-        {datos.length > 0 ? (
-          datos.map((item, index) => (
+        {proyectos.length > 0 ? (
+          proyectos.map((item, index) => (
             <Grid4Item
               key={item.ID}
               title={item.TITULO_PROYECTO}
