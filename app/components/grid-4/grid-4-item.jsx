@@ -20,6 +20,7 @@ function Grid4Item({ title, description, thumbnailSrc, link, altAtribute }) {
               src={thumbnailSrc}
               width={1000}
               height={1000}
+              loading="lazy"
               autoPlay loop muted playsInline type="video/mp4"
             >
               Tu navegador no soporta la etiqueta de video.

@@ -1,9 +1,6 @@
-import Image from "next/image";
-import Link from 'next/link';
-
 import './style.scss';
 
-import HeaderVideo from './components/video-index.jsx';
+import VideoIndex from './components/video-index.jsx';
 import IndexIntro from './components/Index-Introduction/IndexIntro.jsx';
 import Grid4 from './components/grid-4/grid-4.jsx';
 import SliderServices from './components/slider-services/sliderServices.jsx';
@@ -18,10 +15,10 @@ import ContactTeam from './components/contact-draws/contact-team.jsx';
 export default function HomePage() {
   return (
     <div>
-    <HeaderVideo
+    <VideoIndex
     desktop="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
     mobile="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
-    ></HeaderVideo>
+    ></VideoIndex>
     <div className="master__body">
     <IndexIntro></IndexIntro>
     <Spacer className="spacer-l" />
