@@ -70,7 +70,7 @@ const Header = () => {
 
   return (
     <div className="header__master">
-      <Link href="/" aria-label="Inicio" onClick={closeMenu}>
+      <Link href="https://ermo.es" aria-label="Inicio" onClick={closeMenu}>
           <Image src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
       </Link>
       <button className="menu-nav" aria-label="Menú navegación" onClick={toggleMenu}>

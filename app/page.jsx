@@ -7,30 +7,33 @@ import SliderServices from './components/slider-services/sliderServices.jsx';
 import SwiperComponent from './components/swiper-logos/swiperLogos.jsx';
 
 import Spacer from './buttons/spacer.jsx';
-
 import ContactTeam from './components/contact-draws/contact-team.jsx';
 
- 
+// Marca la función `HomePage` como `async`
+export default async function HomePage() {
 
-export default function HomePage() {
+  // Usa `await` para importar el JSON en un entorno asíncrono
+  const proyectosData = await import('./proyectos.json');
+  const proyectos = proyectosData.proyectos.slice(0, 4);
+
   return (
     <div>
-    <VideoIndex
-    desktop="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
-    mobile="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
-    ></VideoIndex>
-    <div className="master__body">
-    <IndexIntro></IndexIntro>
-    <Spacer className="spacer-l" />
-    <Grid4></Grid4>
-    <Spacer className="spacer-xl" />
-    <SliderServices></SliderServices>
-    <Spacer className="spacer-xl" />
-    <ContactTeam></ContactTeam>
-    <Spacer className="spacer-xl" />
-    <SwiperComponent></SwiperComponent>
+      <VideoIndex
+        desktop="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
+        mobile="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.mp4"
+      />
+      <div className="master__body">
+        <IndexIntro />
+        <Spacer className="spacer-l" />
+        {/* Pasa los proyectos al componente Grid4 */}
+        <Grid4 proyectos={proyectos} />
+        <Spacer className="spacer-xl" />
+        <SliderServices />
+        <Spacer className="spacer-xl" />
+        <ContactTeam />
+        <Spacer className="spacer-xl" />
+        <SwiperComponent />
+      </div>
     </div>
-    </div>
-    
   );
 }
