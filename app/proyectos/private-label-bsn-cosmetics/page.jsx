@@ -6,7 +6,7 @@ import BsnLayout from './layout.jsx';
 export default function BsnPage() {
     return (
 
-        <BsnLayout>
+    <BsnLayout>
         <Proyectos
             desktop="https://www.ermo.es/videos/BSN_Desktop.mp4"
             mobile="https://www.ermo.es/videos/BSN_Mobile.mp4"
@@ -14,16 +14,21 @@ export default function BsnPage() {
             tipo="Fotografía de producto"
             ano="2023"
             descripcion={ <>
-                Para el proyecto de comunicación de Empanadas Malvón, nos centramos en destacar la autenticidad y sabor único de sus empanadas a través de diversas plataformas de medios. Implementamos una estrategia integrada que incluyó redes sociales, publicidad en línea y colaboraciones con influencers locales para aumentar la visibilidad y atraer a una audiencia más amplia. Nuestro contenido visual, acompañado de narrativas atractivas, resaltaba la calidad y la variedad de sus productos, conectando emocionalmente con los consumidores y promoviendo la experiencia culinaria que ofrece Empanadas Malvón.
+                En este proyecto de fotografía para productos cosméticos, hemos adoptado un enfoque minimalista, enfocándonos en resaltar estos envases genéricos listos para ser reetiquetados. Unas fotografías pensadas tanto para ser usadas en web, en Instagram o en contenido promocional.
                </>}
             videoproyecto="https://www.ermo.es/videos/BSN_Wrap.mp4"
             explicacion={ <>
-                Para el proyecto de comunicación de Empanadas Malvón, nos centramos en destacar la autenticidad y sabor único de sus empanadas a través de diversas plataformas de medios. Implementamos una estrategia integrada que incluyó redes sociales, publicidad en línea y colaboraciones con influencers locales para aumentar la visibilidad y atraer a una audiencia más amplia. Nuestro contenido visual, acompañado de narrativas atractivas, resaltaba la calidad y la variedad de sus productos, conectando emocionalmente con los consumidores y promoviendo la experiencia culinaria que ofrece Empanadas Malvón.
-               </>}
+                Las imágenes que hemos creado destacan la forma y textura de los envases, que, a pesar de ser genéricos, están bien pensados para ser reetiquetados por los clientes con sus propios diseños. Hemos hecho hincapié en la claridad y precisión para que los clientes puedan visualizar cómo se integrarán estos envases en sus propias líneas de productos.
+                <br></br><br></br>
+                El estilo de la fotografía está pensado especialmente para ser usado en redes sociales. Un código visual minimalista y sobrio pero que a su vez rezuma elegancia. 
+                <br></br><br></br>
+                Nuestras fotografías ayudan a simplificar el proceso de compra de los clientes, mostrando de forma efectiva cómo los productos pueden ser un añadido valioso para sus ofertas de cuidado de la piel y cosméticos. Y mostrando como podrían verse representados en fotografía los productos reetiquetados finales.
+            </>}
+            
             image1="https://www.ermo.es/videos/BSN_mini_1.mp4"
             image2="https://www.ermo.es/videos/BSN_mini_2.mp4"
         ></Proyectos>
-        </BsnLayout>
+    </BsnLayout>
       
     );
   }

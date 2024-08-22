@@ -91,7 +91,6 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
           <Contacto />
           <Spacer className="spacer-xl" />
           
-          {/* Pasa los proyectos al componente Grid4 */}
           <Grid4 proyectos={proyectos} />
 
         </div>
