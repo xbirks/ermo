@@ -43,7 +43,7 @@ function Grid4() {
               title="Consultoría Sanoguera"
               description="Desarrollamos un nuevo sitio web y llevamos a cabo un completo rebranding para posicionar la firma como una consultoría líder en el sector primario Valenciano. Esta renovación la reforzamos también con una sesión de fotografía corprorativa."
               thumbnailSrc="https://soyandres.es/ermo/video/02_project_ERMO.mp4"
-              link="/not-found"
+              link="/proyectos/sanoguera"
               altAtribute="Sitio web de Sanoguera, mostrando un diseño moderno y funcional que refleja su enfoque en consultoría especializada. También su nueva identidad corporativa."
             />
             

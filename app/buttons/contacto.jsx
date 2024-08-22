@@ -6,13 +6,13 @@ function Contacto(){
 
         <div className="proyectos__split-btn">
             <StandardButton
-                link="/not-found"
+                link="tel:+34675392216"
                 title="Contacto"
                 style=""
             ></StandardButton>
 
             <StandardButton
-                link="/not-found"
+                link="https://www.instagram.com/ermostudio/"
                 title="Instagram"
                 style=""
             ></StandardButton>
