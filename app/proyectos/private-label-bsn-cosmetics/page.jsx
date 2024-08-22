@@ -1,10 +1,12 @@
 import Proyectos from '../../components/proyectos.jsx';
+import BsnLayout from './layout.jsx';
 
 
 
 export default function BsnPage() {
     return (
 
+        <BsnLayout>
         <Proyectos
             desktop="https://www.ermo.es/videos/BSN_Desktop.mp4"
             mobile="https://www.ermo.es/videos/BSN_Mobile.mp4"
@@ -21,7 +23,7 @@ export default function BsnPage() {
             image1="https://www.ermo.es/videos/BSN_mini_1.mp4"
             image2="https://www.ermo.es/videos/BSN_mini_2.mp4"
         ></Proyectos>
-   
+        </BsnLayout>
       
     );
   }

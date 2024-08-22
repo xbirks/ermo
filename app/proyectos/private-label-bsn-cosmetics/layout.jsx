@@ -11,14 +11,12 @@ export const metadata = {
 
 export default function BsnLayout({ children }) {
   return (
-    <html lang="es">
-      <body>
-        <Header />
-        {children}
-        <Spacer className="spacer-xxl" />
-        <Footer />
-        <Cursor />
-      </body>
-    </html>
+    <>
+      <Header />
+      <main>{children}</main>
+      <Spacer className="spacer-xxl" />
+      <Footer />
+      <Cursor />
+    </>
   );
 }
