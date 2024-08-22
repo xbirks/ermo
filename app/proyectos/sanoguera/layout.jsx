@@ -5,7 +5,7 @@ export const metadata = {
 
   //GENERIC
   title: 'Sanoguera | Programación web | Branding',
-  description: 'Fotografía de producto para Private Label BSN Cosmetics realizada en 2023.',
+  description: 'Actualización de la identidad corporativa de la empresa, diseño y desarrollo de la página web de Sanoguera Consultoría.',
   keywords: ['diseño web para asesorías', 'UI/UX para sitios de consultoría', 'branding para consultorías legales', 'creación de logotipo para asesores', 'identidad corporativa para asesorías', 'programación web para servicios legales', 'diseño de interfaz para asesorías fiscales', 'experiencia de usuario para asesorías contables', 'soluciones digitales para consultorías', 'consultoría de marca para empresas', 'optimización web para asesores', 'diseño gráfico para asesores legales', 'estrategias de identidad visual', 'consultoría UX para asesorías fiscales', 'asesoría en diseño digital']
 
   ,
