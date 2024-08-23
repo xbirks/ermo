@@ -1,30 +1,16 @@
 "use client";
 
 import '../proyectos/proyectos.scss';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Contacto from "../buttons/contacto";
 import Grid4 from "./grid-4/grid-4";
 import Spacer from "../buttons/spacer";
 import VideoIndex from "./video-index";
+import ProySimilar from './proyecto-similar';
 
 function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyecto, explicacion, image1, image2}) {
   
-  // Inicializa el estado 'proyectos'
-  const [proyectos, setProyectos] = useState([]);
 
-  useEffect(() => {
-    async function fetchProyectos() {
-      try {
-        const proyectosData = await import('../proyectos.json');
-        const proyectos = proyectosData.proyectos.slice(0, 4);
-        setProyectos(proyectos);
-      } catch (error) {
-        console.error("Error al cargar proyectos:", error);
-      }
-    }
-  
-    fetchProyectos();
-  }, []);
 
   return (
       <>
@@ -87,11 +73,9 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
             </figure></div>
           </div>
 
-          <h2 className="proyectos__similar">¿Necesitas hacer un proyecto similar?</h2>
-          <Contacto />
-          <Spacer className="spacer-xl" />
+          <ProySimilar></ProySimilar>
           
-          <Grid4 proyectos={proyectos} />
+          <Grid4 />
 
         </div>
       </>
