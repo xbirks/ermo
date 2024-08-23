@@ -55,7 +55,7 @@ function SliderServices() {
                 <SliderServicesItem
                     nameService="Fotografía"
                     descriptionService="Damos vida a tus productos a través de imágenes impactantes y detalladas. Cada fotografía está diseñada para resaltar la calidad y singularidad de tus artículos, capturando su esencia de manera impecable. Nos enfocamos en crear composiciones atractivas que atraen y mantienen la atención de tu audiencia, ayudando a tus productos a destacar en un mercado competitivo. "
-                    link="/not-found"
+                    link="/servicios/fotografia"
                 />
                 <SliderServicesItem
                     nameService="Diseño web, UI/UX y programación"

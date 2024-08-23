@@ -35,7 +35,7 @@ export const metadata = {
         url: 'https://ermo.es/seo/meta-1200x630.jpg',
         width: 1200,
         height: 630,
-        alt: 'Diferentes proyectos hechos por el estudio Ermo. Fotografía, branding, web, 3D.',
+        alt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',
       },
     ],
     site_name: 'ERMO | Estudio de diseño gráfico',
@@ -50,12 +50,12 @@ export const metadata = {
     title: 'ERMO | Estudio de diseño gráfico',
     description: 'Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.',
     image: 'https://ermo.es/seo/twitter-1200-600.jpg',
-    imageAlt: 'Diferentes proyectos hechos por el estudio Ermo. Fotografía, branding, web, 3D.',
+    imageAlt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',
   },
 
   //APPLE
-  appleTouchIcon: 'https://ermo.es/favicon_180x180.png', 
-  appleTouchStartupImage: 'https://ermo.es/favicon_180x180.png',
+  appleTouchIcon: 'https://ermo.es/favicon_500x500.png', 
+  appleTouchStartupImage: 'https://ermo.es/favicon_500x500.png',
 
   
 
