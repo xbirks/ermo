@@ -78,6 +78,11 @@
     letter-spacing: 0.96px;
     text-transform: uppercase;
     margin-top: 80px;
+
+    @include media800px {
+        font-size: 30pt;
+        line-height: 34pt;
+        }
 }
 
 .proyectos__split-btn{

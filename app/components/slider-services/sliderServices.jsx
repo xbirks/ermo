@@ -54,7 +54,7 @@ function SliderServices() {
                 />
                 <SliderServicesItem
                     nameService="Fotografía"
-                    descriptionService="Damos vida a tus productos a través de imágenes impactantes y detalladas. Cada fotografía está diseñada para resaltar la calidad y singularidad de tus artículos, capturando su esencia de manera impecable. Nos enfocamos en crear composiciones atractivas que atraen y mantienen la atención de tu audiencia, ayudando a tus productos a destacar en un mercado competitivo. "
+                    descriptionService="Cada fotografía está pensada para resaltar la calidad y la singularidad de tus productos, capturando la esencia de manera impecable. Nos enfocamos en crear composiciones atractivas que atraerán y mantendrán la atención de tu audiencia, lo que te ayudará a destacar entre tu competencia y aumentar tus ventas."
                     link="/servicios/fotografia"
                 />
                 <SliderServicesItem

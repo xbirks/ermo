@@ -4,6 +4,7 @@ import FotografiaLayout from './layout.jsx';
 import Image from 'next/image.js';
 import ServiciosImg from '@/app/components/servicios-img.jsx';
 
+
 //IMAGENES
 import foto1 from '@/app/assets/img/servicios/MANOLO-BERNABEU-1.jpg';
 import foto2 from '@/app/assets/img/servicios/BSN(13).jpg';
@@ -27,14 +28,17 @@ export default function FotografiaPage() {
         <Servicios
             desktop="https://www.ermo.es/videos/fotografia/FOTO_Desktop.mp4"
             mobile="https://www.ermo.es/videos/fotografia/FOTO_Mobile.mp4"
+
             servicio="Fotografía de producto, gastronómica y corporativa"
            
             explicacion={ <>
-                Las imágenes que hemos creado destacan la forma y textura de los envases, que, a pesar de ser genéricos, están bien pensados para ser reetiquetados por los clientes con sus propios diseños. Hemos hecho hincapié en la claridad y precisión para que los clientes puedan visualizar cómo se integrarán estos envases en sus propias líneas de productos.
+                En ERMO sabemos que una imagen vale más que mil palabras, al menos cuando se trata de vender tus productos.
                 <br></br><br></br>
-                El estilo de la fotografía está pensado especialmente para ser usado en redes sociales. Un código visual minimalista y sobrio pero que a su vez rezuma elegancia. 
+                Cada foto que hacemos está destinada a resaltar el carácter de tus productos, creando composiciones visuales dinámicas que resultan llamativas para tus potenciales clientes. Este método no solo otorga notoriedad a tus productos frente a otros competidores, sino que también mejora la percepción y la profesionalidad de la marca.
                 <br></br><br></br>
-                Nuestras fotografías ayudan a simplificar el proceso de compra de los clientes, mostrando de forma efectiva cómo los productos pueden ser un añadido valioso para sus ofertas de cuidado de la piel y cosméticos. Y mostrando como podrían verse representados en fotografía los productos reetiquetados finales.
+                No solo vas a convertir más tráfico con fotos asombrosas, sino que vas a construir una clientela que ame tu marca y que ame tu producto. Que pueda y sepa valorar la apariencia y la estética.
+                <br></br><br></br>
+                Contáctanos para aprender cómo nuestras soluciones de fotografía pueden aumentar tus ventas y mejorar el valor de tu marca.
             </>}
             
         ></Servicios>

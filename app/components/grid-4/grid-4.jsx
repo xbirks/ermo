@@ -12,22 +12,7 @@ function Grid4() {
         <h3>Últimos proyectos</h3>
       </div>
       
-      {/* <div className="index__projects">
-        {proyectos.length > 0 ? (
-          proyectos.map((item, index) => (
-            <Grid4Item
-              key={item.ID}
-              title={item.TITULO_PROYECTO}
-              description={item.DESCRIPCION}
-              thumbnailSrc={item.IMG_CARATULA}
-              link={item.ENLACE}
-              altAtribute={item.IMG_ALT}
-            />
-          ))
-        ) : (
-          <p>Cargando proyectos...</p>
-        )}
-      </div> */}
+
 
     <div className="index__projects">
   
@@ -62,16 +47,18 @@ function Grid4() {
               link="/not-found"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
-
-    </div>
-
-      <StandardButton
+        
+        <StandardButton
         link="/not-found"
         title="Ver más proyectos"
         style="mt-l margin-auto"
       />
 
     </div>
+
+    </div>
+
+
   );
 }
 
