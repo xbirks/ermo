@@ -19,7 +19,7 @@ function Servicios({desktop, mobile, servicio, explicacion}) {
         />
 
         <div className="master__body">
-          <div className="index__introduction">
+          <div className="index__introduction service__introduction">
             <div className="index__introduction-div">
               <h1>{servicio}</h1>
             </div>
