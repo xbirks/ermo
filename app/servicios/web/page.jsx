@@ -6,18 +6,13 @@ import ServiciosImg from '@/app/components/servicios-img.jsx';
 
 
 //IMAGENES 
-import foto1 from '@/app/assets/img/servicios/MANOLO-BERNABEU-1.jpg';
-import foto2 from '@/app/assets/img/servicios/BSN(13).jpg';
-import foto3 from '@/app/assets/img/servicios/Delibreads-1.jpg';
-import foto4 from '@/app/assets/img/servicios/WAY-6.jpg';
-import foto5 from '@/app/assets/img/servicios/Delgo-53.jpg';
-import foto6 from '@/app/assets/img/servicios/_DSF3001.jpg';
-import foto7 from '@/app/assets/img/servicios/sin-título-1-Editar.png';
-import foto8 from '@/app/assets/img/servicios/Baswtones_juntos.jpg';
-import foto9 from '@/app/assets/img/servicios/Agosto_Wao_post-3.jpg';
-import foto10 from '@/app/assets/img/servicios/vino.jpg';
-import foto11 from '@/app/assets/img/servicios/principal.jpg';
-import foto12 from '@/app/assets/img/servicios/11(1).jpg';
+import foto1 from '@/app/assets/img/servicios/web/gartalia.jpg';
+import foto2 from '@/app/assets/img/servicios/web/placevlc.jpg';
+import foto3 from '@/app/assets/img/servicios/web/bastones.jpg';
+import foto4 from '@/app/assets/img/servicios/web/belles.jpg';
+import foto5 from '@/app/assets/img/servicios/web/diveroci.jpg';
+import foto6 from '@/app/assets/img/servicios/web/entreprendas.jpg';
+import foto7 from '@/app/assets/img/servicios/web/sanoguera.jpg';
 
 
 
@@ -42,18 +37,13 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosImg src={foto1} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto2} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto3} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto4} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto5} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto6} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto7} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto8} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto9} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto10} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto11} alt="img1" link="#"></ServiciosImg>
-            <ServiciosImg src={foto12} alt="img1" link="#"></ServiciosImg>
+            <ServiciosImg src={foto1} alt="web de la empresa de jardinería Gartalia" link="https://www.gartalia.com/"></ServiciosImg>
+            <ServiciosImg src={foto2} alt="web de la empresa Place Valencia que se dedican a la gestión de inmuebles" link="https://www.placevlc.com/"></ServiciosImg>
+            <ServiciosImg src={foto3} alt="Web de la empresa de bastones de madera Segorbina de Bastones en Segorbe" link="https://www.segorbinadebastones.com/"></ServiciosImg>
+            <ServiciosImg src={foto4} alt="web para el gimnasio de Segorbe y Alfara del Patriarca Gimnasio Belles" link="https://gimnasiobelles.com/segorbe/"></ServiciosImg>
+            <ServiciosImg src={foto5} alt="Web de la empresa DiverOci que ofrece servicios a ayuntamientos" link="https://www.ermo.es/"></ServiciosImg>
+            <ServiciosImg src={foto6} alt="Web de Entre Prendas. Empresa de arreglo de ropa y vestidos de novia" link="https://entreprendas.es/"></ServiciosImg>
+            <ServiciosImg src={foto7} alt="Web de la asesoría Sanoguera" link="https://sanoguera-asesores.com/"></ServiciosImg>
         </div>
 
         <ProySimilar></ProySimilar>

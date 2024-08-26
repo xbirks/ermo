@@ -3,6 +3,7 @@ import Header from "./components/header.jsx";
 import Cursor from './buttons/cursor/cursor.jsx';
 import Footer from './components/footer/footer.jsx';
 import Spacer from './buttons/spacer.jsx';
+import { Analytics } from '@vercel/analytics/react';
  
 
 export const metadata = {
@@ -138,7 +139,7 @@ export default function RootLayout({ children }) {
       <Footer />
       <Spacer className="spacer-m" />
       <Cursor />
-
+      <Analytics />
 
       </body>
     </html>
