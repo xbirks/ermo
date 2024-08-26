@@ -29,21 +29,17 @@ export default function FotografiaPage() {
             desktop="https://www.ermo.es/videos/fotografia/FOTO_Desktop.mp4"
             mobile="https://www.ermo.es/videos/fotografia/FOTO_Mobile.mp4"
 
-            servicio="Fotografía de producto, gastronómica y corporativa"
+            servicio="Animación 2D y motion graphics"
            
             explicacion={ <>
-                En ERMO sabemos que una imagen vale más que mil palabras, al menos cuando se trata de vender tus productos.
+                En ERMO, utilizamos After Effects para crear animaciones que hacen que cada presentación de producto, logotipo y videocurso destaque. Nuestro contenido animado es perfecto para Reels de Instagram, vídeos de YouTube, y cualquier plataforma digital donde desees impactar y captar la atención de tu audiencia. Ofrecemos soluciones creativas para infoproductos y cursos que necesitan explicaciones visuales claras y atractivas, asegurando que tu mensaje no solo sea visto, sino también recordado.
                 <br></br><br></br>
-                Cada foto que hacemos está destinada a resaltar el carácter de tus productos, creando composiciones visuales dinámicas que resultan llamativas para tus potenciales clientes. Este método no solo otorga notoriedad a tus productos frente a otros competidores, sino que también mejora la percepción y la profesionalidad de la marca.
-                <br></br><br></br>
-                No solo vas a convertir más tráfico con fotos asombrosas, sino que vas a construir una clientela que ame tu marca y que ame tu producto. Que pueda y sepa valorar la apariencia y la estética.
-                <br></br><br></br>
-                Contáctanos para aprender cómo nuestras soluciones de fotografía pueden aumentar tus ventas y mejorar el valor de tu marca.
+                Contacta con ERMO y descubre cómo nuestras animaciones pueden transformar la forma en que tu marca comunica visualmente, elevando tus presentaciones de producto y maximizando tu impacto en el mercado digital.
             </>}
             
         ></Servicios>
 
-<div className="servicios__imagenes master__body">
+        <div className="servicios__imagenes master__body">
             <ServiciosImg src={foto1} alt="Manolo Bernabeu, CEO de Sanoguera Consulting. Fotografía tomada por Andrés Ortega Montoya" link="#"></ServiciosImg>
             <ServiciosImg src={foto2} alt="Bodegón de productos cosméticos de la empresa BSN Cosmetics" link="#"></ServiciosImg>
             <ServiciosImg src={foto3} alt="Wrap de trigo con arroz, tomate y vegetales de la empresa Delibreads" link="#"></ServiciosImg>

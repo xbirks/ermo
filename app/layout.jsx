@@ -87,7 +87,7 @@ export default function RootLayout({ children }) {
         <link rel="canonical" href="https://ermo.es" hrefLang="es-ES" />
         <meta name="robots" content="index, follow" />
         <link rel="icon" href="https://ermo.es/favicon_500x500.png" title="Ícono de la pestaña de la web Ermo" type="image/png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="https://ermo.es/favicon_180x180.png" />
+        <link rel="apple-touch-icon" sizes="500x500" href="https://ermo.es/favicon_500x500.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

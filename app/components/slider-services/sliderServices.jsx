@@ -50,7 +50,7 @@ function SliderServices() {
                 <SliderServicesItem
                     nameService="Animación 2D y motion graphics"
                     descriptionService="Damos vida a tus ideas mediante técnicas avanzadas de animación, asegurando que cada detalle refleje la identidad única de tu marca. Confía en nosotros para impulsar tu mensaje con impacto visual y una ejecución impecable."
-                    link="/proyectos/private-label-bsn-cosmetics"
+                    link="/servicios/animacion"
                 />
                 <SliderServicesItem
                     nameService="Fotografía"
@@ -58,24 +58,24 @@ function SliderServices() {
                     link="/servicios/fotografia"
                 />
                 <SliderServicesItem
-                    nameService="Diseño web, UI/UX y programación"
+                    nameService="Diseño web, programación, UI/UX y SEO"
                     descriptionService="Creamos experiencias digitales que conectan. Nuestro enfoque en diseño web y UI/UX está centrado en la creación de interfaces intuitivas y atractivas que mejoran la interacción del usuario con tu marca. Y te garantizamos una navegación fluida y una estética visual que capte y mantenga la atención."
-                    link="/not-found"
+                    link="/servicios/web"
                 />
                 <SliderServicesItem
                     nameService="Ilustración"
                     descriptionService="Nuestra pasión por la ilustración se traduce en obras únicas que capturan la esencia de tu marca y la presentan de una manera vibrante y atractiva. Nos enfocamos en crear arte visual que no solo embellece, sino que también fortalece la identidad de tu marca."
-                    link="/not-found"
+                    link="/servicios/ilustracion"
                 />
                 <SliderServicesItem
                     nameService="Identidad corporativa"
                     descriptionService="Construimos identidades que perduran. Nuestra dedicación a la identidad visual corporativa asegura que cada aspecto de tu marca, desde el logotipo hasta la paleta de colores, refleje fielmente tus valores y visión. Creamos diseños coherentes y distintivos que fortalecen el reconocimiento y la presencia de tu marca en el mercado."
-                    link="/not-found"
+                    link="/servicios/branding"
                 />
                 <SliderServicesItem
                     nameService="Video"
                     descriptionService="Contamos historias que resuenan. Nuestra especialidad en producción de video nos permite crear contenido visual dinámico y atractivo que comunica tu mensaje de manera efectiva. Capturamos momentos y emociones que conecten profundamente con tu audiencia."
-                    link="/not-found"
+                    link="/servicios/video"
                 />
             </div>
         </div>
