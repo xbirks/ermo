@@ -10,13 +10,13 @@
         <loc>https://www.ermo.es/proyectos/private-label-bsn-cosmetics</loc>
         <lastmod>2024-08-06T15:04:24.021Z</lastmod>
         <changefreq>daily</changefreq>
-        <priority>1</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://www.ermo.es/proyectos/sanoguera</loc>
         <lastmod>2024-08-06T15:04:29.021Z</lastmod>
         <changefreq>daily</changefreq>
-        <priority>1</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://www.ermo.es/servicios/fotografia</loc>
@@ -25,6 +25,40 @@
         <priority>1</priority>
     </url>
     
+
+    <url>
+        <loc>https://www.ermo.es/servicios/animacion</loc>
+        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
     
+    <url>
+        <loc>https://www.ermo.es/servicios/web</loc>
+        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.ermo.es/servicios/ilustracion</loc>
+        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.ermo.es/servicios/branding</loc>
+        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.ermo.es/servicios/video</loc>
+        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
     
 </urlset>
