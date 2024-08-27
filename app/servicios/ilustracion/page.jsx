@@ -7,11 +7,9 @@ import ServiciosVid from '@/app/components/servicios-vid.jsx';
 
 
 //IMAGENES 
-import dibujo1 from '@/app/assets/img/servicios/ilustracion/dibujo1.mp4';
+
 import dibujo2 from '@/app/assets/img/servicios/ilustracion/dibujo2.jpg';
 import dibujo3 from '@/app/assets/img/servicios/ilustracion/dibujo3.jpg';
-import dibujo4 from '@/app/assets/img/servicios/ilustracion/dibujo4.mp4';
-import dibujo5 from '@/app/assets/img/servicios/ilustracion/dibujo5.mp4';
 import dibujo6 from '@/app/assets/img/servicios/ilustracion/dibujo6.jpg';
 import dibujo7 from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
 
@@ -37,11 +35,11 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src={dibujo1} link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo1.mp4" link="#"></ServiciosVid>
             <ServiciosImg src={dibujo2} alt="img1" link="#"></ServiciosImg>
             <ServiciosImg src={dibujo3} alt="img1" link="#"></ServiciosImg>
-            <ServiciosVid src={dibujo4} link="#"></ServiciosVid>
-            <ServiciosVid src={dibujo5} link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo4.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo5.mp4" link="#"></ServiciosVid>
             <ServiciosImg src={dibujo6} alt="img1" link="#"></ServiciosImg>
             <ServiciosImg src={dibujo7} alt="img1" link="#"></ServiciosImg>
         </div>

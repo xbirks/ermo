@@ -6,12 +6,7 @@ import ServiciosVid from '@/app/components/servicios-vid.jsx';
 
 
 //IMAGENES
-import vid1 from '@/app/assets/video/animacion/vid1.mp4';
-import vid2 from '@/app/assets/video/animacion/vid2.mp4';
-import vid3 from '@/app/assets/video/animacion/vid3.mp4';
-import vid4 from '@/app/assets/video/animacion/vid4.mp4';
-import vid5 from '@/app/assets/video/animacion/vid5.mp4';
-import vid6 from '@/app/assets/video/animacion/vid6.mp4';
+
 
 
 export default function FotografiaPage() {
@@ -33,12 +28,12 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src={vid1} link="#"></ServiciosVid>
-            <ServiciosVid src={vid2} link="#"></ServiciosVid>
-            <ServiciosVid src={vid3} link="#"></ServiciosVid>
-            <ServiciosVid src={vid4} link="#"></ServiciosVid>
-            <ServiciosVid src={vid5} link="#"></ServiciosVid>
-            <ServiciosVid src={vid6} link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid1.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid2.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid3.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid4.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid5.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid6.mp4" link="#"></ServiciosVid>
         </div>
 
         <ProySimilar></ProySimilar>
