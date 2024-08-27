@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 
 function ServiciosImg({src, alt, link}){
 
     return(
         <div className="servicios__img-chld">
-            <a href={link}>
+            <Link href={link}>
                 <Image src={src} alt={alt} width={1000} height={1000} loading='lazy'></Image>
-            </a>
+            </Link>
         </div>
     );
 }
