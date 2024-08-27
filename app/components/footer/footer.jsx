@@ -43,13 +43,13 @@ return(
 
             <FooterItem
                 title="Mándanos un mail"
-                link="hola@ermo.es"
+                link="mailto:hola@soyandres.es"
                 textButton="hola@ermo.es"
             />
 
             <FooterItem
                 title="Danos un toque"
-                link="675392216"
+                link="tel:675392216"
                 textButton="675 392 216"
             />
 
