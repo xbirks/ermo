@@ -13,7 +13,7 @@ export default function FotografiaPage() {
     return (
 
     <FotografiaLayout>
-        <Servicios
+        <Servicios 
             desktop="https://www.ermo.es/videos/animacion/ANI_Desktop.mp4"
             mobile="https://www.ermo.es/videos/animacion/ANI_Mobile.mp4"
 
@@ -28,12 +28,14 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid7.mp4" link="#"></ServiciosVid>
             <ServiciosVid src="https://www.ermo.es/videos/animacion/vid1.mp4" link="#"></ServiciosVid>
             <ServiciosVid src="https://www.ermo.es/videos/animacion/vid2.mp4" link="#"></ServiciosVid>
             <ServiciosVid src="https://www.ermo.es/videos/animacion/vid3.mp4" link="#"></ServiciosVid>
             <ServiciosVid src="https://www.ermo.es/videos/animacion/vid4.mp4" link="#"></ServiciosVid>
             <ServiciosVid src="https://www.ermo.es/videos/animacion/vid5.mp4" link="#"></ServiciosVid>
             <ServiciosVid src="https://www.ermo.es/videos/animacion/vid6.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid8.mp4" link="#"></ServiciosVid>
         </div>
 
         <ProySimilar></ProySimilar>
