@@ -8,8 +8,8 @@ function IndexIntro(){
 
     return(
      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1}}
+        initial={{ opacity: 0, transform: "translateY(25%)" }}
+        whileInView={{ opacity: 1, transform: "translateY(0%)"}}
         transition={{ duration: 0.5 }}
         viewport={{ once: true, amount: 0.5}}  
      >  
