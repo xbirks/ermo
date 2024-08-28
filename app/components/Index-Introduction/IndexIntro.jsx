@@ -1,18 +1,9 @@
-"use client";
-
 import React from 'react';
 import IndexIntroduction  from './IndexIntro-item.jsx';
-import {motion} from 'framer-motion';
 
 function IndexIntro(){
 
     return(
-     <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1}}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true, amount: 0.5}}
-     >  
     <IndexIntroduction
         IndexIntro="Estudio de diseño gráfico, web, animación y fotografía en "
         IndexIntroLocation="Manises"
@@ -25,7 +16,6 @@ function IndexIntro(){
           </>}
         
     />
-    </motion.div>
 );
 }
 
