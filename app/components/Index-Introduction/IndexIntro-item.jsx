@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function IndexIntroduction({IndexIntro, IndexDescription, IndexIntroLocation}) {
   return (
     <div className="index__introduction">
