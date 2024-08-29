@@ -1,8 +1,5 @@
-"use client";
-
 import React from 'react';
 import IndexIntroduction  from './IndexIntro-item.jsx';
-import {motion} from 'framer-motion';
 
 function IndexIntro(){
 
