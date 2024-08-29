@@ -3,6 +3,8 @@
 import React from 'react';
 
 function VideoIndex({ desktop, mobile }) {
+  
+  
   return (
     <div className="header__video">
       <video
