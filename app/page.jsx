@@ -5,7 +5,6 @@ import IndexIntro from './components/Index-Introduction/IndexIntro.jsx';
 import Grid4 from './components/grid-4/grid-4.jsx';
 import SliderServices from './components/slider-services/sliderServices.jsx';
 import SwiperComponent from './components/swiper-logos/swiperLogos.jsx';
-import Transition from './components/transicion/transicion';
 
 import Spacer from './buttons/spacer.jsx';
 import ContactTeam from './components/contact-draws/contact-team.jsx';
