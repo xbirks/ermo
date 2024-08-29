@@ -4,8 +4,14 @@ import IndexIntroduction  from './IndexIntro-item.jsx';
 function IndexIntro(){
 
     return(
+     <motion.div
+        initial={{ opacity: 0, transform: "translateY(30%)" }}
+        whileInView={{ opacity: 1, transform: "translateY(0%)"}}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true, amount: 0.1}}  
+     >  
     <IndexIntroduction
-        IndexIntro="Estudio de diseño gráfico, web, animación y fotografía en "
+        IndexIntro="Estudio de animación, diseño gráfico, web, y fotografía en "
         IndexIntroLocation="Manises"
         IndexDescription={ <>
            No somos solo diseñadores; nos vemos como narradores visuales. Ya sea creando una identidad que deje huella, unas fotografías minimlístas e impactantes o diseñando experiencias visuales y páginas web que enganchen, nos tomamos en serio cada detalle para asegurarnos de que lo que hacemos sea auténtico y diferente. <br></br><br></br>
@@ -16,6 +22,7 @@ function IndexIntro(){
           </>}
         
     />
+    </motion.div>
 );
 }
 
