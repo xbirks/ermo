@@ -16,7 +16,7 @@ function IndexIntro(){
      >  
     <IndexIntroduction
         IndexIntro="Estudio de animación, diseño gráfico, web, y fotografía en "
-        IndexIntroLocation="Manises"
+        IndexIntroLocation="Valencia"
         IndexDescription={ <>
            No somos solo diseñadores; nos vemos como narradores visuales. Ya sea creando una identidad que deje huella, unas fotografías minimlístas e impactantes o diseñando experiencias visuales y páginas web que enganchen, nos tomamos en serio cada detalle para asegurarnos de que lo que hacemos sea auténtico y diferente. <br></br><br></br>
 
