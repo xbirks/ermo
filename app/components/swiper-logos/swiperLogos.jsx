@@ -13,6 +13,10 @@ import Img6 from '../../assets/img/logo_6.png';
 import Img7 from '../../assets/img/logo_7.png';
 import Img8 from '../../assets/img/logo_8.png';
 import Img9 from '../../assets/img/logo_9.png';
+import Img10 from '../../assets/img/logo_10.png';
+import Img11 from '../../assets/img/logo_11.png';
+import Img12 from '../../assets/img/logo_12.png';
+import Img13 from '../../assets/img/logo_13.png';
 
 const SwiperComponent = () => {
   const swiperRef = useRef(null);
@@ -68,31 +72,43 @@ const SwiperComponent = () => {
         <div className="swiper-wrapper">
           {/* Slides */}
           <div className="swiper-slide">
-            <Image src={Img1} alt="Logo 1" loading="eager"></Image>
+            <Image src={Img1} alt="Logotipo png de Delibreads, distribuidor de Mercadona" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img2} alt="Logo 2" loading="eager"></Image>
+            <Image src={Img2} alt="Logotipo png de Cubers, empresa de Procubitos Europe" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img3} alt="Logo 3" loading="eager"></Image>
+            <Image src={Img3} alt="Logotipo png de Empanadas Malvón" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img4} alt="Logo 4" loading="eager"></Image>
+            <Image src={Img4} alt="Logotipo png de Sanoguera Consulting" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img5} alt="Logo 5" loading="eager"></Image>
+            <Image src={Img5} alt="Logotipo png del centro estético Solarium Cabinas" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img6} alt="Logo 6" loading="eager"></Image>
+            <Image src={Img6} alt="Logotipo png de la empresa Segorbina de Bastones" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img7} alt="Logo 7" loading="eager"></Image>
+            <Image src={Img7} alt="Logotipo png de la empresa de helados Atípico" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img8} alt="Logo 8" loading="eager"></Image>
+            <Image src={Img8} alt="Logotipo png en blanco y negro del supermercado Consum" loading="eager"></Image>
           </div>
           <div className="swiper-slide">
-            <Image src={Img9} alt="Logo 9" loading="eager"></Image>
+            <Image src={Img9} alt="Logotipo png de Entre Prendas" loading="eager"></Image>
+          </div>
+          <div className="swiper-slide">
+            <Image src={Img10} alt="Logotipo png en blanco y negro de Helados Estiu" loading="eager"></Image>
+          </div>
+          <div className="swiper-slide">
+            <Image src={Img11} alt="Logotipo png del gimnasio Bellés con sede en Segorbe y Alfara del Patriarca" loading="eager"></Image>
+          </div>
+          <div className="swiper-slide">
+            <Image src={Img12} alt="Logotipo png de la Asociación Hispanoamericana de Medicina del Fútbol gestionada por el doctor Don José Nebot" loading="eager"></Image>
+          </div>
+          <div className="swiper-slide">
+            <Image src={Img13} alt="Logotipo png de Private Label BSN Cosmetics" loading="eager"></Image>
           </div>
         </div>
 
