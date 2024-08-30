@@ -34,13 +34,13 @@ const MenuSlider = ({ menuOpen }) => (
   <div className={`menu__slider ${menuOpen ? 'mostrar' : ''}`}>
     <div className="menu__slider-container">
       <MenuButton buttonName="Proyectos" buttonEnlace="#" />
-      <MenuButton buttonName="Servicios" buttonEnlace="#" />
+      <MenuButton buttonName="Servicios" buttonEnlace="https://www.ermo.es/servicios/principal" />
       <MenuButton buttonName="Equipo" buttonEnlace="#" />
       <MenuButton buttonName="Contacto" buttonEnlace="#" />
       <MenuButton buttonName="Idioma" buttonEnlace="#" />
       <div className="menu__button-cafe">
         <div className="button">
-          <MenuButton buttonName="Te invito a un café" buttonEnlace="#" />
+          <MenuButton buttonName="Te invito a un café" buttonEnlace="tel:+34675392216" />
         </div>
       </div>
     </div>
