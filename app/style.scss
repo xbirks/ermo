@@ -1023,9 +1023,12 @@ a{
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-top: 40px;
             height: auto;
             max-height: 200px;
+
+            @include media1000px {
+                margin-top: 40px;
+            }
 
             .servcomp__component{
                 background-color: $azul-ermo;
