@@ -60,5 +60,12 @@
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
+
+        <url>
+        <loc>https://www.ermo.es/servicios/principal</loc>
+        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
     
 </urlset>
