@@ -70,7 +70,8 @@ h1{
     text-transform: uppercase;
     color: $azul-ermo;
     text-align: left;
-    line-height: 60pt;
+    line-height: 64pt;
+    letter-spacing: 1px;
 
     @include media1200px {
         font-size: 40pt;
@@ -431,7 +432,7 @@ a{
 }
 
 .index__projects{
-    width: 95%;
+    width: 100%;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -440,6 +441,7 @@ a{
     
     @include media800px {
         display: block;
+        width: 95%;
     }
 }
 
@@ -765,38 +767,44 @@ a{
   .footer__container {
     display: grid;
     gap: 30px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 200px repeat(3, 1fr);
     margin-left: 20px;
     margin-right: 20px;
 
     @include media1850px {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 200px repeat(3, 1fr);
     }
 
     @include media1650px {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 150px repeat(3, 1fr);
     }
 
     @include media900px {
         grid-template-columns: repeat(2, 1fr);
-        gap: 80px;
+        gap: 60px;
     }
 
     @include media500px {
         grid-template-columns: repeat(1, 1fr);
-        gap: 80px;
+        gap: 60px;
     }
+
+    .footer__info-datos{
+        margin-bottom: 24px;
+    }.footer__info-datos a{
+        display: block;
+        margin-bottom: 20px;
+    } .footer__info-datos h4{
+        margin-bottom: 8px;
+    }
+
+    .button{
+        max-width: 200px;
+    }
+    
   }
 
 
-.footer__info-datos{
-    margin-bottom: 24px;
-}.footer__info-datos a{
-    display: block;
-    margin-bottom: 20px;
-} .footer__info-datos h4{
-    margin-bottom: 8px;
-}
 
 
 

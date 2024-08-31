@@ -42,6 +42,12 @@ $azul-ermo: #3F52FF;
     transition:  width, height 0.3s ease;
   }
 
+  a:hover .dot {
+    width: 90px;
+    height: 90px;
+    transition:  width, height 0.3s ease;
+  }
+
  
 
   .curzr-big-circle.hover .dot{

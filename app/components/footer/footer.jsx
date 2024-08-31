@@ -26,7 +26,7 @@ return(
         <div className="footer__info">
 
             <StandardButton
-                link="/not-found"
+                link="/servicios/principal"
                 title="Servicios"
                 style=""
             />
@@ -90,7 +90,7 @@ return(
                 textButton="Política de cookies"
             />
 
-<FooterItem
+            <FooterItem
                 title=""
                 link="/not-found"
                 textButton="Aviso legal"

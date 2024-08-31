@@ -19,9 +19,10 @@ const ArrowMenu = () => (
   </svg>
 );
 
-const MenuButton = ({ buttonName, buttonEnlace }) => (
+// Pasamos la función closeMenu como prop y la ejecutamos en el click
+const MenuButton = ({ buttonName, buttonEnlace, closeMenu }) => (
   <div className="menu__slider-button">
-    <Link href={buttonEnlace}>
+    <Link href={buttonEnlace} onClick={closeMenu}>
       <div className="menu__button">
         <p>{buttonName}</p>
         <ArrowMenu />
@@ -30,17 +31,18 @@ const MenuButton = ({ buttonName, buttonEnlace }) => (
   </div>
 );
 
-const MenuSlider = ({ menuOpen }) => (
+// Pasamos la función closeMenu a cada MenuButton
+const MenuSlider = ({ menuOpen, closeMenu }) => (
   <div className={`menu__slider ${menuOpen ? 'mostrar' : ''}`}>
     <div className="menu__slider-container">
-      <MenuButton buttonName="Proyectos" buttonEnlace="#" />
-      <MenuButton buttonName="Servicios" buttonEnlace="https://www.ermo.es/servicios/principal" />
-      <MenuButton buttonName="Equipo" buttonEnlace="#" />
-      <MenuButton buttonName="Contacto" buttonEnlace="#" />
-      <MenuButton buttonName="Idioma" buttonEnlace="#" />
+      <MenuButton buttonName="Proyectos" buttonEnlace="#" closeMenu={closeMenu} />
+      <MenuButton buttonName="Servicios" buttonEnlace="/servicios/principal" closeMenu={closeMenu} />
+      <MenuButton buttonName="Equipo" buttonEnlace="#" closeMenu={closeMenu} />
+      <MenuButton buttonName="Contacto" buttonEnlace="#" closeMenu={closeMenu} />
+      <MenuButton buttonName="Idioma" buttonEnlace="#" closeMenu={closeMenu} />
       <div className="menu__button-cafe">
         <div className="button">
-          <MenuButton buttonName="Te invito a un café" buttonEnlace="tel:+34675392216" />
+          <MenuButton buttonName="Te invito a un café" buttonEnlace="tel:+34675392216" closeMenu={closeMenu} />
         </div>
       </div>
     </div>
@@ -60,13 +62,12 @@ const Header = () => {
     document.body.classList.remove('no-scroll');
   };
 
-    // Clean up effect to ensure no residual effects when navigating between pages
-    useEffect(() => {
-      return () => {
-        document.body.classList.remove('no-scroll');
-        setMenuOpen(false); // Ensure the menu is closed
-      };
-    }, []);
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove('no-scroll');
+      setMenuOpen(false); // Ensure the menu is closed
+    };
+  }, []);
 
   return (
     <div className="header__master">
@@ -76,7 +77,7 @@ const Header = () => {
       <button className="menu-nav" aria-label="Menú navegación" onClick={toggleMenu}>
         <HamburgerIcon menuOpen={menuOpen} />
       </button>
-      <MenuSlider menuOpen={menuOpen} />
+      <MenuSlider menuOpen={menuOpen} closeMenu={closeMenu} /> {/* Pasamos closeMenu a MenuSlider */}
     </div>
   );
 };
