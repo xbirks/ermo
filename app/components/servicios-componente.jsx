@@ -3,8 +3,10 @@
 import '../proyectos/proyectos.scss';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import StandardButton from '../buttons/standard-button';
+import ComboButton from '../buttons/combo-button.jsx';
 
-function ServicioComp({title, imgsrc, altimg, descripcion, imgcomp1, altcomp1, destacado1, imgcomp2, altcomp2, destacado2, imgcomp3, altcomp3, destacado3, imgcomp4, altcomp4, destacado4}) {
+function ServicioComp({title, imgsrc, altimg, descripcion, imgcomp1, altcomp1, destacado1, imgcomp2, altcomp2, destacado2, imgcomp3, altcomp3, destacado3, imgcomp4, altcomp4, destacado4, btn1link, btn1title, btn2link, btn2title}) {
   
  
 
@@ -47,6 +49,14 @@ function ServicioComp({title, imgsrc, altimg, descripcion, imgcomp1, altcomp1, d
                 </div>
             </div>
 
+            <ComboButton
+                link1={btn1link}
+                title1={btn1title}
+                style1="combo__standard"
+                link2={btn2link}
+                title2={btn2title}
+                style2="combo__blue"
+            ></ComboButton>
 
 
         </div>

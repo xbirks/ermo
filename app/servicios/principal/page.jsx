@@ -64,6 +64,11 @@ export default function FotografiaPage() {
         imgcomp4={colab}
         altcomp4="icono de colaboración B2B"
         destacado4="Facilitación de colaboraciones B2B"
+
+        btn1link="servicios/fotografia"
+        btn1title="ver fotos"
+        btn2link="/"
+        btn2title="contratar"
     ></ServicioComp>
 
 <Spacer className="spacer-xl" />
@@ -89,6 +94,11 @@ export default function FotografiaPage() {
         imgcomp4={merchan}
         altcomp4="icono de merchandising más atractivo y vendible"
         destacado4="Merchandising más atractivo y vendible"
+
+        btn1link="servicios/ilustracion"
+        btn1title="ver más"
+        btn2link="/"
+        btn2title="contratar"
     ></ServicioComp>
 
 <Spacer className="spacer-xl" />
@@ -116,6 +126,11 @@ export default function FotografiaPage() {
         imgcomp4={responsive}
         altcomp4="icono de adaptabilidad a diferentes dispositivos responsive"
         destacado4="Adaptabilidad a diferentes dispositivos"
+
+        btn1link="servicios/web"
+        btn1title="ver webs"
+        btn2link="/"
+        btn2title="contratar"
     ></ServicioComp>
 
 <Spacer className="spacer-xl" />
@@ -143,6 +158,11 @@ export default function FotografiaPage() {
         imgcomp4={colab}
         altcomp4="icono de mayor engagement con la audiencia"
         destacado4="Mayor engagement con la audiencia"
+
+        btn1link="servicios/animacion"
+        btn1title="ver más"
+        btn2link="/"
+        btn2title="contratar"
     ></ServicioComp>
 
 <Spacer className="spacer-xl" />

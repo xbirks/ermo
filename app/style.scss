@@ -178,8 +178,17 @@ a{
 
 
 .master_button{
-    width: 100%;
+    width: auto;
 }
+
+.comboButton{
+    display: flex;
+
+    @include media500px {
+        display: block;
+    }
+}
+
 .button {
     display: flex;
     max-width: 300px;
@@ -188,6 +197,11 @@ a{
     border: solid 1.5px $azul-ermo;
     padding: 12px 16px 12px 16px;
     border-radius: 32px;
+
+    @include media500px {
+        padding: 10px 16px 10px 16px;
+    }
+
     p {
         font-size: 18px;
         font-weight: 400;
@@ -196,6 +210,10 @@ a{
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-top: 3px;
+
+        @include media500px {
+            font-size: 16px;
+        }
     }
     &:hover {
         background: $azul-ermo;
@@ -234,11 +252,48 @@ a{
     }
 }
 
+.combo__standard{
+    @include media500px {
+        width: 100%;
+        max-width: 200px;
+        margin-bottom: 6px;
+    }
+}
+
+.combo__blue{
+    background-color: $azul-ermo;
+    width: 100%;
+    max-width: 200px;
+
+    &:hover{
+        background-color: $negro-ermo;
+        border-color: $negro-ermo;
+    }
+
+    p{
+        color: $blanco-ermo;
+    }
+
+    .arrow__svg{
+        fill: $blanco-ermo;
+    }
+}
+
+.combo__standard{
+    margin-right: 10px;
+}
+
 .buton:hover .curzr-big-circle {
     width: 90px;
     height: 90px;
     transition:  width, height 0.3s ease;
-  }
+}
+
+a:hover .curzr-big-circle {
+    width: 90px;
+    height: 90px;
+    transition:  width, height 0.3s ease;
+}
 
 
 
@@ -1038,7 +1093,10 @@ a{
 
             @include media1000px {
                 margin-top: 40px;
+                max-height: 100%;
+                margin-bottom: 40px;
             }
+
 
             .servcomp__component{
                 background-color: $azul-ermo;
