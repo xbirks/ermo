@@ -49,7 +49,7 @@ function Grid4() {
             />
         
         <StandardButton
-        link="/not-found"
+        link="/"
         title="Ver más proyectos"
         style="mt-l margin-auto"
       />

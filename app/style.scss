@@ -297,12 +297,20 @@ a:hover .curzr-big-circle {
 
 
 
+.logoErmo{
+    height: 100%;
 
+    @include media500px {
+        height: 60%;
+        padding-top: 6px;
+    }
+}
 
 .arrow__svg{
     margin-top: 3px;
     fill: $azul-ermo;
     transition: $transition-short;
+    width: 34px;
  &.arrow__svg-white{
     fill: $blanco-ermo;
 }
@@ -311,6 +319,14 @@ a:hover .curzr-big-circle {
 .hamburger{
     fill: $azul-ermo;
     cursor: pointer;
+
+    @include media500px {
+        height: 50%;
+    }
+
+    &:hover{
+        fill: $negro-ermo;
+    }
 }
 
 
@@ -337,6 +353,10 @@ a:hover .curzr-big-circle {
     box-sizing: border-box;
     padding: 20px;
     z-index: 100;
+
+    @include media500px {
+        padding: 10px 20px 5px 20px;
+    }
     
 }
 
@@ -364,16 +384,23 @@ a:hover .curzr-big-circle {
     top: 0;
     right: -100%;
     background-color: $azul-ermo;
-    width: 100%;
+    width: 50%;
     height: 100%;
     margin: 0 auto;
     z-index: 5;
     display: flex;
     overflow: auto;
     transition:  0.5s ease-in-out;
-} .menu__slider.mostrar {
+        @include media800px {
+            width: 100%;
+        }
+    .button{
+        border-color: $blanco-ermo;
+    } 
+    } 
+.menu__slider.mostrar {
     right: 0;
-    background-color: $blanco-ermo;
+    background-color: $azul-ermo;
     transition:  0.5s ease-in-out;
     z-index: -5;
   } body.no-scroll {
@@ -385,9 +412,6 @@ a:hover .curzr-big-circle {
     width: 100%;
 }
 
-.menu__slider-button a{
-    text-decoration: none;
-}
 
 .menu__button{
     display: flex;
@@ -410,6 +434,18 @@ a:hover .curzr-big-circle {
 } .menu__button:hover .arrow__svg{
     transform: rotateZ(-45deg);
     transition: $transition-short;
+}
+
+.menu__slider-button{
+    a{
+        text-decoration: none;
+    }
+    p{
+        color: $blanco-ermo;
+    }
+    .arrow__svg{
+        fill: $blanco-ermo;
+    }
 }
 
 
@@ -534,6 +570,9 @@ a:hover .curzr-big-circle {
         filter: blur(5px);
         transform: scale(1.1);
         transition: $transition-short;
+        @include media800px {
+            filter: blur(0px);
+        }
     }
 }
 
@@ -570,6 +609,10 @@ a:hover .curzr-big-circle {
 .post__thumbnail-description{
     margin: 14px 0 0 0;
     max-width: 85%;
+
+    @include media500px {
+        max-width: 95%;
+    }
 
     h3{
         font-family: $neue;
@@ -796,10 +839,15 @@ a:hover .curzr-big-circle {
   
   .index__team-txt {
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 300;
     line-height: 32px;
     margin: 30px 0 0 20px;
+
+    @include media800px {
+        font-size: 18px;
+        line-height: 24px;
+    }
   
     &.team-txt-1 {
       color: white;
@@ -1001,6 +1049,9 @@ a:hover .curzr-big-circle {
         filter: blur(5px);
         transform: scale(1.1);
         transition: $transition-short;
+        @include media800px {
+            filter: blur(0px);
+        }
     }
 }
 

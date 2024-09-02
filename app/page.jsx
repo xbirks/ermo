@@ -24,7 +24,7 @@ export default async function HomePage() {
       />
       <div className="master__body">
         <IndexIntro />
-        <Spacer className="spacer-l" />
+        <Spacer className="spacer-m" />
         <Grid4 proyectos={proyectos} />
         <Spacer className="spacer-xl" />
         <SliderServices />

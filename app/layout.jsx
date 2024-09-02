@@ -135,7 +135,7 @@ export default function RootLayout({ children }) {
         
       <Header/>
         {children}
-      <Spacer className="spacer-xxl" />
+      <Spacer className="spacer-xl" />
       <Footer />
       <Spacer className="spacer-m" />
       <Cursor />

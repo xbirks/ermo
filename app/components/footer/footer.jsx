@@ -18,7 +18,7 @@ return(
 
         <div className="footer__info">
             <Link href="/" aria-label="Inicio">
-                <Image src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
+                <Image className="logoErmo" src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
             </Link>
         </div>
 
