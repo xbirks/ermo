@@ -19,8 +19,8 @@ export default async function HomePage() {
   return (
     <div>
       <VideoIndex
-        desktop="https://soyandres.es/ermo/video/ermo-proyectos-2024-header-desktop.webm"
-        mobile="https://soyandres.es/ermo/video/ermo-proyectos-2024-mobile-desktop.webm"
+        desktop="https://ermo.es/videos/ermo-proyectos-2024-header-desktop.webm"
+        mobile="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop.webm"
       />
       <div className="master__body">
         <IndexIntro />
