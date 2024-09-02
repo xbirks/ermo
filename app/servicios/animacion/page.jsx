@@ -14,8 +14,8 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios 
-            desktop="https://www.ermo.es/videos/animacion/ANI_Desktop.mp4"
-            mobile="https://www.ermo.es/videos/animacion/ANI_Mobile.mp4"
+            desktop="https://www.ermo.es/videos/animacion/ANI_Desktop.webm"
+            mobile="https://www.ermo.es/videos/animacion/ANI_Mobile.webm"
 
             servicio="Animación 2D y motion graphics"
            
@@ -28,14 +28,14 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid7.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid1.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid2.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid3.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid4.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid5.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid6.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid8.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid7.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid1.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid2.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid3.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid4.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid5.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid6.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid8.webm" link="#"></ServiciosVid>
         </div>
 
         <ProySimilar></ProySimilar>

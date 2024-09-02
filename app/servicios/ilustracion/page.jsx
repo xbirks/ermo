@@ -19,8 +19,8 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios
-            desktop="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.mp4"
-            mobile="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.mp4"
+            desktop="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.webm"
+            mobile="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.webm"
 
             servicio="Ilustración"
            
@@ -35,11 +35,11 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo1.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo1.webm" link="#"></ServiciosVid>
             <ServiciosImg src={dibujo2} alt="img1" link="#"></ServiciosImg>
             <ServiciosImg src={dibujo3} alt="img1" link="#"></ServiciosImg>
-            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo4.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo5.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo4.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo5.webm" link="#"></ServiciosVid>
             <ServiciosImg src={dibujo6} alt="img1" link="#"></ServiciosImg>
             <ServiciosImg src={dibujo7} alt="img1" link="#"></ServiciosImg>
         </div>

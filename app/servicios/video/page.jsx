@@ -1,7 +1,6 @@
 import Servicios from '@/app/components/servicios.jsx';
 import ProySimilar from '@/app/components/proyecto-similar.jsx';
 import FotografiaLayout from './layout.jsx';
-import Image from 'next/image.js';
 import ServiciosVid from '@/app/components/servicios-vid.jsx';
 
 
@@ -14,8 +13,8 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios
-            desktop="https://www.ermo.es/videos/video/VIDEO_Desktop.mp4"
-            mobile="https://www.ermo.es/videos/video/VIDEO_Mobile.mp4"
+            desktop="https://www.ermo.es/videos/video/VIDEO_Desktop.webm"
+            mobile="https://www.ermo.es/videos/video/VIDEO_Mobile.webm"
 
             servicio="Video comercial, de producto y educativo"
            
@@ -32,11 +31,11 @@ export default function FotografiaPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src="https://www.ermo.es/videos/video/video1.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video2.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video3.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video4.mp4" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video5.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/video/video1.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/video/video2.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/video/video3.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/video/video4.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://www.ermo.es/videos/video/video5.webm" link="#"></ServiciosVid>
         </div>
 
         <ProySimilar></ProySimilar>

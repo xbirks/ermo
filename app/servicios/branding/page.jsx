@@ -23,8 +23,8 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios
-            desktop="https://www.ermo.es/videos/branding/BRANDING_Desktop.mp4"
-            mobile="https://www.ermo.es/videos/branding/BRANDING_Mobile.mp4"
+            desktop="https://www.ermo.es/videos/branding/BRANDING_Desktop.webm"
+            mobile="https://www.ermo.es/videos/branding/BRANDING_Mobile.webm"
 
             servicio="Identidad corporativa y branding"
            

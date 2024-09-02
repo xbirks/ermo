@@ -298,7 +298,7 @@ a:hover .curzr-big-circle {
 
 
 .logoErmo{
-    height: 100%;
+    height: auto;
 
     @include media500px {
         height: 60%;
@@ -412,7 +412,9 @@ a:hover .curzr-big-circle {
     width: 100%;
 }
 
-
+.open{
+    fill: $blanco-ermo;
+}
 .menu__button{
     display: flex;
     width: 100%;

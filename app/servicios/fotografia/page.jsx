@@ -26,8 +26,8 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios
-            desktop="https://www.ermo.es/videos/fotografia/FOTO_Desktop.mp4"
-            mobile="https://www.ermo.es/videos/fotografia/FOTO_Mobile.mp4"
+            desktop="https://www.ermo.es/videos/fotografia/FOTO_Desktop.webm"
+            mobile="https://www.ermo.es/videos/fotografia/FOTO_Mobile.webm"
 
             servicio="Fotografía de producto, gastronómica y corporativa"
            
