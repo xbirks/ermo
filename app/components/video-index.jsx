@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function VideoIndex({ desktop, mobile }) {
+function VideoIndex({ desktopwebm, desktopmp4, mobilewebm, mobilemp4 }) {
   
   
   return (
@@ -13,18 +13,20 @@ function VideoIndex({ desktop, mobile }) {
         loop
         muted
         playsInline
-        type="video/mp4"
-        src={desktop}
-      />
+      >
+        <source src={desktopwebm} type="video/webm" />
+        <source src={desktopmp4} type="video/mp4" />
+      </video>
       <video
         className="header__video-mobile"
         autoPlay
         loop
         muted
         playsInline
-        type="video/mp4"
-        src={mobile}
-      />
+      >
+        <source src={mobilewebm} type="video/webm" />
+        <source src={mobilemp4} type="video/mp4" />
+      </video>
     </div>
   );
 }

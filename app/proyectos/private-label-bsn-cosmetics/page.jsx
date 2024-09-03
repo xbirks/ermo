@@ -8,15 +8,18 @@ export default function BsnPage() {
 
     <BsnLayout>
         <Proyectos
-            desktop="https://www.ermo.es/videos/BSN_Desktop.webm"
-            mobile="https://www.ermo.es/videos/BSN_Mobile.webm"
+            desktopwebm="https://www.ermo.es/videos/BSN_Desktop.webm"
+            mobilewebm="https://www.ermo.es/videos/BSN_Mobile.webm"
+            desktopmp4="https://www.ermo.es/videos/BSN_Desktop.mp4"
+            mobilemp4="https://www.ermo.es/videos/BSN_Mobile.mp4"
             cliente="Private Label BSN Cosmetics"
             tipo="Fotografía de producto"
             ano="2023"
             descripcion={ <>
                 En este proyecto de fotografía para productos cosméticos, hemos adoptado un enfoque minimalista, enfocándonos en resaltar estos envases genéricos listos para ser reetiquetados. Unas fotografías pensadas tanto para ser usadas en web, en Instagram o en contenido promocional.
                </>}
-            videoproyecto="https://www.ermo.es/videos/BSN_Wrap.webm"
+            videoproyectowebm="https://www.ermo.es/videos/BSN_Wrap.webm"
+            videoproyectomp4="https://www.ermo.es/videos/BSN_Wrap.mp4"
             explicacion={ <>
                 Las imágenes que hemos creado destacan la forma y textura de los envases, que, a pesar de ser genéricos, están bien pensados para ser reetiquetados por los clientes con sus propios diseños. Hemos hecho hincapié en la claridad y precisión para que los clientes puedan visualizar cómo se integrarán estos envases en sus propias líneas de productos.
                 <br></br><br></br>

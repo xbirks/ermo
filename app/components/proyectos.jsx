@@ -2,21 +2,21 @@
 
 import '../proyectos/proyectos.scss';
 import React from 'react';
-import Contacto from "../buttons/contacto";
 import Grid4 from "./grid-4/grid-4";
-import Spacer from "../buttons/spacer";
 import VideoIndex from "./video-index";
 import ProySimilar from './proyecto-similar';
 
-function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyecto, explicacion, image1, image2}) {
+function Proyectos({desktopwebm, mobilewebm, desktopmp4, mobilemp4, cliente,tipo, ano, descripcion, videoproyectowebm, videoproyectomp4, explicacion, image1webm, image2webm, image1mp4, image2mp4}) {
   
 
 
   return (
       <>
         <VideoIndex
-          desktop={desktop}
-          mobile={mobile}
+          desktopwebm={desktopwebm}
+          mobilewebm={mobilewebm}
+          desktopmp4={desktopmp4}
+          mobilemp4={mobilemp4}
         />
 
         <div className="master__body">
@@ -32,16 +32,13 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
           </div>
 
           <div className="proyectos__video">
-            <video
-              className="ermo"
-              autoPlay
-              loop
-              muted
-              playsInline
-              type="video/mp4"
-              src={videoproyecto}
-            />
+            <video className="ermo" autoPlay loop muted playsInline>
+              <source src={videoproyectowebm} type="video/webm" />
+              <source src={videoproyectomp4} type="video/mp4" />
+              Tu navegador no soporta la etiqueta de video.
+            </video>
           </div>
+
 
           <div className="proyectos__explicacion">
             <p>{explicacion}</p>
@@ -51,11 +48,12 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
             <div className="proyectos__mini"><figure>
               <video
                 className="proyectos__video-mini"
-                src={image1}
                 width={500}
                 height={500}
-                autoPlay loop muted playsInline type="video/mp4"
+                autoPlay loop muted playsInline 
               >
+                <source src={image1webm} type="video/webm"></source>
+                <source src={image1mp4} type="video/mp4"></source>
                 Tu navegador no soporta la etiqueta de video.
               </video>
             </figure></div>
@@ -63,11 +61,12 @@ function Proyectos({desktop, mobile, cliente,tipo, ano, descripcion, videoproyec
             <div className="proyectos__mini"><figure>
               <video
                 className="proyectos__video-mini"
-                src={image2}
                 width={500}
                 height={500}
-                autoPlay loop muted playsInline type="video/mp4"
+                autoPlay loop muted playsInline
               >
+                <source src={image2webm} type="video/webm"></source>
+                <source src={image2mp4} type="video/mp4"></source>
                 Tu navegador no soporta la etiqueta de video.
               </video>
             </figure></div>
