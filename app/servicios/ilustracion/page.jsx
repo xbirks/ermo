@@ -19,8 +19,10 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios
-            desktop="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.webm"
-            mobile="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.webm"
+            desktopwebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.webm"
+            mobilewebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.webm"
+            desktopmp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.mp4"
+            mobilemp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.mp4"
 
             servicio="Ilustración"
            

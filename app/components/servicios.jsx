@@ -4,15 +4,17 @@ import '../proyectos/proyectos.scss';
 import React, { useEffect, useState } from 'react';
 import VideoIndex from "./video-index";
 
-function Servicios({desktop, mobile, servicio, explicacion}) {
+function Servicios({desktopwebm, mobilewebm, desktopmp4, mobilemp4, servicio, explicacion}) {
   
  
 
   return (
       <>
         <VideoIndex
-          desktop={desktop}
-          mobile={mobile}
+          desktopwebm={desktopwebm}
+          mobilewebm={mobilewebm}
+          desktopmp4={desktopmp4}
+          mobilemp4={mobilemp4}
         />
 
         <div className="master__body">

@@ -28,8 +28,10 @@ export default function BsnPage() {
                 Nuestras fotografías ayudan a simplificar el proceso de compra de los clientes, mostrando de forma efectiva cómo los productos pueden ser un añadido valioso para sus ofertas de cuidado de la piel y cosméticos. Y mostrando como podrían verse representados en fotografía los productos reetiquetados finales.
             </>}
             
-            image1="https://www.ermo.es/videos/BSN_mini_1.webm"
-            image2="https://www.ermo.es/videos/BSN_mini_2.webm"
+            image1webm="https://www.ermo.es/videos/BSN_mini_1.webm"
+                image1mp4="https://www.ermo.es/videos/BSN_mini_1.mp4"
+            image2webm="https://www.ermo.es/videos/BSN_mini_2.webm"
+                image2mp4="https://www.ermo.es/videos/BSN_mini_2.mp4"
         ></Proyectos>
     </BsnLayout>
       

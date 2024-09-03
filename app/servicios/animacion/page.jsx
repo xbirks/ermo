@@ -14,8 +14,10 @@ export default function FotografiaPage() {
 
     <FotografiaLayout>
         <Servicios 
-            desktop="https://www.ermo.es/videos/animacion/ANI_Desktop.webm"
-            mobile="https://www.ermo.es/videos/animacion/ANI_Mobile.webm"
+            desktopwebm="https://www.ermo.es/videos/animacion/ANI_Desktop.webm"
+            mobilewebm="https://www.ermo.es/videos/animacion/ANI_Mobile.webm"
+            desktopmp4="https://www.ermo.es/videos/animacion/ANI_Desktop.mp4"
+            mobilemp4="https://www.ermo.es/videos/animacion/ANI_Mobile.mp4"
 
             servicio="Animación 2D y motion graphics"
            
