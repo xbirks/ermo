@@ -11,10 +11,10 @@ function Servicios({desktopwebm, mobilewebm, desktopmp4, mobilemp4, servicio, ex
   return (
       <>
         <VideoIndex
-          desktopwebm={desktopwebm}
-          mobilewebm={mobilewebm}
           desktopmp4={desktopmp4}
           mobilemp4={mobilemp4}
+          desktopwebm={desktopwebm}
+          mobilewebm={mobilewebm}
         />
 
         <div className="master__body">

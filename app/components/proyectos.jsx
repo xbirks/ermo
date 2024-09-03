@@ -33,8 +33,8 @@ function Proyectos({desktopwebm, mobilewebm, desktopmp4, mobilemp4, cliente,tipo
 
           <div className="proyectos__video">
             <video className="ermo" autoPlay loop muted playsInline>
+            <source src={videoproyectomp4} type="video/mp4" />
               <source src={videoproyectowebm} type="video/webm" />
-              <source src={videoproyectomp4} type="video/mp4" />
               Tu navegador no soporta la etiqueta de video.
             </video>
           </div>
@@ -52,8 +52,8 @@ function Proyectos({desktopwebm, mobilewebm, desktopmp4, mobilemp4, cliente,tipo
                 height={500}
                 autoPlay loop muted playsInline 
               >
-                <source src={image1webm} type="video/webm"></source>
                 <source src={image1mp4} type="video/mp4"></source>
+                <source src={image1webm} type="video/webm"></source>
                 Tu navegador no soporta la etiqueta de video.
               </video>
             </figure></div>
@@ -65,8 +65,8 @@ function Proyectos({desktopwebm, mobilewebm, desktopmp4, mobilemp4, cliente,tipo
                 height={500}
                 autoPlay loop muted playsInline
               >
-                <source src={image2webm} type="video/webm"></source>
                 <source src={image2mp4} type="video/mp4"></source>
+                <source src={image2webm} type="video/webm"></source>
                 Tu navegador no soporta la etiqueta de video.
               </video>
             </figure></div>

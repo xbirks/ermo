@@ -8,10 +8,11 @@ export default function BsnPage() {
 
     <BsnLayout>
         <Proyectos
-            desktopwebm="https://www.ermo.es/videos/BSN_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/BSN_Mobile.webm"
             desktopmp4="https://www.ermo.es/videos/BSN_Desktop.mp4"
             mobilemp4="https://www.ermo.es/videos/BSN_Mobile.mp4"
+            desktopwebm="https://www.ermo.es/videos/BSN_Desktop.webm"
+            mobilewebm="https://www.ermo.es/videos/BSN_Mobile.webm"
+
             cliente="Private Label BSN Cosmetics"
             tipo="Fotografía de producto"
             ano="2023"
@@ -27,11 +28,11 @@ export default function BsnPage() {
                 <br></br><br></br>
                 Nuestras fotografías ayudan a simplificar el proceso de compra de los clientes, mostrando de forma efectiva cómo los productos pueden ser un añadido valioso para sus ofertas de cuidado de la piel y cosméticos. Y mostrando como podrían verse representados en fotografía los productos reetiquetados finales.
             </>}
-            
+
+            image1mp4="https://www.ermo.es/videos/BSN_mini_1.mp4"
             image1webm="https://www.ermo.es/videos/BSN_mini_1.webm"
-                image1mp4="https://www.ermo.es/videos/BSN_mini_1.mp4"
+            image2mp4="https://www.ermo.es/videos/BSN_mini_2.mp4"
             image2webm="https://www.ermo.es/videos/BSN_mini_2.webm"
-                image2mp4="https://www.ermo.es/videos/BSN_mini_2.mp4"
         ></Proyectos>
     </BsnLayout>
       
