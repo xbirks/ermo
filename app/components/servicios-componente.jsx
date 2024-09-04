@@ -27,22 +27,22 @@ function ServicioComp({title, imgsrc, altimg, descripcion, imgcomp1, altcomp1, d
                 <div className="servcomp__destacado">
 
                     <div className="servcomp__component">
-                        <Image src={imgcomp1} alt={altcomp1} width={100} height={30} loading="lazy"></Image>
+                        <div className="servcomp__img-container"><Image src={imgcomp1} alt={altcomp1} width={100} height={30} loading="lazy"></Image></div>
                         <h3>{destacado1}</h3>
                     </div>
 
                     <div className="servcomp__component">
-                        <Image src={imgcomp2} alt={altcomp2} width={100} height={30} loading="lazy"></Image>
+                        <div className="servcomp__img-container"><Image src={imgcomp2} alt={altcomp2} width={100} height={30} loading="lazy"></Image></div>
                         <h3>{destacado2}</h3>
                     </div>
 
                     <div className="servcomp__component">
-                        <Image src={imgcomp3} alt={altcomp3} width={100} height={30} loading="lazy"></Image>
+                        <div className="servcomp__img-container"><Image src={imgcomp3} alt={altcomp3} width={100} height={30} loading="lazy"></Image></div>
                         <h3>{destacado3}</h3>
                     </div>
 
                     <div className="servcomp__component">
-                        <Image src={imgcomp4} alt={altcomp4} width={100} height={30} loading="lazy"></Image>
+                        <div className="servcomp__img-container"><Image src={imgcomp4} alt={altcomp4} width={100} height={30} loading="lazy"></Image></div>
                         <h3>{destacado4}</h3>
                     </div>
 

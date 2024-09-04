@@ -21,14 +21,15 @@ import colab from '@/app/assets/icon/destacados/colab-dest.svg';
 import memo from '@/app/assets/icon/destacados/memo-dest.svg';
 import coherencia from '@/app/assets/icon/destacados/coherencia-dest.svg';
 import elevacion from '@/app/assets/icon/destacados/elevacion-dest.svg';
-import merchan from '@/app/assets/icon/destacados/merchan-dest.svg';
-import iman from '@/app/assets/icon/destacados/iman-dest.svg';
+import merchan from '@/app/assets/icon/destacados/borsa.png';
+import iman from '@/app/assets/icon/destacados/iman.png';
 import google from '@/app/assets/icon/destacados/google-dest.svg';
-import carga from '@/app/assets/icon/destacados/carga-dest.svg';
+import carga from '@/app/assets/icon/destacados/carga.png';
 import responsive from '@/app/assets/icon/destacados/responsive-dest.svg';
 import comunicacion from '@/app/assets/icon/destacados/comunicacion-dest.svg';
 import viralidad from '@/app/assets/icon/destacados/viralidad-dest.svg';
 import competencia from '@/app/assets/icon/destacados/competencia-dest.svg';
+import cohete from '@/app/assets/icon/destacados/cohete.png';
 
 
 
@@ -165,7 +166,7 @@ export default function FotografiaPage() {
         imgcomp2={viralidad}
         altcomp2="icono de viralidad en redes sociales"
         destacado2="Viralidad en redes sociales"
-        imgcomp3={competencia}
+        imgcomp3={cohete}
         altcomp3="icono de diferenciación de la competencia"
         destacado3="Diferenciación de la competencia"
         imgcomp4={colab}
