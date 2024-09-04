@@ -8,6 +8,7 @@ import SwiperComponent from './components/swiper-logos/swiperLogos.jsx';
 
 import Spacer from './buttons/spacer.jsx';
 import ContactTeam from './components/contact-draws/contact-team.jsx';
+import Inner from "./components/Transiciones/inner.jsx";
 
 // Marca la función `HomePage` como `async`
 export default async function HomePage() {
@@ -17,7 +18,7 @@ export default async function HomePage() {
   const proyectos = proyectosData.proyectos.slice(0, 4);
 
   return (
-    <div>
+    <Inner>
       <VideoIndex
         desktopwebm="https://ermo.es/videos/ermo-proyectos-2024-header-desktop.webm"
         mobilewebm="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop.webm"
@@ -35,6 +36,6 @@ export default async function HomePage() {
         <Spacer className="spacer-xl" />
         <SwiperComponent />
       </div>
-    </div>
+    </Inner>
   );
 }

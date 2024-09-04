@@ -1,0 +1,13 @@
+//TRANSICIONES & FRAMER MOTION
+
+.inner{
+    .slide{
+        position: fixed;
+        left: 0;
+        background-color: #3F52FF;
+        width: 100vw;
+        height: 100vh;
+        z-index: 3;
+    }
+}
+

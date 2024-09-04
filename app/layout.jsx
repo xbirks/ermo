@@ -75,6 +75,8 @@ export const metadata = {
  
 
 export default function RootLayout({ children }) {
+
+
   return (
     <html lang="es">
       <head>
@@ -133,13 +135,14 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         
-      <Header/>
-        {children}
-      <Spacer className="spacer-xl" />
-      <Footer />
-      <Spacer className="spacer-m" />
-      <Cursor />
-      <Analytics />
+    
+        <Header/>
+          {children}
+        <Spacer className="spacer-xl" />
+        <Footer />
+        <Spacer className="spacer-m" />
+        <Cursor />
+        <Analytics />
 
       </body>
     </html>

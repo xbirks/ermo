@@ -39,7 +39,6 @@ const MenuSlider = ({ menuOpen, closeMenu }) => (
       <MenuButton buttonName="Servicios" buttonEnlace="/servicios/principal" closeMenu={closeMenu} />
       <MenuButton buttonName="Equipo" buttonEnlace="#" closeMenu={closeMenu} />
       <MenuButton buttonName="Contacto" buttonEnlace="#" closeMenu={closeMenu} />
-      <MenuButton buttonName="Idioma" buttonEnlace="#" closeMenu={closeMenu} />
       <div className="menu__button-cafe">
         <div className="button">
           <MenuButton buttonName="Te invito a un café" buttonEnlace="tel:+34675392216" closeMenu={closeMenu} />

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import IndexIntroduction  from './IndexIntro-item.jsx';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 
 function IndexIntro(){
@@ -13,7 +13,7 @@ function IndexIntro(){
         whileInView={{ opacity: 1, transform: "translateY(0%)"}}
         transition={{ duration: 0.5 }}
         viewport={{ once: true, amount: 0.1}}  
-     >  
+     >   
     <IndexIntroduction
         IndexIntro="Estudio de animación, diseño gráfico, web, y fotografía en "
         IndexIntroLocation="Valencia"

@@ -4,6 +4,8 @@ import SliderServices from "@/app/components/slider-services/sliderServices";
 import SwiperComponent from "@/app/components/swiper-logos/swiperLogos";
 import Spacer from "@/app/buttons/spacer";
 import ServicioComp from "@/app/components/servicios-componente";
+import { motion } from "framer-motion";
+import Inner from "@/app/components/Transiciones/inner";
 
 //IMAGENES
 import imgfoto from '@/app/assets/img/servicios/principal.jpg';
@@ -33,9 +35,20 @@ import competencia from '@/app/assets/icon/destacados/competencia-dest.svg';
 
 export default function FotografiaPage() {
     return (
-    <>
+    <Inner>
+
     <div className="master__body servicios__master">
+
+    <motion.div
+        initial={{ opacity: 0, transform: "translateY(30%)" }}
+        whileInView={{ opacity: 1, transform: "translateY(0%)"}}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true, amount: 0.1}}  
+     > 
         <h1 className="servicios__h1">Ayudamos a las empresas con soluciones que mezclan innovación y creatividad.</h1>
+    
+    </motion.div>
+
 
     <SliderServices></SliderServices>
     <Spacer className="spacer-xl" />
@@ -169,7 +182,7 @@ export default function FotografiaPage() {
 
 <SwiperComponent></SwiperComponent>
     </div>
-    </>
+    </Inner>
     );
   }
   
