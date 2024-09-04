@@ -2,21 +2,21 @@ import Servicios from '@/app/components/servicios.jsx';
 import ProySimilar from '@/app/components/proyecto-similar.jsx';
 import FotografiaLayout from './layout.jsx';
 import ServiciosVid from '@/app/components/servicios-vid.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //IMAGENES 
 
 
 
-export default function FotografiaPage() {
+export default function VideoPage() {
     return (
-
+    <Inner>
     <FotografiaLayout>
         <Servicios
             desktopwebm="https://www.ermo.es/videos/video/VIDEO_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/video/VIDEO_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/video/VIDEO_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/video/VIDEO_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/video/VIDEO_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/video/VIDEO_Mobile_1.mp4"
 
             servicio="Video comercial, de producto y educativo"
            
@@ -43,7 +43,7 @@ export default function FotografiaPage() {
         <ProySimilar></ProySimilar>
 
     </FotografiaLayout>
-      
+    </Inner>
     );
   }
   

@@ -1,9 +1,8 @@
 import Servicios from '@/app/components/servicios.jsx';
 import ProySimilar from '@/app/components/proyecto-similar.jsx';
 import FotografiaLayout from './layout.jsx';
-import Image from 'next/image.js';
 import ServiciosImg from '@/app/components/servicios-img.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //IMAGENES
 import foto1 from '@/app/assets/img/servicios/MANOLO-BERNABEU-1.jpg';
@@ -23,13 +22,13 @@ import foto12 from '@/app/assets/img/servicios/11(1).jpg';
 
 export default function FotografiaPage() {
     return (
-
+    <Inner>
     <FotografiaLayout>
         <Servicios
             desktopwebm="https://www.ermo.es/videos/fotografia/FOTO_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/fotografia/FOTO_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/fotografia/FOTO_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/fotografia/FOTO_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/fotografia/FOTO_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/fotografia/FOTO_Mobile_1.mp4"
 
             servicio="Fotografía de producto, gastronómica y corporativa"
            
@@ -63,7 +62,7 @@ export default function FotografiaPage() {
         <ProySimilar></ProySimilar>
 
     </FotografiaLayout>
-      
+    </Inner>
     );
   }
   

@@ -43,7 +43,7 @@ export const metadata = {
   
 };
 
-export default function FotografiaLayout({ children }) {
+export default function AnimacionLayout({ children }) {
   return (
     <>
       <main>{children}</main>

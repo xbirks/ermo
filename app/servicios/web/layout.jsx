@@ -42,7 +42,7 @@ export const metadata = {
   
 };
 
-export default function FotografiaLayout({ children }) {
+export default function WebLayout({ children }) {
   return (
     <>
       <main>{children}</main>

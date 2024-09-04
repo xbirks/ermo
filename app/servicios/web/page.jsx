@@ -3,7 +3,7 @@ import ProySimilar from '@/app/components/proyecto-similar.jsx';
 import FotografiaLayout from './layout.jsx';
 import Image from 'next/image.js';
 import ServiciosImg from '@/app/components/servicios-img.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //IMAGENES 
 import foto1 from '@/app/assets/img/servicios/web/gartalia.jpg';
@@ -16,15 +16,15 @@ import foto7 from '@/app/assets/img/servicios/web/sanoguera.jpg';
 
 
 
-export default function FotografiaPage() {
+export default function WebPage() {
     return (
-
+    <Inner>
     <FotografiaLayout>
         <Servicios
             desktopwebm="https://www.ermo.es/videos/web/WEB_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/web/WEB_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/web/WEB_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/web/WEB_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/web/WEB_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/web/WEB_Mobile_1.mp4"
 
             servicio="Programación web, UI/UX y SEO"
            
@@ -51,7 +51,7 @@ export default function FotografiaPage() {
         <ProySimilar></ProySimilar>
 
     </FotografiaLayout>
-      
+    </Inner>
     );
   }
   

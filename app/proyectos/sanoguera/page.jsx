@@ -10,8 +10,8 @@ export default function SanogueraPage() {
         <Proyectos
             desktopwebm="https://www.ermo.es/videos/sanoguera/SANOGUERA_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/sanoguera/SANOGUERA_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/sanoguera/SANOGUERA_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/sanoguera/SANOGUERA_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/sanoguera/SANOGUERA_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/sanoguera/SANOGUERA_Mobile_1.mp4"
             cliente="Sanoguera Consultoría"
             tipo="Branding | Diseño web | Programación web | Fotografía corporativa"
             ano="2023 | 2024"

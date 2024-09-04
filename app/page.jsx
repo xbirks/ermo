@@ -22,8 +22,8 @@ export default async function HomePage() {
       <VideoIndex
         desktopwebm="https://ermo.es/videos/ermo-proyectos-2024-header-desktop.webm"
         mobilewebm="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop.webm"
-        desktopmp4="https://ermo.es/videos/ermo-proyectos-2024-header-desktop.mp4"
-        mobilemp4="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop.mp4"
+        desktopmp4="https://ermo.es/videos/ermo-proyectos-2024-header-desktop_1.mp4"
+        mobilemp4="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop_1.mp4"
       />
       <div className="master__body">
         <IndexIntro />

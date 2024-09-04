@@ -18,7 +18,7 @@ export default function Inner({children}){
       opacity: 0,
              transition: {
           duration: 1,
-          delay: 1,
+          delay: 0,
           ease: [0.76, 0, 0.24, 1]
         },
     },
@@ -26,7 +26,7 @@ export default function Inner({children}){
       opacity: 1,
              transition: {
           duration: 1.5,
-          delay: 2,
+          delay: 1,
           ease: [0.76, 0, 0.24, 1]
         },
     },
@@ -51,8 +51,8 @@ export default function Inner({children}){
       y: ["100vh", "0vh", "0vh", "-100vh"], // Array de valores para la animación
       transition: {
         duration: 4, // Duración total de la animación
-        times: [0, 0.175, 0.4, 0.5], // Controla cuándo suceden los cambios de valor
-        ease: "easeInOut", // Curva de animación suave
+        times: [0, 0.175, 0.3, 0.4], // Controla cuándo suceden los cambios de valor
+        ease: [0.76, 0, 0.24, 1], // Curva de animación suave
       }
     },
 
@@ -69,7 +69,7 @@ export default function Inner({children}){
 
   return (
     <div className="inner">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
           <motion.div {...anim(slide)} className="slide"></motion.div>
           <motion.div {...anim(opacity)} className="motionWrapper">
           {children}

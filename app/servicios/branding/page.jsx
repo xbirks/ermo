@@ -2,7 +2,7 @@ import Servicios from '@/app/components/servicios.jsx';
 import ProySimilar from '@/app/components/proyecto-similar.jsx';
 import FotografiaLayout from './layout.jsx';
 import ServiciosImg from '@/app/components/servicios-img.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //IMAGENES 
 import foto1 from '@/app/assets/img/servicios/branding/bra1.jpg';
@@ -18,15 +18,15 @@ import foto10 from '@/app/assets/img/servicios/branding/bra10.jpg';
 
 
 
-export default function FotografiaPage() {
+export default function BrandingPage() {
     return (
-
+    <Inner>
     <FotografiaLayout>
         <Servicios
             desktopwebm="https://www.ermo.es/videos/branding/BRANDING_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/branding/BRANDING_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/branding/BRANDING_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/branding/BRANDING_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/branding/BRANDING_Desktop._1mp4"
+            mobilemp4="https://www.ermo.es/videos/branding/BRANDING_Mobile_1.mp4"
 
             servicio="Identidad corporativa y branding"
            
@@ -56,7 +56,7 @@ export default function FotografiaPage() {
         <ProySimilar></ProySimilar>
 
     </FotografiaLayout>
-      
+    </Inner>
     );
   }
   

@@ -3,21 +3,21 @@ import ProySimilar from '@/app/components/proyecto-similar.jsx';
 import FotografiaLayout from './layout.jsx';
 import Image from 'next/image.js';
 import ServiciosVid from '@/app/components/servicios-vid.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //IMAGENES
 
 
 
-export default function FotografiaPage() {
+export default function AnimacionPage() {
     return (
-
+    <Inner>
     <FotografiaLayout>
         <Servicios 
             desktopwebm="https://www.ermo.es/videos/animacion/ANI_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/animacion/ANI_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/animacion/ANI_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/animacion/ANI_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/animacion/ANI_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/animacion/ANI_Mobile_1.mp4"
 
             servicio="Animación 2D y motion graphics"
            
@@ -43,7 +43,7 @@ export default function FotografiaPage() {
         <ProySimilar></ProySimilar>
 
     </FotografiaLayout>
-      
+    </Inner>
     );
   }
   

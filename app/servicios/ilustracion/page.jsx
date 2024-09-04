@@ -15,15 +15,15 @@ import dibujo6 from '@/app/assets/img/servicios/ilustracion/dibujo6.jpg';
 import dibujo7 from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
 
 
-export default function FotografiaPage() {
+export default function IlustracionPage() {
     return (
         <Inner>
     <FotografiaLayout>
         <Servicios
             desktopwebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile_1.mp4"
 
             servicio="Ilustración"
            

@@ -8,8 +8,8 @@ export default function BsnPage() {
 
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://www.ermo.es/videos/BSN_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/BSN_Mobile.mp4"
+            desktopmp4="https://www.ermo.es/videos/BSN_Desktop_1.mp4"
+            mobilemp4="https://www.ermo.es/videos/BSN_Mobile_1.mp4"
             desktopwebm="https://www.ermo.es/videos/BSN_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/BSN_Mobile.webm"
 
