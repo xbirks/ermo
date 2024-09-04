@@ -51,7 +51,7 @@ export default function Inner({children}){
       y: ["100vh", "0vh", "0vh", "-100vh"], // Array de valores para la animación
       transition: {
         duration: 4, // Duración total de la animación
-        times: [0, 0.05, 0.4, 0.6], // Controla cuándo suceden los cambios de valor
+        times: [0, 0.175, 0.4, 0.5], // Controla cuándo suceden los cambios de valor
         ease: "easeInOut", // Curva de animación suave
       }
     },

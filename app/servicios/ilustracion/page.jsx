@@ -4,6 +4,7 @@ import FotografiaLayout from './layout.jsx';
 import Image from 'next/image.js';
 import ServiciosImg from '@/app/components/servicios-img.jsx';
 import ServiciosVid from '@/app/components/servicios-vid.jsx';
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 
 //IMAGENES 
@@ -16,7 +17,7 @@ import dibujo7 from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
 
 export default function FotografiaPage() {
     return (
-
+        <Inner>
     <FotografiaLayout>
         <Servicios
             desktopwebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.webm"
@@ -49,7 +50,7 @@ export default function FotografiaPage() {
         <ProySimilar></ProySimilar>
 
     </FotografiaLayout>
-      
+    </Inner>
     );
   }
   
