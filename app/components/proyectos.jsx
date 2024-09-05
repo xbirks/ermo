@@ -5,6 +5,7 @@ import React from 'react';
 import Grid4 from "./grid-4/grid-4";
 import VideoIndex from "./video-index";
 import ProySimilar from './proyecto-similar';
+import { motion } from "framer-motion";
 
 function Proyectos({desktopwebm, mobilewebm, desktopmp4, mobilemp4, cliente,tipo, ano, descripcion, videoproyectowebm, videoproyectomp4, explicacion, image1webm, image2webm, image1mp4, image2mp4}) {
   
@@ -22,7 +23,14 @@ function Proyectos({desktopwebm, mobilewebm, desktopmp4, mobilemp4, cliente,tipo
         <div className="master__body">
           <div className="index__introduction">
             <div className="index__introduction-div">
+            <motion.div
+                initial={{ opacity: 0, transform: "translateY(30%)" }}
+                whileInView={{ opacity: 1, transform: "translateY(0%)"}}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true, amount: 0.1}}  
+            >
               <h1>{cliente}</h1>
+            </motion.div>
               <p className="proyectos__tipo">{tipo}</p>
               <p className="proyectos__ano">{ano}</p>
             </div>

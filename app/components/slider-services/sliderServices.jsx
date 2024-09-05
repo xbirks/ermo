@@ -49,32 +49,32 @@ function SliderServices() {
             >
                 <SliderServicesItem
                     nameService="Animación 2D y motion graphics"
-                    descriptionService="Damos vida a tus ideas mediante técnicas avanzadas de animación, asegurando que cada detalle refleje la identidad única de tu marca. Confía en nosotros para impulsar tu mensaje con impacto visual y una ejecución impecable."
+                    descriptionService="Revolucionamos tu comunicación visual. Nuestras animaciones no solo cautivan, sino que multiplican el engagement de tu audiencia, convirtiendo conceptos complejos en experiencias visuales inolvidables que mejoran tu mensaje."
                     link="/servicios/animacion"
                 />
                 <SliderServicesItem
                     nameService="Fotografía"
-                    descriptionService="Cada fotografía está pensada para resaltar la calidad y la singularidad de tus productos, capturando la esencia de manera impecable. Nos enfocamos en crear composiciones atractivas que atraerán y mantendrán la atención de tu audiencia, lo que te ayudará a destacar entre tu competencia y aumentar tus ventas."
+                    descriptionService="Capturamos la esencia de tu marca con imágenes que venden. Nuestras fotografías profesionales resaltan la calidad de tus productos, atrayendo clientes y disparando tus ventas."
                     link="/servicios/fotografia"
                 />
                 <SliderServicesItem
-                    nameService="Diseño web, programación, UI/UX y SEO"
-                    descriptionService="Creamos experiencias digitales que conectan. Nuestro enfoque en diseño web y UI/UX está centrado en la creación de interfaces intuitivas y atractivas que mejoran la interacción del usuario con tu marca. Y te garantizamos una navegación fluida y una estética visual que capte y mantenga la atención."
+                    nameService="Programación web, UI/UX y SEO"
+                    descriptionService="Creamos sitios web que conquistan. Combinamos diseño atractivo, experiencia de usuario intuitiva y optimización SEO para garantizar que tu presencia online destaque y convierta visitantes en clientes."
                     link="/servicios/web"
                 />
                 <SliderServicesItem
                     nameService="Ilustración"
-                    descriptionService="Nuestra pasión por la ilustración se traduce en obras únicas que capturan la esencia de tu marca y la presentan de una manera vibrante y atractiva. Nos enfocamos en crear arte visual que no solo embellece, sino que también fortalece la identidad de tu marca."
+                    descriptionService="Transformamos ideas en imágenes que hablan. Nuestras ilustraciones personalizadas no solo embellecen tu marca, sino que cuentan tu historia de forma única, creando una conexión emocional instantánea con tu público."
                     link="/servicios/ilustracion"
                 />
                 <SliderServicesItem
                     nameService="Identidad corporativa"
-                    descriptionService="Construimos identidades que perduran. Nuestra dedicación a la identidad visual corporativa asegura que cada aspecto de tu marca, desde el logotipo hasta la paleta de colores, refleje fielmente tus valores y visión. Creamos diseños coherentes y distintivos que fortalecen el reconocimiento y la presencia de tu marca en el mercado."
+                    descriptionService="Construimos identidades que perduran. Te aseguramos que cada aspecto de tu marca, desde el logotipo hasta la paleta de colores, refleje fielmente tus valores y visión. Creamos diseños coherentes y distintivos que fortalecen el reconocimiento y la presencia de tu marca en el mercado."
                     link="/servicios/branding"
                 />
                 <SliderServicesItem
                     nameService="Video"
-                    descriptionService="Contamos historias que resuenan. Nuestra especialidad en producción de video nos permite crear contenido visual dinámico y atractivo que comunica tu mensaje de manera efectiva. Capturamos momentos y emociones que conecten profundamente con tu audiencia."
+                    descriptionService="Nuestros videos no son solo contenido, son experiencias que capturan la atención, despiertan emociones y motivan acciones, convirtiendo cada visualización en una oportunidad de crecimiento para tu negocio."
                     link="/servicios/video"
                 />
             </div>

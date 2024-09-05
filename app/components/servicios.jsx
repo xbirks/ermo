@@ -4,7 +4,7 @@ import '../proyectos/proyectos.scss';
 import React, { useEffect, useState } from 'react';
 import VideoIndex from "./video-index";
 import Image from 'next/image';
-import ServicioComp from './servicios-componente';
+import { motion } from "framer-motion";
 
 function Servicios({desktopwebm, mobilewebm, desktopmp4, mobilemp4, servicio, explicacion, imgcomp1, altcomp1, destacado1, imgcomp2, altcomp2, destacado2, imgcomp3, altcomp3, destacado3, imgcomp4, altcomp4, destacado4}) {
   
@@ -23,7 +23,12 @@ function Servicios({desktopwebm, mobilewebm, desktopmp4, mobilemp4, servicio, ex
           <div className="servcomp__master">
           <div className="index__introduction service__introduction">
             <div className="index__introduction-div">
-              <h1>{servicio}</h1>
+            <motion.div
+                initial={{ opacity: 0, transform: "translateY(30%)" }}
+                whileInView={{ opacity: 1, transform: "translateY(0%)"}}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true, amount: 0.1}}  
+            ><h1>{servicio}</h1></motion.div>
             </div>
           </div>
 
