@@ -5,18 +5,18 @@ import ServiciosImg from '@/app/components/servicios-img.jsx';
 import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //IMAGENES
-import foto1 from '@/app/assets/img/servicios/MANOLO-BERNABEU-1.jpg';
-import foto2 from '@/app/assets/img/servicios/BSN(13).jpg';
-import foto3 from '@/app/assets/img/servicios/Delibreads-1.jpg';
-import foto4 from '@/app/assets/img/servicios/WAY-6.jpg';
-import foto5 from '@/app/assets/img/servicios/Delgo-53.jpg';
-import foto6 from '@/app/assets/img/servicios/_DSF3001.jpg';
-import foto7 from '@/app/assets/img/servicios/sin-título-1-Editar.png';
-import foto8 from '@/app/assets/img/servicios/Baswtones_juntos.jpg';
-import foto9 from '@/app/assets/img/servicios/Agosto_Wao_post-3.jpg';
-import foto10 from '@/app/assets/img/servicios/vino.jpg';
-import foto11 from '@/app/assets/img/servicios/principal.jpg';
-import foto12 from '@/app/assets/img/servicios/11(1).jpg';
+import foto1 from '@/app/assets/img/servicios/fotografia/MANOLO-BERNABEU-1.jpg';
+import foto2 from '@/app/assets/img/servicios/fotografia/BSN(13).jpg';
+import foto3 from '@/app/assets/img/servicios/fotografia/Delibreads-1.jpg';
+import foto4 from '@/app/assets/img/servicios/fotografia/WAY-6.jpg';
+import foto5 from '@/app/assets/img/servicios/fotografia/Delgo-53.jpg';
+import foto6 from '@/app/assets/img/servicios/fotografia/_DSF3001.jpg';
+import foto7 from '@/app/assets/img/servicios/fotografia/sin-título-1-Editar.png';
+import foto8 from '@/app/assets/img/servicios/fotografia/Baswtones_juntos.jpg';
+import foto9 from '@/app/assets/img/servicios/fotografia/Agosto_Wao_post-3.jpg';
+import foto10 from '@/app/assets/img/servicios/fotografia/vino.jpg';
+import foto11 from '@/app/assets/img/servicios/fotografia/principal.jpg';
+import foto12 from '@/app/assets/img/servicios/fotografia/11(1).jpg';
 
 //ICON
 import instagram from '@/app/assets/icon/destacados/instagram-dest.svg';
