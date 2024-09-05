@@ -8,11 +8,16 @@ import Inner from '@/app/components/Transiciones/inner.jsx';
 
 
 //IMAGENES 
-
 import dibujo2 from '@/app/assets/img/servicios/ilustracion/dibujo2.jpg';
 import dibujo3 from '@/app/assets/img/servicios/ilustracion/dibujo3.jpg';
 import dibujo6 from '@/app/assets/img/servicios/ilustracion/dibujo6.jpg';
 import dibujo7 from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
+
+//ICON
+import memo from '@/app/assets/icon/destacados/memo-dest.svg';
+import coherencia from '@/app/assets/icon/destacados/coherencia-dest.svg';
+import elevacion from '@/app/assets/icon/destacados/elevacion-dest.svg';
+import merchan from '@/app/assets/icon/destacados/borsa.png';
 
 
 export default function IlustracionPage() {
@@ -28,13 +33,26 @@ export default function IlustracionPage() {
             servicio="Ilustración"
            
             explicacion={ <>
-                En nuestro estudio hacemos ilustraciones limpias y elegantes. Abarcamos desde personajes y escenarios para videojuegos hasta ilustraciones gastronómicas y portadas de libros. Dibujamos reflejando la personalidad única de cada cliente, ya sea para campañas municipales, ayuntamientos o iniciativas culturales privadas.
+                <strong>¿Buscas ilustraciones que impacten?</strong> ¡En nuestro estudio creamos magia visual! Desde <strong>personajes</strong> de videojuegos que cobran vida hasta <strong>portadas de libros</strong> irresistibles, nuestras creaciones cautivan a primera vista. Ya sea para ayuntamientos innovadores, empresas o iniciativas culturales, capturamos la esencia única de cada proyecto en cada trazo.
                 <br></br><br></br>
-                Nuestra pasión por el detalle se extiende a la creación de conceptos visuales en 3D, ofreciendo soluciones que luego podrán ser modeladas para impresión en 3D o para animación en 3D.
+                ¿Y el mundo del <strong>3D</strong>? ¡Lo dominamos! Ofrecemos conceptos tan realistas que querrás tocarlos, perfectos animaciones que dejarán a todos boquiabiertos.
                 <br></br><br></br>
-                Te ayudamos a narrar tu historia visualmente con creatividad y precisión, asegurando que cada ilustración sea memorable y única.
+                No te conformes con lo ordinario. Deja que nuestros artistas, narren tu historia de forma inolvidable. Desde escenarios fantásticos hasta campañas municipales impactantes, cada ilustración es una obra maestra única.
             </>}
             
+            imgcomp1={memo}
+            altcomp1="icono de aumento de memorabilidad"
+            destacado1="Aumento de memorabilidad de la marca"
+            imgcomp2={coherencia}
+            altcomp2="icono de coherencia visual significativa"
+            destacado2="Coherencia visual significativa"
+            imgcomp3={elevacion}
+            altcomp3="icono de elevación del valor percibido"
+            destacado3="Elevación del valor percibido"
+            imgcomp4={merchan}
+            altcomp4="icono de merchandising más atractivo y vendible"
+            destacado4="Merchandising más atractivo y vendible"
+
         ></Servicios>
 
         <div className="servicios__imagenes master__body">

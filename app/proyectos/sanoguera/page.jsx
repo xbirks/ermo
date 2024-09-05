@@ -1,11 +1,11 @@
 import Proyectos from '../../components/proyectos.jsx';
 import SanogueraLayout from './layout.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 
 export default function SanogueraPage() {
     return (
-
+    <Inner>
     <SanogueraLayout>
         <Proyectos
             desktopwebm="https://www.ermo.es/videos/sanoguera/SANOGUERA_Desktop.webm"
@@ -34,7 +34,7 @@ export default function SanogueraPage() {
                 image2mp4="https://www.ermo.es/videos/sanoguera/SANOGUERA_mini_3.mp4"
         ></Proyectos>
     </SanogueraLayout>
-      
+    </Inner>
     );
   }
   

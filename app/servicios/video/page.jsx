@@ -4,7 +4,8 @@ import FotografiaLayout from './layout.jsx';
 import ServiciosVid from '@/app/components/servicios-vid.jsx';
 import Inner from '@/app/components/Transiciones/inner.jsx';
 
-//IMAGENES 
+//ICON
+import cohete from '@/app/assets/icon/destacados/cohete.png';
 
 
 
@@ -21,14 +22,29 @@ export default function VideoPage() {
             servicio="Video comercial, de producto y educativo"
            
             explicacion={ <>
-                Te ofrecemos la grabación de videos de calidad que captarán la atención de tus potenciales clientes en cualquier plataforma. Nuestros servicios se especializan en producir videos comerciales y educativos que destacan por su claridad y enfoque, ayudando a promover tus productos y educar a tu audiencia sobre los beneficios de tus servicios. 
+                Mira, te cuento: <strong>hacemos videos que enamoran</strong> a primera vista. 
                 <br></br><br></br>
-                Ya sea para redes sociales, como Reels, Youtube Shorts y TikToks, o videos promocionales en 4K, te garantizamos un contenido visual impactante y bien editado que aumentará tu presencia digital y fortalecerá tu estrategia de marketing.
+                ¿Sabes esos videos que no puedes dejar de ver en redes? Así de atrapantes. Ya sea para <strong>Instagram</strong>, <strong>TikTok</strong> o un anuncio súper pro en <strong>4K</strong>, te aseguro que tu mensaje llegará fuerte y claro.
                 <br></br><br></br>
-                Al elegirnos, obtendrás videos que no solo capturan la esencia de tu marca, sino que también maximizan su alcance en diversas plataformas. Nuestros videos están optimizados para captar la atención rápidamente, especialmente en formatos verticales ideales para redes sociales. Esto te permitirá conectar mejor con tu público y destacar en un mercado saturado, generando mayor interés en tus productos o servicios. Te recomendamos mezclarlo con nuestro servicio de Motion Graphics para hacer unos videos todavía más atractivos.
+                Imagina tener contenido que no solo se ve increíble, sino que además hace que la gente diga "¡Guau, quiero saber más!". Eso es lo que logramos. Tus productos brillarán y tu audiencia aprenderá sobre tus servicios sin aburrirse ni un segundo.
                 <br></br><br></br>
-                Contacta con nosotros hoy mismo para comenzar a crear videos que harán que tu marca sobresalga.
+                Y ojo, si le añadimos un toque de <strong>Motion Graphics</strong>, ¡la cosa se pone aún mejor! Es como ponerle la cereza al pastel.
+                <br></br><br></br>
+                ¿Qué dices? ¿Listo para que tu marca se robe todas las miradas? Llámanos y empecemos a crear magia juntos.
             </>}
+
+            imgcomp1={cohete}
+            altcomp1="icono de comunicación de conceptos complejos"
+            destacado1="Videos que venden más"
+            imgcomp2={cohete}
+            altcomp2="icono de viralidad en redes sociales"
+            destacado2="Engagement disparado en redes"
+            imgcomp3={cohete}
+            altcomp3="icono de diferenciación de la competencia"
+            destacado3="Retorno de inversión maximizado"
+            imgcomp4={cohete}
+            altcomp4="icono de mayor engagement con la audiencia"
+            destacado4="Credibilidad reforzada visualmente"
             
         ></Servicios>
 

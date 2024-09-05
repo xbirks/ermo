@@ -18,6 +18,12 @@ import foto10 from '@/app/assets/img/servicios/vino.jpg';
 import foto11 from '@/app/assets/img/servicios/principal.jpg';
 import foto12 from '@/app/assets/img/servicios/11(1).jpg';
 
+//ICON
+import instagram from '@/app/assets/icon/destacados/instagram-dest.svg';
+import amazon from '@/app/assets/icon/destacados/amazon-dest.svg';
+import arrow from '@/app/assets/icon/destacados/arrow-dest.svg';
+import colab from '@/app/assets/icon/destacados/colab-dest.svg';
+
 
 
 export default function FotografiaPage() {
@@ -33,14 +39,25 @@ export default function FotografiaPage() {
             servicio="Fotografía de producto, gastronómica y corporativa"
            
             explicacion={ <>
-                En ERMO sabemos que una imagen vale más que mil palabras, al menos cuando se trata de vender tus productos.
+                En ERMO entendemos algo fundamental: <strong>una foto increíble puede vender más que el mejor discurso</strong>. Nos apasiona capturar la esencia de tus productos, creando imágenes que no solo llaman la atención, sino que enamoran a primera vista.
                 <br></br><br></br>
-                Cada foto que hacemos está destinada a resaltar el carácter de tus productos, creando composiciones visuales dinámicas que resultan llamativas para tus potenciales clientes. Este método no solo otorga notoriedad a tus productos frente a otros competidores, sino que también mejora la percepción y la profesionalidad de la marca.
+                ¿El resultado? <strong>Tus productos destacan</strong> como nunca antes, y tu marca se eleva a otro nivel. No se trata solo de vender más (que lo harás), sino de crear una conexión real con tus clientes. Queremos que se enamoren de tu marca, que valoren cada detalle.
                 <br></br><br></br>
-                No solo vas a convertir más tráfico con fotos asombrosas, sino que vas a construir una clientela que ame tu marca y que ame tu producto. Que pueda y sepa valorar la apariencia y la estética.
-                <br></br><br></br>
-                Contáctanos para aprender cómo nuestras soluciones de fotografía pueden aumentar tus ventas y mejorar el valor de tu marca.
+                ¿Te imaginas el impacto que esto puede tener en tu negocio? Hablemos. Descubre cómo nuestras fotos pueden transformar tu marca y disparar tus ventas.
             </>}
+
+            imgcomp1={instagram}
+            altcomp1="Logotipo de Instagram"
+            destacado1="Mejor engagement en redes sociales"
+            imgcomp2={amazon}
+            altcomp2="Logotipo de Amazon"
+            destacado2="Aumento de ventas en e-commerce"
+            imgcomp3={arrow}
+            altcomp3="icono de cursor"
+            destacado3="Mejora de la tasa de clics (CTR)"
+            imgcomp4={colab}
+            altcomp4="icono de colaboración B2B"
+            destacado4="Facilitación de colaboraciones B2B"
             
         ></Servicios>
 

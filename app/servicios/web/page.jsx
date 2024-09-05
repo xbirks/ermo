@@ -14,6 +14,12 @@ import foto5 from '@/app/assets/img/servicios/web/diveroci.jpg';
 import foto6 from '@/app/assets/img/servicios/web/entreprendas.jpg';
 import foto7 from '@/app/assets/img/servicios/web/sanoguera.jpg';
 
+//ICON
+import iman from '@/app/assets/icon/destacados/iman.png';
+import google from '@/app/assets/icon/destacados/google-dest.svg';
+import carga from '@/app/assets/icon/destacados/carga.png';
+import responsive from '@/app/assets/icon/destacados/responsive-dest.svg';
+
 
 
 export default function WebPage() {
@@ -29,12 +35,25 @@ export default function WebPage() {
             servicio="Programación web, UI/UX y SEO"
            
             explicacion={ <>
-                En ERMO entendemos que un sitio web rápido y bien diseñado es crucial para el éxito de tu negocio en el competitivo mercado digital. Nuestro enfoque en programación web, UI/UX y SEO está diseñado para crear sitios que no solo sean estéticos, sino que también sean funcionales, fáciles de usar y optimizados para motores de búsqueda como Google.
+                ¿Sabías que tu sitio web puede ser tu mejor vendedor 24/7? En ERMO, no solo creamos webs bonitas, ¡las hacemos imparables! Imagina un sitio tan <strong>rápido</strong> que tus visitantes no tengan tiempo ni de pestañear, tan <strong>intuitivo</strong> que hasta tu tío tecnófobo pueda usarlo, y tan <strong>optimizado</strong> que Google lo quiera poner en primera fila.
                 <br></br><br></br>
-                Nuestra experiencia como diseñadores de interfaces y experiencia de usuario asegura que tu sitio no solo atraiga visitantes, sino que también los convierta en clientes, mejorando la interacción del usuario y la satisfacción general. Al mismo tiempo, nuestra estrategia SEO incrementa la visibilidad de tu sitio web, atrayendo más tráfico cualificado que puede traducirse en mayores ventas y un retorno de inversión significativo.
+                Nuestro equipo combinará <strong>diseño seductor</strong>, <strong>usabilidad</strong> inteligente y <strong>SEO</strong> ninja para crear tu arma secreta online. No solo atraemos visitas, las convertimos en fans de tu marca que no pueden evitar comprar.
                 <br></br><br></br>
-                No dejes que tu negocio se quede atrás en la era digital. Contáctanos para descubrir cómo nuestra integración de programación web, UI/UX y SEO puede elevar tu presencia online, mejorar tus tasas de conversión y fortalecer el valor de tu marca en el mercado.
+                ¿Cansado de ser invisible en internet? Deja de esconderte. Con ERMO, tu negocio brillará tanto que necesitarás gafas de sol.
             </>}
+
+            imgcomp1={iman}
+            altcomp1="icono de aumento de la tasa de conversión"
+            destacado1="Aumento de la tasa de conversión"
+            imgcomp2={google}
+            altcomp2="icono de mayor visibilidad en Google"
+            destacado2="Mayor visibilidad en Google"
+            imgcomp3={carga}
+            altcomp3="icono de reducción del tiempo de carga de la web"
+            destacado3="Reducción del tiempo de carga de la web"
+            imgcomp4={responsive}
+            altcomp4="icono de adaptabilidad a diferentes dispositivos responsive"
+            destacado4="Adaptabilidad a diferentes dispositivos"
             
         ></Servicios>
 

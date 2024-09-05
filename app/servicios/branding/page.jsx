@@ -16,6 +16,12 @@ import foto8 from '@/app/assets/img/servicios/branding/bra8.jpg';
 import foto9 from '@/app/assets/img/servicios/branding/bra9.jpg';
 import foto10 from '@/app/assets/img/servicios/branding/bra10.jpg';
 
+//ICON
+import instagram from '@/app/assets/icon/destacados/instagram-dest.svg';
+import amazon from '@/app/assets/icon/destacados/amazon-dest.svg';
+import arrow from '@/app/assets/icon/destacados/arrow-dest.svg';
+import colab from '@/app/assets/icon/destacados/colab-dest.svg';
+
 
 
 export default function BrandingPage() {
@@ -31,12 +37,25 @@ export default function BrandingPage() {
             servicio="Identidad corporativa y branding"
            
             explicacion={ <>
-                No solo creamos un logotipo que destaque, sino que desarrollamos toda la identidad visual de tu negocio, desde animaciones hasta el diseño sonoro, asegurando que tu marca conecte con tu audiencia en todos los canales. 
+                ¿Sueñas con una marca que deslumbre? En nuestro estudio no solo diseñamos logotipos impactantes, ¡creamos <strong>experiencias de marca</strong> inolvidables! Nuestro enfoque 360° abarca desde diseño gráfico hasta motion graphics, resultando en una identidad coherente y memorable que resonará en todos los canales.
                 <br></br><br></br>
-                Al contratar nuestro servicio de identidad corporativa y logotipos en Valencia, tu empresa obtendrá una imagen coherente y profesional que comunica efectivamente tus valores y visión.Además, ofrecemos fotografía profesional para capturar la esencia de tu equipo, fortaleciendo así la imagen de marca.
+                ¿Necesitas renovar tu imagen o lanzar una nueva empresa al estrellato? Estamos listos para transformar tu visión en una identidad corporativa que grite "¡Éxito!" en cada detalle. Desde tipografías únicas hasta paletas de colores que cuentan historias, crearemos un <strong>universo visual</strong> que hará que tu competencia se pregunte: "¿Cómo lo han hecho?"
                 <br></br><br></br>
-                Si estás buscando un cambio de imagen o creando una nueva empresa, contacta con nosotros para explorar cómo podemos ayudarte a desarrollar una identidad corporativa que comunique eficazmente tus valores y visión.
+                No te conformes con ser uno más. Deja que tu marca hable por sí misma y <strong>conquiste el mercado</strong>. ¿Listo para destacar? Contáctanos hoy y da el primer paso hacia una identidad de marca extraordinaria.
             </>}
+
+            imgcomp1={instagram}
+            altcomp1="Logotipo de Instagram"
+            destacado1="Mayor reconocimiento de marca"
+            imgcomp2={amazon}
+            altcomp2="Logotipo de Amazon"
+            destacado2="Aumento de lealtad cliente"
+            imgcomp3={arrow}
+            altcomp3="icono de cursor"
+            destacado3="Diferenciación competitiva"
+            imgcomp4={colab}
+            altcomp4="icono de colaboración B2B"
+            destacado4="Coherencia visual de marca"
             
         ></Servicios>
 

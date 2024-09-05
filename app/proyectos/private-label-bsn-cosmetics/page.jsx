@@ -1,11 +1,11 @@
 import Proyectos from '../../components/proyectos.jsx';
 import BsnLayout from './layout.jsx';
-
+import Inner from '@/app/components/Transiciones/inner.jsx';
 
 
 export default function BsnPage() {
     return (
-
+    <Inner>
     <BsnLayout>
         <Proyectos
             desktopmp4="https://www.ermo.es/videos/BSN_Desktop_1.mp4"
@@ -35,7 +35,7 @@ export default function BsnPage() {
             image2webm="https://www.ermo.es/videos/BSN_mini_2.webm"
         ></Proyectos>
     </BsnLayout>
-      
+    </Inner>
     );
   }
   

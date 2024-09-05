@@ -148,6 +148,10 @@ a{
     text-shadow: none; /* Sin sombra de texto */
 }
 
+strong{
+    font-weight: 600;
+}
+
 
 
 
@@ -184,6 +188,7 @@ a{
 
 .comboButton{
     display: flex;
+    margin-top: 20px;
 
     @include media500px {
         display: block;
@@ -1018,9 +1023,9 @@ a:hover .curzr-big-circle {
 }
 
 .servicios__explicacion{
-    column-count: 2;
-    column-gap: 30px;
-    margin-top: 0px;
+    // column-count: 2;
+    // column-gap: 30px;
+    // margin-top: 0px;
 
     @include media900px {
         column-count: 1;
@@ -1169,7 +1174,8 @@ a:hover .curzr-big-circle {
                     text-transform: uppercase;
                     vertical-align: center;
                     margin-top: 12px;
-                    line-height: 22px;
+                    line-height: 20px;
+                    font-size: 16px;
 
                     @include media600px {
                         font-size: 14px;
@@ -1193,9 +1199,8 @@ a:hover .curzr-big-circle {
             }
         }
 
-        strong{
-            font-weight: 800;
-        }
+
 
     }
 }
+
