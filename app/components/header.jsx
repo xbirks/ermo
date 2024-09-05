@@ -35,7 +35,7 @@ const MenuButton = ({ buttonName, buttonEnlace, closeMenu }) => (
 const MenuSlider = ({ menuOpen, closeMenu }) => (
   <div className={`menu__slider ${menuOpen ? 'mostrar' : ''}`}>
     <div className="menu__slider-container">
-      <MenuButton buttonName="Proyectos" buttonEnlace="#" closeMenu={closeMenu} />
+      <MenuButton buttonName="Proyectos" buttonEnlace="/proyectos/principal" closeMenu={closeMenu} />
       <MenuButton buttonName="Servicios" buttonEnlace="/servicios/principal" closeMenu={closeMenu} />
       <MenuButton buttonName="Equipo" buttonEnlace="#" closeMenu={closeMenu} />
       <MenuButton buttonName="Contacto" buttonEnlace="#" closeMenu={closeMenu} />

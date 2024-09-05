@@ -80,19 +80,19 @@ return(
 
             <FooterItem
                 title=""
-                link="/not-found"
+                link="/legal/politica-de-privacidad"
                 textButton="Política de privacidad"
             />
 
             <FooterItem
                 title=""
-                link="/not-found"
+                link="/legal/aviso-de-cookies"
                 textButton="Política de cookies"
             />
 
             <FooterItem
                 title=""
-                link="/not-found"
+                link="/legal/aviso-legal"
                 textButton="Aviso legal"
             />
 

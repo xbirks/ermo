@@ -188,7 +188,7 @@ strong{
 
 .comboButton{
     display: flex;
-    margin-top: 20px;
+    margin-top: 50px;
 
     @include media500px {
         display: block;
@@ -997,8 +997,8 @@ a:hover .curzr-big-circle {
 
     h1{
         @include media900px {
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-left: 0px;
+            margin-right: 0px;
             }
     }
 }
@@ -1111,6 +1111,8 @@ a:hover .curzr-big-circle {
         }
 
         .servcomp__img{ 
+
+            margin-bottom: 80px;
         
             img{
                 border-radius: 10px;
@@ -1140,6 +1142,9 @@ a:hover .curzr-big-circle {
         @include media1000px {
             display: block;
         }
+        @include media800px {
+            margin-top: 0px;
+        }
 
         .servcomp__destacado{
             display: grid;
@@ -1149,7 +1154,7 @@ a:hover .curzr-big-circle {
             max-height: 200px;
 
             @include media1000px {
-                margin-top: 40px;
+                margin-top: 100px;
                 max-height: 100%;
                 margin-bottom: 40px;
             }
@@ -1202,3 +1207,22 @@ a:hover .curzr-big-circle {
     }
 }
 
+
+
+//LEGAL
+
+.legal{
+
+
+    @include media900px {
+        margin: 0px 20px 0px 20px;
+    }
+    
+    h2{
+        margin-bottom: 10px;
+    }
+
+    p{
+        margin-bottom: 30px;
+    }
+}

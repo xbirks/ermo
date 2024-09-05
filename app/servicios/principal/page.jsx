@@ -34,7 +34,7 @@ import cohete from '@/app/assets/icon/destacados/cohete.png';
 
 
 
-export default function FotografiaPage() {
+export default function ServiciosPrincipalPage() {
     return (
     <Inner>
 
@@ -79,7 +79,7 @@ export default function FotografiaPage() {
         altcomp4="icono de colaboración B2B"
         destacado4="Facilitación de colaboraciones B2B"
 
-        btn1link="servicios/fotografia"
+        btn1link="/servicios/fotografia"
         btn1title="ver fotos"
         btn2link="/"
         btn2title="contratar"
