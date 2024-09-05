@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Inner from "@/app/components/Transiciones/inner";
 
 //IMAGENES
-import imgfoto from '@/app/assets/img/servicios/principal.jpg';
+import imgfoto from '@/app/assets/img/servicios/fotografia/principal.jpg';
 import imgilustracion from '@/app/assets/img/servicios/ilustracion/dibujo3.jpg';
 import imgweb from '@/app/assets/img/servicios/web/diveroci.jpg';
 import imganimacion from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
