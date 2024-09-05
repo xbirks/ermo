@@ -39,7 +39,7 @@ export default function BrandingPage() {
             explicacion={ <>
                 ¿Sueñas con una marca que deslumbre? En nuestro estudio no solo diseñamos logotipos impactantes, ¡creamos <strong>experiencias de marca</strong> inolvidables! Nuestro enfoque 360° abarca desde diseño gráfico hasta motion graphics, resultando en una identidad coherente y memorable que resonará en todos los canales.
                 <br></br><br></br>
-                ¿Necesitas renovar tu imagen o lanzar una nueva empresa al estrellato? Estamos listos para transformar tu visión en una identidad corporativa que grite "¡Éxito!" en cada detalle. Desde tipografías únicas hasta paletas de colores que cuentan historias, crearemos un <strong>universo visual</strong> que hará que tu competencia se pregunte: "¿Cómo lo han hecho?"
+                ¿Necesitas renovar tu imagen o lanzar una nueva empresa al estrellato? Estamos listos para transformar tu visión en una identidad corporativa que grite &quot;¡Éxito!&quot; en cada detalle. Desde tipografías únicas hasta paletas de colores que cuentan historias, crearemos un <strong>universo visual</strong> que hará que tu competencia se pregunte: &quot;¿Cómo lo han hecho?&quot;
                 <br></br><br></br>
                 No te conformes con ser uno más. Deja que tu marca hable por sí misma y <strong>conquiste el mercado</strong>. ¿Listo para destacar? Contáctanos hoy y da el primer paso hacia una identidad de marca extraordinaria.
             </>}

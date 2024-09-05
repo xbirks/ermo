@@ -26,7 +26,7 @@ export default function VideoPage() {
                 <br></br><br></br>
                 ¿Sabes esos videos que no puedes dejar de ver en redes? Así de atrapantes. Ya sea para <strong>Instagram</strong>, <strong>TikTok</strong> o un anuncio súper pro en <strong>4K</strong>, te aseguro que tu mensaje llegará fuerte y claro.
                 <br></br><br></br>
-                Imagina tener contenido que no solo se ve increíble, sino que además hace que la gente diga "¡Guau, quiero saber más!". Eso es lo que logramos. Tus productos brillarán y tu audiencia aprenderá sobre tus servicios sin aburrirse ni un segundo.
+                Imagina tener contenido que no solo se ve increíble, sino que además hace que la gente diga &quot;¡Guau, quiero saber más!&quot;. Eso es lo que logramos. Tus productos brillarán y tu audiencia aprenderá sobre tus servicios sin aburrirse ni un segundo.
                 <br></br><br></br>
                 Y ojo, si le añadimos un toque de <strong>Motion Graphics</strong>, ¡la cosa se pone aún mejor! Es como ponerle la cereza al pastel.
                 <br></br><br></br>

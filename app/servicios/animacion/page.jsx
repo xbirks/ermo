@@ -28,7 +28,7 @@ export default function AnimacionPage() {
             explicacion={ <>
                 ¿Te imaginas tus productos <strong>cobrando vida</strong> en la pantalla? En ERMO, eso es exactamente lo que hacemos. Nuestras animaciones con After Effects no son solo bonitas, son pura magia visual que hace que tu marca brille.
                 <br></br><br></br>
-                Ya sea en Instagram, YouTube o donde quieras arrasar, creamos contenido que hace que la gente se detenga, mire y diga "¡Guau!". <strong>¿Tienes un curso online o un producto complejo?</strong> Lo convertimos en algo tan claro y atractivo que hasta tu abuela lo entenderá (y le encantará).
+                Ya sea en Instagram, YouTube o donde quieras arrasar, creamos contenido que hace que la gente se detenga, mire y diga &quot;¡Guau!&quot;. <strong>¿Tienes un curso online o un producto complejo?</strong> Lo convertimos en algo tan claro y atractivo que hasta tu abuela lo entenderá (y le encantará).
                 <br></br><br></br>
                 No te quedes atrás. Hablemos y descubre cómo podemos hacer que tu marca no solo se vea, sino que se recuerde. Con ERMO, tu mensaje no solo llega, impacta. ¿Listo para revolucionar tu presencia digital?
             </>}
