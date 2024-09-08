@@ -1209,6 +1209,9 @@ a:hover .curzr-big-circle {
 
 
 
+
+
+
 //LEGAL
 
 .legal{
@@ -1224,5 +1227,152 @@ a:hover .curzr-big-circle {
 
     p{
         margin-bottom: 30px;
+    }
+}
+
+
+
+
+
+
+
+
+//ARTICULO
+
+.articulo{
+
+    padding-top: 15vh;
+
+    h1{
+        @include media900px {
+            padding: 0px 10vw 0px 10vw;
+        }
+        @include media600px {
+            padding: 0px 20px 0px 20px;
+        }
+    }
+
+    .articulo-div{
+        display: flex;
+        margin-top: 10vh;
+
+        @include media900px {
+            display: block;
+            padding: 0px 10vw 0px 10vw;
+        }
+        @include media600px {
+            padding: 0px 20px 0px 20px;
+        }
+
+        .articulo-contenido{
+            margin-right: 100px;
+
+            @include media900px {
+                margin-right: 0px;
+            }
+
+            h2{
+                margin-bottom: 3vh;
+            }
+
+            p{
+                margin-bottom: 8vh;
+            }
+        }
+
+        .articulo-nav{
+            width: auto;
+            min-width: 300px;
+            position: sticky;
+            height: 100%;
+            top: 20vh;
+
+            @include media900px {
+                position: relative;
+                top: 0px;
+                min-width: 0;
+            }
+
+            .articulo-nav__autor{
+
+                display: flex;
+                margin-bottom: 5vh;
+
+                .articulo-nav__autor-color{
+                    background-color: $azul-ermo;
+                    width: 30px;
+                    height: auto;
+                    border-radius: 5px;
+                    margin-right: 8px;
+                }
+
+                p{
+                    color: $gris-ermo;
+                    font-family: $neue;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px;
+                    letter-spacing: -0.28px;
+                }
+            }
+
+            .articulo-nav__articulos{
+                margin-bottom: 5vh;
+
+                .articulo-nav__title{
+                    color: $azul-ermo;
+                    font-family: $owners;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 14px;
+                    letter-spacing: 0.8px;
+                    text-transform: uppercase;
+                    margin-bottom: 15px;
+                }
+
+                .articulo-nav__destacado{
+
+                    border-radius: 8px;
+                    background: #323232;
+                    padding: 8px;
+                    margin-bottom: 8px;
+                    &:hover{
+                        background-color: $azul-ermo;
+                    }
+
+                    p{
+                        color: $blanco-ermo;
+                        font-family: $owners;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px; 
+                        letter-spacing: 0.6px;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+
+            .button{
+                padding: 8px 16px 8px 16px;
+                max-width: 140px;
+                background-color: $azul-ermo;
+                    &:hover{
+                        background-color: $negro-ermo;
+                        border-color: $negro-ermo;
+                    }
+
+                p{
+                    font-size: 14px;
+                    color: $blanco-ermo;
+                }
+
+                .arrow__svg{
+                    fill: $blanco-ermo;
+                }
+            }
+        }
     }
 }
