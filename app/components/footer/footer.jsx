@@ -32,7 +32,7 @@ return(
             />
 
             <StandardButton
-            link="/not-found"
+            link="/proyectos/principal"
             title="Proyectos"
             style="mt-xs"
             />
@@ -44,13 +44,13 @@ return(
             <FooterItem
                 title="Mándanos un mail"
                 link="mailto:hola@soyandres.es"
-                textButton="hola@ermo.es"
+                textButton="hola@soyandres.es"
             />
 
             <FooterItem
                 title="Danos un toque"
-                link="tel:675392216"
-                textButton="675 392 216"
+                link="tel:632473114"
+                textButton="632 473 114"
             />
 
             <FooterItem

@@ -14,20 +14,20 @@ import imgweb from '@/app/assets/img/servicios/web/diveroci.jpg';
 import imganimacion from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
 
 //ICON
-import instagram from '@/app/assets/icon/destacados/instagram-dest.svg';
-import amazon from '@/app/assets/icon/destacados/amazon-dest.svg';
-import arrow from '@/app/assets/icon/destacados/arrow-dest.svg';
-import colab from '@/app/assets/icon/destacados/colab-dest.svg';
-import memo from '@/app/assets/icon/destacados/memo-dest.svg';
-import coherencia from '@/app/assets/icon/destacados/coherencia-dest.svg';
-import elevacion from '@/app/assets/icon/destacados/elevacion-dest.svg';
+import instagram from '@/app/assets/icon/destacados/instagram.png';
+import amazon from '@/app/assets/icon/destacados/amazon.png';
+import arrow from '@/app/assets/icon/destacados/arrow.png';
+import colab from '@/app/assets/icon/destacados/punos.png';
+import memo from '@/app/assets/icon/destacados/pensar.png';
+import coherencia from '@/app/assets/icon/destacados/coherencia.png';
+import elevacion from '@/app/assets/icon/destacados/elevacion.png';
 import merchan from '@/app/assets/icon/destacados/borsa.png';
 import iman from '@/app/assets/icon/destacados/iman.png';
-import google from '@/app/assets/icon/destacados/google-dest.svg';
+import google from '@/app/assets/icon/destacados/google.png';
 import carga from '@/app/assets/icon/destacados/carga.png';
-import responsive from '@/app/assets/icon/destacados/responsive-dest.svg';
-import comunicacion from '@/app/assets/icon/destacados/comunicacion-dest.svg';
-import viralidad from '@/app/assets/icon/destacados/viralidad-dest.svg';
+import responsive from '@/app/assets/icon/destacados/responsive.png';
+import comunicacion from '@/app/assets/icon/destacados/comunicacion.png';
+import viralidad from '@/app/assets/icon/destacados/viralidad.png';
 import competencia from '@/app/assets/icon/destacados/competencia-dest.svg';
 import cohete from '@/app/assets/icon/destacados/cohete.png';
 

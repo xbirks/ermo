@@ -73,7 +73,7 @@ function GridAll() {
             />
         
         <StandardButton
-        link="/"
+        link="https://wa.me/message/HJYSEK4RPLOSI1"
         title="Pedir presupuesto"
         style="mt-l margin-auto"
       />

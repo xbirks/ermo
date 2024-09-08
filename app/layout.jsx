@@ -10,10 +10,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata = {
 
   //GENERIC
-  title: 'ERMO | Estudio de diseño gráfico',
-  description: 'Estudio de diseño gráfico en Manises: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto. Creatividad y compromiso.',
+  title: 'ERMO | Estudio de diseño gráfico en Valencia',
+  description: 'Branding, ilustración, animación 2D/3D, diseño web y fotografía de producto. Creatividad y compromiso.',
   applicationName: 'ERMO',
-  keywords: ['diseño gráfico en Manises', 'estudio de diseño gráfico en Manises', 'branding en Manises', 'ilustración en Manises', 'animación 2D en Manises', 'animación 3D en Manises', 'diseño web en Manises', 'fotografía de producto en Manises', 'diseñador gráfico en Manises', 'diseñador gráfico en Valencia', 'creatividad en Manises', 'marketing digital en Manises', 'diseño de logos en Manises', 'identidad corporativa en Manises', 'diseño de interiores en Manises', 'diseño de packaging en Manises', 'diseño de folletos en Manises', 'diseño de carteles en Manises', 'desarrollo de marca en Manises', 'consultoría de diseño en Manises', 'diseñador gráfico Manises'],
+  keywords: ['diseño gráfico en Valencia', 'estudio de diseño gráfico en Manises', 'branding en Manises', 'ilustración en Manises', 'animación 2D en Manises', 'animación 3D en Manises', 'diseño web en Manises', 'fotografía de producto en Manises', 'diseñador gráfico en Manises', 'diseñador gráfico en Valencia', 'creatividad en Manises', 'marketing digital en Manises', 'diseño de logos en Manises', 'identidad corporativa en Manises', 'diseño de interiores en Manises', 'diseño de packaging en Manises', 'diseño de folletos en Manises', 'diseño de carteles en Manises', 'desarrollo de marca en Manises', 'consultoría de diseño en Manises', 'diseñador gráfico Manises'],
   authors: [{ name: 'Andrés Ortega', url: 'https://soyandres.es' }],
   creator: 'Andrés Ortega',
   publisher: 'Andrés Ortega',
@@ -28,7 +28,7 @@ export const metadata = {
   
   // META
   openGraph: {
-    title: 'ERMO | Estudio de diseño gráfico',
+    title: 'ERMO | Estudio de diseño gráfico en Valencia',
     description: 'Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.',
     url: 'https://ermo.es',
     type: 'website',
@@ -40,16 +40,16 @@ export const metadata = {
         alt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',
       },
     ],
-    site_name: 'ERMO | Estudio de diseño gráfico',
+    site_name: 'ERMO | Estudio de diseño gráfico en Valencia',
     locale: 'es_ES',
   },
 
   // TWITTER
   twitter: {
-    card: 'ERMO | Estudio de diseño gráfico',
+    card: 'ERMO | Estudio de diseño gráfico en Valencia',
     site: '@ermo.es',
     creator: '@ermo.es',
-    title: 'ERMO | Estudio de diseño gráfico',
+    title: 'ERMO | Estudio de diseño gráfico en Valencia',
     description: 'Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.',
     image: 'https://ermo.es/seo/twitter-1200-600.jpg',
     imageAlt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',

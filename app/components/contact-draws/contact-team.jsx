@@ -45,7 +45,7 @@ function ContactTeam() {
         
  <Spacer className="spacer-m" />
             <StandardButtonWhite
-            link="/not-found"
+            link="https://wa.me/message/HJYSEK4RPLOSI1"
             title="¡Café!"
             style="post__button post__button-center"
             />
@@ -53,7 +53,7 @@ function ContactTeam() {
 <Spacer className="spacer-s" />
 
             <StandardButtonWhite
-            link="/not-found"
+            link="https://wa.me/message/HJYSEK4RPLOSI1"
             title="Refresco :)"
             style="post__button post__button-center"
             />

@@ -38,10 +38,10 @@ const MenuSlider = ({ menuOpen, closeMenu }) => (
       <MenuButton buttonName="Proyectos" buttonEnlace="/proyectos/principal" closeMenu={closeMenu} />
       <MenuButton buttonName="Servicios" buttonEnlace="/servicios/principal" closeMenu={closeMenu} />
       <MenuButton buttonName="Equipo" buttonEnlace="#" closeMenu={closeMenu} />
-      <MenuButton buttonName="Contacto" buttonEnlace="#" closeMenu={closeMenu} />
+      <MenuButton buttonName="Contacto" buttonEnlace="https://wa.me/message/HJYSEK4RPLOSI1" closeMenu={closeMenu} />
       <div className="menu__button-cafe">
         <div className="button">
-          <MenuButton buttonName="Te invito a un café" buttonEnlace="tel:+34675392216" closeMenu={closeMenu} />
+          <MenuButton buttonName="Te invito a un café" buttonEnlace="https://wa.me/message/HJYSEK4RPLOSI1" closeMenu={closeMenu} />
         </div>
       </div>
     </div>

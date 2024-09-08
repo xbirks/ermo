@@ -6,8 +6,8 @@ function Contacto(){
 
         <div className="proyectos__split-btn">
             <StandardButton
-                link="tel:+34675392216"
-                title="Contacto"
+                link="https://wa.me/message/HJYSEK4RPLOSI1"
+                title="Whatsapp"
                 style=""
             ></StandardButton>
 
