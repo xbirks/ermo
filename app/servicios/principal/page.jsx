@@ -81,7 +81,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="/servicios/fotografia"
         btn1title="ver fotos"
-        btn2link="/"
+        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
     ></ServicioComp>
 
@@ -111,7 +111,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="servicios/ilustracion"
         btn1title="ver más"
-        btn2link="/"
+        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
     ></ServicioComp>
 
@@ -143,7 +143,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="servicios/web"
         btn1title="ver webs"
-        btn2link="/"
+        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
     ></ServicioComp>
 
@@ -175,7 +175,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="servicios/animacion"
         btn1title="ver más"
-        btn2link="/"
+        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
     ></ServicioComp>
 

@@ -24,7 +24,7 @@ function ContactTeam() {
 
             <Spacer className="spacer-m" />
             <StandardButtonWhite
-            link="/not-found"
+            link="https://www.instagram.com/ermostudio/"
             title="Equipo"
             style="post__button post__button-center"
             />
