@@ -4,7 +4,7 @@ function HomePage(){
 
   return(
 
-    <IndexMaster municipio="Cuenca"></IndexMaster>
+    <IndexMaster municipio="Mislata"></IndexMaster>
 
   );
 

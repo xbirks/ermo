@@ -13,7 +13,7 @@ function SliderServicesItem({ nameService, descriptionService, link }) {
     );
 }
 
-function SliderServices() {
+function SliderServices({municipio}) {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const sliderRef = useRef(null);
@@ -48,32 +48,32 @@ function SliderServices() {
                 onMouseMove={handleMouseMove}
             >
                 <SliderServicesItem
-                    nameService="Animación 2D y motion graphics"
+                    nameService={<>Animación 2D y motion graphics {municipio}</>}
                     descriptionService="Revolucionamos tu comunicación visual. Nuestras animaciones no solo cautivan, sino que multiplican el engagement de tu audiencia, convirtiendo conceptos complejos en experiencias visuales inolvidables que mejoran tu mensaje."
                     link="/servicios/animacion"
                 />
                 <SliderServicesItem
-                    nameService="Fotografía"
+                    nameService={<>Fotografía {municipio}</>}
                     descriptionService="Capturamos la esencia de tu marca con imágenes que venden. Nuestras fotografías profesionales resaltan la calidad de tus productos, atrayendo clientes y disparando tus ventas."
                     link="/servicios/fotografia"
                 />
                 <SliderServicesItem
-                    nameService="Programación web, UI/UX y SEO"
+                    nameService={<>Programación web, UI/UX y SEO {municipio}</>}
                     descriptionService="Creamos sitios web que conquistan. Combinamos diseño atractivo, experiencia de usuario intuitiva y optimización SEO para garantizar que tu presencia online destaque y convierta visitantes en clientes."
                     link="/servicios/web"
                 />
                 <SliderServicesItem
-                    nameService="Ilustración"
+                    nameService={<>Ilustración {municipio}</>}
                     descriptionService="Transformamos ideas en imágenes que hablan. Nuestras ilustraciones personalizadas no solo embellecen tu marca, sino que cuentan tu historia de forma única, creando una conexión emocional instantánea con tu público."
                     link="/servicios/ilustracion"
                 />
                 <SliderServicesItem
-                    nameService="Identidad corporativa"
+                    nameService={<>Identidad corporativa {municipio}</>}
                     descriptionService="Construimos identidades que perduran. Te aseguramos que cada aspecto de tu marca, desde el logotipo hasta la paleta de colores, refleje fielmente tus valores y visión. Creamos diseños coherentes y distintivos que fortalecen el reconocimiento y la presencia de tu marca en el mercado."
                     link="/servicios/branding"
                 />
                 <SliderServicesItem
-                    nameService="Video"
+                    nameService={<>Video {municipio}</>}
                     descriptionService="Nuestros videos no son solo contenido, son experiencias que capturan la atención, despiertan emociones y motivan acciones, convirtiendo cada visualización en una oportunidad de crecimiento para tu negocio."
                     link="/servicios/video"
                 />
