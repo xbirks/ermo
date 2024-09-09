@@ -17,10 +17,10 @@ import foto9 from '@/app/assets/img/servicios/branding/bra9.jpg';
 import foto10 from '@/app/assets/img/servicios/branding/bra10.jpg';
 
 //ICON
-import instagram from '@/app/assets/icon/destacados/instagram-dest.svg';
-import amazon from '@/app/assets/icon/destacados/amazon-dest.svg';
-import arrow from '@/app/assets/icon/destacados/arrow-dest.svg';
-import colab from '@/app/assets/icon/destacados/colab-dest.svg';
+import instagram from '@/app/assets/icon/destacados/instagram.png';
+import amazon from '@/app/assets/icon/destacados/elevacion.png';
+import arrow from '@/app/assets/icon/destacados/cohete.png';
+import colab from '@/app/assets/icon/destacados/coherencia.png';
 
 
 

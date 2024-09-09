@@ -50,7 +50,7 @@ function GridAll() {
 
 <Grid4Item
               title="Delibreads"
-              description="Animaciones en 2D para supermercados Consum, diseñadas para resaltar sus valores de sostenibilidad y comunidad en campañas de redes sociales y televisión. Este proyecto fue realizado en colaboración con la agencia de publicidad WAY."
+              description="Sesión de fotografía de producto destacando las tortillas de trigo que venden en Mercadona, junto con imágenes gastronómicas que muestran su versatilidad en variadas recetas. Además, produjimos videos cortos para IG Reels y TikTok."
               thumbnailSrc="https://ermo.es/videos/05_project_ERMO.webm"
               link="/not-found"
               altAtribute="Animación en 2D para Consum, destacando la frescura y sostenibilidad de sus productos en una campaña de redes sociales."
@@ -58,7 +58,7 @@ function GridAll() {
                         
             <Grid4Item
               title="Delgo"
-              description="Fotografía de producto y lifestyle para los hielos de Cubers. Destacando la belleza sin adulterar de su hielo y el diseño único de sus Ice Balls. También creamos contenido animado para sus plataformas de redes sociales, con las que aumentamos su presencia digital."
+              description="Fotografía de arquitectura interior y exterior de las nuevas oficinas de Delgo (empresa de Logística), enfocada en destacar la modernización y la funcionalidad de sus espacios."
               thumbnailSrc="https://ermo.es/videos/06_project_ERMO.webm"
               link="/not-found"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
@@ -66,7 +66,7 @@ function GridAll() {
 
             <Grid4Item
               title="Helados Estiu"
-              description="Fotografía de producto y lifestyle para los hielos de Cubers. Destacando la belleza sin adulterar de su hielo y el diseño único de sus Ice Balls. También creamos contenido animado para sus plataformas de redes sociales, con las que aumentamos su presencia digital."
+              description="Para Wao Mochi (Helados Estiu), hemos diseñado una exclusiva serie de fotografías gastronómicas que se distinguen por sus combinaciones de colores llamativas y composiciones minimalistas. Se resalta la textura cremosa y los deliciosos sabores tropicales de los mochis."
               thumbnailSrc="https://ermo.es/videos/07_project_ERMO.webm"
               link="/not-found"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."

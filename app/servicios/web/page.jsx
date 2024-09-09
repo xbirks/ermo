@@ -16,9 +16,9 @@ import foto7 from '@/app/assets/img/servicios/web/sanoguera.jpg';
 
 //ICON
 import iman from '@/app/assets/icon/destacados/iman.png';
-import google from '@/app/assets/icon/destacados/google-dest.svg';
+import google from '@/app/assets/icon/destacados/google.png';
 import carga from '@/app/assets/icon/destacados/carga.png';
-import responsive from '@/app/assets/icon/destacados/responsive-dest.svg';
+import responsive from '@/app/assets/icon/destacados/responsive.png';
 
 
 

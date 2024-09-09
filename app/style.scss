@@ -1089,12 +1089,12 @@ a:hover .curzr-big-circle {
 
     .servcomp__principal{
         display: grid;
-        grid-template-columns: 1fr 22vw;
+        grid-template-columns: 1fr 400px;
         gap: 100px;
 
         @include media1850px {
             gap: 40px;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 400px;
         }
         @include media1000px {
             display: block;
@@ -1131,13 +1131,13 @@ a:hover .curzr-big-circle {
 
     .servcomp__secundario{
         display: grid;
-        grid-template-columns: 1fr 22vw;
+        grid-template-columns: 1fr 400px;
         gap: 100px;
         margin-top: 40px;
 
         @include media1850px {
             gap: 40px;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 400px;
         }
         @include media1000px {
             display: block;
@@ -1152,6 +1152,8 @@ a:hover .curzr-big-circle {
             gap: 10px;
             height: auto;
             max-height: 200px;
+            position: sticky;
+            top: 200px;
 
             @include media1000px {
                 margin-top: 100px;
@@ -1163,8 +1165,7 @@ a:hover .curzr-big-circle {
             .servcomp__component{
                 background-color: $azul-ermo;
                 border-radius: 10px;
-                height: 90px;
-                padding: 20px 10px 20px 10px;
+                height: auto;
 
                 &:hover{
                     background-color: $negro-ermo;
@@ -1179,6 +1180,7 @@ a:hover .curzr-big-circle {
                     margin-top: 12px;
                     line-height: 20px;
                     font-size: 16px;
+                    padding: 0px 10px 20px 10px;
 
                     @include media600px {
                         font-size: 14px;
@@ -1192,6 +1194,7 @@ a:hover .curzr-big-circle {
                     align-self: center;
                     height: 40px;
                     width: auto;
+                    padding-top: 20px;
                 }
 
                 .servcomp__img-container{

@@ -19,10 +19,10 @@ import foto11 from '@/app/assets/img/servicios/fotografia/principal.jpg';
 import foto12 from '@/app/assets/img/servicios/fotografia/11(1).jpg';
 
 //ICON
-import instagram from '@/app/assets/icon/destacados/instagram-dest.svg';
-import amazon from '@/app/assets/icon/destacados/amazon-dest.svg';
-import arrow from '@/app/assets/icon/destacados/arrow-dest.svg';
-import colab from '@/app/assets/icon/destacados/colab-dest.svg';
+import instagram from '@/app/assets/icon/destacados/instagram.png';
+import amazon from '@/app/assets/icon/destacados/amazon.png';
+import arrow from '@/app/assets/icon/destacados/arrow.png';
+import colab from '@/app/assets/icon/destacados/punos.png';
 
 
 

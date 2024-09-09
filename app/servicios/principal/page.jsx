@@ -71,7 +71,7 @@ export default function ServiciosPrincipalPage() {
         destacado1="Mejor engagement en redes sociales"
         imgcomp2={amazon}
         altcomp2="Logotipo de Amazon"
-        destacado2="Aumento de ventas en e-commerce"
+        destacado2={ <>Aumento de ventas en <wbr />e-commerce</>}
         imgcomp3={arrow}
         altcomp3="icono de cursor"
         destacado3="Mejora de la tasa de clics (CTR)"
@@ -98,7 +98,7 @@ export default function ServiciosPrincipalPage() {
         La inversión en ilustración profesional también se traduce en una elevación del valor percibido de los productos o servicios de la empresa. Las infografías ilustradas facilitan la comprensión de información compleja, mejorando la retención de información por parte de los usuarios. Asimismo, la adaptabilidad de los elementos visuales a diferentes formatos permite crear materiales de marketing únicos y merchandising más atractivo.</>}
         imgcomp1={memo}
         altcomp1="icono de aumento de memorabilidad"
-        destacado1="Aumento de memorabilidad de la marca"
+        destacado1="Aumento de memorabilidad de marca"
         imgcomp2={coherencia}
         altcomp2="icono de coherencia visual significativa"
         destacado2="Coherencia visual significativa"

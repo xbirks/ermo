@@ -6,10 +6,10 @@ import ServiciosVid from '@/app/components/servicios-vid.jsx';
 import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //ICON
-import comunicacion from '@/app/assets/icon/destacados/comunicacion-dest.svg';
-import viralidad from '@/app/assets/icon/destacados/viralidad-dest.svg';
+import comunicacion from '@/app/assets/icon/destacados/comunicacion.png';
+import viralidad from '@/app/assets/icon/destacados/viralidad.png';
 import cohete from '@/app/assets/icon/destacados/cohete.png';
-import colab from '@/app/assets/icon/destacados/colab-dest.svg';
+import colab from '@/app/assets/icon/destacados/comentario.png';
 
 
 

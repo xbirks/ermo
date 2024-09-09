@@ -14,10 +14,10 @@ import dibujo6 from '@/app/assets/img/servicios/ilustracion/dibujo6.jpg';
 import dibujo7 from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
 
 //ICON
-import memo from '@/app/assets/icon/destacados/memo-dest.svg';
-import coherencia from '@/app/assets/icon/destacados/coherencia-dest.svg';
-import elevacion from '@/app/assets/icon/destacados/elevacion-dest.svg';
-import merchan from '@/app/assets/icon/destacados/borsa.png';
+import memo from '@/app/assets/icon/destacados/pensar.png';
+import coherencia from '@/app/assets/icon/destacados/comunicacion.png';
+import elevacion from '@/app/assets/icon/destacados/elevacion.png';
+import merchan from '@/app/assets/icon/destacados/bolsa-top.png';
 
 
 export default function IlustracionPage() {

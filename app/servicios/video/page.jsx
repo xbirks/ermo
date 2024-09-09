@@ -5,7 +5,10 @@ import ServiciosVid from '@/app/components/servicios-vid.jsx';
 import Inner from '@/app/components/Transiciones/inner.jsx';
 
 //ICON
+import elevacion from '@/app/assets/icon/destacados/elevacion.png';
 import cohete from '@/app/assets/icon/destacados/cohete.png';
+import retorno from '@/app/assets/icon/destacados/carga.png';
+import iman from '@/app/assets/icon/destacados/iman.png';
 
 
 
@@ -33,16 +36,16 @@ export default function VideoPage() {
                 ¿Qué dices? ¿Listo para que tu marca se robe todas las miradas? Llámanos y empecemos a crear magia juntos.
             </>}
 
-            imgcomp1={cohete}
+            imgcomp1={elevacion}
             altcomp1="icono de comunicación de conceptos complejos"
             destacado1="Videos que venden más"
             imgcomp2={cohete}
             altcomp2="icono de viralidad en redes sociales"
             destacado2="Engagement disparado en redes"
-            imgcomp3={cohete}
+            imgcomp3={retorno}
             altcomp3="icono de diferenciación de la competencia"
             destacado3="Retorno de inversión maximizado"
-            imgcomp4={cohete}
+            imgcomp4={iman}
             altcomp4="icono de mayor engagement con la audiencia"
             destacado4="Credibilidad reforzada visualmente"
             
