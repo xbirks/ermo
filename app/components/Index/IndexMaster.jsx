@@ -29,7 +29,7 @@ function IndexMaster({municipio}) {
         <Spacer className="spacer-m" />
         <Grid4 />
         <Spacer className="spacer-xl" />
-        <SliderServices municipio={municipio} />
+        <SliderServices municipio={municipio} enMunicipio={<>en {municipio}</>} />
         <Spacer className="spacer-xl" />
         <ContactTeam />
         <Spacer className="spacer-xl" />
