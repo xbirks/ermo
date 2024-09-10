@@ -4,7 +4,7 @@ function HomePage(){
 
   return(
 
-    <IndexMaster municipio="Mas Camarena"></IndexMaster>
+    <IndexMaster municipio="Mas Camarena" enMunicipio="en Mas Camarena"></IndexMaster>
 
   );
 

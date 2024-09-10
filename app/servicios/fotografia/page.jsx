@@ -26,7 +26,7 @@ import colab from '@/app/assets/icon/destacados/punos.png';
 
 
 
-export default function FotografiaPage() {
+export default function FotografiaPage({municipio}) {
     return (
     <Inner>
     <FotografiaLayout>
@@ -36,12 +36,12 @@ export default function FotografiaPage() {
             desktopmp4="https://www.ermo.es/videos/fotografia/FOTO_Desktop_1.mp4"
             mobilemp4="https://www.ermo.es/videos/fotografia/FOTO_Mobile_1.mp4"
 
-            servicio="Fotografía de producto, gastronómica y corporativa"
+            servicio={<>Fotografía de producto, gastronómica y corporativa {municipio}</>}
            
             explicacion={ <>
                 En ERMO entendemos algo fundamental: <strong>una foto increíble puede vender más que el mejor discurso</strong>. Nos apasiona capturar la esencia de tus productos, creando imágenes que no solo llaman la atención, sino que enamoran a primera vista.
                 <br></br><br></br>
-                ¿El resultado? <strong>Tus productos destacan</strong> como nunca antes, y tu marca se eleva a otro nivel. No se trata solo de vender más (que lo harás), sino de crear una conexión real con tus clientes. Queremos que se enamoren de tu marca, que valoren cada detalle.
+                ¿El resultado? <strong>Tus productos destacan</strong> como nunca antes, y tu marca se eleva a otro nivel. No se trata solo de vender más (que lo harás), sino de crear una conexión real con tus clientes {municipio}. Queremos que se enamoren de tu marca, que valoren cada detalle.
                 <br></br><br></br>
                 ¿Te imaginas el impacto que esto puede tener en tu negocio? Hablemos. Descubre cómo nuestras fotos pueden transformar tu marca y disparar tus ventas.
             </>}
