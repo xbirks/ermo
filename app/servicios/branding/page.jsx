@@ -24,7 +24,7 @@ import colab from '@/app/assets/icon/destacados/coherencia.png';
 
 
 
-export default function BrandingPage() {
+export default function BrandingPage({municipio}) {
     return (
     <Inner>
     <FotografiaLayout>
@@ -34,14 +34,14 @@ export default function BrandingPage() {
             desktopmp4="https://www.ermo.es/videos/branding/BRANDING_Desktop._1mp4"
             mobilemp4="https://www.ermo.es/videos/branding/BRANDING_Mobile_1.mp4"
 
-            servicio="Identidad corporativa y branding"
+            servicio={ <>Identidad corporativa y branding {municipio}</>}
            
             explicacion={ <>
                 ¿Sueñas con una marca que deslumbre? En nuestro estudio no solo diseñamos logotipos impactantes, ¡creamos <strong>experiencias de marca</strong> inolvidables! Nuestro enfoque 360° abarca desde diseño gráfico hasta motion graphics, resultando en una identidad coherente y memorable que resonará en todos los canales.
                 <br></br><br></br>
-                ¿Necesitas renovar tu imagen o lanzar una nueva empresa al estrellato? Estamos listos para transformar tu visión en una identidad corporativa que grite &quot;¡Éxito!&quot; en cada detalle. Desde tipografías únicas hasta paletas de colores que cuentan historias, crearemos un <strong>universo visual</strong> que hará que tu competencia se pregunte: &quot;¿Cómo lo han hecho?&quot;
+                ¿Necesitas renovar tu imagen o lanzar una nueva empresa al estrellato? Estamos listos para transformar tu visión en una identidad corporativa que grite &quot;¡Éxito!&quot; en cada detalle. Desde tipografías únicas hasta paletas de colores que cuentan historias, crearemos un <strong>universo visual</strong> que hará que tu competencia {municipio} se pregunte: &quot;¿Cómo lo han hecho?&quot;
                 <br></br><br></br>
-                No te conformes con ser uno más. Deja que tu marca hable por sí misma y <strong>conquiste el mercado</strong>. ¿Listo para destacar? Contáctanos hoy y da el primer paso hacia una identidad de marca extraordinaria.
+                No te conformes con ser uno más ni con un simple logotipo. Deja que tu marca hable por sí misma y <strong>conquiste el mercado</strong>. ¿Listo para destacar? Contáctanos hoy y da el primer paso hacia una identidad de marca extraordinaria.
             </>}
 
             imgcomp1={instagram}
@@ -49,7 +49,7 @@ export default function BrandingPage() {
             destacado1="Mayor reconocimiento de marca"
             imgcomp2={amazon}
             altcomp2="Logotipo de Amazon"
-            destacado2="Aumento de lealtad cliente"
+            destacado2="Aumento de lealtad del cliente"
             imgcomp3={arrow}
             altcomp3="icono de cursor"
             destacado3="Diferenciación competitiva"
