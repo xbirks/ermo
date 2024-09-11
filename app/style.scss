@@ -402,6 +402,10 @@ a:hover .curzr-big-circle {
         }
     .button{
         border-color: $blanco-ermo;
+        &:hover{
+            background-color: $negro-ermo;
+            border-color: $negro-ermo;
+        }
     } 
     } 
 .menu__slider.mostrar {
@@ -425,7 +429,7 @@ a:hover .curzr-big-circle {
     gap: 4vw;
     justify-content: space-between;
     margin-bottom: 6vh; 
-    transition: $transition-short;   
+    transition: $transition-short;  
 } .menu__button p{
     font-size: 32px;
     font-weight: 400;
@@ -482,6 +486,33 @@ a:hover .curzr-big-circle {
     border: none;
     cursor: pointer;
   }
+
+
+
+  .header__master {
+    transition: top 1s ease, background-color 0.3s ease;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .header__master.hide {
+    top: -100px; 
+  }
+  
+  .header__master.show {
+    top: 0;
+  }
+  
+  .header__master.no-bg {
+    background-color: transparent;
+  }
+  
+  .header__master.with-bg {
+    background-color: $blanco-ermo;
+  }
+  
 
 
 
@@ -1006,7 +1037,7 @@ a:hover .curzr-big-circle {
 .servicios__imagenes{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: 100px;
+    margin-top: 20vh;
 
     @include media800px {
         grid-template-columns: 1fr;
@@ -1379,3 +1410,7 @@ a:hover .curzr-big-circle {
         }
     }
 }
+
+
+
+

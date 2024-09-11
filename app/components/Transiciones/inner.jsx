@@ -3,6 +3,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '@/app/components/Transiciones/transiciones.scss';
+import { Player } from '@lottiefiles/react-lottie-player';
+import ermoAni from '@/app/assets/logo/ERMO_logo.json';
 
 export default function Inner({children}){
     
@@ -51,7 +53,7 @@ export default function Inner({children}){
       y: ["100vh", "0vh", "0vh", "-100vh"], // Array de valores para la animación
       transition: {
         duration: 4, // Duración total de la animación
-        times: [0, 0.175, 0.3, 0.4], // Controla cuándo suceden los cambios de valor
+        times: [0, 0.175, 0.4, 0.5], // Controla cuándo suceden los cambios de valor
         ease: [0.76, 0, 0.24, 1], // Curva de animación suave
       }
     },
@@ -70,7 +72,14 @@ export default function Inner({children}){
   return (
     <div className="inner">
       <AnimatePresence>
-          <motion.div {...anim(slide)} className="slide"></motion.div>
+          <motion.div {...anim(slide)} className="slide">
+              <Player
+                autoplay
+                loop
+                src={ermoAni}
+                style={{ height: '50%', width: '50%', marginTop: '30vh' }}
+              />
+          </motion.div>
           <motion.div {...anim(opacity)} className="motionWrapper">
           {children}
           </motion.div>

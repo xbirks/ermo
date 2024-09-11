@@ -19,7 +19,6 @@ const ArrowMenu = () => (
   </svg>
 );
 
-// Pasamos la función closeMenu como prop y la ejecutamos en el click
 const MenuButton = ({ buttonName, buttonEnlace, closeMenu }) => (
   <div className="menu__slider-button">
     <Link href={buttonEnlace} onClick={closeMenu}>
@@ -28,10 +27,9 @@ const MenuButton = ({ buttonName, buttonEnlace, closeMenu }) => (
         <ArrowMenu />
       </div>
     </Link>
-  </div>
+  </div> 
 );
 
-// Pasamos la función closeMenu a cada MenuButton
 const MenuSlider = ({ menuOpen, closeMenu }) => (
   <div className={`menu__slider ${menuOpen ? 'mostrar' : ''}`}>
     <div className="menu__slider-container">
@@ -50,6 +48,9 @@ const MenuSlider = ({ menuOpen, closeMenu }) => (
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true); // Controlar visibilidad del header
+  const [scrollPosition, setScrollPosition] = useState(0); // Guardar posición previa de scroll
+  const [isAtTop, setIsAtTop] = useState(true); // Controlar si estamos en la parte superior
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -61,22 +62,49 @@ const Header = () => {
     document.body.classList.remove('no-scroll');
   };
 
+  // Controlar el scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+
+      // Mostrar el header si estamos subiendo
+      if (currentScrollPos < scrollPosition && currentScrollPos > 0) {
+        setShowHeader(true);
+        setIsAtTop(false); // No estamos en la parte superior
+      } else if (currentScrollPos === 0) {
+        setIsAtTop(true); // Volvemos a la parte superior
+        setShowHeader(true);
+      } else {
+        setShowHeader(false); // Si estamos bajando, esconder el header
+      }
+
+      setScrollPosition(currentScrollPos); // Guardar posición actual de scroll
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollPosition]);
+
   useEffect(() => {
     return () => {
       document.body.classList.remove('no-scroll');
-      setMenuOpen(false); // Ensure the menu is closed
+      setMenuOpen(false); 
     };
   }, []);
 
   return (
-    <div className="header__master">
+    <div 
+      className={`header__master ${showHeader ? 'show' : 'hide'} ${isAtTop ? 'no-bg' : 'with-bg'}`}
+    >
       <Link href="/" aria-label="Inicio" onClick={closeMenu}>
-          <Image className="logoErmo" src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
+        <Image className="logoErmo" src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
       </Link>
       <button className="menu-nav" aria-label="Menú navegación" onClick={toggleMenu}>
         <HamburgerIcon menuOpen={menuOpen} />
       </button>
-      <MenuSlider menuOpen={menuOpen} closeMenu={closeMenu} /> {/* Pasamos closeMenu a MenuSlider */}
+      <MenuSlider menuOpen={menuOpen} closeMenu={closeMenu} />
     </div>
   );
 };
