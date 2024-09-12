@@ -77,7 +77,8 @@ export default function Inner({children}){
                 autoplay
                 loop
                 src={ermoAni}
-                style={{ height: '50%', width: '50%', marginTop: '30vh' }}
+                style={{ height: '30%', width: '30%' }}
+                className="introLottie"
               />
           </motion.div>
           <motion.div {...anim(opacity)} className="motionWrapper">
