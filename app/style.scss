@@ -118,13 +118,13 @@ p{
     font-weight: 400;
     font-family: $neue;
     color: $gris-ermo;
-    line-height: 19pt; 
+    line-height: 16pt; 
     letter-spacing: -0.54px;
     text-align: left;
 
     @include media800px {
-        font-size: 12pt;
-        line-height: 16pt;
+        font-size: 10pt;
+        line-height: 14pt;
     }
 }
 
@@ -317,6 +317,12 @@ a:hover .curzr-big-circle {
     fill: $azul-ermo;
     transition: $transition-short;
     width: 34px;
+
+    @include media500px {
+        margin-top: 0px;
+        width: 28px;
+    }
+
  &.arrow__svg-white{
     fill: $blanco-ermo;
 }
@@ -877,14 +883,14 @@ a:hover .curzr-big-circle {
   
   .index__team-txt {
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 300;
-    line-height: 32px;
+    line-height: 28px;
     margin: 30px 0 0 20px;
 
     @include media800px {
-        font-size: 18px;
-        line-height: 24px;
+        font-size: 16px;
+        line-height: 20px;
     }
   
     &.team-txt-1 {
@@ -1415,3 +1421,17 @@ a:hover .curzr-big-circle {
 
 
 
+
+
+//FRAMER MOTION
+
+.slide-margin{
+    height: 1px;
+    width: 100%;
+
+    @include media900px {
+        height: 20vh;
+    }
+
+
+}

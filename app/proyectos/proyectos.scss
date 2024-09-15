@@ -4,21 +4,26 @@
 .proyectos__tipo{
     color: $cian-ermo;
     font-family: $owners;
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
-    line-height: 32px;
+    line-height: 26px;
     letter-spacing: 1.2px;
     margin-top: 20px;
+
+    @include media800px {
+        font-size: 16px;
+        line-height: 20px;
+        }
 }
 
 .proyectos__ano{
     color: $gris-claro-ermo;
     font-family: $owners;
-    font-size: 18px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 32px;
+    line-height: 30px;
     letter-spacing: 1.2px;
 }
 

@@ -73,11 +73,12 @@ export default function Inner({children}){
     <div className="inner">
       <AnimatePresence>
           <motion.div {...anim(slide)} className="slide">
+              <div className="slide-margin"></div>
               <Player
                 autoplay
                 loop
                 src={ermoAni}
-                style={{ height: '30%', width: '30%' }}
+                style={{ height: '40%', width: '40%' }}
                 className="introLottie"
               />
           </motion.div>

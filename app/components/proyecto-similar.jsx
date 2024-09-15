@@ -7,7 +7,7 @@ function ProySimilar(){
         <>
         <h2 className="proyectos__similar">¿Necesitas hacer un proyecto similar?</h2>
         <Contacto />
-        <Spacer className="spacer-m" />
+        <Spacer className="spacer-l" />
         </>
     );
 
