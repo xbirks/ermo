@@ -109,7 +109,7 @@ export default function ServiciosPrincipalPage() {
         altcomp4="icono de merchandising más atractivo y vendible"
         destacado4="Merchandising más atractivo y vendible"
 
-        btn1link="servicios/ilustracion"
+        btn1link="/servicios/ilustracion"
         btn1title="ver más"
         btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
@@ -141,7 +141,7 @@ export default function ServiciosPrincipalPage() {
         altcomp4="icono de adaptabilidad a diferentes dispositivos responsive"
         destacado4="Adaptabilidad a diferentes dispositivos"
 
-        btn1link="servicios/web"
+        btn1link="/servicios/web"
         btn1title="ver webs"
         btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
@@ -173,7 +173,7 @@ export default function ServiciosPrincipalPage() {
         altcomp4="icono de mayor engagement con la audiencia"
         destacado4="Mayor engagement con la audiencia"
 
-        btn1link="servicios/animacion"
+        btn1link="/servicios/animacion"
         btn1title="ver más"
         btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"

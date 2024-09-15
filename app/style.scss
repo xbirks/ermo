@@ -123,19 +123,23 @@ p{
     text-align: left;
 
     @include media800px {
-        font-size: 10pt;
-        line-height: 14pt;
+        font-size: 11pt;
+        line-height: 15pt;
     }
 }
 
 a{
-    font-size: 18px;
+    font-size: $fuente-p;
     font-weight: 400;
     font-family: $owners;
     color: $gris-ermo;
     letter-spacing: 0.5px;
     text-align: left;
     text-decoration: auto;
+
+    @include media800px {
+        font-size: 11pt;
+    }
 }
 
 ::selection {
@@ -1190,8 +1194,6 @@ a:hover .curzr-big-circle {
             gap: 10px;
             height: auto;
             max-height: 200px;
-            position: sticky;
-            top: 200px;
 
             @include media1000px {
                 margin-top: 100px;
@@ -1204,6 +1206,13 @@ a:hover .curzr-big-circle {
                 background-color: $azul-ermo;
                 border-radius: 10px;
                 height: auto;
+                display: flex;
+                padding: 10px 5px 10px 5px;
+                min-height: 50px;
+
+                @include media500px {
+                    display: block;
+                }
 
                 &:hover{
                     background-color: $negro-ermo;
@@ -1212,13 +1221,13 @@ a:hover .curzr-big-circle {
 
                 h3{
                     text-align: center;
+                    display: flex;
+                    align-items: center;
                     color: $blanco-ermo;
                     text-transform: uppercase;
                     vertical-align: center;
-                    margin-top: 12px;
                     line-height: 20px;
                     font-size: 16px;
-                    padding: 0px 10px 20px 10px;
 
                     @include media600px {
                         font-size: 14px;
@@ -1232,12 +1241,15 @@ a:hover .curzr-big-circle {
                     align-self: center;
                     height: 40px;
                     width: auto;
-                    padding-top: 20px;
+
+                    @include media500px {
+                        margin-bottom: 10px;
+                    }
                 }
 
                 .servcomp__img-container{
                     display: flex;
-                    margin: 0 auto;
+                    margin: 0px 10px 0px 10px;
                     justify-content: center;
                 }
             }
