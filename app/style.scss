@@ -1212,7 +1212,7 @@ a:hover .curzr-big-circle {
             order: 1;
 
             @include media1000px {
-                order: 2;
+                order: 1;
             }
         }
 
@@ -1222,13 +1222,13 @@ a:hover .curzr-big-circle {
             gap: 10px;
             height: auto;
             max-height: 200px;
-            order: 1;
+            order: 2;
 
             @include media1000px {
                 margin-top: 0px;
                 max-height: 100%;
                 margin-bottom: 40px;
-                order: 1;
+                order: 2;
             }
 
 
