@@ -171,15 +171,20 @@ strong{
 
 .master__body{
     width: 80%;
-    max-width: 1600px;
+    max-width: 1200px;
     margin: 0 auto;
 
     @include media1200px {
-        width: 90%;
+        width: 80%;
         max-width: 100%;
     }
 
     @include media900px {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    @include media500px {
         width: 100%;
         max-width: 100%;
     }
@@ -220,6 +225,7 @@ strong{
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-top: 3px;
+        margin-right: 5px;
 
         @include media500px {
             font-size: 16px;
@@ -568,6 +574,11 @@ a:hover .curzr-big-circle {
         margin-top: 4vh;
         margin-bottom: 5vh;
     }
+
+    a{
+        text-decoration: underline;
+        color: $azul-ermo;
+    }
 }
 
 .index__projects{
@@ -741,10 +752,14 @@ a:hover .curzr-big-circle {
 .index__services-container{
     border:solid 1.5px $azul-ermo;
     padding: 30px;
-    height: 500px;
+    height: 450px;
     position: relative;
     &:hover{
         background-color: rgb(247, 247, 247);
+    }
+
+    @include media1400px {
+        height: 400px;
     }
 
     @include media800px {
@@ -1155,6 +1170,10 @@ a:hover .curzr-big-circle {
         .servcomp__img{ 
 
             margin-bottom: 80px;
+
+            @include media1000px {
+                margin-bottom: 40px;
+            }
         
             img{
                 border-radius: 10px;
@@ -1182,10 +1201,19 @@ a:hover .curzr-big-circle {
             grid-template-columns: 1fr 400px;
         }
         @include media1000px {
-            display: block;
+            display: flex;
+            flex-direction: column; 
         }
         @include media800px {
             margin-top: 0px;
+        }
+
+        p{
+            order: 1;
+
+            @include media1000px {
+                order: 2;
+            }
         }
 
         .servcomp__destacado{
@@ -1194,11 +1222,13 @@ a:hover .curzr-big-circle {
             gap: 10px;
             height: auto;
             max-height: 200px;
+            order: 2;
 
             @include media1000px {
-                margin-top: 100px;
+                margin-top: 0px;
                 max-height: 100%;
                 margin-bottom: 40px;
+                order: 1;
             }
 
 

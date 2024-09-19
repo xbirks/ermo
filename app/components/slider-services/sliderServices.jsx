@@ -49,27 +49,27 @@ function SliderServices({municipio, enMunicipio}) {
             >
                 <SliderServicesItem
                     nameService={<>Animación 2D y motion graphics {enMunicipio}</>}
-                    descriptionService="Revolucionamos tu comunicación visual. Nuestras animaciones no solo cautivan, sino que multiplican el engagement de tu audiencia, convirtiendo conceptos complejos en experiencias visuales inolvidables que mejoran tu mensaje."
+                    descriptionService="Revolucionamos tu comunicación visual. Nuestras animaciones cautivan y multiplican el engagement de tu audiencia. Convertimos conceptos complejos en experiencias visuales que mejoran tu mensaje."
                     link="/servicios/animacion"
                 />
                 <SliderServicesItem
                     nameService={<>Fotografía {enMunicipio}</>}
-                    descriptionService="Capturamos la esencia de tu marca con imágenes que venden. Nuestras fotografías profesionales resaltan la calidad de tus productos, atrayendo clientes y disparando tus ventas."
+                    descriptionService="Capturamos la esencia de tu marca con imágenes que venden. Nuestras fotografías resaltan la calidad de tus productos, atrayendo clientes y disparando tus ventas."
                     link="/servicios/fotografia"
                 />
                 <SliderServicesItem
                     nameService={<>Programación web, UI/UX y SEO {enMunicipio}</>}
-                    descriptionService="Creamos sitios web que conquistan. Combinamos diseño atractivo, experiencia de usuario intuitiva y optimización SEO para garantizar que tu presencia online destaque y convierta visitantes en clientes."
+                    descriptionService="Creamos sitios web que conquistan. Combinamos diseño atractivo, experiencia de usuario intuitiva y optimización SEO para garantizar que tu presencia online destaque y convierta visitantes en ventas."
                     link="/servicios/web"
                 />
                 <SliderServicesItem
                     nameService={<>Ilustración {enMunicipio}</>}
-                    descriptionService="Transformamos ideas en imágenes que hablan. Nuestras ilustraciones personalizadas no solo embellecen tu marca, sino que cuentan tu historia de forma única, creando una conexión emocional instantánea con tu público."
+                    descriptionService="Transformamos ideas en imágenes que hablan. Nuestras ilustraciones embellecen tu marca y cuentan tu historia de forma única, creando una conexión emocional instantánea con tu público."
                     link="/servicios/ilustracion"
                 />
                 <SliderServicesItem
                     nameService={<>Identidad corporativa {enMunicipio}</>}
-                    descriptionService="Construimos identidades que perduran. Te aseguramos que cada aspecto de tu marca, desde el logotipo hasta la paleta de colores, refleje fielmente tus valores y visión. Creamos diseños coherentes y distintivos que fortalecen el reconocimiento y la presencia de tu marca en el mercado."
+                    descriptionService="Construimos identidades que perduran. Te aseguramos que cada aspecto de tu marca reflejará fielmente tus valores y visión. Creamos diseños coherentes y distintivos que fortalecen el reconocimiento y la presencia de tu marca en el mercado."
                     link="/servicios/branding"
                 />
                 <SliderServicesItem

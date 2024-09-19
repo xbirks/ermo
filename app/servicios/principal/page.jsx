@@ -55,7 +55,7 @@ export default function ServiciosPrincipalPage() {
     <Spacer className="spacer-xl" />
 
     <ServicioComp
-        title="Fotografía Profesional que Impulsa tu Negocio"
+        title="Fotografía que impulsa tu negocio"
         imgsrc={imgfoto}
         altimg="Portada del servicio de fotografía Profesional que Impulsa tu Negocio"
         descripcion={ <>La fotografía comercial de alta calidad se ha convertido en un elemento crucial para el éxito de las empresas en la era digital. 
@@ -88,7 +88,7 @@ export default function ServiciosPrincipalPage() {
 <Spacer className="spacer-xl" />
 
 <ServicioComp
-        title="Ilustración personalizada que eleva la presencia de tu marca"
+        title="Ilustración personalizada que embellece tu marca"
         imgsrc={imgilustracion}
         altimg="Portada del servicio de ilustración personalizada que eleva la presencia de tu marca"
         descripcion={ <>La ilustración profesional se ha convertido en una herramienta indispensable para las empresas que buscan destacar en un mercado cada vez más competitivo. Al contratar a un ilustrador se obtiene una diferenciación visual inmediata frente a la competencia. Esto no solo aumenta la memorabilidad de la marca entre los clientes, sino que también mejora significativamente la coherencia visual en todos los materiales de la empresa, desde la web hasta los productos físicos.
@@ -118,7 +118,7 @@ export default function ServiciosPrincipalPage() {
 <Spacer className="spacer-xl" />
 
 <ServicioComp
-        title="Programación web y diseño ui/ux que impacta, convierte y fideliza"
+        title="Programación web que impacta, convierte y fideliza"
         imgsrc={imgweb}
         altimg="Portada del servicio de programación web y diseño ui/ux que impacta, convierte y fideliza"
         descripcion={ <>Contar con una presencia web sólida y atractiva ya no es una opción, sino una necesidad imperativa para cualquier empresa. La programación web profesional combinada con un diseño UI/UX de calidad ofrece ventajas tangibles que pueden marcar la diferencia entre el éxito y el fracaso online.
@@ -150,7 +150,7 @@ export default function ServiciosPrincipalPage() {
 <Spacer className="spacer-xl" />
 
 <ServicioComp
-        title="Movimiento que impacta:  Animación 2D y motion graphics"
+        title="Animaciones que impactan y comunican"
         imgsrc={imganimacion}
         altimg="Portada del servicio de movimiento que impacta:  Animación 2D y motion graphics"
         descripcion={ <>Captar y mantener la atención de tu audiencia es más desafiante que nunca. Es aquí donde la animación 2D y los motion graphics entran en juego, ofreciendo una poderosa herramienta para comunicar tu mensaje de manera efectiva y memorable.

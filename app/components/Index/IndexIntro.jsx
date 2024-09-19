@@ -2,6 +2,7 @@
 
 import React from 'react';
 import IndexIntroduction  from './IndexIntro-item.jsx';
+import Link from 'next/link.js';
 import { motion } from "framer-motion";
 
 
@@ -18,11 +19,15 @@ function IndexIntro({municipio}){
         IndexIntro="Estudio de animación, diseño, web, y fotografía en "
         IndexIntroLocation={municipio}
         IndexDescription={ <>
-           <strong>No somos solo diseñadores;</strong> nos vemos como narradores visuales. Ya sea creando una identidad que deje huella, unas <strong>fotografías</strong> minimlístas e impactantes o diseñando experiencias visuales y <strong>páginas web</strong> que enganchen, nos tomamos en serio cada detalle para asegurarnos de que lo que hacemos sea auténtico y diferente. <br></br><br></br>
+           <strong>No somos solo diseñadores;</strong> nos vemos como narradores visuales. Creamos contenido gráfico que deja huella.<br></br><br></br>
 
-            Sabemos que el mundo cambia rápido, y por eso <strong>ayudamos a las empresas</strong> a destacarse y adaptarse con soluciones que mezclan <strong>innovación y creatividad</strong>. Queremos darle vida a tu objetivo empresarial con un enfoque joven y dinámico, pero siempre manteniendo el enfoque profesional y que busca la eficacia. <br></br><br></br>
+          nos tomamos en serio cada detalle para asegurarnos de que lo que hacemos sea auténtico y diferente. <br></br><br></br>
 
-            Desde que empezamos en {municipio}, hemos trabajado en marcas y proyectos que no solo cumplen, sino que también inspiran y dan resultados. ¿Te animas a dar forma a tu nueva idea con nosotros?
+            Sabemos que el mundo cambia rápido, y por eso <strong>ayudamos a las empresas</strong> a destacarse y adaptarse con soluciones que mezclan <strong>innovación y creatividad</strong>. Queremos darle vida a tu objetivo empresarial con un enfoque joven y dinámico, pero siempre manteniendo la búsqueda de la eficacia. <br></br><br></br>
+
+            Hemos trabajado con marcas y proyectos que inspiran, han dado resultados y son auténticas y diferentes. Conoce que proyectos hemos hecho <Link href="/proyectos/principal">aquí.</Link><br></br><br></br>
+
+            Estamos en {municipio}, ¿te animas a dar forma a tu nueva idea con nosotros? 
           </>}
         
     />
