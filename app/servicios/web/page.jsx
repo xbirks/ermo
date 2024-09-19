@@ -22,7 +22,7 @@ import responsive from '@/app/assets/icon/destacados/responsive.png';
 
 
 
-export default function WebPage() {
+export default function WebPage({municipio}) {
     return (
     <Inner>
     <FotografiaLayout>
@@ -32,7 +32,7 @@ export default function WebPage() {
             desktopmp4="https://www.ermo.es/videos/web/WEB_Desktop_1.mp4"
             mobilemp4="https://www.ermo.es/videos/web/WEB_Mobile_1.mp4"
 
-            servicio="Programación web, UI/UX y SEO"
+            servicio={<>Programación web, UI/UX y SEO en {municipio}</>}
            
             explicacion={ <>
                 ¿Sabías que tu sitio web puede ser tu mejor vendedor 24/7? En ERMO, no solo creamos webs bonitas, ¡las hacemos imparables! Imagina un sitio tan <strong>rápido</strong> que tus visitantes no tengan tiempo ni de pestañear, tan <strong>intuitivo</strong> que hasta tu tío tecnófobo pueda usarlo, y tan <strong>optimizado</strong> que Google lo quiera poner en primera fila.

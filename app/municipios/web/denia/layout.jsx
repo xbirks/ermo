@@ -1,6 +1,6 @@
-import "../../style.scss";
+import "@/app/style.scss";
 
-const municipio = "Valencia"; 
+const municipio = "Denia"; 
 
 export const metadata = {
 
