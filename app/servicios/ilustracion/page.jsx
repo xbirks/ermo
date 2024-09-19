@@ -20,7 +20,7 @@ import elevacion from '@/app/assets/icon/destacados/elevacion.png';
 import merchan from '@/app/assets/icon/destacados/bolsa-top.png';
 
 
-export default function IlustracionPage() {
+export default function IlustracionPage({municipio}) {
     return (
         <Inner>
     <FotografiaLayout>
@@ -30,7 +30,7 @@ export default function IlustracionPage() {
             desktopmp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop_1.mp4"
             mobilemp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile_1.mp4"
 
-            servicio="Ilustración"
+            servicio={<>Ilustración creativa en {municipio}</>}
            
             explicacion={ <>
                 <strong>¿Buscas ilustraciones que impacten?</strong> ¡En nuestro estudio creamos magia visual! Desde <strong>personajes</strong> de videojuegos que cobran vida hasta <strong>portadas de libros</strong> irresistibles, nuestras creaciones cautivan a primera vista. Ya sea para ayuntamientos innovadores, empresas o iniciativas culturales, capturamos la esencia única de cada proyecto en cada trazo.
