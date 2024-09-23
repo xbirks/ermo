@@ -1226,7 +1226,7 @@ a:hover .curzr-big-circle {
 
             @include media1000px {
                 margin-top: 0px;
-                max-height: 100%;
+                max-height: auto;
                 margin-bottom: 40px;
                 order: 1;
             }
