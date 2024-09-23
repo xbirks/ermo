@@ -1238,8 +1238,6 @@ a:hover .curzr-big-circle {
                 height: auto;
                 display: flex;
                 padding: 10px 5px 10px 5px;
-                min-height: 50px;
-                max-height: 250px;
 
                 @include media500px {
                     display: block;
