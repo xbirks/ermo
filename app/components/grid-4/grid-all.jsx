@@ -44,7 +44,7 @@ function GridAll() {
               title="Ice Balls - Cubers"
               description="Fotografía de producto y lifestyle para los hielos de Cubers. Destacando la belleza sin adulterar de su hielo y el diseño único de sus Ice Balls. También creamos contenido animado para sus plataformas de redes sociales, con las que aumentamos su presencia digital."
               thumbnailSrc="https://ermo.es/videos/04_project_ERMO.webm"
-              link="/not-found"
+              link="/proyectos/cubers"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
 

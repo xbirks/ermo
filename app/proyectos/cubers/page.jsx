@@ -13,7 +13,7 @@ export default function BsnPage() {
             desktopwebm="https://www.ermo.es/videos/Cubers_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/Cubers_Mobile.webm"
 
-            cliente="Private Label BSN Cosmetics"
+            cliente="Ice Balls by Cubers"
             tipo="Fotografía de producto"
             ano="2023"
             descripcion={ <>
