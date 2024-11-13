@@ -13,7 +13,7 @@ export default function BsnPage() {
             desktopwebm="https://www.ermo.es/videos/Consum_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/Consum_Mobile.webm"
 
-            cliente="Supermercados Consum"
+            cliente="Consum Cooperativa"
             tipo="Motion Graphics / Animación"
             ano="2023"
             descripcion={ <>
