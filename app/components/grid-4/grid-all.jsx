@@ -52,7 +52,7 @@ function GridAll() {
               title="Delibreads"
               description="Sesión de fotografía de producto destacando las tortillas de trigo que venden en Mercadona, junto con imágenes gastronómicas que muestran su versatilidad en variadas recetas. Además, produjimos videos cortos para IG Reels y TikTok."
               thumbnailSrc="https://ermo.es/videos/05_project_ERMO.webm"
-              link="/not-found"
+              link="/proyectos/delibreads"
               altAtribute="Animación en 2D para Consum, destacando la frescura y sostenibilidad de sus productos en una campaña de redes sociales."
             />
                         
