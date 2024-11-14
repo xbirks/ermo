@@ -36,7 +36,7 @@ function GridAll() {
               title="Consum Supermercados"
               description="Animaciones en 2D para supermercados Consum, diseñadas para resaltar sus valores de sostenibilidad y comunidad en campañas de redes sociales y televisión. Este proyecto fue realizado en colaboración con la agencia de publicidad WAY."
               thumbnailSrc="https://ermo.es/videos/03_project_ERMO.webm"
-              link="/not-found"
+              link="/proyectos/consum"
               altAtribute="Animación en 2D para Consum, destacando la frescura y sostenibilidad de sus productos en una campaña de redes sociales."
             />
                         
@@ -60,7 +60,7 @@ function GridAll() {
               title="Delgo"
               description="Fotografía de arquitectura interior y exterior de las nuevas oficinas de Delgo (empresa de Logística), enfocada en destacar la modernización y la funcionalidad de sus espacios."
               thumbnailSrc="https://ermo.es/videos/06_project_ERMO.webm"
-              link="/not-found"
+              link="/proyectos/delgo"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
 
