@@ -68,7 +68,7 @@ function GridAll() {
               title="Helados Estiu"
               description="Para Wao Mochi (Helados Estiu), hemos diseñado una exclusiva serie de fotografías gastronómicas que se distinguen por sus combinaciones de colores llamativas y composiciones minimalistas. Se resalta la textura cremosa y los deliciosos sabores tropicales de los mochis."
               thumbnailSrc="https://ermo.es/videos/07_project_ERMO.webm"
-              link="/not-found"
+              link="/proyectos/estiu"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
         
