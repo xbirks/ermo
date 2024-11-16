@@ -15,7 +15,7 @@ export default function BsnPage() {
 
             cliente="Delibreads"
             tipo="Fotografía comercial"
-            ano="2023"
+            ano="2022"
             descripcion={ <>
                 Realizamos una producción fotográfica para Delibreads, destacando la calidad y versatilidad de sus tortillas con imágenes y videos diseñados para captar la atención en redes sociales, mostrando todo tipo de recetas sobre su producto.
                </>}
