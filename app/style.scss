@@ -118,13 +118,13 @@ p{
     font-weight: 400;
     font-family: $neue;
     color: $gris-ermo;
-    line-height: 16pt; 
+    line-height: 1.3em; 
     letter-spacing: -0.54px;
     text-align: left;
 
     @include media800px {
-        font-size: 11pt;
-        line-height: 15pt;
+        font-size: 1.1em;
+        line-height: 1.4em;
     }
 }
 
@@ -1212,13 +1212,13 @@ a:hover .curzr-big-circle {
             order: 1;
 
             @include media1000px {
-                order: 2;
+                // order: 2;
             }
         }
 
         .servcomp__destacado{
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            
             gap: 10px;
             height: auto;
             max-height: 200px;
@@ -1240,7 +1240,7 @@ a:hover .curzr-big-circle {
                 padding: 10px 5px 10px 5px;
 
                 @include media500px {
-                    display: block;
+                  
                 }
 
                 &:hover{
@@ -1256,10 +1256,10 @@ a:hover .curzr-big-circle {
                     text-transform: uppercase;
                     vertical-align: center;
                     line-height: 20px;
-                    font-size: 16px;
+                    font-size: 1.1em;
 
                     @include media600px {
-                        font-size: 14px;
+                        font-size: 1.1em;
                         line-height: 18px;
                     }
                 }
