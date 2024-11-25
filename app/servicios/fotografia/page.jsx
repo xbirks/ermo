@@ -27,9 +27,10 @@ import colab from '@/app/assets/icon/destacados/punos.png';
 
 
 export default function FotografiaPage({municipio}) {
+    
     return (
     <Inner>
-    <FotografiaLayout>
+    <FotografiaLayout municipio="en Cuenca">
         <Servicios
             desktopwebm="https://www.ermo.es/videos/fotografia/FOTO_Desktop.webm"
             mobilewebm="https://www.ermo.es/videos/fotografia/FOTO_Mobile.webm"
