@@ -37,7 +37,7 @@ export default function FotografiaPage({municipio}) {
             desktopmp4="https://www.ermo.es/videos/fotografia/FOTO_Desktop_1.mp4"
             mobilemp4="https://www.ermo.es/videos/fotografia/FOTO_Mobile_1.mp4"
 
-            servicio={<>Fotografía comercial y de producto en {municipio}</>}
+            servicio={<>Fotografía comercial y de producto {municipio}</>}
            
             explicacion={ <>
                 En ERMO entendemos algo fundamental: <strong>una foto increíble puede vender más que el mejor discurso</strong>. Nos apasiona capturar la esencia de tus productos, creando imágenes que no solo llaman la atención, sino que enamoran a primera vista.
