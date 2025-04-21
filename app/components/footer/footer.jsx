@@ -49,8 +49,8 @@ return(
 
             <FooterItem
                 title="Danos un toque"
-                link="tel:632473114"
-                textButton="632 473 114"
+                link="tel:675392216"
+                textButton="675 392 216"
             />
 
             <FooterItem
