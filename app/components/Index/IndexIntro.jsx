@@ -16,7 +16,7 @@ function IndexIntro({municipio}){
         viewport={{ once: true, amount: 0.1}}   
      >   
     <IndexIntroduction
-        IndexIntro="Estudio de fotografía, animación, diseño y web en "
+        IndexIntro="Estudio de animación, diseño y web en "
         IndexIntroLocation={municipio}
         IndexDescription={ <>
            <strong>No somos solo diseñadores;</strong> nos vemos como narradores visuales. Creamos contenido gráfico que deja huella.<br></br><br></br>
