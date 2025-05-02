@@ -9,7 +9,7 @@ const ArrowMenu = () => (
   </svg>
 );
 
-function Grid4Item({ title, description, thumbnailSrc, link, altAtribute }) {
+function Grid4Item({ title, description, thumbnailSrc, link }) {
   return (
     <div className="post__container">
       <Link href={link}>

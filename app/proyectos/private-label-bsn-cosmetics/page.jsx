@@ -8,10 +8,9 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://www.ermo.es/videos/BSN_Desktop_1.mp4"
-            mobilemp4="https://www.ermo.es/videos/BSN_Mobile_1.mp4"
-            desktopwebm="https://www.ermo.es/videos/BSN_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/BSN_Mobile.webm"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202726/BSN_Desktop_1_kbvdfp.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202727/BSN_Mobile_1_q7cyiu.mp4"
+
 
             cliente="Private Label BSN Cosmetics"
             tipo="Fotografía de producto"
@@ -21,8 +20,8 @@ export default function BsnPage() {
                 <br></br><br></br>
                 Nuestro enfoque resalta la forma y textura de los envases, permitiendo a los clientes visualizar cómo estos productos pueden integrarse en sus propias líneas cosméticas. El resultado es una serie de fotografías que no solo simplifican el proceso de compra, sino que también muestran el potencial de los productos una vez reetiquetados.
                </>}
-            videoproyectowebm="https://www.ermo.es/videos/BSN_Wrap.webm"
-            videoproyectomp4="https://www.ermo.es/videos/BSN_Wrap.mp4"
+
+            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202772/BSN_Wrap_siqzqv.mp4"
             explicacion={ <>
                 En este proyecto de fotografía para productos cosméticos, hemos adoptado un enfoque minimalista, enfocándonos en resaltar estos envases genéricos listos para ser reetiquetados. Unas fotografías pensadas tanto para ser usadas en web, en Instagram o en contenido promocional.
                 <br></br><br></br>
@@ -35,10 +34,8 @@ export default function BsnPage() {
                 Este enfoque fotográfico no solo resalta la calidad y versatilidad de los envases de BSN Cosmetics, sino que también proporciona a los clientes una visión clara de cómo estos productos pueden adaptarse a sus propias marcas. La combinación de minimalismo y elegancia en las imágenes crea un atractivo visual que se alinea perfectamente con las tendencias actuales en el mercado de cosméticos y cuidado de la piel.
             </>}
 
-            image1mp4="https://www.ermo.es/videos/BSN_mini_1.mp4"
-            image1webm="https://www.ermo.es/videos/BSN_mini_1.webm"
-            image2mp4="https://www.ermo.es/videos/BSN_mini_2.mp4"
-            image2webm="https://www.ermo.es/videos/BSN_mini_2.webm"
+            image1mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202732/BSN_mini_1_yhb3fq.mp4"
+            image2mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202751/BSN_mini_2_km1mdw.mp4"
         ></Proyectos>
     </BsnLayout>
     </Inner>

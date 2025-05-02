@@ -8,10 +8,8 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://www.ermo.es/videos/Consum_Desktop.mp4"
-            mobilemp4="https://www.ermo.es/videos/Consum_Mobile.mp4"
-            desktopwebm="https://www.ermo.es/videos/Consum_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/Consum_Mobile.webm"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202766/Consum_Desktop_zzsx7i.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202765/Consum_Mobile_kvyjao.mp4"
 
             cliente="Consum Cooperativa"
             tipo="Motion Graphics / Animación"
@@ -19,16 +17,13 @@ export default function BsnPage() {
             descripcion={ <>
                 Proyecto de animación 2D y Motion Graphics para Supermercados Consum. Diseñamos y animamos una introducción y un faldón para todas las televisiones autonómicas que colaboran con Consum. Así lo utilizan en todas las secciones colaborativas dónde se habla a cerca de productos de temparada, de recetas y, en general, de alimentación saludable.
                </>}
-            videoproyectowebm="https://www.ermo.es/videos/Consum_Wrap.webm"
-            videoproyectomp4="https://www.ermo.es/videos/Consum_Wrap.mp4"
+            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202774/Consum_Wrap_saajc9.mp4"
             explicacion={ <>
                 
             </>}
 
-            image1mp4="https://www.ermo.es/videos/Consum_mini_1.mp4"
-            image1webm="https://www.ermo.es/videos/Consum_mini_1.webm"
-            image2mp4="https://www.ermo.es/videos/Consum_mini_2.mp4"
-            image2webm="https://www.ermo.es/videos/Consum_mini_2.webm"
+            image1mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202760/Consum_mini_1_oskkqp.mp4"
+            image2mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202751/Consum_mini_2_ruijte.mp4"
         ></Proyectos>
     </BsnLayout>
     </Inner>
