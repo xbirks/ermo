@@ -19,10 +19,8 @@ function IndexMaster({municipio}) {
   return (
     <Inner>
       <VideoIndex
-        desktopwebm="https://ermo.es/videos/ermo-proyectos-2024-header-desktop.webm"
-        mobilewebm="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop.webm"
-        desktopmp4="https://ermo.es/videos/ermo-proyectos-2024-header-desktop_1.mp4"
-        mobilemp4="https://ermo.es/videos/ermo-proyectos-2024-mobile-desktop_1.mp4"
+        desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/ermo-proyectos-2024-header-desktop_cvbwx4.mp4"
+        mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1745246678/ermo-proyectos-2024-mobile-desktop_ya91m1.mp4"
       />
       <div className="master__body">
         <IndexIntro municipio={municipio} />

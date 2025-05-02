@@ -15,7 +15,6 @@ function VideoIndex({ desktopwebm, desktopmp4, mobilewebm, mobilemp4 }) {
         playsInline
       >
         <source src={desktopmp4} type="video/mp4" />
-        <source src={desktopwebm} type="video/webm" />
       </video>
       <video
         className="header__video-mobile"
@@ -25,7 +24,6 @@ function VideoIndex({ desktopwebm, desktopmp4, mobilewebm, mobilemp4 }) {
         playsInline
       >
         <source src={mobilemp4} type="video/mp4" />
-        <source src={mobilewebm} type="video/webm" />
       </video>
     </div>
   );

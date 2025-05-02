@@ -1476,3 +1476,32 @@ a:hover .curzr-big-circle {
 
 
 }
+
+
+
+
+
+//CLOUDINARY
+
+.clean-player {
+    .vjs-control-bar,
+    .vjs-big-play-button,
+    .vjs-loading-spinner,
+    .vjs-text-track-display,
+    .vjs-live-control,
+    .vjs-error-display,
+    .vjs-modal-dialog,
+    .vjs-remaining-time,
+    .vjs-current-time,
+    .vjs-duration,
+    .vjs-time-control,
+    .vjs-accessibility-controls,
+    .vjs-metadata {
+      display: none !important;
+    }
+  
+    .vjs-tech {
+      object-fit: cover;
+    }
+  }
+  
