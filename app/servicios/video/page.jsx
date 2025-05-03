@@ -17,10 +17,8 @@ export default function VideoPage() {
     <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopwebm="https://www.ermo.es/videos/video/VIDEO_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/video/VIDEO_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/video/VIDEO_Desktop_1.mp4"
-            mobilemp4="https://www.ermo.es/videos/video/VIDEO_Mobile_1.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286114/VIDEO_Desktop_1_yibphn.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286113/VIDEO_Mobile_1_vaheqd.mp4"
 
             servicio="Video comercial, de producto y educativo"
            
@@ -52,11 +50,11 @@ export default function VideoPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src="https://www.ermo.es/videos/video/video1.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video2.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video3.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video4.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/video/video5.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/v1746286113/video1_1_vkgdmy.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/v1746286112/video2_1_fhhdcr.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/v1746286113/video3_1_kcbznm.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/v1746286112/video4_1_v14p8x.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/v1746286112/video5_1_n2hrfj.mp4" link="#"></ServiciosVid>
         </div>
 
         <ProySimilar></ProySimilar>

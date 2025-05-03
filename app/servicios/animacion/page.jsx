@@ -18,10 +18,8 @@ export default function AnimacionPage() {
     <Inner>
     <FotografiaLayout>
         <Servicios 
-            desktopwebm="https://www.ermo.es/videos/animacion/ANI_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/animacion/ANI_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/animacion/ANI_Desktop_1.mp4"
-            mobilemp4="https://www.ermo.es/videos/animacion/ANI_Mobile_1.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285801/ANI_Desktop_1_fjgjdy.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285800/ANI_Mobile_1_fhqsxo.mp4"
 
             servicio="Animación 2D y motion graphics"
            
@@ -49,14 +47,14 @@ export default function AnimacionPage() {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid3.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid7.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid1.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid2.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid4.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid5.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid6.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/animacion/vid8.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285799/vid3_1_qkqmzg.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285797/vid7_1_pstdpc.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285799/vid1_1_whsitz.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285798/vid2_1_gnntoy.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285798/vid4_1_zrry02.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285799/vid5_1_kpey6u.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285799/vid6_1_soetng.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285799/vid8_1_zzwoud.mp4" link="#"></ServiciosVid>
         </div>
 
         <ProySimilar></ProySimilar>

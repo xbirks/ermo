@@ -27,10 +27,8 @@ export default function WebPage({municipio}) {
     <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopwebm="https://www.ermo.es/videos/web/WEB_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/web/WEB_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/web/WEB_Desktop_1.mp4"
-            mobilemp4="https://www.ermo.es/videos/web/WEB_Mobile_1.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286292/WEB_Desktop_1_ydkzst.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286292/WEB_Mobile_1_d8yx3m.mp4"
 
             servicio={<>Programación web, UI/UX y SEO en {municipio}</>}
            

@@ -25,10 +25,8 @@ export default function IlustracionPage({municipio}) {
         <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopwebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Desktop_1.mp4"
-            mobilemp4="https://www.ermo.es/videos/ilustracion/ILUSTRACION_Mobile_1.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286818/ILUSTRACION_Desktop_1_i8nyb2.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286815/ILUSTRACION_Mobile_1_vpebad.mp4"
 
             servicio={<>Ilustración creativa en {municipio}</>}
            
@@ -56,11 +54,11 @@ export default function IlustracionPage({municipio}) {
         ></Servicios>
 
         <div className="servicios__imagenes master__body">
-            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo1.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286815/dibujo1_1_pwuhne.mp4" link="#"></ServiciosVid>
             <ServiciosImg src={dibujo2} alt="img1" link="#"></ServiciosImg>
             <ServiciosImg src={dibujo3} alt="img1" link="#"></ServiciosImg>
-            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo4.webm" link="#"></ServiciosVid>
-            <ServiciosVid src="https://www.ermo.es/videos/ilustracion/dibujo5.webm" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286814/dibujo4_1_mnr59k.mp4" link="#"></ServiciosVid>
+            <ServiciosVid src="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286814/dibujo5_1_uqzpzt.mp4" link="#"></ServiciosVid>
             <ServiciosImg src={dibujo6} alt="img1" link="#"></ServiciosImg>
             <ServiciosImg src={dibujo7} alt="img1" link="#"></ServiciosImg>
         </div>

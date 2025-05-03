@@ -32,10 +32,8 @@ export default function FotografiaPage({municipio}) {
     <Inner>
     <FotografiaLayout municipio="en Cuenca">
         <Servicios
-            desktopwebm="https://www.ermo.es/videos/fotografia/FOTO_Desktop.webm"
-            mobilewebm="https://www.ermo.es/videos/fotografia/FOTO_Mobile.webm"
-            desktopmp4="https://www.ermo.es/videos/fotografia/FOTO_Desktop_1.mp4"
-            mobilemp4="https://www.ermo.es/videos/fotografia/FOTO_Mobile_1.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286660/FOTO_Desktop_1_k42ews.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286659/FOTO_Mobile_1_prd4oj.mp4"
 
             servicio={<>Fotografía comercial y de producto {municipio}</>}
            
