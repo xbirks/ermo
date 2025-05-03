@@ -8,7 +8,7 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202766/Consum_Desktop_zzsx7i.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285476/Consum_Desktop_1_qtmqak.mp4"
             mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283409/Consum_Mobile_1_xr3phj.mp4"
 
             cliente="Consum Cooperativa"

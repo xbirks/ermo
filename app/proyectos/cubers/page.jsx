@@ -8,7 +8,7 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202752/Cubers_Desktop_c6dsmc.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285478/Cubers_Desktop_1_lm0opv.mp4"
             mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283415/Cubers_Mobile_1_sr9idr.mp4"
 
             cliente="Ice Balls by Cubers"

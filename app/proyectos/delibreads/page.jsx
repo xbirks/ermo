@@ -8,7 +8,7 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202746/Delibreads_Desktop_ywcpag.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285477/Delibreads_Desktop_1_yi7kqz.mp4"
             mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283431/Delibreads_Mobile_1_jts2av.mp4"
 
             cliente="Delibreads"

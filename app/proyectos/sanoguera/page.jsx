@@ -8,7 +8,7 @@ export default function SanogueraPage() {
     <Inner>
     <SanogueraLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746204066/SANOGUERA_Desktop_1_hm5oqz.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285137/SANOGUERA_Desktop_h95mhc.mp4"
             mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283349/SANOGUERA_Mobile_ifufvy.mp4"
             cliente="Sanoguera Consultoría"
             tipo="Branding | Diseño web | Programación web | Fotografía corporativa"
