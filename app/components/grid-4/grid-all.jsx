@@ -19,7 +19,7 @@ function GridAll() {
           <Grid4Item
               title="Private Label BSN Cosmetics"
               description="Creamos fotografías de producto minimalistas y elegantes, que resaltan la calidad y diseño de sus cosméticos. Con nuestras fotos consiguieron fortalecer su identidad de marca, ofreciendo una visualización atractiva y profesional a sus clientes."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202730/01_project_ERMO_gwlida.mp4"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283406/01_project_ERMO_1_phlphx.mp4"
               link="/proyectos/private-label-bsn-cosmetics"
               altAtribute="Fotografía minimalista de productos cosméticos de Private Label sobre fondo neutro, destacando su diseño elegante y calidad superior."
             />
@@ -27,7 +27,7 @@ function GridAll() {
           <Grid4Item
               title="Consultoría Sanoguera"
               description="Desarrollamos un nuevo sitio web y llevamos a cabo un completo rebranding para posicionar la firma como una consultoría líder en el sector primario Valenciano. Esta renovación la reforzamos también con una sesión de fotografía corprorativa."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202780/02_project_ERMO_w4tknl.mp4"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283413/02_project_ERMO_1_ctmujb.mp4"
               link="/proyectos/sanoguera"
               altAtribute="Sitio web de Sanoguera, mostrando un diseño moderno y funcional que refleja su enfoque en consultoría especializada. También su nueva identidad corporativa."
             />
@@ -35,7 +35,7 @@ function GridAll() {
           <Grid4Item
               title="Consum Supermercados"
               description="Animaciones en 2D para supermercados Consum, diseñadas para resaltar sus valores de sostenibilidad y comunidad en campañas de redes sociales y televisión. Este proyecto fue realizado en colaboración con la agencia de publicidad WAY."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202767/03_project_ERMO_v9enmu.mp4"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283407/03_project_ERMO_1_tylabc.mp4"
               link="/proyectos/consum"
               altAtribute="Animación en 2D para Consum, destacando la frescura y sostenibilidad de sus productos en una campaña de redes sociales."
             />
@@ -43,7 +43,7 @@ function GridAll() {
           <Grid4Item
               title="Ice Balls - Cubers"
               description="Fotografía de producto y lifestyle para los hielos de Cubers. Destacando la belleza sin adulterar de su hielo y el diseño único de sus Ice Balls. También creamos contenido animado para sus plataformas de redes sociales, con las que aumentamos su presencia digital."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746202770/04_project_ERMO_kpya81.mp4"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283413/04_project_ERMO_1_wzhsdq.mp4"
               link="/proyectos/cubers"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
@@ -51,7 +51,7 @@ function GridAll() {
 <Grid4Item
               title="Delibreads"
               description="Sesión de fotografía de producto destacando las tortillas de trigo que venden en Mercadona, junto con imágenes gastronómicas que muestran su versatilidad en variadas recetas. Además, produjimos videos cortos para IG Reels y TikTok."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746203421/05_project_ERMO_euj2sf.webm"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283986/05_project_ERMO_vmx3cy.mp4"
               link="/proyectos/delibreads"
               altAtribute="Animación en 2D para Consum, destacando la frescura y sostenibilidad de sus productos en una campaña de redes sociales."
             />
@@ -59,7 +59,7 @@ function GridAll() {
             <Grid4Item
               title="Delgo"
               description="Fotografía de arquitectura interior y exterior de las nuevas oficinas de Delgo (empresa de Logística), enfocada en destacar la modernización y la funcionalidad de sus espacios."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746203420/06_project_ERMO_mdrqpi.webm"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283985/06_project_ERMO_oo8bho.mp4"
               link="/proyectos/delgo"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
@@ -67,7 +67,7 @@ function GridAll() {
             <Grid4Item
               title="Helados Estiu"
               description="Para Wao Mochi (Helados Estiu), hemos diseñado una exclusiva serie de fotografías gastronómicas que se distinguen por sus combinaciones de colores llamativas y composiciones minimalistas. Se resalta la textura cremosa y los deliciosos sabores tropicales de los mochis."
-              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746203421/07_project_ERMO_obxxa8.webm"
+              thumbnailSrc="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746284185/07_project_ERMO_gpqhpt.mp4"
               link="/proyectos/estiu"
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
