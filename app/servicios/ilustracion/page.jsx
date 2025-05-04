@@ -21,6 +21,9 @@ import merchan from '@/app/assets/icon/destacados/bolsa-top.png';
 
 
 export default function IlustracionPage({municipio}) {
+
+
+    
     return (
         <Inner>
     <FotografiaLayout>

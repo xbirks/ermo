@@ -14,6 +14,9 @@ import colab from '@/app/assets/icon/destacados/comentario.png';
 
 
 export default function AnimacionPage() {
+
+
+    
     return (
     <Inner>
     <FotografiaLayout>

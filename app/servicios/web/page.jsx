@@ -23,6 +23,9 @@ import responsive from '@/app/assets/icon/destacados/responsive.png';
 
 
 export default function WebPage({municipio}) {
+
+
+    
     return (
     <Inner>
     <FotografiaLayout>

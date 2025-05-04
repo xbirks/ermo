@@ -27,6 +27,9 @@ import colab from '@/app/assets/icon/destacados/punos.png';
 
 
 export default function FotografiaPage({municipio}) {
+
+
+    
     
     return (
     <Inner>

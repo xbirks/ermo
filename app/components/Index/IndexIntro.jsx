@@ -4,9 +4,22 @@ import React from 'react';
 import IndexIntroduction  from './IndexIntro-item.jsx';
 import Link from 'next/link.js';
 import { motion } from "framer-motion";
+import { useEffect } from 'react';
 
 
 function IndexIntro({municipio}){
+
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      window.scrollBy({ top: 500, behavior: 'smooth' });
+    }, 6000); // 6 segundos
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+
+
 
     return(
      <motion.div

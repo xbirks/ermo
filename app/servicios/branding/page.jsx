@@ -25,6 +25,9 @@ import colab from '@/app/assets/icon/destacados/coherencia.png';
 
 
 export default function BrandingPage({municipio}) {
+
+
+    
     return (
     <Inner>
     <FotografiaLayout>

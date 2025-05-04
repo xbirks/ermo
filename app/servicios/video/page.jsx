@@ -13,6 +13,8 @@ import iman from '@/app/assets/icon/destacados/iman.png';
 
 
 export default function VideoPage() {
+
+    
     return (
     <Inner>
     <FotografiaLayout>
