@@ -32,8 +32,8 @@ export default function BrandingPage({municipio}) {
     <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286433/BRANDING_Desktop_1_lrfzqq.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286433/BRANDING_Mobile_1_vkui3c.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286433/BRANDING_Desktop_1_lrfzqq.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286433/BRANDING_Mobile_1_vkui3c.mp4"
 
             servicio={ <>Identidad corporativa y branding {municipio}</>}
            

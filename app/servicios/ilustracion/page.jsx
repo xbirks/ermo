@@ -28,8 +28,8 @@ export default function IlustracionPage({municipio}) {
         <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286818/ILUSTRACION_Desktop_1_i8nyb2.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746286815/ILUSTRACION_Mobile_1_vpebad.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286818/ILUSTRACION_Desktop_1_i8nyb2.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286815/ILUSTRACION_Mobile_1_vpebad.mp4"
 
             servicio={<>Ilustración creativa en {municipio}</>}
            

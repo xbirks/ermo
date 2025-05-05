@@ -8,8 +8,8 @@ export default function SanogueraPage() {
     <Inner>
     <SanogueraLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285137/SANOGUERA_Desktop_h95mhc.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283349/SANOGUERA_Mobile_ifufvy.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746285137/SANOGUERA_Desktop_h95mhc.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283349/SANOGUERA_Mobile_ifufvy.mp4"
             cliente="Sanoguera Consultoría"
             tipo="Branding | Diseño web | Programación web | Fotografía corporativa"
             ano="2023 | 2024"
@@ -18,7 +18,7 @@ export default function SanogueraPage() {
                 <br></br><br></br>
                 Nuestro equipo llevó a cabo un rebranding completo, abarcando desde el logotipo y la paleta de colores hasta la página web y la presencia en redes sociales. El resultado fue una imagen de marca totalmente renovada, moderna y atractiva, que posiciona a la empresa como un referente innovador en la consultoría del sector primario.
                </>}
-            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283349/SANOGUERA_Wrap_1_a6qbzw.mp4"
+            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283349/SANOGUERA_Wrap_1_a6qbzw.mp4"
             explicacion={ <>
                 Llevamos a cabo una transformación integral de la imagen corporativa, impulsada por la evolución estratégica de la empresa de Asesoría a Consultoría. Nuestro equipo ejecutó un rebranding completo, reinventando la identidad visual desde sus cimientos.
                 <br></br><br></br>
@@ -33,8 +33,8 @@ export default function SanogueraPage() {
                 Con esta renovación, la empresa no solo ha actualizado su imagen, sino que ha sentado las bases para un crecimiento sostenido en su nuevo papel como consultora líder en el sector primario. La coherencia visual y el mensaje claro permiten a los clientes reconocer instantáneamente la marca y asociarla con servicios de consultoría de alta calidad y especializados.
             </>}
             
-                image1mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283347/SANOGUERA_mini_2_1_vafygl.mp4"
-                image2mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283349/SANOGUERA_mini_3_1_m3nqsc.mp4"
+                image1mp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283347/SANOGUERA_mini_2_1_vafygl.mp4"
+                image2mp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283349/SANOGUERA_mini_3_1_m3nqsc.mp4"
         ></Proyectos>
     </SanogueraLayout>
     </Inner>

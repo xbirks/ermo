@@ -8,8 +8,8 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285310/BSN_Desktop_ze9mzm.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283408/BSN_Mobile_1_1_npoc4r.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746285310/BSN_Desktop_ze9mzm.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283408/BSN_Mobile_1_1_npoc4r.mp4"
 
 
             cliente="Private Label BSN Cosmetics"
@@ -21,7 +21,7 @@ export default function BsnPage() {
                 Nuestro enfoque resalta la forma y textura de los envases, permitiendo a los clientes visualizar cómo estos productos pueden integrarse en sus propias líneas cosméticas. El resultado es una serie de fotografías que no solo simplifican el proceso de compra, sino que también muestran el potencial de los productos una vez reetiquetados.
                </>}
 
-            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283409/BSN_Wrap_1_axz3l7.mp4"
+            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283409/BSN_Wrap_1_axz3l7.mp4"
             explicacion={ <>
                 En este proyecto de fotografía para productos cosméticos, hemos adoptado un enfoque minimalista, enfocándonos en resaltar estos envases genéricos listos para ser reetiquetados. Unas fotografías pensadas tanto para ser usadas en web, en Instagram o en contenido promocional.
                 <br></br><br></br>
@@ -34,8 +34,8 @@ export default function BsnPage() {
                 Este enfoque fotográfico no solo resalta la calidad y versatilidad de los envases de BSN Cosmetics, sino que también proporciona a los clientes una visión clara de cómo estos productos pueden adaptarse a sus propias marcas. La combinación de minimalismo y elegancia en las imágenes crea un atractivo visual que se alinea perfectamente con las tendencias actuales en el mercado de cosméticos y cuidado de la piel.
             </>}
 
-            image1mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283407/BSN_mini_1_1_txahn0.mp4"
-            image2mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283408/BSN_mini_2_1_uwx9qj.mp4"
+            image1mp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283407/BSN_mini_1_1_txahn0.mp4"
+            image2mp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283408/BSN_mini_2_1_uwx9qj.mp4"
         ></Proyectos>
     </BsnLayout>
     </Inner>

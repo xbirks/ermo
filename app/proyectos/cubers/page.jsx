@@ -8,8 +8,8 @@ export default function BsnPage() {
     <Inner>
     <BsnLayout>
         <Proyectos
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746285478/Cubers_Desktop_1_lm0opv.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283415/Cubers_Mobile_1_sr9idr.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746285478/Cubers_Desktop_1_lm0opv.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283415/Cubers_Mobile_1_sr9idr.mp4"
 
             cliente="Ice Balls by Cubers"
             tipo="Fotografía de producto"
@@ -17,7 +17,7 @@ export default function BsnPage() {
             descripcion={ <>
                 En nuestro proyecto fotográfico para Cubers, destacamos los IceBalls premium con un <strong>estilo visual sofisticado y simple</strong>, ideal para diversas plataformas. Las imágenes resaltan la calidad y diseño único de los hielos, mostrando su potencial para elevar la estética de cualquier bebida, fortaleciendo así la imagen de marca de Cubers.
                </>}
-            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283419/Cubers_Wrap_1_ntnfy8.mp4"
+            videoproyectomp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283419/Cubers_Wrap_1_ntnfy8.mp4"
             explicacion={ <>
                 Para nuestra sesión con <strong>IceBalls by Cubers</strong> hemos adoptado un estilo visual que combina la simplicidad con la sofisticación. El objetivo principal es mostrar cómo estos hielos premium pueden realzar cualquier bebida, siendo ideales para un amplio rango de usos, desde eventos exclusivos hasta el disfrute diario en el hogar.
                 <br></br><br></br>
@@ -30,8 +30,8 @@ export default function BsnPage() {
                 En resumen, hemos creado un conjunto de fotografías que no solo son estéticamente agradables sino también altamente funcionales, alineadas con las tendencias actuales y que refuerzan la imagen de marca de Cubers como líder en su sector.
             </>}
 
-            image1mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746283415/Cubers_mini_1_1_c4oalj.mp4"
-            image2mp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746284441/Cubers_mini_2_1_l6ita2.mp4"
+            image1mp4="https://res.cloudinary.com/ermostudio/video/upload/v1746283415/Cubers_mini_1_1_c4oalj.mp4"
+            image2mp4="https://res.cloudinary.com/ermostudio/video/upload/v1746284441/Cubers_mini_2_1_l6ita2.mp4"
         ></Proyectos>
     </BsnLayout>
     </Inner>

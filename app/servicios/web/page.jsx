@@ -30,8 +30,8 @@ export default function WebPage({municipio}) {
     <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746287911/WEB_Desktop_1_1_jd2btn.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/f_auto,q_auto,vc_auto/v1746287911/WEB_Mobile_1_1_m1e0qy.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746287911/WEB_Desktop_1_1_jd2btn.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746287911/WEB_Mobile_1_1_m1e0qy.mp4"
 
             servicio={<>Programación web, UI/UX y SEO en {municipio}</>}
            

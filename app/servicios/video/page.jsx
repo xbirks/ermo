@@ -19,8 +19,8 @@ export default function VideoPage() {
     <Inner>
     <FotografiaLayout>
         <Servicios
-            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286114/VIDEO_Desktop_1_yibphn.mp4"
-            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746286113/VIDEO_Mobile_1_vaheqd.mp4"
+            desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/VIDEO_Desktop_1_yibphn.mp4"
+            mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/VIDEO_Mobile_1_vaheqd.mp4"
 
             servicio="Video comercial, de producto y educativo"
            
