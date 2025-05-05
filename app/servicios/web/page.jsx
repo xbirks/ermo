@@ -33,7 +33,7 @@ export default function WebPage({municipio}) {
             desktopmp4="https://res.cloudinary.com/ermostudio/video/upload/v1746287911/WEB_Desktop_1_1_jd2btn.mp4"
             mobilemp4="https://res.cloudinary.com/ermostudio/video/upload/v1746287911/WEB_Mobile_1_1_m1e0qy.mp4"
 
-            servicio={<>Programación web, UI/UX y SEO en {municipio}</>}
+            servicio={<>Programación web, UI/UX y SEO {municipio}</>}
            
             explicacion={ <>
                 ¿Sabías que tu sitio web puede ser tu mejor vendedor 24/7? En ERMO, no solo creamos webs bonitas, ¡las hacemos imparables! Imagina un sitio tan <strong>rápido</strong> que tus visitantes no tengan tiempo ni de pestañear, tan <strong>intuitivo</strong> que hasta tu tío tecnófobo pueda usarlo, y tan <strong>optimizado</strong> que Google lo quiera poner en primera fila.

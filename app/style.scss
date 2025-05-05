@@ -965,6 +965,12 @@ a:hover .curzr-big-circle {
     }.footer__info-datos a{
         display: block;
         margin-bottom: 20px;
+        font-family: $neue;
+        letter-spacing: -0.5px;
+
+        &:hover{
+            color: $azul-ermo;
+        }
     } .footer__info-datos h4{
         margin-bottom: 8px;
     }
@@ -1237,7 +1243,7 @@ a:hover .curzr-big-circle {
                 border-radius: 10px;
                 height: auto;
                 display: flex;
-                padding: 10px 5px 10px 5px;
+                padding: 4px 5px 4px 5px;
 
                 @include media500px {
                   
@@ -1253,10 +1259,11 @@ a:hover .curzr-big-circle {
                     display: flex;
                     align-items: center;
                     color: $blanco-ermo;
-                    text-transform: uppercase;
                     vertical-align: center;
                     line-height: 20px;
                     font-size: 1.1em;
+                    font-family: $neue;
+                    letter-spacing: -0.5px;
 
                     @include media600px {
                         font-size: 1.1em;

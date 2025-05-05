@@ -32,16 +32,20 @@ function IndexIntro({municipio}){
         IndexIntro="Estudio de animación, diseño y web en "
         IndexIntroLocation={municipio}
         IndexDescription={ <>
-           <strong>No somos solo diseñadores;</strong> nos vemos como narradores visuales. Creamos contenido gráfico que deja huella.<br></br><br></br>
-
-          Nos tomamos en serio cada detalle para asegurarnos de que lo que hacemos sea auténtico y diferente. <br></br><br></br>
-
-            Sabemos que el mundo cambia rápido, y por eso <strong>ayudamos a las empresas</strong> a destacarse y adaptarse con soluciones que mezclan <strong>innovación y creatividad</strong>. Queremos darle vida a tu objetivo empresarial con un enfoque joven y dinámico, pero siempre manteniendo la búsqueda de la eficacia. <br></br><br></br>
-
-            Hemos trabajado con marcas que inspiran, han dado resultados y son auténticas y diferentes. Conoce que proyectos hemos hecho <Link href="/proyectos/principal">aquí.</Link><br></br><br></br>
-
-            Estamos en {municipio}, ¿te animas a dar forma a tu nueva idea con nosotros? 
-          </>}
+          <strong>Diseñamos para que te elijan.</strong> No solo para hacer algo bonito.<br></br><br></br>
+        
+          Aquí no vas a encontrar fuegos artificiales ni palabreo barato. Vas a encontrar diseño, animación y webs que hacen su trabajo: <strong>captar atención, generar confianza y mover a la acción. </strong> 
+        
+          Porque tu marca no puede quedarse en “bonita”. Tiene que ser <strong>recordada, comprendida y elegida</strong>.<br></br><br></br>
+        
+          ¿Quieres algo diferente? Empieza por trabajar con gente que no se conforma con lo de siempre.<br></br><br></br>
+        
+          Estamos en {municipio}.<br></br>
+          Si buscas resultados, escríbenos.<br></br><br></br>
+        
+          👉 Échale un ojo a lo que ya hemos hecho <Link href="/proyectos/principal">aquí.</Link>
+        </> }
+        
         
     />
     </motion.div>
