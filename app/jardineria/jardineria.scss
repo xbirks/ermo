@@ -8,6 +8,10 @@
 p{
     color: #393939;
     font-size: 1.1rem;
+            @include media600px {
+            font-size: 1rem;
+            line-height: 1rem;
+            }
 }
 
 .btn_jardin{
@@ -430,6 +434,9 @@ p{
                     background-color: $blanco-ermo;
                     width: 100%;
                     border-color: $mar-ermo;
+                            @include media600px {
+                            width: auto;
+                            }
                     p{
                         color: $azul-ermo;
                     }
