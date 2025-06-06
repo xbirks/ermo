@@ -36,13 +36,13 @@ useEffect(() => {
             <br></br><br></br><strong>Sin promesas vacías</strong>. Solo trabajo real y resultados demostrables.</p>
 
             <StandardButton
-              link="https://wa.me/message/HJYSEK4RPLOSI1"
+              link="#precio"
               title="Quiero más clientes"
               style="mt-l margin-auto"
             />
 
              <StandardButton
-              link="https://wa.me/message/HJYSEK4RPLOSI1"
+              link="#ventajas"
               title="Ventajas"
               style="mt-l margin-auto btn_jardin"
             />
@@ -58,14 +58,14 @@ useEffect(() => {
 
       <section >
         <div className="ventajas__master">
-        <div className="ventajas__element">
+        <div className="ventajas__element" id="ventajas">
           <div className="ventajas__element-img"><Image src="/jardineria/GART1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
           <h3>Te encontrarán en <strong>Google</strong></h3>
           <p>Tu web estará bien posicionada para búsquedas reales como “jardinero en Valencia”.<br></br><br></br>No pagas por tener una página bonita, pagas para que te encuentren y te contacten.</p>
         </div>
 
         <div className="ventajas__element">
-          <div className="ventajas__element-img"><Image src="/jardineria/gartalia.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
+          <div className="ventajas__element-img" ><Image src="/jardineria/gartalia.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
           <h3>No necesitas saber <strong>nada</strong> de webs</h3>
           <p>No tienes que preocuparte por dominios, hosting, DNS ni configuraciones.<br></br><br></br>
           Tú sigues con tu trabajo. Yo me encargo de que funcione, se vea bien y esté todo en orden.</p>
@@ -79,7 +79,7 @@ useEffect(() => {
         </div>
 
         <div className="button__mobile"><StandardButton
-              link="https://wa.me/message/HJYSEK4RPLOSI1"
+              link="#precio"
               title="Precios"
               style="mt-l margin-auto btn_jardin"
             /></div>
@@ -97,7 +97,7 @@ useEffect(() => {
         <h3>¿Qué conseguirás conmigo?</h3>
 
         <div className="grid">
-          <div className="grid__element">
+          <div className="grid__element" id="servicio">
             <h4>Un diseño que ya ha funcionado antes</h4>
             <p>No empiezo desde cero. Uso una estructura clara, probada y adaptada a tu imagen para que se vea profesional sin que te cueste una fortuna.</p>
           </div>
@@ -145,7 +145,7 @@ useEffect(() => {
         <h2>Esto cuesta que empiecen a <span className="jardin__destacado">llamarte</span></h2>
         <h3>Precios claros, sin letra pequeña</h3>
 
-        <div className="precios__slider" >
+        <div className="precios__slider" id="precio">
 
           <div className="slide">
             <div>
@@ -181,7 +181,7 @@ useEffect(() => {
               </ul>
             </div>
             <div>
-              <h5 className="confi_precio">90€<span className="little">/mes</span></h5>
+              <h5 className="confi_precio" >90€<span className="little">/mes</span></h5>
               <p className="aviso confi_aviso">Con una permanencia de 12 meses</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
@@ -278,17 +278,19 @@ useEffect(() => {
         </div>
 
             <StandardButton
-              link="https://wa.me/message/HJYSEK4RPLOSI1"
+              link="#precio"
               title="Quiero más clientes"
               style="mt-l margin-auto"
             />
 
              <StandardButton
-              link="https://wa.me/message/HJYSEK4RPLOSI1"
+              link="#ventajas"
               title="Ventajas"
               style="mt-l margin-auto btn_jardin"
             />
       </section>
+
+      <div className="plantitas"><Image src="/jardineria/plantitas.jpg" width={1346} height={738} alt="Vista móvil de la web de jardinería" /></div>
 
     </main>
   );
