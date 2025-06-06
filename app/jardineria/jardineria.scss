@@ -32,21 +32,41 @@ p{
     }
 }
 
+.button__mobile{
+    @include media600px {
+            padding-left: 3vw;
+            }
+}
+
 
 
 
 
 .intro-jardin__master{
     margin-top: 200px;
+            @include media600px {
+            padding-left: 3vw;
+            padding-right: 3vw;
+            margin-top: 150px;
+            }
 
     .intro-jardin__content{
         display: flex;
         margin-top: 90px;
+
+            @include media600px {
+            display: block;
+            margin-top: 40px;
+            }
     }
 
     .intro-jardin__text{
         width: 46vw;
         margin-right: 40px;
+
+            @include media700px {
+            width: 100%;
+            }
 
         .intro-jardin__big{
             font-size: 2rem;
@@ -71,6 +91,10 @@ p{
             height: 100%;
             border-radius: 25px;
         }
+
+            @include media600px {
+            display: none;
+            }
     }
     
 }
@@ -87,6 +111,12 @@ p{
 
             @include media700px {
             grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include media500px {
+            grid-template-columns: repeat(1, 1fr);
+            padding-left: 3vw;
+            padding-right: 3vw;
             }
 
     .ventajas__element{
@@ -115,6 +145,10 @@ p{
                 @include media700px {
                     max-width: 100%;
                 }
+
+                @include media500px {
+                    aspect-ratio: 16 / 8;
+                }
             }
 
         h3{
@@ -134,6 +168,11 @@ p{
 
 .grid__master{
     margin-top: 200px;
+
+            @include media500px {
+            padding-left: 3vw;
+            padding-right: 3vw;
+        }
     
     h2{
         font-size: 72px;
@@ -174,7 +213,7 @@ p{
         margin-top: 60px;
 
            @include media1000px {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.6rem;
             }
 
@@ -186,14 +225,26 @@ p{
             background-color: $nardo;
             border-radius: 15px;
             padding: 2rem;
+                    @include media600px {
+                        padding: 1.3rem;
+                        height: auto;
+                    }
 
             h4{
                 font-size: 1.4rem;
                 line-height: 1.6rem;
+                        @include media1000px {
+                        font-size: 1.3rem;
+                        line-height: 1.3rem;
+                        }
+
             }
 
             p{
                 line-height: 1.1rem;
+                        @include media600px {
+                                margin-top: 20px;
+                            }
             }
         }
 
@@ -205,6 +256,11 @@ p{
             height: 200px;
             border-radius: 15px;
             padding: 2rem;
+                    @include media600px {
+                        padding: 1.3rem;
+                        height: auto;
+                        min-height: 200px;
+                    }
 
             p{
                 color: $blanco-ermo;
@@ -212,6 +268,10 @@ p{
                 font-size: 2.5rem;
                 font-weight: 200;
                 line-height: 2.3rem;
+                        @include media600px {
+                        font-size: 1.8rem;
+                        line-height: 1.8rem;
+                        }
             }
         }
     }
@@ -229,6 +289,7 @@ p{
 
 .precios__master{
     margin-top: 200px;
+            
     
 
     h2{
@@ -240,16 +301,18 @@ p{
         text-align: left;
         line-height: 64pt;
         letter-spacing: 1px;
-
-        @include media1200px {
-            font-size: 40pt;
-            line-height: 50pt;
-        }
-
-        @include media800px {
-            font-size: 35pt;
-            line-height: 40pt;
-        }
+                @include media1200px {
+                    font-size: 40pt;
+                    line-height: 50pt;
+                }
+                @include media800px {
+                    font-size: 35pt;
+                    line-height: 40pt;
+                }
+                @include media600px {
+                    padding-left: 3vw;
+                    padding-right: 3vw;
+                }
     }
 
     h3{
@@ -261,6 +324,10 @@ p{
             margin-bottom: 15px;
             line-height: 1.8rem;
             margin-top: 20px;
+            @include media600px {
+                    padding-left: 3vw;
+                    padding-right: 3vw;
+                }
         }
 
     h4{
@@ -323,7 +390,7 @@ p{
                     overflow-x: auto;
                     scroll-snap-type: x mandatory;
                     -webkit-overflow-scrolling: touch;
-                    gap: 1rem;
+                    gap: 0rem;
                 }
 
             .slide{
@@ -341,6 +408,8 @@ p{
                     scroll-snap-align: center;
                     width: 100%;
                     max-width: 50vw;
+                    margin-left: 10px;
+                    margin-right: 10px;
                 }
                 
             }
@@ -408,6 +477,11 @@ p{
 
         display: flex;
         gap: 40px;
+            @include media800px {
+                            display: block;
+                            padding-left: 3vw;
+                            padding-right: 3vw;
+                        }
 
         h4{
             text-align: left;
@@ -422,6 +496,9 @@ p{
         .pagos__text{
             width: 100%;
             max-width: 40vw;
+                @include media800px {
+                            max-width: 100%;
+                        }
         }
 
         .pagos__img{
@@ -429,6 +506,10 @@ p{
         width: 40vw;
         aspect-ratio: 1 / 1;
         object-fit: cover;
+                @include media800px {
+                        aspect-ratio: 16 / 7;
+                        width: 100%;
+                    }
 
         img{
             object-fit: cover;
@@ -448,15 +529,23 @@ p{
 
     margin-top: 200px;
     margin-bottom: 100px;
+            @include media600px {
+                    padding-left: 3vw;
+                    padding-right: 3vw;
+                }
 
     .dudas__grid{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
         margin-top: 50px;
+                
 
         .duda{
             width: 80%;
+                @include media600px {
+                        width: 100%;
+                    }
 
             .duda__num{
                 font-family: $neue;

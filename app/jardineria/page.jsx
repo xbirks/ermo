@@ -78,11 +78,11 @@ useEffect(() => {
         </div>
         </div>
 
-        <StandardButton
+        <div className="button__mobile"><StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Precios"
               style="mt-l margin-auto btn_jardin"
-            />
+            /></div>
 
       </section>
 
