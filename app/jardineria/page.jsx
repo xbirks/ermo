@@ -13,7 +13,8 @@ useEffect(() => {
   if (window.innerWidth <= 768 && sliderRef.current) {
     const children = sliderRef.current.children;
     if (children[1]) {
-      children[1].scrollIntoView({ behavior: "instant", inline: "center" });
+      sliderRef.current.scrollLeft = children[1].offsetLeft;
+
     }
   }
 }, []);
@@ -145,7 +146,7 @@ useEffect(() => {
         <h2>Esto cuesta que empiecen a <span className="jardin__destacado">llamarte</span></h2>
         <h3>Precios claros, sin letra pequeña</h3>
 
-        <div className="precios__slider" id="precio">
+        <div className="precios__slider" id="precio" ref={sliderRef}>
 
           <div className="slide">
             <div>
@@ -169,7 +170,7 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className="slide slide-blue" ref={sliderRef}>
+          <div className="slide slide-blue" >
             <div>
               <h4>Plan <strong>Confianza</strong></h4>
               <ul>
