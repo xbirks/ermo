@@ -2,7 +2,9 @@
 
 $azul-ermo: #3F52FF;
 $cian-ermo: #3684F6;
+$mar-ermo: #0E1C9D;
 $gris-ermo: #687A7F;
+$nardo: #E8E8E8;
 $gris-claro-ermo: #d8e2e6;
 $negro-ermo: #16161E;
 $morado-ermo: #C4CAFF;
@@ -108,6 +110,12 @@ $mb-xxl:148px; .mb-xxl{margin-bottom: $mb-xxl;}
 
   @mixin media800px {
     @media only screen and (max-width: 800px) {
+      @content;
+    }
+  }
+
+  @mixin media700px {
+    @media only screen and (max-width: 700px) {
       @content;
     }
   }
