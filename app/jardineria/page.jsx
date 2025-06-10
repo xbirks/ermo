@@ -183,11 +183,11 @@ useEffect(() => {
             </div>
             <div>
               <h5 className="confi_precio" >90€<span className="little">/mes</span></h5>
-              <p className="aviso confi_aviso">Con una permanencia de 12 meses</p>
+              <p className="aviso confi_aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 3 meses no aparecen en Google, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
-              style="margin-auto btn_jardin"
+              style="margin-auto btn_jardin btn_confi"
             />
             </div>
           </div>
@@ -199,12 +199,12 @@ useEffect(() => {
                 <li>TODO lo incluido en el Plan Confianza</li>
                 <li>Plantilla personalizada para solicitar reseñas a tus clientes</li>
                 <li>Configuración inicial del perfil de Google Business</li>
-                <li className="azul"><strong>EXCLUSIVIDAD AMPLIADA</strong><br></br> con prioridad absoluta sobre zonas cercanas y limitación de tu competencia directa</li>
+                <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando un cliente pida una recomendación de jardineros en tu zona</li>
               </ul>
             </div>
             <div>
               <h5>120€<span className="little">/mes</span></h5>
-              <p className="aviso">Con una permanencia de 24 meses</p>
+              <p className="aviso">Con una permanencia de 24 meses. <br></br>Si durante los primeros 6 meses no aparecen en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
@@ -219,12 +219,12 @@ useEffect(() => {
 
         <div className="pagos__master">
           <div className="pagos__text">
-            <h4>Pago único</h4>
-            <p>Se hace una sola transferencia antes de empezar. Fácil.</p>
+            {/* <h4>Pago único</h4>
+            <p>Se hace una sola transferencia antes de empezar. Fácil.</p> */}
 
             <h4>Pago mes a mes</h4>
-            <p>Se hace por tarjeta con un sistema automático <strong>(Stripe)</strong>. Tú solo pones la tarjeta una vez y ya no tienes que preocuparte. Cada mes se te cobra solo, con factura legal incluida.<br></br><br></br>
-            En los planes mensuales, hay una <strong>permanencia mínima</strong> de 12 meses (en el Plan Confianza) o de 24 meses (en el Plan Demanda), <strong>porque el trabajo se planifica a largo plazo</strong>. Si decides cancelar antes de tiempo, deberás pagar lo que falte hasta completar el periodo.<br></br><br></br>
+            <p>Se hace por tarjeta con un sistema automático <strong>(Stripe)</strong>. Tú solo pones la tarjeta y no tienes que preocuparte más. Cada mes se te cobra de forma automática y con factura legal incluida.<br></br><br></br>
+            En los planes mensuales, hay una <strong>permanencia mínima</strong> (de 12 meses en el Plan Confianza o de 24 meses en el Plan Demanda), <strong>porque el trabajo se planifica a largo plazo</strong>. Si decides cancelar antes de tiempo, deberás pagar lo que falte hasta completar el periodo.<br></br><br></br>
             Esto es para trabajar bien, sin presiones y con compromiso real por ambas partes.</p>
           </div>
           <div className="pagos__img"><Image src="/jardineria/invoice.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>

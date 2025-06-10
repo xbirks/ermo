@@ -476,6 +476,11 @@ p{
                 color: $azul-ermo;
                 font-size: 1rem;
             }
+
+            .rojo{
+                color: #e6522f;
+                font-size: 1rem;
+            }
            
     }
 
@@ -612,4 +617,11 @@ p{
             height: 100%;
             border-radius: 15px;
         }
+}
+
+
+
+.btn_confi{
+    display: flex;
+    margin: auto;
 }
