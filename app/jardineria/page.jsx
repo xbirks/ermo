@@ -27,7 +27,7 @@ useEffect(() => {
 
 
       <section className="intro-jardin__master">
-        <h1>¿Tienes una buena empresa de <span className="jardin__destacado">jardinería</span> pero nadie te encuentra en Google?</h1>
+        <h1>¿Tienes una buena empresa de <span className="jardin__destacado">jardinería</span> pero nadie te encuentra en Google ni ChatGPT?</h1>
         
         <div className="intro-jardin__content">
           <div className="intro-jardin__text">
@@ -61,7 +61,7 @@ useEffect(() => {
         <div className="ventajas__master">
         <div className="ventajas__element" id="ventajas">
           <div className="ventajas__element-img"><Image src="/jardineria/GART1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
-          <h3>Te encontrarán en <strong>Google</strong></h3>
+          <h3>Te encontrarán en <strong>Google y ChatGPT</strong></h3>
           <p>Tu web estará bien posicionada para búsquedas reales como “jardinero en Valencia”.<br></br><br></br>No pagas por tener una página bonita, pagas para que te encuentren y te contacten.</p>
         </div>
 
@@ -183,7 +183,7 @@ useEffect(() => {
             </div>
             <div>
               <h5 className="confi_precio" >90€<span className="little">/mes</span></h5>
-              <p className="aviso confi_aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 3 meses no aparecen en Google, trabajo GRATIS hasta que aparezcas.</p>
+              <p className="aviso confi_aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 3 meses no apareces en Google, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
@@ -204,7 +204,7 @@ useEffect(() => {
             </div>
             <div>
               <h5>120€<span className="little">/mes</span></h5>
-              <p className="aviso">Con una permanencia de 24 meses. <br></br>Si durante los primeros 6 meses no aparecen en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
+              <p className="aviso">Con una permanencia de 24 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
