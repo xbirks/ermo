@@ -1,5 +1,9 @@
 @import '../variables.scss';
 
+h1{
+    letter-spacing: 0.2rem;
+}
+
 .jardin__destacado{
     color: $mar-ermo;
     font-weight: 500;
@@ -478,7 +482,7 @@ p{
             }
 
             .rojo{
-                color: #e6522f;
+                color: #f10a7d;
                 font-size: 1rem;
             }
            

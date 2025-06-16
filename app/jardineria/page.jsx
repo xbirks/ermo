@@ -27,7 +27,7 @@ useEffect(() => {
 
 
       <section className="intro-jardin__master">
-        <h1>¿Tienes una buena empresa de <span className="jardin__destacado">jardinería</span> pero nadie te encuentra en Google ni ChatGPT?</h1>
+        <h1>¿Tienes una buena empresa de <span className="jardin__destacado">jardinería</span> pero nadie te encuentra en Google ni <span className="jardin__destacado">ChatGPT</span>?</h1>
         
         <div className="intro-jardin__content">
           <div className="intro-jardin__text">
@@ -150,7 +150,7 @@ useEffect(() => {
 
           <div className="slide">
             <div>
-              <h4>Plan <strong>Presencia</strong></h4>
+              <h4>Plan <strong>Básico</strong></h4>
               <ul>
                 <li>Web adaptada a la imagen de tu empresa</li>
                 <li>Optimización para todos los dispositivos</li>
@@ -172,7 +172,7 @@ useEffect(() => {
 
           <div className="slide slide-blue" >
             <div>
-              <h4>Plan <strong>Confianza</strong></h4>
+              <h4>Plan <strong>Demanda</strong></h4>
               <ul>
                 <li>TODO lo incluido en el Plan Presencia</li>
                 <li>Cambios menores incluidos durante todo el año</li>
@@ -182,7 +182,7 @@ useEffect(() => {
               </ul>
             </div>
             <div>
-              <h5 className="confi_precio" >90€<span className="little">/mes</span></h5>
+              <h5 className="confi_precio" >120€<span className="little">/mes</span></h5>
               <p className="aviso confi_aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 3 meses no apareces en Google, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
@@ -194,7 +194,7 @@ useEffect(() => {
 
           <div className="slide">
             <div>
-              <h4>Plan <strong>Demanda</strong></h4>
+              <h4>Plan <strong>Total</strong></h4>
               <ul>
                 <li>TODO lo incluido en el Plan Confianza</li>
                 <li>Plantilla personalizada para solicitar reseñas a tus clientes</li>
@@ -203,7 +203,7 @@ useEffect(() => {
               </ul>
             </div>
             <div>
-              <h5>120€<span className="little">/mes</span></h5>
+              <h5>150€<span className="little">/mes</span></h5>
               <p className="aviso">Con una permanencia de 24 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
