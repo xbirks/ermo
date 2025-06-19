@@ -174,7 +174,7 @@ useEffect(() => {
             <div>
               <h4>Plan <strong>Demanda</strong></h4>
               <ul>
-                <li>TODO lo incluido en el Plan Presencia</li>
+                <li><strong>TODO</strong> lo incluido en el Plan Básico</li>
                 <li>Cambios menores incluidos durante todo el año</li>
                 <li>Informes mensuales con visitas, clics y llamadas</li>
                 <li>Posicionamiento SEO local activo</li>
@@ -204,7 +204,7 @@ useEffect(() => {
             </div>
             <div>
               <h5>150€<span className="little">/mes</span></h5>
-              <p className="aviso">Con una permanencia de 24 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
+              <p className="aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
