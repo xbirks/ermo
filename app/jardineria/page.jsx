@@ -43,8 +43,8 @@ useEffect(() => {
             />
 
              <StandardButton
-              link="#ventajas"
-              title="Ventajas"
+              link="#precio"
+              title="Precios"
               style="mt-l margin-auto btn_jardin"
             />
           </div>
