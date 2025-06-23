@@ -15,7 +15,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://ermo.es/seo/fotografia-1200x630.jpg',
+        url: 'https://ermo.es/seo/jardineria-1200x630.jpg',
         width: 1200,
         height: 630,
         alt: 'Web diseñada para jardineros locales por ERMO',
@@ -32,7 +32,7 @@ export const metadata = {
     creator: '@ermo.es',
     title: `Web para jardineros locales - Exclusividad y SEO local`,
     description: `Página web para jardineros que quieren llamadas, no visitas. Solo uno por zona. Tú decides si eres tú o tu competencia.`,
-    image: 'https://ermo.es/seo/fotografia-1200-600.jpg',
+    image: 'https://ermo.es/seo/jardineria-1200-600.jpg',
     imageAlt: 'Web diseñada por ERMO para jardineros locales',
   },
 };
