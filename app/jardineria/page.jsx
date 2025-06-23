@@ -196,8 +196,7 @@ useEffect(() => {
             <div>
               <h4>Plan <strong>Total</strong></h4>
               <ul>
-                <li>TODO lo incluido en el Plan Confianza</li>
-                <li>Plantilla personalizada para solicitar reseñas a tus clientes</li>
+                <li>TODO lo incluido en el Plan Básico y Demanda</li>
                 <li>Configuración inicial del perfil de Google Business</li>
                 <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando un cliente pida una recomendación de jardineros en tu zona</li>
               </ul>
