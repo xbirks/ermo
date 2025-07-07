@@ -27,7 +27,7 @@ useEffect(() => {
 
 
       <section className="intro-jardin__master">
-        <h1>¿Tienes una buena empresa de <span className="jardin__destacado">jardinería</span> pero nadie te encuentra en Google ni <span className="jardin__destacado">ChatGPT</span>?</h1>
+        <h1>¿Eres buen <span className="jardin__destacado">jardinero</span> pero nadie te encuentra en Google ni <span className="jardin__destacado">ChatGPT</span>?</h1>
         
         <div className="intro-jardin__content">
           <div className="intro-jardin__text">
@@ -89,59 +89,8 @@ useEffect(() => {
 
 
 
-
-
-
-
-      <section className="grid__master">
-        <h2>Si tienes un buen servicio, demuéstralo con tu web</h2>
-        <h3>¿Qué conseguirás conmigo?</h3>
-
-        <div className="grid">
-          <div className="grid__element" id="servicio">
-            <h4>Un diseño que ya ha funcionado antes</h4>
-            <p>No empiezo desde cero. Uso una estructura clara, probada y adaptada a tu imagen para que se vea profesional sin que te cueste una fortuna.</p>
-          </div>
-          <div className="grid__element">
-            <h4>Tu web se verá bien y cargará rápido</h4>
-            <p>En el móvil, en el ordenador o donde te busquen. Porque si tarda o se ve mal, el cliente se va.</p>
-          </div>
-          <div className="grid__element">
-            <h4>Aparecerás en Google cuando busquen lo que haces</h4>
-            <p>Configuro tu web para que te encuentren en tu zona. Y cuando eso pasa, empieza a sonar el teléfono y a llegar correos.</p>
-          </div>
-          <div className="grid__element-grey">
-            <p>Menos lio.</p>
-            <p>Más llamadas</p>
-          </div>
-          <div className="grid__element">
-            <h4>Una sección para mostrar lo que haces</h4>
-            <p>Podas, diseño, mantenimiento… Con texto claro y tus propias fotos si las tienes. Si no, te digo cómo hacerlo bien.</p>
-          </div>
-          <div className="grid__element">
-            <h4>Todo lo técnico déjamelo a mi</h4>
-            <p>Tú no te preocupas de renovar nada. Dominio y alojamiento incluidos. Lo técnico queda en mis manos.</p>
-          </div>
-          <div className="grid__element">
-            <h4>Soporte si algo falla</h4>
-            <p>Durante el tiempo acordado, puedes escribirme si hay algún problema. Y lo resolvemos.</p>
-          </div>
-          <div className="grid__element">
-            <h4>Contacto directo sin rodeos</h4>
-            <p>Botón de WhatsApp y formulario sencillo. El cliente llega y te escribe. Así de simple.</p>
-          </div>
-          <div className="grid__element-grey">
-            <p>Muestra.</p>
-            <p>Conecta.</p>
-            <p>Vende.</p>
-          </div>
-
-        </div>
-      </section>
-
-
-
-
+    
+      
       <section className="precios__master">
         <h2>Esto cuesta que empiecen a <span className="jardin__destacado">llamarte</span></h2>
         <h3>Precios claros, sin letra pequeña</h3>
@@ -229,6 +178,62 @@ useEffect(() => {
           <div className="pagos__img"><Image src="/jardineria/invoice.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
         </div>
       </section>
+
+
+
+
+
+
+
+
+      <section className="grid__master">
+        <h2>Si tienes un buen servicio, demuéstralo con tu web</h2>
+        <h3>¿Qué conseguirás conmigo?</h3>
+
+        <div className="grid">
+          <div className="grid__element" id="servicio">
+            <h4>Un diseño que ya ha funcionado antes</h4>
+            <p>No empiezo desde cero. Uso una estructura clara, probada y adaptada a tu imagen para que se vea profesional sin que te cueste una fortuna.</p>
+          </div>
+          <div className="grid__element">
+            <h4>Tu web se verá bien y cargará rápido</h4>
+            <p>En el móvil, en el ordenador o donde te busquen. Porque si tarda o se ve mal, el cliente se va.</p>
+          </div>
+          <div className="grid__element">
+            <h4>Aparecerás en Google cuando busquen lo que haces</h4>
+            <p>Configuro tu web para que te encuentren en tu zona. Y cuando eso pasa, empieza a sonar el teléfono y a llegar correos.</p>
+          </div>
+          <div className="grid__element-grey">
+            <p>Menos lio.</p>
+            <p>Más llamadas</p>
+          </div>
+          <div className="grid__element">
+            <h4>Una sección para mostrar lo que haces</h4>
+            <p>Podas, diseño, mantenimiento… Con texto claro y tus propias fotos si las tienes. Si no, te digo cómo hacerlo bien.</p>
+          </div>
+          <div className="grid__element">
+            <h4>Todo lo técnico déjamelo a mi</h4>
+            <p>Tú no te preocupas de renovar nada. Dominio y alojamiento incluidos. Lo técnico queda en mis manos.</p>
+          </div>
+          <div className="grid__element">
+            <h4>Soporte si algo falla</h4>
+            <p>Durante el tiempo acordado, puedes escribirme si hay algún problema. Y lo resolvemos.</p>
+          </div>
+          <div className="grid__element">
+            <h4>Contacto directo sin rodeos</h4>
+            <p>Botón de WhatsApp y formulario sencillo. El cliente llega y te escribe. Así de simple.</p>
+          </div>
+          <div className="grid__element-grey">
+            <p>Muestra.</p>
+            <p>Conecta.</p>
+            <p>Vende.</p>
+          </div>
+
+        </div>
+      </section>
+
+
+
 
 
 
