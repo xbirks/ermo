@@ -13,7 +13,7 @@ h1{
 p{
     color: #393939;
     font-size: 1.1rem;
-    line-height: 1.8rem;
+    line-height: 1.3rem;
             @include media600px {
             font-size: 1rem;
             line-height: 1.1rem;
@@ -82,6 +82,7 @@ p{
             font-size: 2rem;
             text-transform: uppercase;
             margin-bottom: 30px;
+            line-height: 1.9rem;
 
             @include media700px {
             font-size: 1.4rem;
