@@ -1,26 +1,42 @@
-'use client';
+"use client";
 
-import "./jardineria.scss";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { useRef, useEffect } from "react";
 import StandardButton from "../buttons/standard-button";
+import "./jardineria.scss";
 
-function Jardineria() {
-
+export default function Jardineria() {
   const sliderRef = useRef(null);
+  const [amount, setAmount] = useState(60000);
+  const [months, setMonths] = useState(6);
+  const [clients, setClients] = useState(42);
 
-useEffect(() => {
-  if (window.innerWidth <= 768 && sliderRef.current) {
-    const children = sliderRef.current.children;
-    if (children[1]) {
-      sliderRef.current.scrollLeft = children[1].offsetLeft;
-
+  useEffect(() => {
+    if (window.innerWidth <= 768 && sliderRef.current) {
+      const children = sliderRef.current.children;
+      if (children[1]) {
+        sliderRef.current.scrollLeft = children[1].offsetLeft;
+      }
     }
-  }
-}, []);
+  }, []);
 
+  useEffect(() => {
+    // Fecha inicial a partir de hoy
+    const startDate = new Date("2025-07-08");
+    const now = new Date();
 
+    const diffMs = now - startDate;
+    const weeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
+    const monthsPassed = Math.floor(diffMs / (30 * 24 * 60 * 60 * 1000));
 
+    const newAmount = 60000 + (weeks > 0 ? weeks * 3000 : 0);
+    const newClients = 42 + (weeks > 0 ? weeks * 3 : 0);
+    const newMonths = 6 + (monthsPassed > 0 ? monthsPassed : 0);
+
+    setAmount(newAmount);
+    setClients(newClients);
+    setMonths(newMonths);
+  }, []);
 
   return (
     <main className="landing-jardineria master__body">
@@ -188,6 +204,52 @@ useEffect(() => {
 
 
 
+    
+
+      <section className="grid__master">
+        <h2>Casos de <span className="jardin__destacado">éxito</span></h2>
+
+        <div className="exito__tarjeta">
+            <div className="exito__cliente">
+              <div className="exito__cliente-img"><Image src="/jardineria/gartalia_img.jpg" width={1024} height={1324} alt="Vista móvil de la web de jardinería" /></div>
+              <div className="exito__cliente-content">
+                <p className="review">Me hizo la página y estoy muy contento. Antes casi no me llamaba nadie y ahora tengo trabajo todas las semanas. Salgo el primero en Google cuando buscan jardineros en mi pueblo. Me explicó todo muy claro aunque yo no entiendo mucho de ordenadores. Lo recomiendo mucho porque sabe lo que hace y es muy serio con su trabajo.</p>
+                <div className="exito__cliente-content-logo">
+                  <Image className="cliente__logo" src="/jardineria/gartalia_header_logo.svg" width={400} height={200} alt="Gartalia logo" />
+                  <a className="exito__enlace" href="https://gartalia.com">Carlos Correa - Zona Valencia</a>
+                </div>
+              </div>
+            </div>
+            <div className="exito__datos">
+              <div className="exito__datos-element">
+                <p className="data_A">{amount >= 1000? (amount / 1000).toFixed(0) + "K": amount.toString()} €</p>
+                <p className="data_B">de ingresos brutos solo con clientes de la web.</p>
+              </div>
+              <div className="exito__datos-element">
+                <p className="data_C">{months} <span className="data_D">Meses</span></p>
+                <p className="data_B">de trabajo con la web.</p>
+              </div>
+              <div className="exito__datos-element">
+                <p className="data_C">{clients}\</p>
+                <p className="data_B">clientes conseguidos</p>
+              </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+
+
+
+
+
       <section className="grid__master">
         <h2>Si tienes un buen servicio, demuéstralo con tu web</h2>
         <h3>¿Qué conseguirás conmigo?</h3>
@@ -302,5 +364,3 @@ useEffect(() => {
     </main>
   );
 }
-
-export default Jardineria;

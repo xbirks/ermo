@@ -536,7 +536,7 @@ p{
         .pagos__img{
         height: auto;
         width: 40vw;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 16 / 9;
         object-fit: cover;
                 @include media800px {
                         aspect-ratio: 16 / 9;
@@ -644,4 +644,157 @@ p{
 .btn_confi{
     display: flex;
     margin: auto;
+}
+
+
+
+
+
+
+
+.exito__tarjeta{
+
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-top: 30px;
+            @include media800px {
+                        display: grid;
+                    }
+
+    .exito__cliente{
+        background-color: #E8E8E8;
+        display: flex;
+        padding: 25px;
+        border-radius: 25px;
+        width: 95vw;
+                @include media800px {
+                width: auto;
+            }
+                @include media500px {
+                display: block;
+                padding: 15px;
+            }
+        
+
+        .exito__cliente-img{
+              display: flex;
+                min-width: 300px;
+                overflow: hidden;
+                border-radius: 20px;
+                margin-right: 30px;
+                    @include media1200px {
+                         width: 20vw;
+                        height: 100%;
+                        min-width: 200px;
+                    }
+                    @include media500px {
+                        width: 100%;
+                        height: auto;
+                        aspect-ratio: 16/9;
+                        margin-bottom: 30px;
+                    }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .exito__cliente-content{
+            display: grid;
+            justify-content: space-between;
+
+            .review{
+                margin-bottom: 30px;
+            }
+
+            .exito__enlace{
+                margin-top: 10px;
+                font-size: 1rem;
+                font-family: $neue;
+                letter-spacing: -0.5px;
+            }
+
+
+            .exito__cliente-content-logo{
+                display: grid;
+                align-items: end;
+
+                
+                .cliente__logo{
+                    width: 130px;
+                    height: auto;
+                }
+            }
+        }
+    }
+
+    .exito__datos{
+        background-color: #E8E8E8;
+        padding: 20px;
+        width: 300px;
+        border-radius: 25px;
+        display: grid;
+                @include media900px {
+                        width: 200px;
+                    }
+                @include media800px {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        width: auto;
+                        gap: 15px;
+                    }
+
+        .exito__datos-element{
+          margin-bottom: 30px;
+                @include media800px {
+                                margin-bottom: 0px;
+                            }
+            
+
+            .data_A{
+                color: $azul-ermo;
+                font-size: 2.5rem;
+                text-align: right;
+                margin-bottom: 15px;
+                                @include media500px {
+                                    text-align: center;
+                                    font-size: 2rem;
+                                }
+            }
+
+            .data_B{
+                font-size: 0.9rem;
+                text-align: right;
+                margin-bottom: 20px;
+                line-height: 0.9rem;
+                            @include media800px {
+                            margin-bottom: 0px;
+                        }
+                        @include media500px {
+                            margin-top: 15px;
+                            text-align: center;
+                        }
+            }
+
+            .data_C{
+                font-size: 2.5rem;
+                text-align: right;
+                margin-bottom: 10px;
+                        @include media500px {
+                                    text-align: center;
+                                    font-size: 2rem;
+                                }
+            }
+
+            .data_D{
+                font-size: 1.5rem;
+                letter-spacing: -1px;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+        }
+    }
 }
