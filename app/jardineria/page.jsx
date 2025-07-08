@@ -27,7 +27,7 @@ useEffect(() => {
 
 
       <section className="intro-jardin__master">
-        <h1>¿Eres buen <span className="jardin__destacado">jardinero</span> pero nadie te encuentra en Google ni <span className="jardin__destacado">ChatGPT</span>?</h1>
+        <h1>¿Eres buen <span className="jardin__destacado">jardinero</span> pero nadie te encuentra en <span className="jardin__destacado">ChatGPT</span> ni Google?</h1>
         
         <div className="intro-jardin__content">
           <div className="intro-jardin__text">
@@ -61,7 +61,7 @@ useEffect(() => {
         <div className="ventajas__master">
         <div className="ventajas__element" id="ventajas">
           <div className="ventajas__element-img"><Image src="/jardineria/GART1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
-          <h3>Te encontrarán en <strong>Google y ChatGPT</strong></h3>
+          <h3>Te encontrarán en <strong>ChatGPT y Google</strong></h3>
           <p>Tu web estará bien posicionada para búsquedas reales como “jardinero en Valencia”.<br></br><br></br>No pagas por tener una página bonita, pagas para que te encuentren y te contacten.</p>
         </div>
 
@@ -101,16 +101,14 @@ useEffect(() => {
             <div>
               <h4>Plan <strong>Básico</strong></h4>
               <ul>
-                <li>Web adaptada a la imagen de tu empresa</li>
-                <li>Optimización para todos los dispositivos</li>
-                <li>Posicionamiento SEO local básico</li>
-                <li>Dominio y alojamiento durante 1 año</li>
-                <li>Soporte técnico durante 1 mes</li>
+                <li>Tu web pensada para conseguir nuevos clientes</li>
+                <li>Configuración inicial del perfil de Google Business</li>
+                <li>Correo para recibir solicitudes de presupuesto</li>
               </ul>
             </div>
             <div>
-              <h5>1990€</h5>
-              <p className="aviso">Pago único</p>
+              <h5>110€<span className="little">/mes</span></h5>
+              <p className="aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
@@ -123,11 +121,13 @@ useEffect(() => {
             <div>
               <h4>Plan <strong>Demanda</strong></h4>
               <ul>
-                <li><strong>TODO</strong> lo incluido en el Plan Básico</li>
-                <li>Cambios menores incluidos durante todo el año</li>
-                <li>Informes mensuales con visitas, clics y llamadas</li>
-                <li>Posicionamiento SEO local activo</li>
+                <li className="amarillo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
                 <li className="amarillo"><strong>EXCLUSIVIDAD</strong><br></br>por zona geográfica</li>
+                <li>Flujo de clientes constante</li>
+                <li>Adaptación de plantilla a tus necesidades</li>
+                <li>Informes mensuales con visitas, clics y llamadas</li>
+                <li>Configuración inicial del perfil de Google Business</li>
+                
               </ul>
             </div>
             <div>
@@ -145,9 +145,14 @@ useEffect(() => {
             <div>
               <h4>Plan <strong>Total</strong></h4>
               <ul>
-                <li>TODO lo incluido en el Plan Básico y Demanda</li>
+                <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando pregunten por jardineros en tu zona</li>
+                <li className="rojo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
+                <li className="rojo"><strong>EXCLUSIVIDAD</strong><br></br> por zona geográfica expandida</li>
+                <li>Flujo de clientes constante</li>
+                <li>Adaptación de plantilla a tus necesidades</li>
+                <li>Informes mensuales con visitas, clics y llamadas</li>
                 <li>Configuración inicial del perfil de Google Business</li>
-                <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando un cliente pida una recomendación de jardineros en tu zona</li>
+                
               </ul>
             </div>
             <div>
@@ -167,15 +172,12 @@ useEffect(() => {
 
         <div className="pagos__master">
           <div className="pagos__text">
-            {/* <h4>Pago único</h4>
-            <p>Se hace una sola transferencia antes de empezar. Fácil.</p> */}
 
-            <h4>Pago mes a mes</h4>
-            <p>Se hace por tarjeta con un sistema automático <strong>(Stripe)</strong>. Tú solo pones la tarjeta y no tienes que preocuparte más. Cada mes se te cobra de forma automática y con factura legal incluida.<br></br><br></br>
-            En los planes mensuales, hay una <strong>permanencia mínima</strong> (de 12 meses en el Plan Confianza o de 24 meses en el Plan Demanda), <strong>porque el trabajo se planifica a largo plazo</strong>. Si decides cancelar antes de tiempo, deberás pagar lo que falte hasta completar el periodo.<br></br><br></br>
-            Esto es para trabajar bien, sin presiones y con compromiso real por ambas partes.</p>
+            <Image className="stripe" src="/jardineria/stripe.png" width={400} height={167} alt="Stripe logo" />
+
+            <p>Cuando firmamos el contrato te mando un enlace a <strong>Stripe</strong>. Tu solamente realizas el primer pago y el resto de pagos se formalizan automáticamente cada mes.</p>
           </div>
-          <div className="pagos__img"><Image src="/jardineria/invoice.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
+          <div className="pagos__img"><Image src="/jardineria/tarjeta.png" width={1024} height={1536} alt="Pago con tarjeta y Stripe en Ermo" /></div>
         </div>
       </section>
 
