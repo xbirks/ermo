@@ -7,9 +7,35 @@ import "./jardineria.scss";
 
 export default function Jardineria() {
   const sliderRef = useRef(null);
-  const [amount, setAmount] = useState(60000);
-  const [months, setMonths] = useState(6);
-  const [clients, setClients] = useState(42);
+
+  // Array de clientes con datos base
+  const [clientes, setClientes] = useState([
+    {
+      id: 1,
+      name: "Carlos Correa - Zona Valencia",
+      link: "https://gartalia.com",
+      img: "/jardineria/gartalia_img.jpg",
+      logo: "/jardineria/gartalia_header_logo.svg",
+      review: `Me hizo la página y estoy muy contento. Antes casi no me llamaba nadie y ahora <strong>tengo trabajo todas las semanas</strong>. Salgo el primero en Google cuando buscan jardineros en mi pueblo. Me explicó todo muy claro aunque yo no entiendo mucho de ordenadores. <strong>Lo recomiendo mucho porque sabe lo que hace y es muy serio con su trabajo.</strong>`,
+      amount: 60000,
+      months: 6,
+      clients: 37,
+      startDate: new Date("2025-07-08"),
+    },
+    {
+      id: 2,
+      name: "Iván García Mayans - Zona La Safor",
+      link: "https://gartalia.com",
+      img: "/jardineria/javea_img.jpg",
+      logo: "/jardineria/safor_logo.svg",
+      review:
+        `Yo no entendía nada de páginas ni de esas cosas de internet, pero él me hizo todo. Ahora tengo <strong>muchos clientes nuevos</strong> que me llaman porque me ven en Google. La web quedó muy bien. Muy agradecido porque gracias a esto tengo <strong>más faena</strong> que antes.`,
+      amount: 9100,
+      months: 2,
+      clients: 16,
+      startDate: new Date("2025-07-08"),
+    },
+  ]);
 
   useEffect(() => {
     if (window.innerWidth <= 768 && sliderRef.current) {
@@ -20,23 +46,25 @@ export default function Jardineria() {
     }
   }, []);
 
+  // Calcula datos actualizados al cargar
   useEffect(() => {
-    // Fecha inicial a partir de hoy
-    const startDate = new Date("2025-07-08");
     const now = new Date();
+    const updated = clientes.map((c) => {
+      const diffMs = now - c.startDate;
+      const weeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
+      const monthsPassed = Math.floor(diffMs / (30 * 24 * 60 * 60 * 1000));
 
-    const diffMs = now - startDate;
-    const weeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
-    const monthsPassed = Math.floor(diffMs / (30 * 24 * 60 * 60 * 1000));
+      return {
+        ...c,
+        amount: c.amount + (weeks > 0 ? weeks * 3000 : 0),
+        clients: c.clients + (weeks > 0 ? weeks * 3 : 0),
+        months: c.months + (monthsPassed > 0 ? monthsPassed : 0),
+      };
+    });
 
-    const newAmount = 60000 + (weeks > 0 ? weeks * 3000 : 0);
-    const newClients = 42 + (weeks > 0 ? weeks * 3 : 0);
-    const newMonths = 6 + (monthsPassed > 0 ? monthsPassed : 0);
-
-    setAmount(newAmount);
-    setClients(newClients);
-    setMonths(newMonths);
+    setClientes(updated);
   }, []);
+
 
   return (
     <main className="landing-jardineria master__body">
@@ -64,7 +92,7 @@ export default function Jardineria() {
               style="mt-l margin-auto btn_jardin"
             />
           </div>
-          <div className="intro-jardin__img"><Image src="/jardineria/movil_01.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
+          <div className="intro-jardin__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
 
         </div>
       </section>
@@ -115,7 +143,7 @@ export default function Jardineria() {
 
           <div className="slide">
             <div>
-              <h4>Plan <strong>Básico</strong></h4>
+              <h4>Plan <strong>web</strong></h4>
               <ul>
                 <li>Tu web pensada para conseguir nuevos clientes</li>
                 <li>Configuración inicial del perfil de Google Business</li>
@@ -124,7 +152,7 @@ export default function Jardineria() {
             </div>
             <div>
               <h5>110€<span className="little">/mes</span></h5>
-              <p className="aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
+              <p className="aviso">Con una permanencia de 12 meses.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
@@ -135,7 +163,7 @@ export default function Jardineria() {
 
           <div className="slide slide-blue" >
             <div>
-              <h4>Plan <strong>Demanda</strong></h4>
+              <h4>Plan <strong>Google</strong></h4>
               <ul>
                 <li className="amarillo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
                 <li className="amarillo"><strong>EXCLUSIVIDAD</strong><br></br>por zona geográfica</li>
@@ -159,7 +187,7 @@ export default function Jardineria() {
 
           <div className="slide">
             <div>
-              <h4>Plan <strong>Total</strong></h4>
+              <h4>Plan <strong>GPT</strong></h4>
               <ul>
                 <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando pregunten por jardineros en tu zona</li>
                 <li className="rojo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
@@ -203,41 +231,45 @@ export default function Jardineria() {
 
 
 
+       <section className="grid__master">
+      <h2>Casos de <span className="jardin__destacado">éxito</span></h2>
 
-    
-
-      <section className="grid__master">
-        <h2>Casos de <span className="jardin__destacado">éxito</span></h2>
-
-        <div className="exito__tarjeta">
-            <div className="exito__cliente">
-              <div className="exito__cliente-img"><Image src="/jardineria/gartalia_img.jpg" width={1024} height={1324} alt="Vista móvil de la web de jardinería" /></div>
-              <div className="exito__cliente-content">
-                <p className="review">Me hizo la página y estoy muy contento. Antes casi no me llamaba nadie y ahora tengo trabajo todas las semanas. Salgo el primero en Google cuando buscan jardineros en mi pueblo. Me explicó todo muy claro aunque yo no entiendo mucho de ordenadores. Lo recomiendo mucho porque sabe lo que hace y es muy serio con su trabajo.</p>
-                <div className="exito__cliente-content-logo">
-                  <Image className="cliente__logo" src="/jardineria/gartalia_header_logo.svg" width={400} height={200} alt="Gartalia logo" />
-                  <a className="exito__enlace" href="https://gartalia.com">Carlos Correa - Zona Valencia</a>
-                </div>
+      {clientes.map((cliente) => (
+        <div className="exito__tarjeta" key={cliente.id}>
+          <div className="exito__cliente">
+            <div className="exito__cliente-img">
+              <Image src={cliente.img} width={1024} height={1324} alt="Cliente" />
+            </div>
+            <div className="exito__cliente-content">
+              <p className="review" dangerouslySetInnerHTML={{ __html: cliente.review }} />
+              <div className="exito__cliente-content-logo">
+                <Image className="cliente__logo" src={cliente.logo} width={400} height={200} alt="Logo cliente" />
+                <a className="exito__enlace" href={cliente.link}>{cliente.name}</a>
               </div>
             </div>
-            <div className="exito__datos">
-              <div className="exito__datos-element">
-                <p className="data_A">{amount >= 1000? (amount / 1000).toFixed(0) + "K": amount.toString()} €</p>
-                <p className="data_B">de ingresos brutos solo con clientes de la web.</p>
-              </div>
-              <div className="exito__datos-element">
-                <p className="data_C">{months} <span className="data_D">Meses</span></p>
-                <p className="data_B">de trabajo con la web.</p>
-              </div>
-              <div className="exito__datos-element">
-                <p className="data_C">{clients}\</p>
-                <p className="data_B">clientes conseguidos</p>
-              </div>
           </div>
-
+          <div className="exito__datos">
+            <div className="exito__datos-element">
+              <p className="data_A">
+                {cliente.amount >= 1000
+                  ? (cliente.amount / 1000).toFixed(0) + "K"
+                  : cliente.amount.toString()
+                } €
+              </p>
+              <p className="data_B">de ingresos brutos solo con clientes de la web.</p>
+            </div>
+            <div className="exito__datos-element">
+              <p className="data_C">{cliente.months} <span className="data_D">Meses</span></p>
+              <p className="data_B">de trabajo con la web.</p>
+            </div>
+            <div className="exito__datos-element">
+              <p className="data_C">{cliente.clients}</p>
+              <p className="data_B">clientes conseguidos</p>
+            </div>
+          </div>
         </div>
-
-      </section>
+      ))}
+    </section>
 
 
 
