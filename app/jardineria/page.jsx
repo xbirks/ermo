@@ -145,13 +145,13 @@ export default function Jardineria() {
             <div>
               <h4>Plan <strong>web</strong></h4>
               <ul>
-                <li>Tu web pensada para conseguir nuevos clientes</li>
+                <li>Tu web pensada para conseguir nuevos clientes gracias a nuestra <br></br><strong>MAQUETA MODULAR</strong></li>
                 <li>Configuración inicial del perfil de Google Business</li>
                 <li>Correo para recibir solicitudes de presupuesto</li>
               </ul>
             </div>
             <div>
-              <h5>110€<span className="little">/mes</span></h5>
+              <h5>95€<span className="little">/mes</span></h5>
               <p className="aviso">Con una permanencia de 12 meses.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
@@ -168,7 +168,7 @@ export default function Jardineria() {
                 <li className="amarillo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
                 <li className="amarillo"><strong>EXCLUSIVIDAD</strong><br></br>por zona geográfica</li>
                 <li>Flujo de clientes constante</li>
-                <li>Adaptación de plantilla a tus necesidades</li>
+                <li>Adaptación de nuestra<br></br><strong>MAQUETA MODULAR</strong><br></br>a tus necesidades</li>
                 <li>Informes mensuales con visitas, clics y llamadas</li>
                 <li>Configuración inicial del perfil de Google Business</li>
                 
@@ -176,7 +176,8 @@ export default function Jardineria() {
             </div>
             <div>
               <h5 className="confi_precio" >120€<span className="little">/mes</span></h5>
-              <p className="aviso confi_aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 3 meses no apareces en Google, trabajo GRATIS hasta que aparezcas.</p>
+              <p className="aviso confi_aviso">Con una permanencia de 3 meses.</p>
+              {/* <p className="aviso confi_aviso">Si durante los primeros 3 meses no apareces en Google, trabajo GRATIS hasta que aparezcas.</p> */}
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
@@ -193,7 +194,7 @@ export default function Jardineria() {
                 <li className="rojo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
                 <li className="rojo"><strong>EXCLUSIVIDAD</strong><br></br> por zona geográfica expandida</li>
                 <li>Flujo de clientes constante</li>
-                <li>Adaptación de plantilla a tus necesidades</li>
+                <li>Adaptación de nuestra<br></br><strong>MAQUETA MODULAR</strong><br></br>a tus necesidades</li>
                 <li>Informes mensuales con visitas, clics y llamadas</li>
                 <li>Configuración inicial del perfil de Google Business</li>
                 
@@ -201,7 +202,7 @@ export default function Jardineria() {
             </div>
             <div>
               <h5>150€<span className="little">/mes</span></h5>
-              <p className="aviso">Con una permanencia de 12 meses. <br></br>Si durante los primeros 6 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
+              <p className="aviso">Con una permanencia de 3 meses. <br></br>Si durante los primeros 3 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
               <StandardButton
               link="https://wa.me/message/HJYSEK4RPLOSI1"
               title="Contratar"
