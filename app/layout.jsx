@@ -10,10 +10,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata = {
 
   //GENERIC
-  title: 'ERMO | Estudio de diseño gráfico en Valencia',
-  description: 'Branding, ilustración, animación 2D/3D, diseño web y fotografía de producto. Creatividad y compromiso.',
+  title: 'ERMO | Diseño y programación web en Valencia',
+  description: 'Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.',
   applicationName: 'ERMO',
-  keywords: ['diseño gráfico en Valencia', 'estudio de diseño gráfico en Manises', 'branding en Manises', 'ilustración en Manises', 'animación 2D en Manises', 'animación 3D en Manises', 'diseño web en Manises', 'fotografía de producto en Manises', 'diseñador gráfico en Manises', 'diseñador gráfico en Valencia', 'creatividad en Manises', 'marketing digital en Manises', 'diseño de logos en Manises', 'identidad corporativa en Manises', 'diseño de interiores en Manises', 'diseño de packaging en Manises', 'diseño de folletos en Manises', 'diseño de carteles en Manises', 'desarrollo de marca en Manises', 'consultoría de diseño en Manises', 'diseñador gráfico Manises'],
+  keywords: ['diseño gráfico en Valencia', 'estudio de diseño gráfico en Manises', 'branding en Manises', 'animación 2D en Manises', 'diseño web en Manises', 'fotografía de producto en Manises', 'diseñador gráfico en Manises', 'diseñador gráfico en Valencia', 'creatividad en Manises', 'marketing digital en Manises', 'diseño de logos en Manises', 'identidad corporativa en Manises', 'diseño de interiores en Manises', 'diseño de packaging en Manises', 'diseño de folletos en Manises', 'diseño de carteles en Manises', 'desarrollo de marca en Manises', 'consultoría de diseño en Manises', 'diseñador gráfico Manises'],
   authors: [{ name: 'Andrés Ortega', url: 'https://soyandres.es' }],
   creator: 'Andrés Ortega',
   publisher: 'Andrés Ortega',
@@ -28,8 +28,8 @@ export const metadata = {
   
   // META
   openGraph: {
-    title: 'ERMO | Estudio de diseño gráfico en Valencia',
-    description: 'Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.',
+    title: 'ERMO | Diseño y programación web en Valencia',
+    description: 'Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.',
     url: 'https://ermo.es',
     type: 'website',
     images: [
@@ -40,17 +40,17 @@ export const metadata = {
         alt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',
       },
     ],
-    site_name: 'ERMO | Estudio de diseño gráfico en Valencia',
+    site_name: 'ERMO | Diseño y programación web en Valencia',
     locale: 'es_ES',
   },
 
   // TWITTER
   twitter: {
-    card: 'ERMO | Estudio de diseño gráfico en Valencia',
+    card: 'ERMO | Diseño y programación web en Valencia',
     site: '@ermo.es',
     creator: '@ermo.es',
-    title: 'ERMO | Estudio de diseño gráfico en Valencia',
-    description: 'Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.',
+    title: 'ERMO | Diseño y programación web en Valencia',
+    description: 'Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.',
     image: 'https://ermo.es/seo/twitter-1200-600.jpg',
     imageAlt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',
   },
@@ -85,6 +85,8 @@ export default function RootLayout({ children }) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://use.typekit.net/ury2gea.css"></link>
+        <link rel="preload" href="https://use.typekit.net/ury2gea.css" as="font" type="font/woff2" crossOrigin="anonymous" />
+
        
         <meta name="theme-color" content="#3F52FF" />
         <meta name="background-color" content="#333333" />
@@ -106,7 +108,7 @@ export default function RootLayout({ children }) {
                 "@context": "http://schema.org",
                 "@type": "Organization",
                 "name": "Ermo",
-                "description": "Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.",
+                "description": "Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.",
                 "email": "estudio@ermo.es",
                 "logo": "https://ermo.es/favicon_500x500.png",
                 "url": "https://ermo.es"
@@ -116,7 +118,7 @@ export default function RootLayout({ children }) {
                 "@type": "LocalBusiness",
                 "logo": "https://ermo.es/favicon_500x500.png",
                 "name": "Ermo",
-                "description": "Estudio de diseño gráfico en Valencia: branding, ilustración, animación 2D/3D, diseño web y fotografía de producto.",
+                "description": "Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.",
                 "image": "https://ermo.es/seo/meta-1200x630.jpg",
                 "url": "https://ermo.es",
                 "hasMap": "#",

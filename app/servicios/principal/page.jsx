@@ -55,20 +55,14 @@ export default function ServiciosPrincipalPage() {
     <Spacer className="spacer-xl" />
 
     <ServicioComp
-        title="Hacemos fotografías que impulsarán tu negocio"
+        title="Imágenes creadas con Inteligencia artificial (IA)"
         imgsrc={imgfoto}
         altimg="Portada del servicio de fotografía Profesional que Impulsa tu Negocio"
-        descripcion={ <>La fotografía comercial de alta calidad se ha convertido en un elemento crucial para el éxito de las empresas en la era digital. 
-        <br></br><br></br>
-        Cuando se trata de productos, las <strong>imágenes profesionales</strong> tienen el poder de cautivar a los clientes potenciales y aumentar significativamente las ventas. Una fotografía de producto bien ejecutada no solo muestra los detalles y la calidad del artículo, sino que también evoca emociones y deseos en el espectador, llevándolo un paso más cerca de la decisión de compra. Más que un producto se convierten en objetos deseados.
-        <br></br><br></br>
-        En el ámbito digital, la fotografía comercial de calidad mejora drásticamente la presencia online de una empresa. Las imágenes profesionales de productos aumentan las <strong>tasas de conversión en tiendas online</strong>, ya que los clientes pueden apreciar claramente lo que están comprando. Además, el contenido visual de alta calidad mejora el SEO, aumentando la visibilidad de la empresa en los motores de búsqueda y atrayendo más tráfico orgánico.
-        <br></br><br></br>
-        La inversión en fotografía comercial profesional ya no es un lujo, sino una necesidad estratégica que puede impulsar las ventas, mejorar la imagen de marca y proporcionar una ventaja competitiva en un mercado cada vez más visual y digital.</>}
+        descripcion={ <>Trabajamos con flujos avanzados en ComfyUI para generar imágenes realistas o conceptuales que refuercen tu identidad visual <strong>sin los costes ni las limitaciones de una sesión fotográfica</strong> tradicional. <br></br><br></br>Partimos de un brief claro, afinamos los prompts y aplicamos retoque posterior para entregar archivos optimizados—tanto en calidad como en metadatos—listos para web, e‑commerce y redes sociales. <br></br><br></br>El proceso es ágil, escalable y coherente, lo que te permite lanzar campañas con rapidez, testar variantes de producto y mantener una presencia visual sólida que inspira confianza y, en última instancia, impulsa tus ventas.</>}
 
         imgcomp1={instagram}
         altcomp1="Logotipo de Instagram"
-        destacado1="Mejor engagement en redes sociales"
+        destacado1="Mayor engagement en redes sociales"
         imgcomp2={amazon}
         altcomp2="Logotipo de Amazon"
         destacado2={ <>Aumento de ventas en <wbr />e-commerce</>}
@@ -77,7 +71,7 @@ export default function ServiciosPrincipalPage() {
         destacado3="Mejora de la tasa de clics (CTR)"
         imgcomp4={colab}
         altcomp4="icono de colaboración B2B"
-        destacado4="Facilitación de colaboraciones B2B"
+        destacado4="A/B testing veloz y de bajo coste"
 
         btn1link="/servicios/fotografia"
         btn1title="ver fotos"
@@ -86,7 +80,7 @@ export default function ServiciosPrincipalPage() {
     ></ServicioComp>
 
 <Spacer className="spacer-xl" />
-
+{/* 
 <ServicioComp
         title="Ilustramos para dar una personalidad auténtica a tu marca"
         imgsrc={imgilustracion}
@@ -115,19 +109,13 @@ export default function ServiciosPrincipalPage() {
         btn2title="contratar"
     ></ServicioComp>
 
-<Spacer className="spacer-xl" />
+<Spacer className="spacer-xl" /> */}
 
 <ServicioComp
-        title="Programación web que impacta, convierte y fideliza"
+        title="Desarrollo web centrado en tus usuarios"
         imgsrc={imgweb}
         altimg="Portada del servicio de programación web y diseño ui/ux que impacta, convierte y fideliza"
-        descripcion={ <>Contar con una presencia web sólida y atractiva ya no es una opción, sino una necesidad imperativa para cualquier empresa. La programación web profesional combinada con un diseño UI/UX de calidad ofrece ventajas tangibles que pueden marcar la diferencia entre el éxito y el fracaso online.
-        <br></br><br></br>
-        La optimización de la experiencia del usuario a través de un diseño UI/UX intuitivo y atractivo se traduce en un aumento significativo en las tasas de conversión. Los usuarios encuentran fácilmente lo que buscan, por lo tanto, son más propensos a realizar una compra o contactar con tu empresa. 
-        <br></br><br></br>
-        Un diseño responsive garantiza que tu sitio se vea y funcione perfectamente en cualquier dispositivo, ampliando tu alcance y mejorando la retención de usuarios. Esta mejora en la experiencia del usuario, combinada con tiempos de carga optimizados, también favorece tu posicionamiento en los motores de búsqueda, aumentando tu visibilidad online.
-        <br></br><br></br>
-        Invertir en programación web y diseño UI/UX es una inversión estratégica que mejora la percepción de tu marca e impulsa tus resultados comerciales.</>}
+        descripcion={ <>Crear una presencia online sólida empieza por un sitio que cargue rápido, se vea bien en cualquier dispositivo y guíe al visitante sin esfuerzo. <br></br><br></br>Desarrollamos tu web con código limpio y un diseño UI/UX que prioriza la claridad: el usuario encuentra lo que necesita y tú obtienes más contactos y ventas. <br></br><br></br>Al optimizar rendimiento y SEO desde la base generamos una experiencia fiable que refuerza la confianza en tu marca y te permite crecer con serenidad.</>}
         imgcomp1={iman}
         altcomp1="icono de aumento de la tasa de conversión"
         destacado1="Aumento de la tasa de conversión"
@@ -136,10 +124,10 @@ export default function ServiciosPrincipalPage() {
         destacado2="Mayor visibilidad en Google"
         imgcomp3={carga}
         altcomp3="icono de reducción del tiempo de carga de la web"
-        destacado3="Reducción del tiempo de carga de la web"
+        destacado3="Tiempos de carga ultra‑rápidos"
         imgcomp4={responsive}
         altcomp4="icono de adaptabilidad a diferentes dispositivos responsive"
-        destacado4="Adaptabilidad a diferentes dispositivos"
+        destacado4="Adaptabilidad a cualquier dispositivo"
 
         btn1link="/servicios/web"
         btn1title="ver webs"
@@ -150,28 +138,22 @@ export default function ServiciosPrincipalPage() {
 <Spacer className="spacer-xl" />
 
 <ServicioComp
-        title="Animación y motion graphics"
+        title="Animación 2D y motion graphics que comunican"
         imgsrc={imganimacion}
         altimg="Portada del servicio de movimiento que impacta:  Animación 2D y motion graphics"
-        descripcion={ <>Captar y mantener la atención de tu audiencia es más desafiante que nunca. Es aquí donde la animación 2D y los motion graphics entran en juego, ofreciendo una poderosa herramienta para comunicar tu mensaje de manera efectiva y memorable.
-        <br></br><br></br>
-        Al combinar movimiento, color y narrativa, estas técnicas mejoran drásticamente la retención del mensaje, permitiendo que tu comunicación tenga un impacto duradero. Esto se traduce directamente en un aumento en las tasas de conversión, ya que los espectadores son más propensos a actuar sobre un mensaje que comprenden y recuerdan claramente.
-        <br></br><br></br>
-        Una de las ventajas más notables de la animación 2D y los motion graphics es su versatilidad. Permiten explicar conceptos complejos de manera sencilla y atractiva, lo que es especialmente útil para empresas que ofrecen productos o servicios sofisticados o no tangibles. Además, este tipo de contenido visual se destaca en las redes sociales, aumentando las posibilidades de viralización y ampliando el alcance de tu marca.
-        <br></br><br></br>
-        En un mercado saturado de contenido estático, el movimiento capta la atención y mejora la percepción de tu marca, posicionándola como innovadora y moderna y asegura que tu mensaje sea efectivo en cualquier medio, desde redes sociales hasta presentaciones corporativas.</>}
+        descripcion={ <>El movimiento es la forma más directa de explicar y de captar la atención. Con animación 2D y motion graphics transformamos conceptos complejos en piezas visuales claras, memorables y fáciles de compartir. Cada proyecto parte de tus objetivos: adaptamos estilo, ritmo y narrativa para que tu mensaje conecte, mejore la comprensión y refuerce la percepción de tu marca como innovadora, sin recurrir a estridencias innecesarias.</>}
         imgcomp1={comunicacion}
         altcomp1="icono de comunicación de conceptos complejos"
         destacado1="Comunicación de conceptos complejos"
         imgcomp2={viralidad}
         altcomp2="icono de viralidad en redes sociales"
-        destacado2="Viralidad en redes sociales"
+        destacado2="Retención y recuerdo del mensaje"
         imgcomp3={cohete}
         altcomp3="icono de diferenciación de la competencia"
         destacado3="Diferenciación de la competencia"
         imgcomp4={colab}
         altcomp4="icono de mayor engagement con la audiencia"
-        destacado4="Mayor engagement con la audiencia"
+        destacado4="Alcance y viralidad en redes"
 
         btn1link="/servicios/animacion"
         btn1title="ver más"
