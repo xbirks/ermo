@@ -32,6 +32,48 @@ const MANT_COSTS = {
   externos: 120,
 };
 
+const SEO_ITEMS = [
+  { id: 'seoIncluido', label: 'INCLUIDO', key: null, disabled: true },
+  {
+    id: 'seoTec',
+    label: 'SCHEMA, DATOS ESTRUCTURADOS, CORE WEB VITALS',
+    key: 'seoTec',
+  },
+  {
+    id: 'seoCont',
+    label: 'CONTENIDO Y POSICIONAMIENTO DE PRODUCTO',
+    key: 'seoCont',
+  },
+];
+
+const OPERATIVA_ITEMS = [
+  { id: 'op_redaccion', label: 'REDACCIÓN DE TEXTOS', key: 'opRedaccion' },
+  { id: 'op_traducciones', label: 'TRADUCCIONES', key: 'opTraducciones' },
+  {
+    id: 'op_imagenes',
+    label: 'IMÁGENES, ILUSTRACIONES O ICONOS',
+    key: 'opImagenes',
+  },
+  { id: 'op_foto', label: 'FOTOGRAFÍA O VIDEO', key: 'opFotografia' },
+  { id: 'op_urgente', label: 'ENTREGA CON URGENCIA', key: 'opUrgente' },
+  { id: 'op_revision', label: 'RONDA DE REVISIÓN EXTRA', key: 'opRevisionExtra' },
+  { id: 'op_reuniones', label: 'REUNIONES EXTRA', key: 'opReunionesExtra' },
+];
+
+const MANTENIMIENTO_ITEMS = [
+  { id: 'mant_anual', label: 'ANUAL', key: 'mantAnual' },
+  { id: 'mant_horas', label: 'POR HORAS (10h)', key: 'mantHoras' },
+  { id: 'mant_ext', label: 'SERVICIOS EXTERNOS', key: 'mantExternos' },
+];
+
+const ID_KEY_MAP = [...SEO_ITEMS, ...OPERATIVA_ITEMS, ...MANTENIMIENTO_ITEMS].reduce(
+  (acc, it) => {
+    if (it.key) acc[it.id] = it.key;
+    return acc;
+  },
+  {}
+);
+
 const fmt = (n) =>
   new Intl.NumberFormat('es-ES', {
     style: 'currency',
@@ -82,22 +124,21 @@ export default function CalculadoraWeb() {
 
   // Estado de bloques
   const [accesibilidad, setAccesibilidad] = useState('incluido'); // 'incluido' | 'aa'
-  const [seoTec, setSeoTec] = useState(false);
-  const [seoCont, setSeoCont] = useState(false);
 
-  // Operativa / recursos
-  const [opRedaccion, setOpRedaccion] = useState(false);
-  const [opTraducciones, setOpTraducciones] = useState(false);
-  const [opImagenes, setOpImagenes] = useState(false);
-  const [opFotografia, setOpFotografia] = useState(false);
-  const [opUrgente, setOpUrgente] = useState(false);
-  const [opRevisionExtra, setOpRevisionExtra] = useState(false);
-  const [opReunionesExtra, setOpReunionesExtra] = useState(false);
-
-  // Mantenimiento
-  const [mantAnual, setMantAnual] = useState(false);
-  const [mantHoras, setMantHoras] = useState(false);
-  const [mantExternos, setMantExternos] = useState(false);
+  const [optionsState, setOptionsState] = useState({
+    seoTec: false,
+    seoCont: false,
+    opRedaccion: false,
+    opTraducciones: false,
+    opImagenes: false,
+    opFotografia: false,
+    opUrgente: false,
+    opRevisionExtra: false,
+    opReunionesExtra: false,
+    mantAnual: false,
+    mantHoras: false,
+    mantExternos: false,
+  });
 
   // Cargar estado
   useEffect(() => {
@@ -109,37 +150,53 @@ export default function CalculadoraWeb() {
       if (typeof s.paginas === 'number') setPaginas(s.paginas);
       if (s.complejidad) setComplejidad(s.complejidad);
       if (s.accesibilidad) setAccesibilidad(s.accesibilidad);
-      setSeoTec(!!s.seoTec);
-      setSeoCont(!!s.seoCont);
-      setOpRedaccion(!!s.opRedaccion);
-      setOpTraducciones(!!s.opTraducciones);
-      setOpImagenes(!!s.opImagenes);
-      setOpFotografia(!!s.opFotografia);
-      setOpUrgente(!!s.opUrgente);
-      setOpRevisionExtra(!!s.opRevisionExtra);
-      setOpReunionesExtra(!!s.opReunionesExtra);
-      setMantAnual(!!s.mantAnual);
-      setMantHoras(!!s.mantHoras);
-      setMantExternos(!!s.mantExternos);
+      setOptionsState((prev) => ({
+        ...prev,
+        seoTec: !!s.seoTec,
+        seoCont: !!s.seoCont,
+        opRedaccion: !!s.opRedaccion,
+        opTraducciones: !!s.opTraducciones,
+        opImagenes: !!s.opImagenes,
+        opFotografia: !!s.opFotografia,
+        opUrgente: !!s.opUrgente,
+        opRevisionExtra: !!s.opRevisionExtra,
+        opReunionesExtra: !!s.opReunionesExtra,
+        mantAnual: !!s.mantAnual,
+        mantHoras: !!s.mantHoras,
+        mantExternos: !!s.mantExternos,
+      }));
     } catch {}
   }, []);
 
   // Guardar estado
   useEffect(() => {
     const s = {
-      tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
-      opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-      mantAnual, mantHoras, mantExternos
+      tipo,
+      paginas,
+      complejidad,
+      accesibilidad,
+      ...optionsState,
     };
     localStorage.setItem(LS_KEY, JSON.stringify(s));
-  }, [
-    tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
-    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-    mantAnual, mantHoras, mantExternos
-  ]);
+  }, [tipo, paginas, complejidad, accesibilidad, optionsState]);
 
   // Cálculo en tiempo real
   const total = useMemo(() => {
+    const {
+      seoTec,
+      seoCont,
+      opRedaccion,
+      opTraducciones,
+      opImagenes,
+      opFotografia,
+      opUrgente,
+      opRevisionExtra,
+      opReunionesExtra,
+      mantAnual,
+      mantHoras,
+      mantExternos,
+    } = optionsState;
+
     const base = PROJECT_TYPES[tipo].base;
     const numPags = Math.max(1, Number(paginas) || 1);
     const extraPages = Math.max(0, numPags - 1); // Home incluida
@@ -166,15 +223,17 @@ export default function CalculadoraWeb() {
       (mantExternos ? MANT_COSTS.externos : 0);
 
     return Math.round(((base + pagesCost + extrasOperativa) * multiplicador + mantenimiento) * 100) / 100;
-  }, [
-    tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
-    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-    mantAnual, mantHoras, mantExternos
-  ]);
+  }, [tipo, paginas, complejidad, accesibilidad, optionsState]);
 
 
 
   // --- PDF ---
+  const handleOptionToggle = (id, next) => {
+    const key = ID_KEY_MAP[id];
+    if (!key) return;
+    setOptionsState((prev) => ({ ...prev, [key]: next }));
+  };
+
 const handleDownloadPDF = async () => {
   const { jsPDF } = await import('jspdf');
   const doc = new jsPDF({ unit: 'pt', format: 'a4' });
@@ -200,16 +259,11 @@ const handleDownloadPDF = async () => {
   h('Número de páginas'); p(`${Math.max(1, Number(paginas)||1)}`);
   h('Complejidad del diseño'); p({basico:'Básico',intermedio:'Intermedio',avanzado:'Avanzado'}[complejidad]);
   h('Accesibilidad y calidad'); p(accesibilidad === 'aa' ? 'Objetivo AA' : 'Incluido');
-  const seoSel = [seoTec && 'Técnico extra (schema/CWV/redirects)', seoCont && 'Contenido y posicionamiento'].filter(Boolean);
+  const seoSel = SEO_ITEMS.filter((it) => it.key && optionsState[it.key]).map((it) => it.label);
   h('SEO y rendimiento'); p(seoSel.length ? seoSel.join(' · ') : 'Incluido');
-  const opSel = [
-    opRedaccion && 'Redacción de textos', opTraducciones && 'Traducciones',
-    opImagenes && 'Imágenes/ilustraciones/íconos', opFotografia && 'Fotografía o vídeo',
-    opUrgente && 'Entrega con urgencia', opRevisionExtra && 'Ronda de revisión extra',
-    opReunionesExtra && 'Reuniones extra',
-  ].filter(Boolean);
+  const opSel = OPERATIVA_ITEMS.filter((it) => optionsState[it.key]).map((it) => it.label);
   h('Operativa, contenidos y recursos'); p(opSel.length ? opSel.join(' · ') : 'Ninguno');
-  const mantSel = [mantAnual && 'Anual', mantHoras && 'Por horas (10h)', mantExternos && 'Servicios externos'].filter(Boolean);
+  const mantSel = MANTENIMIENTO_ITEMS.filter((it) => optionsState[it.key]).map((it) => it.label);
   h('Mantenimiento'); p(mantSel.length ? mantSel.join(' · ') : 'Ninguno');
 
   s(); p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153,153,153]);
@@ -320,55 +374,33 @@ const handleDownloadPDF = async () => {
         <SettingsBlock
           title="SEO Y RENDIMIENTO"
           description="Opciones para reforzar el posicionamiento y la calidad técnica del proyecto."
-          items={[
-            { id: 'seoIncluido', label: 'INCLUIDO', checked: true, disabled: true },
-            { id: 'seoTec',      label: 'SCHEMA, DATOS ESTRUCTURADOS, CORE WEB VITALS', checked: seoTec },
-            { id: 'seoCont',     label: 'CONTENIDO Y POSICIONAMIENTO DE PRODUCTO',      checked: seoCont },
-          ]}
-          onToggle={(id, next) => {
-            if (id === 'seoTec') setSeoTec(next);
-            if (id === 'seoCont') setSeoCont(next);
-          }}
+          items={SEO_ITEMS.map((it) => ({
+            ...it,
+            checked: it.key ? optionsState[it.key] : true,
+          }))}
+          onToggle={handleOptionToggle}
         />
 
         {/* OPERATIVA, CONTENIDOS Y RECURSOS */}
         <SettingsBlock
           title="OPERATIVA, CONTENIDOS Y RECURSOS"
           description="Selecciona los apoyos y recursos necesarios para producción y coordinación."
-          items={[
-            { id: 'op_redaccion',   label: 'REDACCIÓN DE TEXTOS',                  checked: opRedaccion },
-            { id: 'op_traducciones',label: 'TRADUCCIONES',                          checked: opTraducciones },
-            { id: 'op_imagenes',    label: 'IMÁGENES, ILUSTRACIONES O ICONOS',     checked: opImagenes },
-            { id: 'op_foto',        label: 'FOTOGRAFÍA O VIDEO',                   checked: opFotografia },
-            { id: 'op_urgente',     label: 'ENTREGA CON URGENCIA',                 checked: opUrgente },
-            { id: 'op_revision',    label: 'RONDA DE REVISIÓN EXTRA',              checked: opRevisionExtra },
-            { id: 'op_reuniones',   label: 'REUNIONES EXTRA',                      checked: opReunionesExtra },
-          ]}
-          onToggle={(id, next) => {
-            if (id === 'op_redaccion') setOpRedaccion(next);
-            if (id === 'op_traducciones') setOpTraducciones(next);
-            if (id === 'op_imagenes') setOpImagenes(next);
-            if (id === 'op_foto') setOpFotografia(next);
-            if (id === 'op_urgente') setOpUrgente(next);
-            if (id === 'op_revision') setOpRevisionExtra(next);
-            if (id === 'op_reuniones') setOpReunionesExtra(next);
-          }}
+          items={OPERATIVA_ITEMS.map((it) => ({
+            ...it,
+            checked: optionsState[it.key],
+          }))}
+          onToggle={handleOptionToggle}
         />
 
         {/* MANTENIMIENTO */}
         <SettingsBlock
           title="MANTENIMIENTO"
           description="Puedes evitar muchos líos y dolores de cabeza contratando un mantenimiento para tu proyecto. Así tendrás cubierto cualquier error que pueda suceder."
-          items={[
-            { id: 'mant_anual',  label: 'ANUAL',             checked: mantAnual },
-            { id: 'mant_horas',  label: 'POR HORAS (10h)',   checked: mantHoras },
-            { id: 'mant_ext',    label: 'SERVICIOS EXTERNOS',checked: mantExternos },
-          ]}
-          onToggle={(id, next) => {
-            if (id === 'mant_anual') setMantAnual(next);
-            if (id === 'mant_horas') setMantHoras(next);
-            if (id === 'mant_ext') setMantExternos(next);
-          }}
+          items={MANTENIMIENTO_ITEMS.map((it) => ({
+            ...it,
+            checked: optionsState[it.key],
+          }))}
+          onToggle={handleOptionToggle}
         />
         
       </div>
