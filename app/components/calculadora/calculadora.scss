@@ -239,15 +239,17 @@
     .service {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: right;
+      margin-top: 10px;
 
       .service__label {
         text-transform: uppercase;
         letter-spacing: 0.2px;
         color: $gris-oscuro;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 300;
         text-align: right;
+        max-width: 300px;
         flex: 1;
         
         }
@@ -261,6 +263,7 @@
     margin-top: 16px;    
     select{
         width: 100%;
+        text-transform: uppercase;
     }}
 
 .calc-block__paginas .calc-block__grid{
@@ -270,7 +273,21 @@
    input[type=number]{
     width: 50px;
    }
+   
 }
+
+    .calc-block__text{
+      margin-bottom: 20px;
+
+      h3{
+        font-size: 1.2rem;
+      }
+
+      p{
+        max-width: 300px;
+        line-height: 1.1rem;
+      }
+    }
 
 /* Chips */
 .chips {
@@ -287,6 +304,8 @@
   font-size: 14px;
   cursor: pointer;
   transition: .15s;
+  font-family: $neue;
+  font-weight: 300;
 
   &.active {
     background: $azul-ermo;
@@ -302,8 +321,9 @@
   height: 28px;
   flex: 0 0 auto;
   border-radius: 28px;
-  background: #e9e9ea;
+  background: #dadada;
   border: 1px solid $nardo;
+  margin: 2px 0px 2px 12px;
 
   input {
     position: absolute;
@@ -333,7 +353,7 @@
   }
 
   &.is-on {
-    background: rgba($azul-ermo, .18);
+    background: rgba($azul-ermo, 1);
     border-color: $azul-ermo;
 
     .slider:after {
