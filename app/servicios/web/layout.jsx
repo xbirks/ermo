@@ -5,7 +5,7 @@ const municipio = "Valencia";
 export const metadata = {
 
   //GENERIC
-  title: `Hacemos webs, UI/UX y SEO para emprendedores y startups en ${municipio}`,
+  title: `Hacemos webs y SEO para emprendedores y startups en ${municipio}`,
   description: `Somos diseñadores UI / UX y programadores especializados en React con Next.js. También podemos ofrecerte una web hecha con Wordpress para autogestionarla y SEO profesional en ${municipio}.`,
   keywords: [
     `diseño web para startups en ${municipio}`, 
@@ -32,7 +32,7 @@ export const metadata = {
 
   // META 
   openGraph: {
-    title: `Hacemos webs, UI/UX y SEO para emprendedores y startups en ${municipio}`,
+    title: `Hacemos webs y SEO para emprendedores y startups en ${municipio}`,
     description: `Somos diseñadores UI / UX y programadores especializados en React con Next.js. También podemos ofrecerte una web hecha con Wordpress para autogestionarla en ${municipio}.`,
     url: 'https://ermo.es',
     type: 'website',

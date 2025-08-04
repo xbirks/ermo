@@ -205,68 +205,79 @@ strong{
 }
 
 .button {
-    display: flex;
-    max-width: 300px;
-    min-width: 140px;
-    justify-content: space-between;
-    border: solid 1.5px $azul-ermo;
-    padding: 12px 16px 12px 16px;
-    border-radius: 32px;
+  --btn-bg: transparent;
+  --btn-color: $azul-ermo;
+  --btn-border: $azul-ermo;
+  --btn-bg-hover: $azul-ermo;
+  --btn-color-hover: $blanco-ermo;
+  /* opcional: --btn-border-hover si quieres cambiar el borde en hover */
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--btn-border);
+  border-radius: 32px;
+  width: fit-content;
+  max-width: none;
+  min-width: 0;
+  white-space: nowrap;
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  transition:  $transition-short, color $transition-short, border-color $transition-short, transform $transition-short;
+
+  @include media500px {
+    padding: 10px 16px;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: $owners;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+    margin-right: 5px;
+    color: currentColor;
 
     @include media500px {
-        padding: 10px 16px 10px 16px;
+      font-size: 16px;
     }
+  }
 
-    p {
-        font-size: 18px;
-        font-weight: 400;
-        font-family: $owners;
-        color: $azul-ermo;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-top: 3px;
-        margin-right: 5px;
+  .arrow__svg {
+    fill: currentColor;
+    transition: transform $transition-short;
+  }
 
-        @include media500px {
-            font-size: 16px;
-        }
-    }
-    &:hover {
-        background: $azul-ermo;
-        p {
-            color: $blanco-ermo;
-        }
-        .arrow__svg {
-            fill: $blanco-ermo;
-            transform: rotateZ(-45deg);
-            transition: $transition-short;
-        }
-    }
-    &.button-large {
-        width: 20vw;
+  &:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-color-hover);
+    /* descomenta si quieres cambiar también el borde en hover */
+    /* border-color: var(--btn-border-hover, var(--btn-border)); */
 
-        @include media1200px {
-            width: 50vw;
-        }
+    .arrow__svg {
+      transform: rotateZ(-45deg);
     }
-    &.button-white {
-        border: solid 1.5px $blanco-ermo;
-        p {
-            color: $blanco-ermo;
-        }
-        &:hover {
-            background-color: $blanco-ermo;
-            p {
-                color: $azul-ermo;
-            }
-            .arrow__svg {
-                fill: $azul-ermo;
-                transform: rotateZ(-45deg);
-                transition: $transition-short;
-            }
-        }
+  }
+
+  &.button-large {
+    width: 20vw;
+
+    @include media1200px {
+      width: 50vw;
     }
+  }
+
+  &.button-white {
+    --btn-border: $blanco-ermo;
+    --btn-color: $blanco-ermo;
+    --btn-bg: transparent;
+    --btn-bg-hover: $blanco-ermo;
+    --btn-color-hover: $azul-ermo;
+  }
 }
+
 
 .combo__standard{
     @include media500px {
