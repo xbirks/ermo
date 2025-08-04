@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import "./calculadora.scss";
+import StandardButton from '@/app/buttons/standard-button';
 
 /* ---------- Config ---------- */
 const LS_KEY = 'calc-web-v1';
@@ -380,8 +381,15 @@ const handleDownloadPDF = async () => {
           <div className="total">{fmt(total)}</div>
 
           <div className="cta">
-            <button className="btn danger" type="button" onClick={handleDownloadPDF}>Descargar en PDF</button>
-            <a className="btn ghost" href="#contacto">Contactar</a>
+            <StandardButton
+              link="#"
+              title="Descargar en PDF"
+              onClick={(e) => {
+                e.preventDefault();
+                handleDownloadPDF();
+              }}
+            />
+            <StandardButton link="#contacto" title="Contactar" />
           </div>
         </div>
       </aside>

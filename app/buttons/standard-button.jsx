@@ -24,7 +24,8 @@ function StandardButton({
   hoverBg,
   hoverColor,
   borderColor,
-  hoverBorderColor,        
+  hoverBorderColor,
+  onClick,
 }) {
   const cssVars = {
     "--btn-bg": bg,
@@ -37,7 +38,7 @@ function StandardButton({
 
   return (
     <div className={`master_button ${style}`}>
-      <a href={link}>
+      <a href={link} onClick={onClick}>
         <div className="button" style={cssVars}>
           <p>{title}</p>
           <ArrowInButton />
