@@ -380,8 +380,8 @@ const handleDownloadPDF = async () => {
           <div className="total">{fmt(total)}</div>
 
           <div className="cta">
-            <button className="btn danger" type="button" onClick={handleDownloadPDF}>Descargar en PDF</button>
-            <a className="btn ghost" href="#contacto">Contactar</a>
+            <button className="calc-btn danger" type="button" onClick={handleDownloadPDF}>Descargar en PDF</button>
+            <a className="calc-btn ghost" href="#contacto">Contactar</a>
           </div>
         </div>
       </aside>
