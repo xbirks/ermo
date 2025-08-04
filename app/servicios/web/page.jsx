@@ -5,7 +5,7 @@ import Image from "next/image";
 import "../landing.scss";
 import StandardButton from "../../buttons/standard-button";
 import ProcesoSection from "../../components/selector-procesos";
-import CalculadoraWeb from "../../components/calculadora";
+import CalculadoraWeb from "@/app/components/calculadora/calculadora";
 
 
 
@@ -203,7 +203,7 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
         </div>
 
         <div className="button_2">
-                               <StandardButton
+           <StandardButton
             link="#precio"
             title="Precios"
             style="mt-xs "
@@ -213,9 +213,9 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
-            />
+           />
 
-                               <StandardButton
+           <StandardButton
             link="#precio"
             title="conocer equipo"
             style="mt-xs "
@@ -225,7 +225,7 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#3F52FF"
-            />
+           />
         </div>
 
    
@@ -245,7 +245,26 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
 
 
 
-<section>
+<section className="grid__master calculadora">
+
+  <h2>Calculadora de precios</h2>
+
+  <p>Para que tengas claridad desde el inicio, usa la calculadora y obtén una estimación antes de contactarme. No soy el más barato: trabajo con código a medida, sin plantillas ni WordPress pesados.<br></br><br></br>
+  Haz el cálculo y, si encaja, escríbeme con el resultado para preparar una propuesta cerrada y fechas.</p>
+
+ 
+ <StandardButton
+  link="#precio"
+  title="Calculadora de precios"
+  style="mt-xs"
+  bg="transparent"
+  color="#3F52FF"
+  borderColor="#3F52FF"
+  hoverBg="#0E1C9D"
+  hoverColor="white"
+  hoverBorderColor="#3F52FF"
+  />
+
   <CalculadoraWeb></CalculadoraWeb>
 </section>
 

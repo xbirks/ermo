@@ -1,0 +1,397 @@
+@import '../../variables.scss';
+/* CALCULADORA */
+
+/* ======================================================================
+   CALCULADORA DE PRECIOS · SCSS
+   ====================================================================== */
+
+
+
+.calculadora{
+    p{
+        max-width: 600px;
+        margin-top: 24px;
+        margin-bottom: 36px;
+    }
+}
+
+/* ---------- Layout principal ------------------------------------- */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 12vw;
+  gap: 16px;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Formulario ------------------------------------------ */
+.calc-form {
+  padding: 20px;
+  border-radius: 30px;
+
+  .field {
+    
+
+    &.row {
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    label {
+      font-size: 14px;
+      color: $nardo;
+    }
+
+    input[type='number'] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid $nardo;
+      border-radius: 12px;
+      background: #fff;
+      font: $neue;
+    }
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid $nardo;
+    margin: 18px 0;
+  }
+
+  /* Chips --------------------------------------------------------- */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid #d7d7d7;
+    background: #fff;
+    color: $negro-ermo;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s ease, color .2s ease, border-color .2s ease;
+
+    &.active {
+      background: $azul-ermo;
+      color: #fff;
+      border-color: $azul-ermo;
+    }
+  }
+
+  /* Toggles ------------------------------------------------------- */
+  .toggles {
+    display: grid;
+    gap: 8px;
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+
+    input {
+      accent-color: $azul-ermo;
+      width: 18px;
+      height: 18px;
+    }
+
+    span { flex: 1; }
+    em   { color: $nardo; font-style: normal; }
+  }
+}
+
+/* ---------- Panel resumen --------------------------------------- */
+.calc-summary {
+  position: sticky;
+  top: 16px;
+
+  @media (max-width: 900px) {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .box {
+    background: #fff;
+    border: 1px solid $nardo;
+    border-radius: 30px;
+    padding: 16px;
+
+    h4 {
+      margin: 0 0 8px;
+      color: $nardo;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-size: 14px;
+    }
+
+    .total {
+      font-size: 28px;
+      font-weight: 700;
+      color: $azul-ermo;
+      margin-bottom: 10px;
+    }
+
+    .lines {
+      display: grid;
+      gap: 6px;
+      margin: 12px 0;
+
+      .line {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 14px;
+
+        strong { font-weight: 600; }
+      }
+    }
+
+    .cta {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+  }
+}
+
+
+
+
+/* Layout */
+.calc-grid {
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+}
+
+@media (max-width: 900px) {
+  .calc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Caja izquierda */
+.calc-form {
+  background: #f3f3f4;
+  border-radius: 22px;
+  padding: 18px 20px;
+
+  select,
+  input[type='number'] {
+    background: #fff;
+    border: 1px solid $nardo;
+    border-radius: 28px;
+    padding: 12px 14px;
+    font-size: 15px;
+    outline: none;
+  }
+}
+
+/* Bloques con línea separadora */
+.calc-block {
+  border-top: 1px solid $nardo;
+  padding: 22px 0;
+
+  &:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  &__grid {
+    display: block;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__text {
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      letter-spacing: -1%;
+      text-transform: uppercase;
+      color: #4b4b4b;
+    }
+
+    p {
+      margin: 0;
+      color: #8D8D8D;
+      line-height: 1.5;
+      max-width: 560px;
+    }
+  }
+
+  &__services {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: $neue;
+
+    .service {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .service__label {
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+        color: $gris-oscuro;
+        font-size: 0.8rem;
+        font-weight: 300;
+        text-align: right;
+        flex: 1;
+        
+        }
+
+       
+    }
+  }
+}
+
+.tipo{
+    margin-top: 16px;    
+    select{
+        width: 100%;
+    }}
+
+.calc-block__paginas .calc-block__grid{
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    justify-content: space-between;
+   input[type=number]{
+    width: 50px;
+   }
+}
+
+/* Chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  border: 1px solid $nardo;
+  background: #fff;
+  border-radius: 28px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .15s;
+
+  &.active {
+    background: $azul-ermo;
+    color: #fff;
+    border-color: $azul-ermo;
+  }
+}
+
+/* Toggle estilo iOS */
+.switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  flex: 0 0 auto;
+  border-radius: 28px;
+  background: #e9e9ea;
+  border: 1px solid $nardo;
+
+  input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid $nardo;
+      transform: translateY(-50%);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+  }
+
+  &.is-on {
+    background: rgba($azul-ermo, .18);
+    border-color: $azul-ermo;
+
+    .slider:after {
+      transform: translate(24px, -50%);
+      border-color: $azul-ermo;
+    }
+  }
+
+  &.is-disabled {
+    opacity: .6;
+
+    input {
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Resumen (sticky right) */
+.calc-summary .box {
+  border-radius: 18px;
+  border: 1px solid $nardo;
+  background: $nardo;
+  padding: 18px;
+}
+
+.calc-summary h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: .12em;
+  color: $gris-oscuro;
+  text-transform: uppercase;
+}
+
+.calc-summary .total {
+  font-size: 30px;
+  font-weight: 700;
+  color: $azul-ermo;
+  margin-bottom: 12px;
+}
+
+.btn {
+  border-radius: 32px;
+  padding: 12px 16px;
+}
+
+.btn.danger {
+  background: $amarillo-ermo;
+  border-color: $amarillo-ermo;
+  color: #fff;
+}
+
+.btn.ghost {
+  background: #f0f0f1;
+  color: #333;
+  border: 1.5px solid $azul-ermo;
+}

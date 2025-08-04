@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import "./calculadora.scss";
 
 /* ---------- Config ---------- */
 const LS_KEY = 'calc-web-v1';
@@ -13,7 +14,7 @@ const COMPLEJIDAD = { basico: 1.0, intermedio: 1.5, avanzado: 2.2 };
 const ACCESIBILIDAD = { incluido: 1.0, aa: 1.3 };
 const SEO_TEC = 1.15;
 const SEO_CONT = 1.35;
-const PRECIO_PAGINA_INTERNA = 250; // PP interno (oculto)
+const PRECIO_PAGINA_INTERNA = 120; // PP interno (oculto)
 const URGENCIA_MULT = 1.25;        // multiplicador interno
 
 // Costes internos (ajústalos cuando quieras)
@@ -171,6 +172,56 @@ export default function CalculadoraWeb() {
     mantAnual, mantHoras, mantExternos
   ]);
 
+
+
+  // --- PDF ---
+const handleDownloadPDF = async () => {
+  const { jsPDF } = await import('jspdf');
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const m = 48; let y = 72;
+
+  const p = (txt, size = 12, bold = false, color = [51,51,51]) => {
+    doc.setTextColor(...color);
+    doc.setFont('helvetica', bold ? 'bold' : 'normal');
+    doc.setFontSize(size);
+    const lines = doc.splitTextToSize(txt, 495);
+    doc.text(lines, m, y);
+    y += lines.length * (size + 4);
+  };
+  const h = (txt) => { p(txt.toUpperCase(), 12, true, [120,120,120]); y += 2; };
+  const s = () => { doc.setDrawColor(215,215,215); doc.line(m, y, 595 - m, y); y += 18; };
+
+  p('RESUMEN DEL PROYECTO', 12, true, [120,120,120]);
+  p(new Date().toLocaleDateString('es-ES'), 10, false, [153,153,153]);
+  p(new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(total), 28, true, [63,82,255]);
+  s();
+
+  h('Tipo de proyecto'); p(PROJECT_TYPES[tipo].label);
+  h('Número de páginas'); p(`${Math.max(1, Number(paginas)||1)}`);
+  h('Complejidad del diseño'); p({basico:'Básico',intermedio:'Intermedio',avanzado:'Avanzado'}[complejidad]);
+  h('Accesibilidad y calidad'); p(accesibilidad === 'aa' ? 'Objetivo AA' : 'Incluido');
+  const seoSel = [seoTec && 'Técnico extra (schema/CWV/redirects)', seoCont && 'Contenido y posicionamiento'].filter(Boolean);
+  h('SEO y rendimiento'); p(seoSel.length ? seoSel.join(' · ') : 'Incluido');
+  const opSel = [
+    opRedaccion && 'Redacción de textos', opTraducciones && 'Traducciones',
+    opImagenes && 'Imágenes/ilustraciones/íconos', opFotografia && 'Fotografía o vídeo',
+    opUrgente && 'Entrega con urgencia', opRevisionExtra && 'Ronda de revisión extra',
+    opReunionesExtra && 'Reuniones extra',
+  ].filter(Boolean);
+  h('Operativa, contenidos y recursos'); p(opSel.length ? opSel.join(' · ') : 'Ninguno');
+  const mantSel = [mantAnual && 'Anual', mantHoras && 'Por horas (10h)', mantExternos && 'Servicios externos'].filter(Boolean);
+  h('Mantenimiento'); p(mantSel.length ? mantSel.join(' · ') : 'Ninguno');
+
+  s(); p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153,153,153]);
+  doc.save('presupuesto-web.pdf');
+};
+
+
+
+
+
+
+
   return (
     <section className="calc-grid">
       {/* Columna izquierda */}
@@ -179,13 +230,16 @@ export default function CalculadoraWeb() {
         <section className="calc-block">
           <div className="calc-block__grid">
             <div className="calc-block__text">
+
               <h3>TIPO DE PROYECTO</h3>
               <p>Selecciona el tipo de proyecto para estimar el alcance inicial.</p>
+
             </div>
-            <div className="calc-block__services">
-              <div className="service">
+            
+            <div className="calc-block__services" >
+              <div className="tipo">
                 <span className="service__label" aria-hidden="true"></span>
-                <select id="tipo" value={tipo} onChange={(e) => setTipo(e.target.value)}>
+                <select  value={tipo} onChange={(e) => setTipo(e.target.value)}>
                   {Object.entries(PROJECT_TYPES).map(([key, cfg]) => (
                     <option key={key} value={key}>{cfg.label}</option>
                   ))}
@@ -195,18 +249,19 @@ export default function CalculadoraWeb() {
           </div>
         </section>
 
+        <div className="intro-landing__line"></div>
+
         {/* NÚMERO DE PÁGINAS */}
-        <section className="calc-block">
+        <section className="calc-block__paginas">
           <div className="calc-block__grid">
             <div className="calc-block__text">
               <h3>NÚMERO DE PÁGINAS</h3>
               <p>Añade un número de páginas estimadas que creas que vas a necesitar para tu proyecto.</p>
             </div>
             <div className="calc-block__services">
-              <div className="service">
+              <div className="paginas">
                 <span className="service__label" aria-hidden="true"></span>
                 <input
-                  id="paginas"
                   type="number"
                   min={1}
                   value={paginas}
@@ -315,6 +370,7 @@ export default function CalculadoraWeb() {
             if (id === 'mant_ext') setMantExternos(next);
           }}
         />
+        
       </div>
 
       {/* Columna derecha (sticky) */}
@@ -324,11 +380,12 @@ export default function CalculadoraWeb() {
           <div className="total">{fmt(total)}</div>
 
           <div className="cta">
-            <button className="btn danger" type="button">Descargar en PDF</button>
+            <button className="btn danger" type="button" onClick={handleDownloadPDF}>Descargar en PDF</button>
             <a className="btn ghost" href="#contacto">Contactar</a>
           </div>
         </div>
       </aside>
     </section>
+    
   );
 }
