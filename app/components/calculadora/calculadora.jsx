@@ -18,18 +18,18 @@ const PRECIO_PAGINA_INTERNA = 120; // PP interno (oculto)
 const URGENCIA_MULT = 1.25;        // multiplicador interno
 
 // Costes internos (ajústalos cuando quieras)
-const EXTRA_COSTS = {
-  redaccion: 300,
-  traducciones: 200,
-  imagenes: 250,
-  fotografia: 500,
-  revisionExtra: 120,
-  reunionesExtra: 80,
+const OPERATIVA_CONFIG = {
+  redaccion: { cost: 300 },
+  traducciones: { cost: 200 },
+  imagenes: { cost: 250 },
+  fotografia: { cost: 500 },
+  revisionExtra: { cost: 120 },
+  reunionesExtra: { cost: 80 },
 };
-const MANT_COSTS = {
-  anual: 300,
-  bolsa10h: 350,
-  externos: 120,
+const MANT_CONFIG = {
+  anual: { cost: 300 },
+  bolsa10h: { cost: 350 },
+  externos: { cost: 120 },
 };
 
 const fmt = (n) =>
@@ -145,13 +145,18 @@ export default function CalculadoraWeb() {
     const extraPages = Math.max(0, numPags - 1); // Home incluida
     const pagesCost = extraPages * PRECIO_PAGINA_INTERNA;
 
-    const extrasOperativa =
-      (opRedaccion ? EXTRA_COSTS.redaccion : 0) +
-      (opTraducciones ? EXTRA_COSTS.traducciones : 0) +
-      (opImagenes ? EXTRA_COSTS.imagenes : 0) +
-      (opFotografia ? EXTRA_COSTS.fotografia : 0) +
-      (opRevisionExtra ? EXTRA_COSTS.revisionExtra : 0) +
-      (opReunionesExtra ? EXTRA_COSTS.reunionesExtra : 0);
+    const extrasState = {
+      redaccion: opRedaccion,
+      traducciones: opTraducciones,
+      imagenes: opImagenes,
+      fotografia: opFotografia,
+      revisionExtra: opRevisionExtra,
+      reunionesExtra: opReunionesExtra,
+    };
+    const extrasOperativa = Object.entries(OPERATIVA_CONFIG).reduce(
+      (sum, [key, { cost }]) => sum + (extrasState[key] ? cost : 0),
+      0
+    );
 
     const multiplicador =
       (COMPLEJIDAD[complejidad] || 1) *
@@ -160,10 +165,15 @@ export default function CalculadoraWeb() {
       (seoCont ? SEO_CONT : 1) *
       (opUrgente ? URGENCIA_MULT : 1);
 
-    const mantenimiento =
-      (mantAnual ? MANT_COSTS.anual : 0) +
-      (mantHoras ? MANT_COSTS.bolsa10h : 0) +
-      (mantExternos ? MANT_COSTS.externos : 0);
+    const mantState = {
+      anual: mantAnual,
+      bolsa10h: mantHoras,
+      externos: mantExternos,
+    };
+    const mantenimiento = Object.entries(MANT_CONFIG).reduce(
+      (sum, [key, { cost }]) => sum + (mantState[key] ? cost : 0),
+      0
+    );
 
     return Math.round(((base + pagesCost + extrasOperativa) * multiplicador + mantenimiento) * 100) / 100;
   }, [
