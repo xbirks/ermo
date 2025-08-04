@@ -2,10 +2,10 @@
 
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import StandardButton from "@/app/buttons/standard-button";
 import "../landing.scss";
-import ProcesoSection from "@/app/components/selector-procesos";
-import CalculadoraWeb from "@/app/components/calculadora";
+import StandardButton from "../../buttons/standard-button";
+import ProcesoSection from "../../components/selector-procesos";
+import CalculadoraWeb from "../../components/calculadora";
 
 
 

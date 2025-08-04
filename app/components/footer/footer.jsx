@@ -29,12 +29,24 @@ return(
                 link="/servicios/principal"
                 title="Servicios"
                 style=""
+                bg="#3F52FF"
+                color="white"
+                borderColor="#3F52FF"
+                hoverBg="#0E1C9D"
+                hoverColor="white"
+                hoverBorderColor="#0E1C9D"
             />
 
             <StandardButton
             link="/proyectos/principal"
             title="Proyectos"
             style="mt-xs"
+            bg="#3F52FF"
+            color="white"
+            borderColor="#3F52FF"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor="#0E1C9D"
             />
 
         </div>
