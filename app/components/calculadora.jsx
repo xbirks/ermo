@@ -14,11 +14,29 @@ const ACCESIBILIDAD = { incluido: 1.0, aa: 1.3 };
 const SEO_TEC = 1.15;
 const SEO_CONT = 1.35;
 const PRECIO_PAGINA_INTERNA = 250; // PP interno (oculto)
+const URGENCIA_MULT = 1.25;        // multiplicador interno
+
+// Costes internos (ajústalos cuando quieras)
+const EXTRA_COSTS = {
+  redaccion: 300,
+  traducciones: 200,
+  imagenes: 250,
+  fotografia: 500,
+  revisionExtra: 120,
+  reunionesExtra: 80,
+};
+const MANT_COSTS = {
+  anual: 300,
+  bolsa10h: 350,
+  externos: 120,
+};
 
 const fmt = (n) =>
   new Intl.NumberFormat('es-ES', {
-    style: 'currency', currency: 'EUR',
-    minimumFractionDigits: 2, maximumFractionDigits: 2,
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(n);
 
 /* ---------- Bloque reutilizable: Título + descripción + toggles ---------- */
@@ -35,7 +53,9 @@ function SettingsBlock({ title, description, items, onToggle }) {
           {items.map((it) => (
             <li className="service" key={it.id}>
               <span className="service__label">{it.label}</span>
-              <label className={`switch ${it.checked ? 'is-on' : ''} ${it.disabled ? 'is-disabled' : ''}`}>
+              <label
+                className={`switch ${it.checked ? 'is-on' : ''} ${it.disabled ? 'is-disabled' : ''}`}
+              >
                 <input
                   type="checkbox"
                   checked={!!it.checked}
@@ -64,6 +84,20 @@ export default function CalculadoraWeb() {
   const [seoTec, setSeoTec] = useState(false);
   const [seoCont, setSeoCont] = useState(false);
 
+  // Operativa / recursos
+  const [opRedaccion, setOpRedaccion] = useState(false);
+  const [opTraducciones, setOpTraducciones] = useState(false);
+  const [opImagenes, setOpImagenes] = useState(false);
+  const [opFotografia, setOpFotografia] = useState(false);
+  const [opUrgente, setOpUrgente] = useState(false);
+  const [opRevisionExtra, setOpRevisionExtra] = useState(false);
+  const [opReunionesExtra, setOpReunionesExtra] = useState(false);
+
+  // Mantenimiento
+  const [mantAnual, setMantAnual] = useState(false);
+  const [mantHoras, setMantHoras] = useState(false);
+  const [mantExternos, setMantExternos] = useState(false);
+
   // Cargar estado
   useEffect(() => {
     try {
@@ -76,14 +110,32 @@ export default function CalculadoraWeb() {
       if (s.accesibilidad) setAccesibilidad(s.accesibilidad);
       setSeoTec(!!s.seoTec);
       setSeoCont(!!s.seoCont);
+      setOpRedaccion(!!s.opRedaccion);
+      setOpTraducciones(!!s.opTraducciones);
+      setOpImagenes(!!s.opImagenes);
+      setOpFotografia(!!s.opFotografia);
+      setOpUrgente(!!s.opUrgente);
+      setOpRevisionExtra(!!s.opRevisionExtra);
+      setOpReunionesExtra(!!s.opReunionesExtra);
+      setMantAnual(!!s.mantAnual);
+      setMantHoras(!!s.mantHoras);
+      setMantExternos(!!s.mantExternos);
     } catch {}
   }, []);
 
   // Guardar estado
   useEffect(() => {
-    const s = { tipo, paginas, complejidad, accesibilidad, seoTec, seoCont };
+    const s = {
+      tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
+      opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
+      mantAnual, mantHoras, mantExternos
+    };
     localStorage.setItem(LS_KEY, JSON.stringify(s));
-  }, [tipo, paginas, complejidad, accesibilidad, seoTec, seoCont]);
+  }, [
+    tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
+    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
+    mantAnual, mantHoras, mantExternos
+  ]);
 
   // Cálculo en tiempo real
   const total = useMemo(() => {
@@ -92,67 +144,113 @@ export default function CalculadoraWeb() {
     const extraPages = Math.max(0, numPags - 1); // Home incluida
     const pagesCost = extraPages * PRECIO_PAGINA_INTERNA;
 
+    const extrasOperativa =
+      (opRedaccion ? EXTRA_COSTS.redaccion : 0) +
+      (opTraducciones ? EXTRA_COSTS.traducciones : 0) +
+      (opImagenes ? EXTRA_COSTS.imagenes : 0) +
+      (opFotografia ? EXTRA_COSTS.fotografia : 0) +
+      (opRevisionExtra ? EXTRA_COSTS.revisionExtra : 0) +
+      (opReunionesExtra ? EXTRA_COSTS.reunionesExtra : 0);
+
     const multiplicador =
       (COMPLEJIDAD[complejidad] || 1) *
       (ACCESIBILIDAD[accesibilidad] || 1) *
       (seoTec ? SEO_TEC : 1) *
-      (seoCont ? SEO_CONT : 1);
+      (seoCont ? SEO_CONT : 1) *
+      (opUrgente ? URGENCIA_MULT : 1);
 
-    return Math.round((base + pagesCost) * multiplicador * 100) / 100;
-  }, [tipo, paginas, complejidad, accesibilidad, seoTec, seoCont]);
+    const mantenimiento =
+      (mantAnual ? MANT_COSTS.anual : 0) +
+      (mantHoras ? MANT_COSTS.bolsa10h : 0) +
+      (mantExternos ? MANT_COSTS.externos : 0);
+
+    return Math.round(((base + pagesCost + extrasOperativa) * multiplicador + mantenimiento) * 100) / 100;
+  }, [
+    tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
+    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
+    mantAnual, mantHoras, mantExternos
+  ]);
 
   return (
     <section className="calc-grid">
       {/* Columna izquierda */}
       <div className="calc-form">
-        <div className="field">
-          <label htmlFor="tipo">Tipo de proyecto</label>
-          <select id="tipo" value={tipo} onChange={(e) => setTipo(e.target.value)}>
-            {Object.entries(PROJECT_TYPES).map(([key, cfg]) => (
-              <option key={key} value={key}>{cfg.label}</option>
-            ))}
-          </select>
-        </div>
-
-        <hr />
-
-        <div className="field row">
-          <label htmlFor="paginas">Número de páginas</label>
-          <input
-            id="paginas"
-            type="number"
-            min={1}
-            value={paginas}
-            onChange={(e) => {
-              const v = parseInt(e.target.value, 10);
-              setPaginas(Number.isNaN(v) ? 1 : Math.max(1, v));
-            }}
-          />
-        </div>
-
-        <hr />
-
-        {/* Complejidad como chips (sin mostrar multiplicadores) */}
-        <div className="field">
-          <label>Complejidad del diseño</label>
-          <div className="chips">
-            {['basico', 'intermedio', 'avanzado'].map((k) => (
-              <button
-                key={k}
-                className={`chip ${complejidad === k ? 'active' : ''}`}
-                onClick={() => setComplejidad(k)}
-                type="button"
-              >
-                {k === 'basico' ? 'BÁSICO' : k === 'intermedio' ? 'INTERMEDIO' : 'AVANZADO'}
-              </button>
-            ))}
+        {/* TIPO DE PROYECTO */}
+        <section className="calc-block">
+          <div className="calc-block__grid">
+            <div className="calc-block__text">
+              <h3>TIPO DE PROYECTO</h3>
+              <p>Selecciona el tipo de proyecto para estimar el alcance inicial.</p>
+            </div>
+            <div className="calc-block__services">
+              <div className="service">
+                <span className="service__label" aria-hidden="true"></span>
+                <select id="tipo" value={tipo} onChange={(e) => setTipo(e.target.value)}>
+                  {Object.entries(PROJECT_TYPES).map(([key, cfg]) => (
+                    <option key={key} value={key}>{cfg.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* Accesibilidad en bloque (exclusivo) */}
+        {/* NÚMERO DE PÁGINAS */}
+        <section className="calc-block">
+          <div className="calc-block__grid">
+            <div className="calc-block__text">
+              <h3>NÚMERO DE PÁGINAS</h3>
+              <p>Añade un número de páginas estimadas que creas que vas a necesitar para tu proyecto.</p>
+            </div>
+            <div className="calc-block__services">
+              <div className="service">
+                <span className="service__label" aria-hidden="true"></span>
+                <input
+                  id="paginas"
+                  type="number"
+                  min={1}
+                  value={paginas}
+                  onChange={(e) => {
+                    const v = parseInt(e.target.value, 10);
+                    setPaginas(Number.isNaN(v) ? 1 : Math.max(1, v));
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* COMPLEJIDAD DEL DISEÑO */}
+        <section className="calc-block">
+          <div className="calc-block__grid">
+            <div className="calc-block__text">
+              <h3>COMPLEJIDAD DEL DISEÑO</h3>
+              <p>¿Qué tienes en mente? ¿Un diseño espectacular o algo más sencillito?</p>
+            </div>
+            <div className="calc-block__services">
+              <div className="service">
+                <span className="service__label" aria-hidden="true"></span>
+                <div className="chips">
+                  {['basico', 'intermedio', 'avanzado'].map((k) => (
+                    <button
+                      key={k}
+                      className={`chip ${complejidad === k ? 'active' : ''}`}
+                      onClick={() => setComplejidad(k)}
+                      type="button"
+                    >
+                      {k === 'basico' ? 'BÁSICO' : k === 'intermedio' ? 'INTERMEDIO' : 'AVANZADO'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ACCESIBILIDAD Y CALIDAD (exclusivo) */}
         <SettingsBlock
           title="ACCESIBILIDAD Y CALIDAD"
-          description="¿Tu público objetivo tiene necesidades especiales? Selecciona objetivo AA y abordaremos el proyecto con un enfoque específico."
+          description="¿Tu público objetivo tiene necesidades especiales y quieres estar cubierto? Selecciona accesibilidad AA y trataremos el proyecto con un enfoque diferente."
           items={[
             { id: 'acc_incluido', label: 'INCLUIDO',  checked: accesibilidad === 'incluido' },
             { id: 'acc_aa',       label: 'OBJETIVO AA', checked: accesibilidad === 'aa' },
@@ -163,7 +261,7 @@ export default function CalculadoraWeb() {
           }}
         />
 
-        {/* SEO y rendimiento (múltiple) */}
+        {/* SEO Y RENDIMIENTO (múltiple) */}
         <SettingsBlock
           title="SEO Y RENDIMIENTO"
           description="Opciones para reforzar el posicionamiento y la calidad técnica del proyecto."
@@ -175,6 +273,46 @@ export default function CalculadoraWeb() {
           onToggle={(id, next) => {
             if (id === 'seoTec') setSeoTec(next);
             if (id === 'seoCont') setSeoCont(next);
+          }}
+        />
+
+        {/* OPERATIVA, CONTENIDOS Y RECURSOS */}
+        <SettingsBlock
+          title="OPERATIVA, CONTENIDOS Y RECURSOS"
+          description="Selecciona los apoyos y recursos necesarios para producción y coordinación."
+          items={[
+            { id: 'op_redaccion',   label: 'REDACCIÓN DE TEXTOS',                  checked: opRedaccion },
+            { id: 'op_traducciones',label: 'TRADUCCIONES',                          checked: opTraducciones },
+            { id: 'op_imagenes',    label: 'IMÁGENES, ILUSTRACIONES O ICONOS',     checked: opImagenes },
+            { id: 'op_foto',        label: 'FOTOGRAFÍA O VIDEO',                   checked: opFotografia },
+            { id: 'op_urgente',     label: 'ENTREGA CON URGENCIA',                 checked: opUrgente },
+            { id: 'op_revision',    label: 'RONDA DE REVISIÓN EXTRA',              checked: opRevisionExtra },
+            { id: 'op_reuniones',   label: 'REUNIONES EXTRA',                      checked: opReunionesExtra },
+          ]}
+          onToggle={(id, next) => {
+            if (id === 'op_redaccion') setOpRedaccion(next);
+            if (id === 'op_traducciones') setOpTraducciones(next);
+            if (id === 'op_imagenes') setOpImagenes(next);
+            if (id === 'op_foto') setOpFotografia(next);
+            if (id === 'op_urgente') setOpUrgente(next);
+            if (id === 'op_revision') setOpRevisionExtra(next);
+            if (id === 'op_reuniones') setOpReunionesExtra(next);
+          }}
+        />
+
+        {/* MANTENIMIENTO */}
+        <SettingsBlock
+          title="MANTENIMIENTO"
+          description="Puedes evitar muchos líos y dolores de cabeza contratando un mantenimiento para tu proyecto. Así tendrás cubierto cualquier error que pueda suceder."
+          items={[
+            { id: 'mant_anual',  label: 'ANUAL',             checked: mantAnual },
+            { id: 'mant_horas',  label: 'POR HORAS (10h)',   checked: mantHoras },
+            { id: 'mant_ext',    label: 'SERVICIOS EXTERNOS',checked: mantExternos },
+          ]}
+          onToggle={(id, next) => {
+            if (id === 'mant_anual') setMantAnual(next);
+            if (id === 'mant_horas') setMantHoras(next);
+            if (id === 'mant_ext') setMantExternos(next);
           }}
         />
       </div>
