@@ -355,30 +355,6 @@
     }
   }
 }
-
-/* Resumen (sticky right) */
-.calc-summary .box {
-  border-radius: 18px;
-  border: 1px solid $nardo;
-  background: $nardo;
-  padding: 18px;
-}
-
-.calc-summary h4 {
-  margin: 0 0 8px;
-  font-size: 13px;
-  letter-spacing: .12em;
-  color: $gris-oscuro;
-  text-transform: uppercase;
-}
-
-.calc-summary .total {
-  font-size: 30px;
-  font-weight: 700;
-  color: $azul-ermo;
-  margin-bottom: 12px;
-}
-
 .btn {
   border-radius: 32px;
   padding: 12px 16px;
