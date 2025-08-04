@@ -10,21 +10,21 @@ const PROJECT_TYPES = {
   ecommerce:   { label: 'Ecommerce',        base: 700 },
   otros:       { label: 'Otros',            base: 500 },
 };
-const COMPLEJIDAD = { basico: 1.0, intermedio: 1.5, avanzado: 2.2 };
+const COMPLEJIDAD = { basico: 1.0, intermedio: 1.5, avanzado: 2.1 };
 const ACCESIBILIDAD = { incluido: 1.0, aa: 1.3 };
-const SEO_TEC = 1.15;
+const SEO_TEC = 1.1;
 const SEO_CONT = 1.35;
-const PRECIO_PAGINA_INTERNA = 120; // PP interno (oculto)
-const URGENCIA_MULT = 1.25;        // multiplicador interno
+const PRECIO_PAGINA_INTERNA = 70; // PP interno (oculto)
+const URGENCIA_MULT = 1.45;        // multiplicador interno
 
 // Costes internos (ajústalos cuando quieras)
 const EXTRA_COSTS = {
-  redaccion: 300,
-  traducciones: 200,
+  redaccion: 200,
+  traducciones: 120,
   imagenes: 250,
-  fotografia: 500,
-  revisionExtra: 120,
-  reunionesExtra: 80,
+  fotografia: 700,
+  revisionExtra: 80,
+  reunionesExtra: 60,
 };
 const MANT_COSTS = {
   anual: 300,
@@ -223,7 +223,7 @@ const handleDownloadPDF = async () => {
 
 
   return (
-    <section className="calc-grid">
+    <section className="calculadora calc-grid">
       {/* Columna izquierda */}
       <div className="calc-form">
         {/* TIPO DE PROYECTO */}

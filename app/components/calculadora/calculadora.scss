@@ -1,10 +1,4 @@
 @import '../../variables.scss';
-/* CALCULADORA */
-
-/* ======================================================================
-   CALCULADORA DE PRECIOS · SCSS
-   ====================================================================== */
-
 
 
 .calculadora{
@@ -201,6 +195,7 @@
 .calc-block {
   border-top: 1px solid $nardo;
   padding: 22px 0;
+  margin-top: 24px;
 
   &:first-of-type {
     border-top: 0;
