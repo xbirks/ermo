@@ -109,6 +109,11 @@
     position: fixed;
     right: 1em;
     bottom: 1em;
+    display: none;
+
+    &.is-visible {
+      display: block;
+    }
   }
 
   .box {
