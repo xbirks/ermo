@@ -78,7 +78,7 @@ function SettingsBlock({ title, description, items, onToggle }) {
 export default function CalculadoraWeb() {
   // Estado visible
   const [tipo, setTipo] = useState('restaurante');
-  const [paginas, setPaginas] = useState(1);
+  const [paginas, setPaginas] = useState('1');
   const [complejidad, setComplejidad] = useState('basico');
 
   // Estado de bloques
@@ -107,7 +107,7 @@ export default function CalculadoraWeb() {
       if (!raw) return;
       const s = JSON.parse(raw);
       if (s.tipo) setTipo(s.tipo);
-      if (typeof s.paginas === 'number') setPaginas(s.paginas);
+      if (typeof s.paginas === 'number') setPaginas(String(s.paginas));
       if (s.complejidad) setComplejidad(s.complejidad);
       if (s.accesibilidad) setAccesibilidad(s.accesibilidad);
       setSeoTec(!!s.seoTec);
@@ -128,9 +128,22 @@ export default function CalculadoraWeb() {
   // Guardar estado
   useEffect(() => {
     const s = {
-      tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
-      opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-      mantAnual, mantHoras, mantExternos
+      tipo,
+      paginas: Number(paginas) || 1,
+      complejidad,
+      accesibilidad,
+      seoTec,
+      seoCont,
+      opRedaccion,
+      opTraducciones,
+      opImagenes,
+      opFotografia,
+      opUrgente,
+      opRevisionExtra,
+      opReunionesExtra,
+      mantAnual,
+      mantHoras,
+      mantExternos,
     };
     localStorage.setItem(LS_KEY, JSON.stringify(s));
   }, [
@@ -266,9 +279,10 @@ const handleDownloadPDF = async () => {
                   type="number"
                   min={1}
                   value={paginas}
-                  onChange={(e) => {
-                    const v = parseInt(e.target.value, 10);
-                    setPaginas(Number.isNaN(v) ? 1 : Math.max(1, v));
+                  onChange={(e) => setPaginas(e.target.value)}
+                  onBlur={() => {
+                    const v = parseInt(paginas, 10);
+                    setPaginas(String(Number.isNaN(v) ? 1 : Math.max(1, v)));
                   }}
                 />
               </div>
