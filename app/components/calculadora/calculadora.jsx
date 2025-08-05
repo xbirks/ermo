@@ -237,7 +237,7 @@ const handleDownloadPDF = async () => {
 
 
   return (
-    <section className="calculadora calc-grid">
+    <section className="calculadora__master calc-grid">
       {/* Columna izquierda */}
       <div className="calc-form">
         {/* TIPO DE PROYECTO */}
@@ -405,19 +405,20 @@ const handleDownloadPDF = async () => {
             borderColor="#3F52FF"
             hoverBg="#0E1C9D"
             hoverColor="white"
-            hoverBorderColor="##0E1C9D"
+            hoverBorderColor="#0E1C9D"
+            onClick={(e) => { e.preventDefault(); handleDownloadPDF(); }}
             />
 
              <StandardButton
             link="#precio"
             title="Contactar"
-            style="mt-l"
+            style="mt-xs"
             bg="#3F52FF"
             color="white"
             borderColor="#3F52FF"
             hoverBg="#0E1C9D"
             hoverColor="white"
-            hoverBorderColor="##0E1C9D"
+            hoverBorderColor="#0E1C9D"
             />
 
           </div>

@@ -1,12 +1,13 @@
 import React from "react";
 
-const ArrowInButton = () => (
+const ArrowInButton = ({ rotation = 0 }) => (
   <svg
     className="arrow__svg"
     width="34"
     height="23"
     viewBox="0 0 34 23"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ "--arrow-rotation": `${rotation}deg` }}
   >
     <path
       fill="currentColor"
@@ -14,6 +15,8 @@ const ArrowInButton = () => (
     />
   </svg>
 );
+
+
 
 function StandardButton({
   link,
@@ -24,7 +27,9 @@ function StandardButton({
   hoverBg,
   hoverColor,
   borderColor,
-  hoverBorderColor,        
+  hoverBorderColor,
+  onClick,
+  arrowRotation = 0, 
 }) {
   const cssVars = {
     "--btn-bg": bg,
@@ -33,14 +38,15 @@ function StandardButton({
     "--btn-color-hover": hoverColor ?? color,
     "--btn-border": borderColor,
     "--btn-border-hover": hoverBorderColor ?? borderColor,
+    "--arrow-rotation": `${arrowRotation}deg`,
   };
 
   return (
     <div className={`master_button ${style}`}>
-      <a href={link}>
+      <a href={link} onClick={onClick}>
         <div className="button" style={cssVars}>
           <p>{title}</p>
-          <ArrowInButton />
+          <ArrowInButton rotation={arrowRotation} />
         </div>
       </a>
     </div>

@@ -251,7 +251,7 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
 
   <h2>Calculadora de precios</h2>
 
-  <p>Para que tengas claridad desde el inicio, usa la calculadora y obtén una estimación antes de contactarme. No soy el más barato: trabajo con código a medida, sin plantillas ni WordPress pesados.<br></br><br></br>
+  <p className="calc__description">Para que tengas claridad desde el inicio, usa la calculadora y obtén una estimación antes de contactarme. No soy el más barato: trabajo con código a medida, sin plantillas ni WordPress pesados.<br></br><br></br>
   Haz el cálculo y, si encaja, escríbeme con el resultado para preparar una propuesta cerrada y fechas.</p>
 
  
@@ -259,12 +259,13 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
   link="#precio"
   title="Calculadora de precios"
   style="mt-xs"
-  bg="transparent"
-  color="#3F52FF"
+  bg="#3F52FF"
+  color="#fff"
   borderColor="#3F52FF"
   hoverBg="#0E1C9D"
   hoverColor="white"
   hoverBorderColor="#3F52FF"
+  arrowRotation={-145}
   />
 
   <CalculadoraWeb></CalculadoraWeb>
