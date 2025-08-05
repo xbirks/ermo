@@ -116,6 +116,16 @@ export default function CalculadoraWeb() {
   }, []);
 
   useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowSummary(entry.isIntersecting)
+    );
+    observer.observe(node);
+    return () => observer.unobserve(node);
+  }, []);
+
+  useEffect(() => {
     const node = bottomRef.current;
     if (!node) return;
     const observer = new IntersectionObserver(
@@ -124,6 +134,7 @@ export default function CalculadoraWeb() {
     observer.observe(node);
     return () => observer.unobserve(node);
   }, []);
+
 
   // Cargar estado
   useEffect(() => {
@@ -416,6 +427,7 @@ const handleDownloadPDF = async () => {
       </div>
 
       {/* Columna derecha (sticky) */}
+      <aside className="calc-summary">
       <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}>
         <div className="box">
           <h4>Resumen del<br></br>proyecto</h4>
@@ -426,7 +438,7 @@ const handleDownloadPDF = async () => {
             <StandardButton
             link="#precio"
             title="Descargar PDF"
-            style="mt-l"
+            style="mt-s"
             bg="#3F52FF"
             color="white"
             borderColor="#3F52FF"

@@ -132,10 +132,15 @@
   }
 
   .box {
-    background: $nardo;
+    background: rgba(255, 255, 255, 0.3);
     border: 1px solid $nardo;
+    backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px 20px 40px 20px;
+
+        @media (max-width: 900px) {
+          padding: 20px 10px 20px 10px;
+      }
 
 
 
@@ -158,6 +163,11 @@
       text-align: right;
       color: $azul-ermo;
       margin-bottom: 70px;
+
+      @media (max-width: 900px) {
+          margin-bottom: 20px;
+      }
+
     }
 
     .lines {
