@@ -106,8 +106,9 @@
   top: 16px;
 
   @media (max-width: 900px) {
-    position: static;
-    margin-top: 12px;
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
   }
 
   .box {
@@ -115,6 +116,8 @@
     border: 1px solid $nardo;
     border-radius: 20px;
     padding: 40px 20px 40px 20px;
+
+
 
     h4 {
       color: $gris-oscuro;
@@ -130,7 +133,7 @@
 
     .total {
       font-family: $neue;
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 400;
       text-align: right;
       color: $azul-ermo;
