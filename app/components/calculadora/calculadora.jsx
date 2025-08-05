@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import StandardButton from '@/app/buttons/standard-button';
 import "./calculadora.scss";
 
@@ -81,6 +81,11 @@ export default function CalculadoraWeb() {
   const [paginas, setPaginas] = useState('1');
   const [complejidad, setComplejidad] = useState('basico');
 
+  const sectionRef = useRef(null);
+  const bottomRef = useRef(null);
+  const [showSummary, setShowSummary] = useState(false);
+  const [atBottom, setAtBottom] = useState(false);
+
   // Estado de bloques
   const [accesibilidad, setAccesibilidad] = useState('incluido'); // 'incluido' | 'aa'
   const [seoTec, setSeoTec] = useState(false);
@@ -99,6 +104,26 @@ export default function CalculadoraWeb() {
   const [mantAnual, setMantAnual] = useState(false);
   const [mantHoras, setMantHoras] = useState(false);
   const [mantExternos, setMantExternos] = useState(false);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowSummary(entry.isIntersecting)
+    );
+    observer.observe(node);
+    return () => observer.unobserve(node);
+  }, []);
+
+  useEffect(() => {
+    const node = bottomRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setAtBottom(entry.isIntersecting)
+    );
+    observer.observe(node);
+    return () => observer.unobserve(node);
+  }, []);
 
   // Cargar estado
   useEffect(() => {
@@ -237,7 +262,7 @@ const handleDownloadPDF = async () => {
 
 
   return (
-    <section className="calculadora__master calc-grid">
+    <section ref={sectionRef} className="calculadora__master calc-grid">
       {/* Columna izquierda */}
       <div className="calc-form">
         {/* TIPO DE PROYECTO */}
@@ -385,11 +410,13 @@ const handleDownloadPDF = async () => {
             if (id === 'mant_ext') setMantExternos(next);
           }}
         />
-        
+
+        <div ref={bottomRef} style={{ height: 1 }}></div>
+
       </div>
 
       {/* Columna derecha (sticky) */}
-      <aside className="calc-summary">
+      <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}>
         <div className="box">
           <h4>Resumen del<br></br>proyecto</h4>
           <div className="total">{fmt(total)}</div>
