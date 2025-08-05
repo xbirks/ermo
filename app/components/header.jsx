@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ermoLogo from '../assets/logo/ERMO_blue.svg';
+import StandardButton from '../buttons/standard-button';
 
 const HamburgerIcon = ({ menuOpen }) => (
   <svg className={`hamburger ${menuOpen ? 'open' : ''}`} width="36" height="25" viewBox="0 0 36 25">
