@@ -27,6 +27,8 @@ export default function WebPage({municipio}) {
 
             <p>Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
 
+                     <div className="intro-landing-mobile__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
+
 
             <StandardButton
             link="#precio"

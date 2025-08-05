@@ -80,6 +80,7 @@ p{
 
             @include media700px {
             width: 100%;
+            margin-right: 0px;
             }
 
         .intro-landing__big{
@@ -88,9 +89,9 @@ p{
             margin-bottom: 30px;
             line-height: 1.9rem;
 
-            @include media700px {
+            @include media800px {
             font-size: 1.4rem;
-            line-height: 1.5rem;
+            line-height: 1.6rem;
             }
         }
     }
@@ -108,8 +109,28 @@ p{
             border-radius: 25px;
         }
 
-            @include media600px {
+            @include media700px {
             display: none;
+            }
+    }
+
+    .intro-landing-mobile__img{
+        height: auto;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: none;
+        margin-top: 30px;
+
+        img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+        }
+
+            @include media700px {
+            display: block;
             }
     }
 
@@ -229,8 +250,8 @@ p{
         }
 
         @include media800px {
-            font-size: 35pt;
-            line-height: 40pt;
+            font-size: 2.5rem;
+            line-height: 2.5rem;
         }
     }
 
@@ -260,7 +281,8 @@ p{
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 200px;
+            height: auto;
+            min-height: 150px;
             background-color: $nardo;
             border-radius: 15px;
             padding: 2rem;
@@ -281,6 +303,7 @@ p{
 
             p{
                 line-height: 1.1rem;
+                margin-top: 40px;
                         @include media600px {
                                 margin-top: 20px;
                             }
@@ -846,18 +869,17 @@ p{
 
 /* Proceso (sección de pasos) */
 .proceso {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 24px;
-  align-items: start;
-  margin-top: 48px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-top: 48px;
     align-items: start;
 
            @include media800px {
                             display: block;
                         }
         
-        .col.izq { }
         .tabs {
           display: grid;
           gap: 12px;
@@ -876,17 +898,23 @@ p{
           text-transform: uppercase;
           letter-spacing: 1.2px;
           font-family: $owners;
-          font-weight: 300;
+          font-weight: 400;
           background: #eef1f6;
           color: #9aa3b2;
           cursor: pointer;
           transition: .2s ease, color .2s ease, transform .2s ease;
+
+            &:hover{
+                transform: translateY(-3px);
+                background-color: #ced4e0;
+            }
+
+            &.active{
+                background: #3F52FF;
+                color: #fff;
+            }
         }
-        .tab:hover { transform: translateY(-1px); }
-        .tab.active {
-          background: #3F52FF;
-          color: #fff;
-        }
+
 
         .card {
           background: $nardo;
@@ -899,12 +927,17 @@ p{
             font-size: 24px;
             line-height: 1.2;
             max-width: 400px;
+            font-family: $neue;
+            font-weight: 400;
+            letter-spacing: -0.6px;
             }
             p {
             margin-top: 24px;
             color: #333;
             font-size: 16px;
-            line-height: 24px;
+            line-height: 20px;
+            font-family: $neue;
+            font-weight: 400;
             }
         }
          
@@ -915,19 +948,25 @@ p{
           gap: 12px;
           margin-top: 16px;
         }
+
         .avatars {
           display: flex;
         }
+
         .stack {
           display: block;
-          width: 32px;
-          height: 32px;
-          border-radius: 999px;
+          width: 24px;
+          height: 24px;
+          border-radius: 30px;
           overflow: hidden;
           border: 2px solid #fff;
           margin-left: -8px;
+
+          &:first-child { margin-left: 0; }
         }
-        .stack:first-child { margin-left: 0; }
+
+       
+
         .pill {
           background: #ffffff;
           border: 1px solid #D7D7D7;
@@ -941,7 +980,7 @@ p{
           display: flex;
 
           p{
-            margin-top: 6px;
+            margin-top: 3px;
             margin-left: 10px;
           }
         }

@@ -87,16 +87,16 @@ export default function ProcesoSection() {
             <div className="pill">
           <div className="avatars">
             <span className="stack">
-              <Image src="/assets/pp1.png" alt="Cliente 1" width={32} height={32}/>
+              <Image src="/assets/pp1.png" alt="Cliente 1" width={24} height={24}/>
             </span>
             <span className="stack">
-              <Image src="/assets/pp2.png" alt="Cliente 2" width={32} height={32}/>
+              <Image src="/assets/pp2.png" alt="Cliente 2" width={24} height={24}/>
             </span>
             <span className="stack">
-              <Image src="/assets/pp3.png" alt="Cliente 3" width={32} height={32}/>
+              <Image src="/assets/pp3.png" alt="Cliente 3" width={24} height={24}/>
             </span>
             <span className="stack">
-              <Image src="/assets/pp4.png" alt="Cliente 4" width={32} height={32}/>
+              <Image src="/assets/pp4.png" alt="Cliente 4" width={24} height={24}/>
             </span>
           </div>
           <p>+82 clientes satisfechos con el sistema</p></div>
