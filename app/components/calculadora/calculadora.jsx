@@ -86,6 +86,7 @@ export default function CalculadoraWeb() {
   const [showSummary, setShowSummary] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
 
+
   // Estado de bloques
   const [accesibilidad, setAccesibilidad] = useState('incluido'); // 'incluido' | 'aa'
   const [seoTec, setSeoTec] = useState(false);
@@ -116,11 +117,12 @@ export default function CalculadoraWeb() {
   }, []);
 
   useEffect(() => {
-    const node = sectionRef.current;
+    const node = bottomRef.current;
     if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowSummary(entry.isIntersecting)
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      const { top } = entry.boundingClientRect;
+      setAtBottom(top <= window.innerHeight);
+    });
     observer.observe(node);
     return () => observer.unobserve(node);
   }, []);
@@ -427,7 +429,7 @@ const handleDownloadPDF = async () => {
       </div>
 
       {/* Columna derecha (sticky) */}
-      <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}>
+       <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}>
         <div className="box">
           <h4>Resumen del<br></br>proyecto</h4>
           <div className="total">{fmt(total)}</div>

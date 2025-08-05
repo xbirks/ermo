@@ -121,6 +121,7 @@ p{
         object-fit: cover;
         display: none;
         margin-top: 30px;
+        margin-bottom: 30px;
 
         img{
             object-fit: cover;
@@ -277,6 +278,11 @@ p{
                 gap: 0.6rem;
             }
 
+            @include media800px {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+                gap: 0.6rem;
+            }
+
         .grid__element{
             display: flex;
             flex-direction: column;
@@ -294,6 +300,7 @@ p{
             h4{
                 font-size: 1.4rem;
                 line-height: 1.6rem;
+                max-width: 50vw;
                         @include media1000px {
                         font-size: 1.3rem;
                         line-height: 1.3rem;
@@ -308,7 +315,16 @@ p{
                                 margin-top: 20px;
                             }
             }
+
+    
         }
+
+        .grid__element-delete{
+                        @include media800px {
+                    display: none;
+                }
+            }
+       
 
         .grid__element-grey{
             background-color: #393939;

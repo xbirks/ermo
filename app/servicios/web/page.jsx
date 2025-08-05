@@ -18,22 +18,24 @@ export default function WebPage({municipio}) {
 
 
       <section className="intro-landing__master">
-        <h1>Hacemos <span className="landing__destacado">diseño y programación web en valencia</span> para EMPRENDEDORES y pymes</h1>
+        <h1>Hacemos <span className="landing__destacado">diseño y programación web en valencia</span> para pymes y emprendedores</h1>
 
         
         <div className="intro-landing__content">
           <div className="intro-landing__text">
+
+            <div className="intro-landing-mobile__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
+
             <p className="intro-landing__big">En este video te cuento todo sobre nuestro método de trabajo y los buenos resultados que hemos tenido con clientes:</p>
 
             <p>Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
 
-                     <div className="intro-landing-mobile__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
-
+             
 
             <StandardButton
             link="#precio"
             title="Calculadora precios"
-            style="mt-l margin-auto"
+            style="mt-m margin-auto"
             bg="#3F52FF"
             color="white"
             borderColor="#3F52FF"
@@ -191,13 +193,13 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
           </div>
           <div className="grid__element-grey">
             <p>Menos lio.</p>
-            <p>Más llamadas</p>
+            <p>Más llamadas.</p>
           </div>
-          <div className="grid__element">
+          <div className="grid__element grid__element-delete">
             <h4>Experiencia móvil perfecta</h4>
             <p>Tu web se verá impecable en móviles, tablets y ordenadores. Nos aseguramos de que cada visitante disfrute de una navegación fluida, esté donde esté.</p>
           </div>
-          <div className="grid__element">
+          <div className="grid__element grid__element-delete">
             <h4>Equipo experto y cercano</h4>
             <p>Detrás de tu proyecto hay un diseñador, programador y especialista en SEO, que tratará tu proyecto como si fuera propio. La implicación es clave en nuestro equipo.</p>
           </div>
