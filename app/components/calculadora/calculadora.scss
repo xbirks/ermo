@@ -109,6 +109,26 @@
     position: fixed;
     right: 1em;
     bottom: 1em;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+    transition: transform .3s ease, opacity .3s ease;
+
+    &.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    &.is-bottom {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 16px;
+    }
   }
 
   .box {
