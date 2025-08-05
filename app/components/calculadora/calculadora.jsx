@@ -427,7 +427,6 @@ const handleDownloadPDF = async () => {
       </div>
 
       {/* Columna derecha (sticky) */}
-      <aside className="calc-summary">
       <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}>
         <div className="box">
           <h4>Resumen del<br></br>proyecto</h4>
@@ -448,7 +447,7 @@ const handleDownloadPDF = async () => {
             onClick={(e) => { e.preventDefault(); handleDownloadPDF(); }}
             />
 
-             <StandardButton
+             <span id="contacto_calc"><StandardButton
             link="#precio"
             title="Contactar"
             style="mt-xs"
@@ -458,7 +457,8 @@ const handleDownloadPDF = async () => {
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
-            />
+            
+            /></span>
 
           </div>
         </div>

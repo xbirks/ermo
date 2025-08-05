@@ -109,6 +109,7 @@
     position: fixed;
     right: 1em;
     bottom: 1em;
+    top: auto;
     opacity: 0;
     pointer-events: none;
     transform: translateX(100%);
@@ -118,6 +119,15 @@
       opacity: 1;
       pointer-events: auto;
       transform: translateX(0);
+
+      .box{
+        background-color:  rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      #contacto_calc{
+        display: none;
+      }
     }
 
     &.is-bottom {
@@ -128,13 +138,19 @@
       opacity: 1;
       pointer-events: auto;
       margin-top: 16px;
+      .box{
+        background-color: $nardo;
+      }
+       #contacto_calc{
+        display: block;
+      }
+
     }
   }
 
   .box {
-    background: rgba(255, 255, 255, 0.3);
+    background: $nardo;
     border: 1px solid $nardo;
-    backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px 20px 40px 20px;
 
