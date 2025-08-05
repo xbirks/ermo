@@ -1,2 +1,0 @@
-- <button className="btn danger" type="button">Descargar en PDF</button>
-+ <button className="btn danger" type="button" onClick={handleDownloadPDF}>Descargar en PDF</button>

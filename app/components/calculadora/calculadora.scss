@@ -115,25 +115,30 @@
   }
 
   .box {
-    background: #fff;
+    background: $nardo;
     border: 1px solid $nardo;
-    border-radius: 30px;
-    padding: 16px;
+    border-radius: 20px;
+    padding: 40px 20px 40px 20px;
 
     h4 {
-      margin: 0 0 8px;
-      color: $nardo;
-      font-weight: 600;
+      color: $gris-oscuro;
+      font-weight: 400;
+      font-family: $neue;
+      letter-spacing: -0.2px;
       text-transform: uppercase;
-      letter-spacing: .5px;
-      font-size: 14px;
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: right;
+      line-height: 24px;
     }
 
     .total {
+      font-family: $neue;
       font-size: 28px;
-      font-weight: 700;
+      font-weight: 400;
+      text-align: right;
       color: $azul-ermo;
-      margin-bottom: 10px;
+      margin-bottom: 70px;
     }
 
     .lines {
@@ -371,28 +376,30 @@
   }
 }
 
-/* Resumen (sticky right) */
-.calc-summary .box {
-  border-radius: 18px;
-  border: 1px solid $nardo;
-  background: $nardo;
-  padding: 18px;
-}
+// /* Resumen (sticky right) */
+// .calc-summary .box {
+//   border-radius: 18px;
+//   border: 1px solid $nardo;
+//   background: $nardo;
+//   padding: 18px;
+// }
 
-.calc-summary h4 {
-  margin: 0 0 8px;
-  font-size: 13px;
-  letter-spacing: .12em;
-  color: $gris-oscuro;
-  text-transform: uppercase;
-}
+// .calc-summary h4 {
+//   margin: 0 0 8px;
+//   font-size: 13px;
+//   letter-spacing: -0.2px;
+//   font-family: $neue;
+//   font-weight: 300;
+//   color: $gris-oscuro;
+//   text-transform: uppercase;
+// }
 
-.calc-summary .total {
-  font-size: 30px;
-  font-weight: 700;
-  color: $azul-ermo;
-  margin-bottom: 12px;
-}
+// .calc-summary .total {
+//   font-size: 30px;
+//   font-weight: 700;
+//   color: $azul-ermo;
+//   margin-bottom: 12px;
+// }
 
 .calc-btn {
   border-radius: 32px;

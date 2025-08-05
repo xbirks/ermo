@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import StandardButton from '@/app/buttons/standard-button';
 import "./calculadora.scss";
 
 /* ---------- Config ---------- */
@@ -376,12 +377,35 @@ const handleDownloadPDF = async () => {
       {/* Columna derecha (sticky) */}
       <aside className="calc-summary">
         <div className="box">
-          <h4>Precio estimado</h4>
+          <h4>Resumen del<br></br>proyecto</h4>
           <div className="total">{fmt(total)}</div>
 
           <div className="cta">
-            <button className="calc-btn danger" type="button" onClick={handleDownloadPDF}>Descargar en PDF</button>
-            <a className="calc-btn ghost" href="#contacto">Contactar</a>
+
+            <StandardButton
+            link="#precio"
+            title="Descargar PDF"
+            style="mt-l"
+            bg="#3F52FF"
+            color="white"
+            borderColor="#3F52FF"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor="##0E1C9D"
+            />
+
+             <StandardButton
+            link="#precio"
+            title="Contactar"
+            style="mt-l"
+            bg="#3F52FF"
+            color="white"
+            borderColor="#3F52FF"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor="##0E1C9D"
+            />
+
           </div>
         </div>
       </aside>
