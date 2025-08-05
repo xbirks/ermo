@@ -273,13 +273,24 @@
 
 .calc-block__paginas .calc-block__grid{
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-columns: 1fr 120px;
     justify-content: space-between;
-   input[type=number]{
-    width: 50px;
-   }
-   
-}
+
+    .paginas{
+      display: flex;
+      align-items: center;
+    }
+
+    .paginas input[type=number]{
+      width: 70px;
+      padding-right: 24px;
+    }
+
+    .paginas input[type=number]::-webkit-inner-spin-button,
+    .paginas input[type=number]::-webkit-outer-spin-button{
+      transform: scale(1.4);
+    }
+  }
 
     .calc-block__text{
       margin-bottom: 20px;
