@@ -440,27 +440,29 @@ const handleDownloadPDF = async () => {
             link="#precio"
             title="Descargar PDF"
             style="mt-s"
-            bg="#3F52FF"
+            bg="#DC4946"
             color="white"
-            borderColor="#3F52FF"
-            hoverBg="#0E1C9D"
+            borderColor="transparent"
+            hoverBg="#3F52FF"
             hoverColor="white"
-            hoverBorderColor="#0E1C9D"
+            hoverBorderColor=""
             onClick={(e) => { e.preventDefault(); handleDownloadPDF(); }}
             />
 
              <span id="contacto_calc"><StandardButton
             link="#precio"
             title="Contactar"
-            style="mt-xs"
-            bg="#3F52FF"
+            style=""
+            bg="#B3B3B3"
             color="white"
-            borderColor="#3F52FF"
+            borderColor="transparent"
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
             
             /></span>
+
+            <p className="precios_disclaimer">Precios orientativos. Si quieres un presupuesto cerrado ponte en contacto. Precios sin IVA.</p>
 
           </div>
         </div>

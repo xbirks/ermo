@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Ermos from '../../assets/img/ermos.png';
 import Cafe from '../../assets/img/cafe.png';
+import StandardButton from '@/app/buttons/standard-button';
 import StandardButtonWhite from '../../buttons/standard-button-white.jsx';
 import Spacer from '../../buttons/spacer.jsx';
 
@@ -23,10 +24,17 @@ function ContactTeam() {
             <p className="index__team-txt team-txt-1">Y trabajamos con integridad, dedicación y transparencia para entregarte un trabajo de calidad.</p>
 
             <Spacer className="spacer-m" />
-            <StandardButtonWhite
+
+            <StandardButton
             link="https://www.instagram.com/ermostudio/"
             title="Equipo"
             style="post__button post__button-center"
+            bg="transparent"
+            color="white"
+            borderColor="white"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor=""
             />
 
         </div>
@@ -44,18 +52,32 @@ function ContactTeam() {
 
         
  <Spacer className="spacer-m" />
-            <StandardButtonWhite
+
+            <StandardButton
             link="https://wa.me/message/HJYSEK4RPLOSI1"
             title="¡Café!"
             style="post__button post__button-center"
+            bg="transparent"
+            color="white"
+            borderColor="white"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor=""
             />
 
 <Spacer className="spacer-s" />
 
-            <StandardButtonWhite
+
+            <StandardButton
             link="https://wa.me/message/HJYSEK4RPLOSI1"
             title="Refresco :)"
             style="post__button post__button-center"
+            bg="transparent"
+            color="white"
+            borderColor="white"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor=""
             />
 
 

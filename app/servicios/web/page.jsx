@@ -38,10 +38,10 @@ export default function WebPage({municipio}) {
             style="mt-m margin-auto"
             bg="#3F52FF"
             color="white"
-            borderColor="#3F52FF"
+            borderColor="transparent"
             hoverBg="#0E1C9D"
             hoverColor="white"
-            hoverBorderColor="##0E1C9D"
+            hoverBorderColor=""
             />
 
             <StandardButton

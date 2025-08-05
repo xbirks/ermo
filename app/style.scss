@@ -171,7 +171,7 @@ strong{
 
 .master__body{
     width: 80%;
-    max-width: 1200px;
+    max-width: 1080px;
     margin: 0 auto;
 
     @include media1200px {
@@ -388,7 +388,7 @@ a:hover .curzr-big-circle {
     z-index: 100;
 
     @include media500px {
-        padding: 10px 20px 5px 20px;
+        padding: 10px 20px 5px 0px;
     }
     
 }
@@ -568,11 +568,12 @@ a:hover .curzr-big-circle {
 
 .index__introduction{
     display: flex;
-    padding: 8vw 5vw 5vw 5vw;
+    padding: 8vw 0vw 5vw 0vw;
     gap: 48px;
 
     @include media800px {
         display: block;
+        padding: 8vw 5vw 5vw 5vw;
     }
 }
 
@@ -762,7 +763,7 @@ a:hover .curzr-big-circle {
 
 .index__services-container{
     border:solid 1.5px $azul-ermo;
-    padding: 30px;
+    padding: 20px;
     height: 450px;
     position: relative;
     &:hover{
@@ -774,7 +775,7 @@ a:hover .curzr-big-circle {
     }
 
     @include media800px {
-        width: 50vw;
+        width: 60vw;
         flex: 0 0 auto;
         height: 450px;
     }
@@ -782,7 +783,7 @@ a:hover .curzr-big-circle {
 
 .index__services > .index__services-container:first-child {
     @include media800px {
-        margin-left: 24px;
+        margin-left: 12px;
     }
 
   }
@@ -949,21 +950,21 @@ a:hover .curzr-big-circle {
   .footer__container {
     display: grid;
     gap: 30px;
-    grid-template-columns:400px repeat(3, 1fr);
+    grid-template-columns:350px repeat(3, 1fr);
     margin-left: 20px;
     margin-right: 20px;
 
     @include media1850px {
-        grid-template-columns: 300px repeat(3, 1fr);
+        grid-template-columns: 250px repeat(3, 1fr);
     }
 
     @include media1650px {
-        grid-template-columns: 250px repeat(3, 1fr);
+        grid-template-columns: 200px repeat(3, 1fr);
     }
 
     @include media900px {
         grid-template-columns: repeat(2, 1fr);
-        gap: 60px;
+        gap: 120px;
     }
 
     @include media500px {
@@ -972,10 +973,10 @@ a:hover .curzr-big-circle {
     }
 
     .footer__info-datos{
-        margin-bottom: 24px;
+        margin-bottom: 16px;
     }.footer__info-datos a{
         display: block;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         font-family: $neue;
         letter-spacing: -0.5px;
 
@@ -1056,9 +1057,7 @@ a:hover .curzr-big-circle {
 }
 
 
-    .swiper-slide img {
-        width: calc(100% / 4);
-    }
+
 
 
 

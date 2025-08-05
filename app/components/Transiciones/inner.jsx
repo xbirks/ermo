@@ -71,7 +71,7 @@ export default function Inner({children}){
 
   return (
     <div className="inner">
-      <AnimatePresence>
+      {/* <AnimatePresence>
           <motion.div {...anim(slide)} className="slide">
               <div className="slide-margin"></div>
               <Player
@@ -82,10 +82,10 @@ export default function Inner({children}){
                 className="introLottie"
               />
           </motion.div>
-          <motion.div {...anim(opacity)} className="motionWrapper">
+          <motion.div {...anim(opacity)} className="motionWrapper"> */}
           {children}
-          </motion.div>
-      </AnimatePresence>
+          {/* </motion.div>
+      </AnimatePresence> */}
     </div>
   );
 };

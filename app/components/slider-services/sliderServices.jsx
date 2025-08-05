@@ -2,13 +2,25 @@
 
 import React, { useRef, useState } from 'react';
 import ServicesFloatButton from '../../buttons/ServicesFloatButton.jsx';
+import StandardButton from '@/app/buttons/standard-button.jsx';
 
 function SliderServicesItem({ nameService, descriptionService, link }) {
     return (
         <div className="index__services-container">
             <h3>{nameService}</h3>
             <p>{descriptionService}</p>
-            <ServicesFloatButton link={link} title="Más info" />
+            {/* <ServicesFloatButton link={link} title="Más info" /> */}
+            <StandardButton
+            link={link}
+            title="Más info"
+            style="post__button post__button-services-slider"
+            bg="#3F52FF"
+            color="white"
+            borderColor="transparent"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor=""
+            />
         </div>
     );
 }
@@ -49,7 +61,7 @@ function SliderServices({municipio, enMunicipio}) {
             >
                 
                 <SliderServicesItem
-                    nameService={<>Programación web, UI/UX y SEO {enMunicipio}</>}
+                    nameService={<>Diseño web, programación y SEO {enMunicipio}</>}
                     descriptionService="Tu web no puede ser solo bonita. Tiene que cargar rápido, verse bien, guiar al usuario y convertir. Diseñamos y programamos webs que trabajan por ti… incluso cuando duermes."
                     link="/servicios/web"
                 />

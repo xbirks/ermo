@@ -1,5 +1,6 @@
 import React from 'react';
 import ServicesFloatButton from '../buttons/ServicesFloatButton.jsx';
+import StandardButton from '@/app/buttons/standard-button.jsx';
 
 function SliderServicesItem({nameService, descriptionService, link}) {
 
@@ -10,10 +11,22 @@ function SliderServicesItem({nameService, descriptionService, link}) {
             <h3>{nameService}</h3>
 
             <p>{descriptionService}</p>
-
+{/* 
             <ServicesFloatButton
                 link={link}
                 title="Más info"
+            /> */}
+
+            <StandardButton
+            link={link}
+            title="Más info"
+            style=""
+            bg="#3F52FF"
+            color="white"
+            borderColor="transparent"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor=""
             />
                 
         </div>
