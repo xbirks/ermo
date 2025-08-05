@@ -412,7 +412,7 @@ const handleDownloadPDF = async () => {
             <StandardButton
             link="#precio"
             title="Descargar PDF"
-            style="mt-l"
+            style="mt-s"
             bg="#3F52FF"
             color="white"
             borderColor="#3F52FF"
