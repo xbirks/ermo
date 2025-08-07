@@ -56,6 +56,8 @@ export default function WebPage({municipio}) {
             />
 
 
+
+
             <div className="intro-landing__line"></div>
 
             <div className="intro-landing__valora">
@@ -80,7 +82,7 @@ export default function WebPage({municipio}) {
       <section className="grid__master">
   <h2>Casos de <span className="jardin__destacado">éxito</span></h2>
 
-  <div className="exito__tarjeta">
+  {/* <div className="exito__tarjeta">
     <div className="exito__cliente">
       <div className="exito__cliente-img">
         <video src="/assets/test_vid.mp4" width="1024" height="1324"
@@ -123,8 +125,8 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
         <p className="data_B">páginas posicionadas entre las 3 primeras búsquedas en Google.</p>
       </div>
     </div>
-  </div>
-
+  </div> */}
+{/* 
   <div className="exito__tarjeta">
     <div className="exito__cliente">
       <div className="exito__cliente-img">
@@ -152,13 +154,123 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
         <p className="data_B">clientes conseguidos</p>
       </div>
     </div>
-  </div>
+  </div> */}
+
+
+
+</section>
+
+
+
+
+
+<section className="exito__master-new">
+  <div className="exito">
+      {/* Vídeo a pantalla completa dentro de la tarjeta */}
+      <video
+        className="exito__bg"
+        src="/assets/jose.mp4"
+        poster="/assets/test_vid_poster.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label="Gartalia"
+      />
+
+      {/* Capa de información (el blur se aplica aquí) */}
+      <div className="exito__info">
+        <p className="exito__review">
+          Gartalia pasó de no tener presencia online a estar{" "}
+          <strong>posicionada como una de las mejores empresas de jardinería de Valencia.</strong>{" "}
+          Gracias a una web bien optimizada y una estrategia SEO efectiva.
+        </p>
+
+        <div className="exito__footer">
+          <img
+            src="/assets/gartalia_logo.svg"
+            alt="Logo Gartalia"
+            className="exito__logo"
+            width="180"
+            height="90"
+          />
+
+            <StandardButton
+            link="#precio"
+            title="Ver web"
+            style=""
+            bg="white"
+            color="#3F52FF"
+            borderColor="transparent"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor=""
+            />
+
+
+        </div>
+      </div>
+      </div>
+
+
+
+
+        <div className="exito">
+      {/* Vídeo a pantalla completa dentro de la tarjeta */}
+      <video
+        className="exito__bg"
+        src="/assets/juan.mp4"
+        poster="/assets/test_vid_poster.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label="Gartalia"
+      />
+
+      {/* Capa de información (el blur se aplica aquí) */}
+      <div className="exito__info">
+        <p className="exito__review">
+          Gartalia pasó de no tener presencia online a estar{" "}
+          <strong>posicionada como una de las mejores empresas de jardinería de Valencia.</strong>
+        </p>
+
+        <div className="exito__footer">
+          <img
+            src="/assets/gartalia_logo.svg"
+            alt="Logo Gartalia"
+            className="exito__logo"
+            width="180"
+            height="90"
+          />
+
+            <StandardButton
+            link="#precio"
+            title="Ver web"
+            style=""
+            bg="white"
+            color="#3F52FF"
+            borderColor="transparent"
+            hoverBg="#3F52FF"
+            hoverColor="white"
+            />
+        </div>
+      </div>
+      </div>
+
+
+
+
+
+
 
 
             <StandardButton
             link="#precio"
             title="Ver más casos de éxito"
-            style="mt-xs margin-auto"
+            style="mt-xs"
             bg="#3F52FF"
             color="white"
             borderColor="#3F52FF"
@@ -167,8 +279,11 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
             hoverBorderColor="#0E1C9D"
             />
 
-</section>
 
+
+    </section>
+
+    
 
 
 
@@ -180,14 +295,17 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
 
         <div className="grid">
           <div className="grid__element" id="servicio">
+            <Image src="/assets/gl01.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Más visibilidad y más clientes</h4>
             <p>Optimizamos tu web para que aparezcas en las primeras posiciones de Google y te encuentren cuando busquen tus servicios. Más llamadas, más correos y más negocio.</p>
           </div>
           <div className="grid__element">
-            <h4>Diseño a medida 100%. Sin plantillas. Sin wordpress.</h4>
+            <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img"></Image>
+            <h4>Diseño a medida 100%. Ni plantillas. Ni wordpress.</h4>
             <p>No usamos plantillas. Creamos un diseño exclusivo adaptado a tu marca que mejora la experiencia del usuario y aumenta las conversiones. Por supuesto, nada de temas de Wordpress lentos y pesados.</p>
           </div>
           <div className="grid__element">
+            <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Velocidad y rendimiento sin fallos</h4>
             <p>Desarrollamos sitios que cargan en segundos y funcionan siempre, incluso con mala conexión. Una web rápida retiene a tus visitantes y mejora tu posicionamiento.</p>
           </div>
@@ -196,12 +314,14 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
             <p>Más llamadas.</p>
           </div>
           <div className="grid__element grid__element-delete">
+            <Image src="/assets/gl04.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Experiencia móvil perfecta</h4>
             <p>Tu web se verá impecable en móviles, tablets y ordenadores. Nos aseguramos de que cada visitante disfrute de una navegación fluida, esté donde esté.</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <h4>Equipo experto y cercano</h4>
-            <p>Detrás de tu proyecto hay un diseñador, programador y especialista en SEO, que tratará tu proyecto como si fuera propio. La implicación es clave en nuestro equipo.</p>
+            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img"></Image>
+            <h4>Calculadora de precios gratuita</h4>
+            <p>Queremos ser transparentes con nuestros clientes. Para que tengas claridad desde el inicio, usa nuestra calculadora y obtén una estimación antes de ponerte en contacto.</p>
           </div>
 
         </div>

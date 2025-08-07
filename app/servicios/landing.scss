@@ -318,6 +318,10 @@ p{
                             }
             }
 
+            .grid__element-img{
+                margin-bottom: 20px;
+            }
+
     
         }
 
@@ -1043,4 +1047,132 @@ p{
         margin-top: 24px;
         margin-bottom: 36px;
         }
+}
+
+
+
+
+
+
+
+
+.exito__master-new{
+    padding-left: 3vw;
+    padding-right: 3vw;
+    display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+
+                   @include media800px {
+                        display: grid;
+                        grid-template-columns: repeat(1, 1fr);
+                        }
+}
+
+
+/* exito.scss ---------------------------------------------------------- */
+.exito {
+  position: relative;
+  width: 100%;               /* ajusta a tu grid */
+  aspect-ratio: 3/4;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 20px 36px rgba(0, 0, 0, .15);
+  gap: 10px;
+
+                     @include media800px {
+                            aspect-ratio: 4/5;
+                        }
+
+  /* ---------- vídeo de fondo ---------- */
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+   &::after {
+    content: '';
+    position: absolute;
+    inset: 0;                            
+    backdrop-filter: blur(24px);        
+    -webkit-backdrop-filter: blur(24px);
+
+    /* La máscara hace que el efecto solo se note
+       del 100 % (abajo) al 50 % (mitad) y
+       se desvanezca progresivamente hacia arriba   */
+    mask-image: linear-gradient(to top,
+                 #000 0%,               
+                 #000 50%,
+                 #0000 60%,            
+                 #0000 100%);       
+    -webkit-mask-image: linear-gradient(to top,
+                 #000 0%, #000 15vh, #0000 25vh, #0000 100%);
+
+    pointer-events: none;             
+  }
+
+  /* ---------- panel inferior ---------- */
+  &__info {
+    position: absolute;          
+    margin-top: auto;             
+    padding: 24px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: #ffffff;
+    z-index: 1;    
+    top: auto;             
+    bottom: 0px;
+
+    
+  }
+
+  &__review {
+    font-family: $neue;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &__logo { 
+    max-width: 180px;
+    height: auto;
+    
+                     @include media1000px {
+                            display: none;
+                        }
+
+                     @include media800px {
+                            display: block;
+                            width: 140px;
+                        }
+    }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 600px) {
+    width: 100%;
+    border-radius: 24px;
+
+    &__info { padding: 20px 20px 28px; }
+  }
+
+  .exito__review{
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+    margin-bottom: 30px;
+                         @include media800px {
+                            margin-bottom: 15px;
+                        }
+  }
 }
