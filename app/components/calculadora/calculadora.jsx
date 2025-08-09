@@ -76,7 +76,7 @@ function SettingsBlock({ title, description, items, onToggle }) {
 
 /* ---------- Calculadora ---------- */
 
-/* ---------- Componente reutilizable: Resumen ---------- */
+/* ---------- Componente reutilizable: RESUMEN PRECIOS ---------- */
 function SummaryBox({ total, onDownloadPDF }) {
   return (
     <div className="box">

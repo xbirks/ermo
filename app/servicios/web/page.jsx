@@ -373,8 +373,10 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
 
   <h2>Calculadora de precios</h2>
 
-  <p className="calc__description">Para que tengas claridad desde el inicio, usa la calculadora y obtén una estimación antes de contactarme. No soy el más barato: trabajo con código a medida, sin plantillas ni WordPress pesados.<br></br><br></br>
-  Haz el cálculo y, si encaja, escríbeme con el resultado para preparar una propuesta cerrada y fechas.</p>
+  <p className="calc__description">Aquí sabrás desde el primer momento <strong>cuánto puede costar tu web</strong>. Sin precios ocultos, sin sorpresas.
+  <br></br><br></br>
+Trabajo con código a medida, <strong>sin plantillas ni WordPress pesados</strong>, para que tengas una web rápida y adaptada a ti. 
+Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándamelo para prepararte una propuesta final con precio y plazos cerrados.</p>
 
 
   <CalculadoraWeb></CalculadoraWeb>

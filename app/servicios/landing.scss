@@ -14,8 +14,8 @@ h1{
 
 p{
     color: #393939;
-    font-size: 1rem;
-    line-height: 1.3rem;
+    font-size: 1.125rem;
+    line-height: 1.4rem;
             @include media600px {
             font-size: 1rem;
             line-height: 1.1rem;
@@ -257,6 +257,7 @@ p{
         text-align: left;
         line-height: 58pt;
         letter-spacing: 1px;
+        max-width: 700px;
 
         @include media1200px {
             font-size: 40pt;
@@ -283,7 +284,7 @@ p{
     .grid{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
+        gap: 1.125rem;
         margin-top: 60px;
 
            @include media1000px {
@@ -322,7 +323,7 @@ p{
             }
 
             p{
-                line-height: 20px;
+                line-height: 1.4rem;
                 margin-top: 40px;
                         @include media600px {
                                 margin-top: 20px;
@@ -967,8 +968,8 @@ p{
             p {
             margin-top: 24px;
             color: #333;
-            font-size: 16px;
-            line-height: 20px;
+            font-size: 1.125rem;
+            line-height: 1.6rem;
             font-family: $neue;
             font-weight: 400;
             }
