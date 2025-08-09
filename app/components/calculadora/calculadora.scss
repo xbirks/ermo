@@ -55,18 +55,24 @@
 
   /* Chips --------------------------------------------------------- */
   .chips {
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     gap: 8px;
+
+        @media (max-width: 1200px) {
+      display: flex;
+    }
   }
 
   .chip {
     padding: 10px 14px;
-    border-radius: 999px;
+    border-radius: 30px;
     border: 1px solid #d7d7d7;
     background: #fff;
-    color: $negro-ermo;
-    font-size: 14px;
+    color: $gris-oscuro;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: -0.2px;
     cursor: pointer;
     transition: .2s ease, color .2s ease, border-color .2s ease;
 
@@ -164,7 +170,7 @@
       color: $gris-oscuro;
       font-weight: 400;
       font-family: $neue;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
       text-transform: uppercase;
       font-size: 20px;
       margin-bottom: 10px;
@@ -256,7 +262,8 @@
 .calc-block {
   border-top: 1px solid $nardo;
   padding: 22px 0;
-  margin-top: 24px;
+
+
 
   &:first-of-type {
     border-top: 0;
@@ -264,10 +271,16 @@
   }
 
   &__grid {
-    display: block;
+    display: flex;
     grid-template-columns: 1fr 380px;
     gap: 24px;
-    align-items: center;
+    align-items: baseline;
+    justify-content: space-between;
+
+    @media (max-width: 1200px) {
+          display: block;
+          align-items: center;
+      }
 
     @media (max-width: 900px) {
       grid-template-columns: 1fr;
@@ -275,12 +288,22 @@
   }
 
   &__text {
+    width: 400px;
+            @media (max-width: 1200px) {
+            width: 100%;
+        }
+
+
     h3 {
-      margin: 0 0 8px;
+      margin: 0px;
       font-size: 1rem;
       letter-spacing: -1%;
       text-transform: uppercase;
       color: #4b4b4b;
+
+          @media (max-width: 1200px) {
+          margin: 0 0 8px;
+           }
     }
 
     p {
@@ -307,8 +330,9 @@
         text-transform: uppercase;
         letter-spacing: 0.2px;
         color: $gris-oscuro;
-        font-size: 0.9rem;
-        font-weight: 300;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: -0.2px;
         text-align: right;
         max-width: 300px;
         flex: 1;
@@ -349,7 +373,6 @@
   }
 
     .calc-block__text{
-      margin-bottom: 20px;
 
       h3{
         font-size: 1.2rem;
@@ -358,7 +381,7 @@
 
       p{
         max-width: 300px;
-        letter-spacing: -0.5px;
+        letter-spacing: -0.3px;
         line-height: 20px;
         max-width: 600px;
         margin-top: 14px;
@@ -368,7 +391,7 @@
 
 /* Chips */
 .chips {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -440,7 +463,7 @@
   }
 
   &.is-disabled {
-    opacity: .6;
+    // opacity: .6;
 
     input {
       cursor: not-allowed;
@@ -448,30 +471,7 @@
   }
 }
 
-// /* Resumen (sticky right) */
-// .calc-summary .box {
-//   border-radius: 18px;
-//   border: 1px solid $nardo;
-//   background: $nardo;
-//   padding: 18px;
-// }
 
-// .calc-summary h4 {
-//   margin: 0 0 8px;
-//   font-size: 13px;
-//   letter-spacing: -0.2px;
-//   font-family: $neue;
-//   font-weight: 300;
-//   color: $gris-oscuro;
-//   text-transform: uppercase;
-// }
-
-// .calc-summary .total {
-//   font-size: 30px;
-//   font-weight: 700;
-//   color: $azul-ermo;
-//   margin-bottom: 12px;
-// }
 
 .calc-btn {
   border-radius: 32px;

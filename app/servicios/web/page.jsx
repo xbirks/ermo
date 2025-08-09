@@ -28,7 +28,7 @@ export default function WebPage({municipio}) {
 
             <p className="intro-landing__big">En este video te cuento todo sobre nuestro método de trabajo y los buenos resultados que hemos tenido con clientes:</p>
 
-            <p>Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
+            <p className="intro-landing__texto-op">Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
 
              
 

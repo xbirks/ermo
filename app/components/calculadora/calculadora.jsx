@@ -358,13 +358,13 @@ const handleDownloadPDF = async () => {
         {/* ACCESIBILIDAD Y CALIDAD (exclusivo) */}
         <SettingsBlock
           title="ACCESIBILIDAD Y CALIDAD"
-          description="¿Tu público objetivo tiene necesidades especiales y quieres estar cubierto? Selecciona accesibilidad AA y trataremos el proyecto con un enfoque diferente."
+          description="¿Quieres que tu web sea fácil de usar para cualquier persona, incluyendo aquellas con necesidades especiales? La opción AA asegura un nivel extra de accesibilidad y cuidado en los detalles."
           items={[
             { id: 'acc_incluido', label: 'INCLUIDO',  checked: accesibilidad === 'incluido' },
             { id: 'acc_aa',       label: 'OBJETIVO AA', checked: accesibilidad === 'aa' },
           ]}
           onToggle={(id, next) => {
-            if (!next) return; // mantener siempre una opción activa
+            if (!next) return; 
             setAccesibilidad(id === 'acc_aa' ? 'aa' : 'incluido');
           }}
         />
@@ -372,11 +372,11 @@ const handleDownloadPDF = async () => {
         {/* SEO Y RENDIMIENTO (múltiple) */}
         <SettingsBlock
           title="SEO Y RENDIMIENTO"
-          description="Opciones para reforzar el posicionamiento y la calidad técnica del proyecto."
+          description="Opciones para que tu web aparezca mejor posicionada en Google y cargue más rápido. Esto ayuda a que más personas te encuentren y a que la experiencia de navegación sea fluida."
           items={[
             { id: 'seoIncluido', label: 'INCLUIDO', checked: true, disabled: true },
-            { id: 'seoTec',      label: 'SCHEMA, DATOS ESTRUCTURADOS, CORE WEB VITALS', checked: seoTec },
-            { id: 'seoCont',     label: 'CONTENIDO Y POSICIONAMIENTO DE PRODUCTO',      checked: seoCont },
+            { id: 'seoTec',      label: 'AVANZADO Y ESTANDARES GOOGLE', checked: seoTec },
+            { id: 'seoCont',     label: 'OPTIMIZACIÓN DE CONTENIDOS',      checked: seoCont },
           ]}
           onToggle={(id, next) => {
             if (id === 'seoTec') setSeoTec(next);
@@ -386,41 +386,45 @@ const handleDownloadPDF = async () => {
 
         {/* OPERATIVA, CONTENIDOS Y RECURSOS */}
         <SettingsBlock
-          title="OPERATIVA, CONTENIDOS Y RECURSOS"
-          description="Selecciona los apoyos y recursos necesarios para producción y coordinación."
+          title="CONTENIDOS Y RECURSOS"
+          description="Selecciona el apoyo que necesites para crear y preparar todo el contenido de la web. Tener contenido bien hecho ayuda a que tu web sea más atractiva, clara y convincente para tus clientes."
           items={[
             { id: 'op_redaccion',   label: 'REDACCIÓN DE TEXTOS',                  checked: opRedaccion },
             { id: 'op_traducciones',label: 'TRADUCCIONES',                          checked: opTraducciones },
             { id: 'op_imagenes',    label: 'IMÁGENES, ILUSTRACIONES O ICONOS',     checked: opImagenes },
             { id: 'op_foto',        label: 'FOTOGRAFÍA O VIDEO',                   checked: opFotografia },
-            { id: 'op_urgente',     label: 'ENTREGA CON URGENCIA',                 checked: opUrgente },
-            { id: 'op_revision',    label: 'RONDA DE REVISIÓN EXTRA',              checked: opRevisionExtra },
-            { id: 'op_reuniones',   label: 'REUNIONES EXTRA',                      checked: opReunionesExtra },
+
+           
           ]}
           onToggle={(id, next) => {
             if (id === 'op_redaccion') setOpRedaccion(next);
             if (id === 'op_traducciones') setOpTraducciones(next);
             if (id === 'op_imagenes') setOpImagenes(next);
             if (id === 'op_foto') setOpFotografia(next);
-            if (id === 'op_urgente') setOpUrgente(next);
-            if (id === 'op_revision') setOpRevisionExtra(next);
-            if (id === 'op_reuniones') setOpReunionesExtra(next);
+
+
           }}
         />
 
         {/* MANTENIMIENTO */}
         <SettingsBlock
-          title="MANTENIMIENTO"
+          title="MANTENIMIENTO Y OPERATIVA"
           description="Puedes evitar muchos líos y dolores de cabeza contratando un mantenimiento para tu proyecto. Así tendrás cubierto cualquier error que pueda suceder."
           items={[
-            { id: 'mant_anual',  label: 'ANUAL',             checked: mantAnual },
+            { id: 'mant_anual',  label: 'MANT. ANUAL',             checked: mantAnual },
             { id: 'mant_horas',  label: 'POR HORAS (10h)',   checked: mantHoras },
             { id: 'mant_ext',    label: 'SERVICIOS EXTERNOS',checked: mantExternos },
+             { id: 'op_revision',    label: 'RONDA DE REVISIÓN EXTRA',              checked: opRevisionExtra },
+            { id: 'op_reuniones',   label: 'REUNIONES EXTRA',                      checked: opReunionesExtra },
+            { id: 'op_urgente',     label: 'ENTREGA CON URGENCIA',                 checked: opUrgente },
           ]}
           onToggle={(id, next) => {
             if (id === 'mant_anual') setMantAnual(next);
             if (id === 'mant_horas') setMantHoras(next);
             if (id === 'mant_ext') setMantExternos(next);
+                        if (id === 'op_revision') setOpRevisionExtra(next);
+            if (id === 'op_reuniones') setOpReunionesExtra(next);
+                        if (id === 'op_urgente') setOpUrgente(next);
           }}
         />
 

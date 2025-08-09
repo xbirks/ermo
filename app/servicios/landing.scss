@@ -95,6 +95,17 @@ p{
             font-size: 1.4rem;
             line-height: 1.6rem;
             }
+
+            @include media600px {
+            font-size: 1.2rem;
+            line-height: 1.4rem;
+            }
+        }
+
+        .intro-landing__texto-op{
+            @include media800px {
+            display: none;
+            }
         }
     }
 
@@ -311,7 +322,7 @@ p{
             }
 
             p{
-                line-height: 1.1rem;
+                line-height: 20px;
                 margin-top: 40px;
                         @include media600px {
                                 margin-top: 20px;
@@ -1057,15 +1068,17 @@ p{
 
 
 .exito__master-new{
-    padding-left: 3vw;
-    padding-right: 3vw;
+
     display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px;
+        margin-top: 60px;
 
                    @include media800px {
                         display: grid;
                         grid-template-columns: repeat(1, 1fr);
+                            padding-left: 3vw;
+    padding-right: 3vw;
                         }
 }
 
