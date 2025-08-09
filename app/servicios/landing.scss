@@ -17,8 +17,8 @@ p{
     font-size: 1.125rem;
     line-height: 1.4rem;
             @include media600px {
-            font-size: 1rem;
-            line-height: 1.1rem;
+            // font-size: 1.125rem;
+            // line-height: 1.4rem;
             }
 }
 
@@ -243,6 +243,10 @@ p{
 .grid__master{
     margin-top: 200px;
 
+        @include media800px {
+            margin-top: 150px;
+        }
+
             @include media500px {
             padding-left: 3vw;
             padding-right: 3vw;
@@ -265,8 +269,8 @@ p{
         }
 
         @include media800px {
-            font-size: 2.5rem;
-            line-height: 2.5rem;
+            font-size: 2.7rem;
+            line-height: 2.8rem;
         }
     }
 
@@ -316,8 +320,8 @@ p{
                 line-height: 1.6rem;
                 max-width: 50vw;
                         @include media1000px {
-                        font-size: 1.3rem;
-                        line-height: 1.3rem;
+                        // font-size: 1.3rem;
+                        // line-height: 1.3rem;
                         }
 
             }
