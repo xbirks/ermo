@@ -75,6 +75,52 @@ function SettingsBlock({ title, description, items, onToggle }) {
 }
 
 /* ---------- Calculadora ---------- */
+
+/* ---------- Componente reutilizable: Resumen ---------- */
+function SummaryBox({ total, onDownloadPDF }) {
+  return (
+    <div className="box">
+      <h4>Resumen del<br></br>proyecto</h4>
+      <div className="total">{fmt(total)}</div>
+
+      <div className="cta">
+        <StandardButton
+          link="#precio"
+          title="Descargar PDF"
+          style="mt-s"
+          bg="#DC4946"
+          color="white"
+          borderColor="transparent"
+          hoverBg="#3F52FF"
+          hoverColor="white"
+          hoverBorderColor=""
+          onClick={(e) => { e.preventDefault(); onDownloadPDF(); }}
+        />
+
+        <span id="contacto_calc">
+          <StandardButton
+            link="#precio"
+            title="Contactar"
+            style=""
+            bg="#B3B3B3"
+            color="white"
+            borderColor="transparent"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor="#0E1C9D"
+          />
+        </span>
+
+        <p className="precios_disclaimer">
+          Precios orientativos. Si quieres un presupuesto cerrado ponte en contacto. Precios sin IVA.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+
+
 export default function CalculadoraWeb() {
   // Estado visible
   const [tipo, setTipo] = useState('restaurante');
@@ -430,47 +476,17 @@ const handleDownloadPDF = async () => {
 
         <div ref={bottomRef} style={{ height: 1 }}></div>
 
+        {/* Banner final solo móvil */}
+        <div className="calc-summary calc-summary--mobileEnd">
+          <SummaryBox total={total} onDownloadPDF={handleDownloadPDF} />
+        </div>
+
+
       </div>
 
       {/* Columna derecha (sticky) */}
-       <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}>
-        <div className="box">
-          <h4>Resumen del<br></br>proyecto</h4>
-          <div className="total">{fmt(total)}</div>
-
-          <div className="cta">
-
-            <StandardButton
-            link="#precio"
-            title="Descargar PDF"
-            style="mt-s"
-            bg="#DC4946"
-            color="white"
-            borderColor="transparent"
-            hoverBg="#3F52FF"
-            hoverColor="white"
-            hoverBorderColor=""
-            onClick={(e) => { e.preventDefault(); handleDownloadPDF(); }}
-            />
-
-             <span id="contacto_calc"><StandardButton
-            link="#precio"
-            title="Contactar"
-            style=""
-            bg="#B3B3B3"
-            color="white"
-            borderColor="transparent"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor="#0E1C9D"
-            
-            /></span>
-
-            <p className="precios_disclaimer">Precios orientativos. Si quieres un presupuesto cerrado ponte en contacto. Precios sin IVA.</p>
-
-          </div>
-        </div>
-      </aside>
+       <aside className={`calc-summary ${showSummary ? 'is-visible' : ''} ${atBottom ? 'is-bottom' : ''}`}> <SummaryBox total={total} onDownloadPDF={handleDownloadPDF} /></aside>
+  
     </section>
     
   );

@@ -110,6 +110,7 @@
 .calc-summary {
   position: sticky;
   top: 16px;
+   transition: transform .3s ease-in-out, opacity .3s ease-in-out;
 
   @media (max-width: 900px) {
     position: fixed;
@@ -125,6 +126,8 @@
       opacity: 1;
       pointer-events: auto;
       transform: translateX(0);
+      .box { background-color: rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
+      #contacto_calc { display: none; }
 
       .box{
         background-color:  rgba(255, 255, 255, 0.3);
@@ -136,20 +139,10 @@
       }
     }
 
-    &.is-bottom {
-      position: relative;
-      right: auto;
-      bottom: auto;
+&.is-bottom {
       transform: none;
-      opacity: 1;
-      pointer-events: auto;
-      margin-top: 16px;
-      .box{
-        background-color: $nardo;
-      }
-       #contacto_calc{
-        display: block;
-      }
+      opacity: 0;
+      transform: translateX(100%);
 
     }
   }
@@ -492,3 +485,34 @@
 
 
 
+
+
+
+
+
+/* Duplicado final solo en móvil: oculto por defecto en desktop */
+.calc-summary--mobileEnd {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .calc-summary--mobileEnd {
+    display: block;
+    position: relative;   /* comportamiento normal, no fijo */
+    right: auto;
+    bottom: auto;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 16px;
+
+    /* Hereda el estilo de .calc-summary móvil cuando está "abajo" */
+    .box {
+      background-color: $nardo;  /* mismo fondo que tu estado .is-bottom */
+    }
+
+    #contacto_calc {
+      display: block; /* visible en el banner final */
+    }
+  }
+}
