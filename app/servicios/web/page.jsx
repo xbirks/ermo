@@ -18,7 +18,7 @@ export default function WebPage({municipio}) {
 
 
       <section className="intro-landing__master">
-        <h1>Hacemos <span className="landing__destacado">diseño y programación web en valencia</span> para pymes y emprendedores</h1>
+        <h1><span className="landing__destacado">Diseño y programación web en valencia</span> para pymes y emprendedores</h1>
 
         
         <div className="intro-landing__content">
@@ -169,7 +169,7 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
       {/* Vídeo a pantalla completa dentro de la tarjeta */}
       <video
         className="exito__bg"
-        src="/assets/jose.mp4"
+        src="/videos/landing_web/garta_01.mp4"
         poster="/assets/test_vid_poster.jpg"
         autoPlay
         muted

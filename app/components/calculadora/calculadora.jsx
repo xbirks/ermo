@@ -5,18 +5,27 @@ import "./calculadora.scss";
 
 /* ---------- Config ---------- */
 const LS_KEY = 'calc-web-v1';
+
 const PROJECT_TYPES = {
-  restaurante: { label: 'Web restaurante', base: 400 },
-  agencias:    { label: 'Web para agencias', base: 600 },
-  ecommerce:   { label: 'Ecommerce',        base: 700 },
-  otros:       { label: 'Otros',            base: 500 },
+  corporativa:    { label: 'Web corporativa', base: 500 },
+  portfolio:      { label: 'Portfolio personal o profesional', base: 450 },
+  restaurante:    { label: 'Web restaurante', base: 400 },
+  agencias:       { label: 'Web para agencias', base: 600 },
+  ecommerce:      { label: 'Ecommerce', base: 700 },
+  reservas:       { label: 'Web con sistema de reservas', base: 950 },
+  landing:        { label: 'Landing page', base: 450 },
+  otros:          { label: 'Otros', base: 700 },
 };
+
 const COMPLEJIDAD = { basico: 1.0, intermedio: 1.5, avanzado: 2.1 };
 const ACCESIBILIDAD = { incluido: 1.0, aa: 1.3 };
 const SEO_TEC = 1.1;
 const SEO_CONT = 1.35;
 const PRECIO_PAGINA_INTERNA = 70; // PP interno (oculto)
 const URGENCIA_MULT = 1.45;        // multiplicador interno
+const TAMANOS = { pequena: 1, mediana: 5, grande: 10 }; // nº de páginas aprox.
+const TAMANO_LABEL = { pequena: 'Pequeño', mediana: 'Mediano', grande: 'Grande' };
+
 
 // Costes internos (ajústalos cuando quieras)
 const EXTRA_COSTS = {
@@ -124,7 +133,7 @@ function SummaryBox({ total, onDownloadPDF }) {
 export default function CalculadoraWeb() {
   // Estado visible
   const [tipo, setTipo] = useState('restaurante');
-  const [paginas, setPaginas] = useState('1');
+  const [tamano, setTamano] = useState('pequena');
   const [complejidad, setComplejidad] = useState('basico');
 
   const sectionRef = useRef(null);
@@ -191,7 +200,13 @@ export default function CalculadoraWeb() {
       if (!raw) return;
       const s = JSON.parse(raw);
       if (s.tipo) setTipo(s.tipo);
-      if (typeof s.paginas === 'number') setPaginas(String(s.paginas));
+      if (s.tamano) {
+        setTamano(s.tamano);
+      } else if (typeof s.paginas === 'number') {
+        const p = s.paginas;
+        setTamano(p <= 3 ? 'pequena' : p <= 7 ? 'mediana' : 'grande');
+      }
+
       if (s.complejidad) setComplejidad(s.complejidad);
       if (s.accesibilidad) setAccesibilidad(s.accesibilidad);
       setSeoTec(!!s.seoTec);
@@ -209,66 +224,81 @@ export default function CalculadoraWeb() {
     } catch {}
   }, []);
 
-  // Guardar estado
-  useEffect(() => {
-    const s = {
-      tipo,
-      paginas: Number(paginas) || 1,
-      complejidad,
-      accesibilidad,
-      seoTec,
-      seoCont,
-      opRedaccion,
-      opTraducciones,
-      opImagenes,
-      opFotografia,
-      opUrgente,
-      opRevisionExtra,
-      opReunionesExtra,
-      mantAnual,
-      mantHoras,
-      mantExternos,
-    };
-    localStorage.setItem(LS_KEY, JSON.stringify(s));
-  }, [
-    tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
-    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-    mantAnual, mantHoras, mantExternos
-  ]);
+// Guardar estado
+useEffect(() => {
+  const s = {
+    tipo,
+    tamano,
+    complejidad,
+    accesibilidad,
+    seoTec,
+    seoCont,
+    opRedaccion,
+    opTraducciones,
+    opImagenes,
+    opFotografia,
+    opUrgente,
+    opRevisionExtra,
+    opReunionesExtra,
+    mantAnual,
+    mantHoras,
+    mantExternos,
+  };
+  localStorage.setItem(LS_KEY, JSON.stringify(s));
+}, [
+  tipo,
+  tamano,
+  complejidad,
+  accesibilidad,
+  seoTec,
+  seoCont,
+  opRedaccion,
+  opTraducciones,
+  opImagenes,
+  opFotografia,
+  opUrgente,
+  opRevisionExtra,
+  opReunionesExtra,
+  mantAnual,
+  mantHoras,
+  mantExternos
+]);
+
 
   // Cálculo en tiempo real
-  const total = useMemo(() => {
-    const base = PROJECT_TYPES[tipo].base;
-    const numPags = Math.max(1, Number(paginas) || 1);
-    const extraPages = Math.max(0, numPags - 1); // Home incluida
-    const pagesCost = extraPages * PRECIO_PAGINA_INTERNA;
+const total = useMemo(() => {
+  const base = PROJECT_TYPES[tipo].base;
 
-    const extrasOperativa =
-      (opRedaccion ? EXTRA_COSTS.redaccion : 0) +
-      (opTraducciones ? EXTRA_COSTS.traducciones : 0) +
-      (opImagenes ? EXTRA_COSTS.imagenes : 0) +
-      (opFotografia ? EXTRA_COSTS.fotografia : 0) +
-      (opRevisionExtra ? EXTRA_COSTS.revisionExtra : 0) +
-      (opReunionesExtra ? EXTRA_COSTS.reunionesExtra : 0);
+  const numPags = TAMANOS[tamano] || 1;
+  const extraPages = Math.max(0, numPags - 1); // Home incluida
+  const pagesCost = extraPages * PRECIO_PAGINA_INTERNA;
 
-    const multiplicador =
-      (COMPLEJIDAD[complejidad] || 1) *
-      (ACCESIBILIDAD[accesibilidad] || 1) *
-      (seoTec ? SEO_TEC : 1) *
-      (seoCont ? SEO_CONT : 1) *
-      (opUrgente ? URGENCIA_MULT : 1);
+  const extrasOperativa =
+    (opRedaccion ? EXTRA_COSTS.redaccion : 0) +
+    (opTraducciones ? EXTRA_COSTS.traducciones : 0) +
+    (opImagenes ? EXTRA_COSTS.imagenes : 0) +
+    (opFotografia ? EXTRA_COSTS.fotografia : 0) +
+    (opRevisionExtra ? EXTRA_COSTS.revisionExtra : 0) +
+    (opReunionesExtra ? EXTRA_COSTS.reunionesExtra : 0);
 
-    const mantenimiento =
-      (mantAnual ? MANT_COSTS.anual : 0) +
-      (mantHoras ? MANT_COSTS.bolsa10h : 0) +
-      (mantExternos ? MANT_COSTS.externos : 0);
+  const multiplicador =
+    (COMPLEJIDAD[complejidad] || 1) *
+    (ACCESIBILIDAD[accesibilidad] || 1) *
+    (seoTec ? SEO_TEC : 1) *
+    (seoCont ? SEO_CONT : 1) *
+    (opUrgente ? URGENCIA_MULT : 1);
 
-    return Math.round(((base + pagesCost + extrasOperativa) * multiplicador + mantenimiento) * 100) / 100;
-  }, [
-    tipo, paginas, complejidad, accesibilidad, seoTec, seoCont,
-    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-    mantAnual, mantHoras, mantExternos
-  ]);
+  const mantenimiento =
+    (mantAnual ? MANT_COSTS.anual : 0) +
+    (mantHoras ? MANT_COSTS.bolsa10h : 0) +
+    (mantExternos ? MANT_COSTS.externos : 0);
+
+  return Math.round(((base + pagesCost + extrasOperativa) * multiplicador + mantenimiento) * 100) / 100;
+}, [
+  tipo, tamano, complejidad, accesibilidad, seoTec, seoCont,
+  opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
+  mantAnual, mantHoras, mantExternos
+]);
 
 
 
@@ -349,30 +379,33 @@ const handleDownloadPDF = async () => {
 
         <div className="intro-landing__line"></div>
 
-        {/* NÚMERO DE PÁGINAS */}
-        <section className="calc-block__paginas">
+        {/* TAMAÑO DEL SITIO */}
+        <section className="calc-block">
           <div className="calc-block__grid">
             <div className="calc-block__text">
-              <h3>NÚMERO DE PÁGINAS</h3>
-              <p>Añade un número de páginas estimadas que creas que vas a necesitar para tu proyecto.</p>
+              <h3>TAMAÑO DEL SITIO</h3>
+              <p>Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada.</p>
             </div>
             <div className="calc-block__services">
-              <div className="paginas">
+              <div className="service">
                 <span className="service__label" aria-hidden="true"></span>
-                <input
-                  type="number"
-                  min={1}
-                  value={paginas}
-                  onChange={(e) => setPaginas(e.target.value)}
-                  onBlur={() => {
-                    const v = parseInt(paginas, 10);
-                    setPaginas(String(Number.isNaN(v) ? 1 : Math.max(1, v)));
-                  }}
-                />
+                <div className="chips">
+                  {['pequena','mediana','grande'].map((k) => (
+                    <button
+                      key={k}
+                      className={`chip ${tamano === k ? 'active' : ''}`}
+                      onClick={() => setTamano(k)}
+                      type="button"
+                    >
+                      {k === 'pequena' ? 'PEQUEÑO' : k === 'mediana' ? 'MEDIANO' : 'GRANDE'}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
+
 
         {/* COMPLEJIDAD DEL DISEÑO */}
         <section className="calc-block">
