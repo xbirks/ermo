@@ -5,8 +5,8 @@ const municipio = "Valencia";
 export const metadata = {
 
   //GENERIC
-  title: `Hacemos webs y SEO para emprendedores y startups en ${municipio}`,
-  description: `Somos diseñadores UI / UX y programadores especializados en React con Next.js. También podemos ofrecerte una web hecha con Wordpress para autogestionarla y SEO profesional en ${municipio}.`,
+  title: `Webs y SEO para emprendedores, pymes y startups en ${municipio}`,
+  description: `Diseñamos páginas web rápidas y optimizadas, diseño UI/UX a medida sin plantillas ni Wordpress y SEO en ${municipio}.`,
   keywords: [
     `diseño web para startups en ${municipio}`, 
     `UI/UX para emprendedores en ${municipio}`, 
@@ -33,7 +33,7 @@ export const metadata = {
   // META 
   openGraph: {
     title: `Hacemos webs y SEO para emprendedores y startups en ${municipio}`,
-    description: `Somos diseñadores UI / UX y programadores especializados en React con Next.js. También podemos ofrecerte una web hecha con Wordpress para autogestionarla en ${municipio}.`,
+    description: `Diseñamos páginas web rápidas y optimizadas, diseño UI/UX a medida sin plantillas ni Wordpress y SEO en ${municipio}.`,
     url: 'https://ermo.es',
     type: 'website',
     images: [
@@ -54,7 +54,7 @@ export const metadata = {
     site: '@ermo.es',
     creator: '@ermo.es',
     title: `Hacemos webs y UI / UX para emprendedores y startups en ${municipio}`,
-    description: `Somos diseñadores UI / UX y programadores especializados en React con Next.js. También podemos ofrecerte una web hecha con Wordpress para autogestionarla en ${municipio}.`,
+    description: `Diseñamos páginas web rápidas y optimizadas, diseño UI/UX a medida sin plantillas ni Wordpress y SEO en ${municipio}.`,
     image: 'https://ermo.es/seo/web-1200-600.jpg',
     imageAlt: `Página web de Gartalia Jardineros programada en Next.js por Andrés Ortega Montoya en ${municipio}`,
   },
