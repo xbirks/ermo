@@ -23,7 +23,7 @@ const SEO_TEC = 1.1;
 const SEO_CONT = 1.35;
 const PRECIO_PAGINA_INTERNA = 70; // PP interno (oculto)
 const URGENCIA_MULT = 1.45;        // multiplicador interno
-const TAMANOS = { pequena: 1, mediana: 5, grande: 10 }; // nº de páginas aprox.
+const TAMANOS = { pequena: 1, mediana: 10, grande: 20 }; // nº de páginas aprox.
 const TAMANO_LABEL = { pequena: 'Pequeño', mediana: 'Mediano', grande: 'Grande' };
 
 

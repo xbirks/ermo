@@ -6,11 +6,13 @@ import "../landing.scss";
 import StandardButton from "../../buttons/standard-button";
 import ProcesoSection from "../../components/selector-procesos";
 import CalculadoraWeb from "@/app/components/calculadora/calculadora";
+import IntroVideo from "@/app/components/IntroVideo";
 
 
 
 export default function WebPage({municipio}) {
 
+const [playIntro, setPlayIntro] = useState(false);
 
     
    return (
@@ -24,9 +26,13 @@ export default function WebPage({municipio}) {
         <div className="intro-landing__content">
           <div className="intro-landing__text">
 
-            <div className="intro-landing-mobile__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
 
-            <p className="intro-landing__big">En este video te cuento todo sobre nuestro método de trabajo y los buenos resultados que hemos tenido con clientes:</p>
+
+      <div class="intro-landing-mobile__img"><IntroVideo /></div>
+
+
+
+            <p className="intro-landing__big">En este video te cuento todo sobre nuestro método de trabajo y los buenos resultados que hemos tenido.</p>
 
             <p className="intro-landing__texto-op">Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
 
@@ -70,8 +76,8 @@ export default function WebPage({municipio}) {
 
 
 
-
-          <div className="intro-landing__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Vista móvil de la web de jardinería" /></div>
+          
+          <div className="intro-landing__img"><IntroVideo /></div>
 
         </div>
       </section>
