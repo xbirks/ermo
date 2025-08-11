@@ -33,7 +33,7 @@ export default function WebPage({municipio}) {
              
 
             <StandardButton
-            link="#precio"
+            link="#calculadora"
             title="Calculadora precios"
             style="mt-m margin-auto"
             bg="#3F52FF"
@@ -45,7 +45,7 @@ export default function WebPage({municipio}) {
             />
 
             <StandardButton
-            link="#precio"
+            link="FALTA"
             title="Contacto"
             style="mt-xs margin-auto"
             bg="white"
@@ -82,211 +82,116 @@ export default function WebPage({municipio}) {
       <section className="grid__master">
   <h2>Casos de <span className="jardin__destacado">éxito</span></h2>
 
-  {/* <div className="exito__tarjeta">
-    <div className="exito__cliente">
-      <div className="exito__cliente-img">
-        <video src="/assets/test_vid.mp4" width="1024" height="1324"
-    poster="/assets/test_vid_poster.jpg"
-    autoPlay muted loop playsInline preload="metadata" aria-label="Gartalia"
-  />
-      </div>
-      <div className="exito__cliente-content">
-        <p className="review">Gartalia pasó de no tener presencia online a estar <strong>posicionada como una de las mejores empresas de jardinería de Valencia.</strong> Gracias a una web bien optimizada y una estrategia SEO efectiva. <br></br><br></br>
-Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño para que reflejara su profesionalidad como jardinero.</p>
-        <div className="exito__cliente-content-logo">
-          <img className="cliente__logo" src="/assets/gartalia_logo.svg" width="400" height="200" alt="Logo Acme Arquitectura" />
 
-            <StandardButton
-            link="#precio"
-            title="Ver web"
-            style="mt-xs margin-auto"
-            bg="#535353"
-            color="white"
-            borderColor="#535353"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor="#0E1C9D"
-            />
+    <div className="exito__master-new">
 
+      {/* ITEM 1 */}
+      <div className="exito__item">
+        <div className="exito">
+          <video
+            className="exito__bg"
+            src="/videos/landing_web/garta_01.mp4"
+            poster="/assets/test_vid_poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Gartalia"
+          />
+          <div className="exito__info">
+            <div className="exito__footer">
+              <img
+                src="/assets/gartalia_logo.svg"
+                alt="Logo Gartalia"
+                className="exito__logo"
+                width="180"
+                height="90"
+              />
+              <StandardButton
+                link="https://www.gartalia.com"
+                title="Ver web"
+                style=""
+                bg="white"
+                color="#3F52FF"
+                borderColor="transparent"
+                hoverBg="#0E1C9D"
+                hoverColor="white"
+                hoverBorderColor=""
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div className="exito__datos">
-      <div className="exito__datos-element">
-        <p className="data_A">19K €</p>
-        <p className="data_B">de ingresos brutos solo con clientes de la web.</p>
-      </div>
-      <div className="exito__datos-element">
-        <p className="data_C">354</p>
-        <p className="data_B">nuevos clientes a través de la web.</p>
-      </div>
-      <div className="exito__datos-element">
-        <p className="data_C">21</p>
-        <p className="data_B">páginas posicionadas entre las 3 primeras búsquedas en Google.</p>
-      </div>
-    </div>
-  </div> */}
-{/* 
-  <div className="exito__tarjeta">
-    <div className="exito__cliente">
-      <div className="exito__cliente-img">
-        <img src="/placeholder/cliente-2.jpg" width="1024" height="1324" alt="Cliente Nova Dental" />
-      </div>
-      <div className="exito__cliente-content">
-        <p className="review">“Texto de ejemplo: duplicamos las citas online en poco tiempo. La web es clara y convierte.”</p>
-        <div className="exito__cliente-content-logo">
-          <img className="cliente__logo" src="/placeholder/nova-logo.svg" width="400" height="200" alt="Logo Nova Dental" />
-          <a className="exito__enlace" href="#">Nova Dental</a>
-        </div>
-      </div>
-    </div>
-    <div className="exito__datos">
-      <div className="exito__datos-element">
-        <p className="data_A">980 €</p>
-        <p className="data_B">de ingresos brutos solo con clientes de la web.</p>
-      </div>
-      <div className="exito__datos-element">
-        <p className="data_C">3 <span className="data_D">Meses</span></p>
-        <p className="data_B">de trabajo con la web.</p>
-      </div>
-      <div className="exito__datos-element">
-        <p className="data_C">12</p>
-        <p className="data_B">clientes conseguidos</p>
-      </div>
-    </div>
-  </div> */}
 
-
-
-</section>
-
-
-
-
-
-<section className="exito__master-new">
-  <div className="exito">
-      {/* Vídeo a pantalla completa dentro de la tarjeta */}
-      <video
-        className="exito__bg"
-        src="/videos/landing_web/garta_01.mp4"
-        poster="/assets/test_vid_poster.jpg"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-label="Gartalia"
-      />
-
-      {/* Capa de información (el blur se aplica aquí) */}
-      <div className="exito__info">
+        {/* Texto debajo de la tarjeta */}
         <p className="exito__review">
-          Gartalia pasó de no tener presencia online a estar{" "}
-          <strong>posicionada como una de las mejores empresas de jardinería de Valencia.</strong>{" "}
+          Gartalia pasó de no tener presencia online a estar
+          <strong> posicionada como una de las mejores empresas de jardinería de Valencia. </strong>
           Gracias a una web bien optimizada y una estrategia SEO efectiva.
         </p>
-
-        <div className="exito__footer">
-          <img
-            src="/assets/gartalia_logo.svg"
-            alt="Logo Gartalia"
-            className="exito__logo"
-            width="180"
-            height="90"
-          />
-
-            <StandardButton
-            link="#precio"
-            title="Ver web"
-            style=""
-            bg="white"
-            color="#3F52FF"
-            borderColor="transparent"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor=""
-            />
-
-
-        </div>
-      </div>
       </div>
 
-
-
-
+      {/* ITEM 2 */}
+      <div className="exito__item">
         <div className="exito">
-      {/* Vídeo a pantalla completa dentro de la tarjeta */}
-      <video
-        className="exito__bg"
-        src="/assets/juan.mp4"
-        poster="/assets/test_vid_poster.jpg"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-label="Gartalia"
-      />
-
-      {/* Capa de información (el blur se aplica aquí) */}
-      <div className="exito__info">
-        <p className="exito__review">
-          Gartalia pasó de no tener presencia online a estar{" "}
-          <strong>posicionada como una de las mejores empresas de jardinería de Valencia.</strong>
-        </p>
-
-        <div className="exito__footer">
-          <img
-            src="/assets/gartalia_logo.svg"
-            alt="Logo Gartalia"
-            className="exito__logo"
-            width="180"
-            height="90"
+          <video
+            className="exito__bg"
+            src="/videos/landing_web/AR_vid.mp4"
+            poster="/assets/test_vid_poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Gartalia"
           />
-
-            <StandardButton
-            link="#precio"
-            title="Ver web"
-            style=""
-            bg="white"
-            color="#3F52FF"
-            borderColor="transparent"
-            hoverBg="#3F52FF"
-            hoverColor="white"
-            />
+          <div className="exito__info">
+            <div className="exito__footer">
+              <img
+                src="/assets/AR_black.svg"
+                alt="Logo Gartalia"
+                className="exito__logo"
+                width="180"
+                height="90"
+              />
+              <StandardButton
+                link="https://www.ariannyrivasagency.com"
+                title="Ver web"
+                style=""
+                bg="white"
+                color="#3F52FF"
+                borderColor="transparent"
+                hoverBg="#3F52FF"
+                hoverColor="white"
+              />
+            </div>
+          </div>
         </div>
+
+        {/* Texto debajo de la tarjeta */}
+        <p className="exito__review">
+          Arianny Rivas necesitaba un portfolio para sus modelos que se sintiera <strong>Premium</strong>, que fuera rápida y que mostrara las fotos y videos de sus modelos a la calidad más alta. Utilizamos <strong>animación entre páginas</strong> para que la usabilidad se sintiera como una APP.
+        </p>
       </div>
+
+      {/* CTA inferior (ocupa el ancho del grid) */}
+      <div className="exito__cta">
+        <StandardButton
+          link="#precio"
+          title="Ver más casos de éxito"
+          style="mt-xs"
+          bg="#3F52FF"
+          color="white"
+          borderColor="#3F52FF"
+          hoverBg="#0E1C9D"
+          hoverColor="white"
+          hoverBorderColor="#0E1C9D"
+        />
       </div>
 
+    </div>
 
-
-
-
-
-
-
-            <StandardButton
-            link="#precio"
-            title="Ver más casos de éxito"
-            style="mt-xs"
-            bg="#3F52FF"
-            color="white"
-            borderColor="#3F52FF"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor="#0E1C9D"
-            />
-
-
-
-    </section>
-
-    
-
-
-
+</section>
 
 
 
@@ -328,7 +233,7 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
 
         <div className="button_2">
            <StandardButton
-            link="#precio"
+            link="#calculadora"
             title="Precios"
             style="mt-xs "
             bg="#3F52FF"
@@ -340,7 +245,7 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
            />
 
            <StandardButton
-            link="#precio"
+            link="FALTA"
             title="conocer equipo"
             style="mt-xs "
             bg="transparent"
@@ -373,13 +278,13 @@ Adaptamos todo el contenido a lo que Carlos necesitaba y ajustamos el diseño pa
 
   <h2>Calculadora de precios</h2>
 
-  <p className="calc__description">Aquí sabrás desde el primer momento <strong>cuánto puede costar tu web</strong>. Sin precios ocultos, sin sorpresas.
+  <p className="calc__description" >Aquí sabrás desde el primer momento <strong>cuánto puede costar tu web</strong>. Sin precios ocultos, sin sorpresas.
   <br></br><br></br>
-Trabajo con código a medida, <strong>sin plantillas ni WordPress pesados</strong>, para que tengas una web rápida y adaptada a ti. 
+Trabajo con código a medida, <strong id="calculadora">sin plantillas ni WordPress pesados</strong>, para que tengas una web rápida y adaptada a ti. 
 Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándamelo para prepararte una propuesta final con precio y plazos cerrados.</p>
 
 
-  <CalculadoraWeb></CalculadoraWeb>
+  <CalculadoraWeb ></CalculadoraWeb>
 </section>
 
 
