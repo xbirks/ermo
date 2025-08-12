@@ -17,8 +17,8 @@ export async function POST(req) {
 
         const mailOptions = {
             from: process.env.SMTP_USER,
-            to: 'andres03ortega@gmail.com',
-            subject: 'Nuevo mensaje desde el formulario',
+            to: 'andres03ortega@gmail.com, hola@soyandres.es',
+            subject: 'ERMO petición contacto',
             text: `Nombre: ${name}\nEmail: ${email}`,
             html: `<b>Nombre:</b> ${name}<br><b>Email:</b> ${email}`,
         };
