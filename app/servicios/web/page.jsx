@@ -7,6 +7,7 @@ import StandardButton from "../../buttons/standard-button";
 import ProcesoSection from "../../components/selector-procesos";
 import CalculadoraWeb from "@/app/components/calculadora/calculadora";
 import IntroVideo from "@/app/components/IntroVideo";
+import ContactFormLanding from "@/app/components/formularios/ContactFormLanding";
 
 
 
@@ -106,6 +107,15 @@ const [playIntro, setPlayIntro] = useState(false);
             aria-label="Gartalia"
           />
           <div className="exito__info">
+
+            
+            <div className="exito__labels">
+              <div className="exito__labels-icon">web</div>
+              <div className="exito__labels-icon">branding</div>
+              <div className="exito__labels-icon">seo</div>
+            </div>
+
+
             <div className="exito__footer">
               <img
                 src="/assets/gartalia_logo.svg"
@@ -152,6 +162,12 @@ const [playIntro, setPlayIntro] = useState(false);
             aria-label="Gartalia"
           />
           <div className="exito__info">
+
+            <div className="exito__labels">
+              <div className="exito__labels-icon">web</div>
+              <div className="exito__labels-icon">branding</div>
+            </div>
+            
             <div className="exito__footer">
               <img
                 src="/assets/AR_black.svg"
@@ -292,6 +308,70 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
 
   <CalculadoraWeb ></CalculadoraWeb>
 </section>
+
+
+
+
+
+
+
+
+<section className="grid__master contacto">
+
+  <h2>Ponte en contacto y hagamos tu web juntos</h2>
+
+  <div className="contacto__info">
+    <div className="contacto__info-text">
+
+    <p className="contacto__info-description" >Déjanos tus datos o habla con nosotros por <strong>WhatsApp</strong> o teléfono. En menos de 48 h te propondremos la reunión para conocer tu proyecto.</p>
+
+
+    <StandardButton
+            link="#calculadora"
+            title="Whatsapp"
+            style="mt-xs "
+            bg="#3F52FF"
+            color="white"
+            borderColor="transparent"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor="transparent"
+           />
+
+           <StandardButton
+            link="FALTA"
+            title="Llamar"
+            style="mt-xs "
+            bg="transparent"
+            color="#3F52FF"
+            borderColor="#3F52FF"
+            hoverBg="#0E1C9D"
+            hoverColor="white"
+            hoverBorderColor="#3F52FF"
+           />
+
+
+    <p className="contacto__info-form-text">O también puedes dejar aquí tus datos y nosotros nos ponemos en contacto:</p>
+
+    <ContactFormLanding></ContactFormLanding>
+
+    </div>
+
+    <div className="contacto__info-image">
+      <img src="/assets/escri.jpg" alt="Andrés Ortega" className="contacto__info-img" loading="lazy" />
+    </div>
+
+
+  </div>
+
+ 
+
+
+
+</section>
+
+
+
 
 
 

@@ -870,7 +870,7 @@ p{
             }
 
             &.active{
-                background: #3F52FF;
+                background: $azul-ermo;
                 color: #fff;
             }
         }
@@ -883,7 +883,7 @@ p{
 
             h3 {
             margin: 0 0 12px;
-            color: #3F52FF;
+            color: $azul-ermo;
             font-size: 24px;
             line-height: 1.2;
             max-width: 400px;
@@ -1023,7 +1023,7 @@ p{
   aspect-ratio: 3/4;
   border-radius: 32px;
   overflow: hidden;
-  box-shadow: 0 20px 36px rgba(0, 0, 0, .15);
+  box-shadow: 0px 10px 26px rgba(0, 0, 0, .10);
   gap: 10px;
 
                      @include media800px {
@@ -1042,20 +1042,20 @@ p{
    &::after {
     content: '';
     position: absolute;
-    inset: 0;                            
-    backdrop-filter: blur(24px);        
-    -webkit-backdrop-filter: blur(24px);
+    inset: 0;                       
+    backdrop-filter: blur(34px);        
+    -webkit-backdrop-filter: blur(34px);
 
     /* La máscara hace que el efecto solo se note
        del 100 % (abajo) al 50 % (mitad) y
        se desvanezca progresivamente hacia arriba   */
     mask-image: linear-gradient(to top,
-                 #000 0%,               
-                 #000 30%,
-                 #0000 70%,            
-                 #0000 100%);       
+                 #000 20%,               
+                 #000 20%,
+                 #0000 40%,            
+                 #0000 50%);       
     -webkit-mask-image: linear-gradient(to top,
-                 #000 0%, #000 10vh, #0000 25vh, #0000 100%);
+                 #000 20%, #000 20%, #0000 40%, #0000 50%);
 
     pointer-events: none;             
   }
@@ -1068,7 +1068,7 @@ p{
     display: flex;
     flex-direction: column;
     gap: 24px;
-    color: #ffffff;
+    color: #535353;
     z-index: 1;    
     top: auto;             
     bottom: 0px;
@@ -1087,8 +1087,8 @@ p{
   }
 
   &__logo { 
-    max-width: 180px;
-    height: auto;
+    max-width: auto;
+    height: 70px;
     
                      @include media900px {
                             display: none;
@@ -1098,6 +1098,27 @@ p{
                             display: block;
                             width: 140px;
                         }
+    }
+
+
+    &__labels{
+        position: absolute;
+        display: flex;
+        gap: 5px;
+        margin-top: auto;
+        top: -20px;
+
+            &-icon{
+                font-family: $neue;
+                font-size: 0.7rem;
+                color: #567E28;
+                border-radius: 30px;
+                border: 1px solid #567E28;
+                padding: 6px 10px 5px 10px;
+                background-color: #B3F459;
+                text-transform: uppercase;
+        
+            }
     }
 
   /* ---------- Responsive ---------- */
@@ -1121,3 +1142,133 @@ p{
                             margin-bottom: 15px;
                         }
   }
+
+
+
+
+
+
+
+
+
+.contacto{
+    
+    &__info{
+        display: flex;
+        gap: 100px;
+        margin-top: 50px;
+                        @include media1100px {
+                            gap: 30px;
+                        }
+
+                        @include media700px {
+                            display: block;
+                        }
+
+        &-text{
+            max-width: 400px;
+            width: 50vw;
+                        @include media700px {
+                            width: 100%;
+                            max-width: 100%;
+                        }
+        }
+
+        &-description{
+            margin-bottom: 50px;
+        }
+
+        &-image{
+            position: relative; 
+            aspect-ratio: 4/5;  
+            width: 49vw;
+            overflow: hidden; 
+            border-radius: 8px; 
+                            @include media700px {
+                            width: 100%;
+                            max-width: auto;
+                            margin-top: 70px;
+                            aspect-ratio: 3/2;
+                        }
+        }
+
+        &-img{
+            width: 100%;
+            aspect-ratio: 4/5;  
+            object-fit: cover;
+            display: block;
+                        @include media700px {
+                            aspect-ratio: 3/2;
+                        }
+    }
+
+        &-form-text{
+            margin-top: 100px;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+
+
+  /* Contenedor */
+.cf {
+  max-width: 400px;
+  width: auto;
+  display: grid;
+  gap: 12px;
+}
+
+/* Campo */
+.cf__field input {
+  width: auto;
+  max-width: 400px;
+  padding: 14px 16px;
+  border-radius: 999px;
+  border: 1px solid #d7d7d7;        
+  background: #fff;
+  outline: none;
+  font-size: 16px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  color: $gris-oscuro
+}
+
+.cf__field input::placeholder { color: #b5b5b5; }
+
+/* Estado focus o “rellenándose” */
+.cf__field input:focus,
+.cf__field.is-filled input {
+  border-color: $azul-ermo;               /* azul */
+  box-shadow: 0 0 0 3px rgba(63,82,255,.12);
+}
+
+/* Botón estilo StandardButton outline */
+.cf__submit {
+  justify-self: end;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1.5px solid $azul-ermo;
+  background: transparent;
+  color: $azul-ermo;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: .2s ease, color .2s ease, border-color .2s ease;
+}
+.cf__submit:hover:not(:disabled) {
+  background: $mar-ermo;
+  color: #fff;
+  border-color: $azul-ermo;
+}
+.cf__submit:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* Mensajes */
+.cf__msg {
+  margin: 6px 0 0;
+  font-size: .9rem;
+}
+.cf__msg.ok  { color: #1a7f37; }
+.cf__msg.err { color: #b42318; }
