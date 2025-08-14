@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import StandardButton from '@/app/buttons/standard-button';
 import "./calculadora.scss";
-import { trackCalcInteraction, trackFirstCalcInteraction } from '@/lib/ga';
+import { trackCalcInteraction, trackFirstCalcInteraction } from '@/app/lib/ga';
 
 
 /* ---------- Config ---------- */

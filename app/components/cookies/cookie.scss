@@ -1,0 +1,46 @@
+@import '../../variables.scss';
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $blanco-ermo;
+  color: #000;
+  padding: 1rem;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 9999;
+  
+  p{
+    color: $negro-ermo;
+    font-family: $neue;
+    font-weight: 400;
+  }
+}
+
+.cookie-banner.show {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cookie-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-family: $neue;
+}
+
+.cookie-buttons button:nth-child(1) { background: $azul-ermo; color: $blanco-ermo; }
+.cookie-buttons button:nth-child(2) { background: $gris-oscuro; color: $blanco-ermo; }
+
+
+.cookie__link{
+    color: $azul-ermo;
+}

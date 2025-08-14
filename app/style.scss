@@ -117,8 +117,8 @@ p{
     font-size: $fuente-p;
     font-weight: 400;
     font-family: $neue;
-    color: $gris-ermo;
-    line-height: 1.3em; 
+    color: $gris-oscuro;
+    line-height: $line-height; 
     letter-spacing: -0.54px;
     text-align: left;
 
@@ -922,7 +922,7 @@ a:hover .curzr-big-circle {
   }
   
   .index__team-txt {
-    text-transform: uppercase;
+    // text-transform: uppercase;
     font-size: 20px;
     font-weight: 300;
     line-height: 28px;

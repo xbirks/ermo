@@ -5,54 +5,86 @@ import Spacer from "@/app/buttons/spacer";
 import { motion } from "framer-motion";
 import Inner from "@/app/components/Transiciones/inner";
 
-
-
-
 export default function ServiciosPrincipalPage() {
-    return (
+  return (
     <Inner>
+      <div className="master__body servicios__master">
+        <motion.div
+          initial={{ opacity: 0, transform: "translateY(30%)" }}
+          whileInView={{ opacity: 1, transform: "translateY(0%)" }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <h1 className="servicios__h1">Política de cookies</h1>
+        </motion.div>
 
-    <div className="master__body servicios__master">
+        <div className="legal">
 
-    <motion.div
-        initial={{ opacity: 0, transform: "translateY(30%)" }}
-        whileInView={{ opacity: 1, transform: "translateY(0%)"}}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true, amount: 0.1}}  
-     > 
-        <h1 className="servicios__h1">Política de cookies</h1>
-    
-    </motion.div>
+          <h2>1. ¿Qué son las cookies?</h2>
+          <p>
+            Las cookies son pequeños archivos de texto que se almacenan en tu
+            dispositivo cuando visitas un sitio web. Se utilizan para que el
+            sitio funcione correctamente, recordar tus preferencias o analizar
+            tu navegación con el fin de mejorar nuestros servicios.
+          </p>
 
-    <div className="legal">
+          <Spacer className="spacer-s" />
 
-    <h2>Aviso de Cookies</h2>
-    <p>En <strong>ERMO Estudio de diseño</strong> utilizamos cookies propias para asegurar que nuestro sitio web funcione correctamente y para mejorar tu experiencia de navegación. Estas cookies son técnicas y se limitan a recopilar datos técnicos necesarios para el funcionamiento del sitio.</p>
+          <h2>2. Tipos de cookies que utilizamos</h2>
+        
+            <p>
+              <strong>Cookies técnicas o necesarias</strong> <br></br> 
+              Son imprescindibles para el funcionamiento básico del sitio y no
+              requieren tu consentimiento (por ejemplo, para la navegación y el
+              acceso seguro).
+            </p>
+            <p>
+              <strong>Cookies analíticas</strong> (previo consentimiento)  <br></br>
+              Utilizamos herramientas como <em>Google Analytics</em> y{" "}
+              <em>Vercel Analytics</em> para obtener estadísticas de uso y
+              mejorar la experiencia de usuario. Estas cookies pueden implicar
+              transferencias internacionales de datos a EE.UU., amparadas en
+              cláusulas contractuales tipo aprobadas por la Comisión Europea.
+            </p>
+          
 
-    <Spacer className="spacer-s" />
+          <Spacer className="spacer-s" />
 
-    <h2>¿Qué son las cookies?</h2>
-    <p>Las cookies son pequeños archivos de texto que los sitios web pueden usar para hacer más eficiente la experiencia del usuario. Las cookies técnicas permiten funcionalidades básicas como la navegación de la página y el acceso a áreas seguras del sitio web.</p>
+          <h2>3. Base legal</h2>
+          <p>
+            La instalación de cookies técnicas se basa en nuestro interés
+            legítimo en garantizar el correcto funcionamiento del sitio web.
+            Las cookies analíticas solo se instalan si nos otorgas tu
+            consentimiento expreso a través del banner de cookies.
+          </p>
 
-    <Spacer className="spacer-s" />
+          <Spacer className="spacer-s" />
 
-    <h2>Cookies que utilizamos:</h2>
-    <p><strong>Google Search Console y Vercel Analytics</strong>: Estas herramientas colocan cookies que recogen información de cómo los visitantes interactúan con nuestro sitio web, ayudándonos a entender y mejorar la navegación y funcionalidad del sitio.</p>
+          <h2>4. Conservación</h2>
+          <p>
+            Las cookies se conservarán durante los plazos indicados en la tabla
+            de configuración del banner de cookies o hasta que retires tu
+            consentimiento.
+          </p>
 
-    <Spacer className="spacer-s" />
+          <Spacer className="spacer-s" />
 
-    <h2>Gestión de cookies:</h2>
-    <p>Puedes ajustar la configuración de tu navegador para bloquear o alertarte sobre estas cookies, pero algunas partes del sitio pueden dejar de funcionar. Te recomendamos permitir el uso de cookies para aprovechar plenamente todas las funcionalidades de nuestro sitio.</p>
+          <h2>5. Cómo aceptar, rechazar o revocar el consentimiento</h2>
+          <p>
+            Puedes aceptar o rechazar las cookies en cualquier momento mediante
+            nuestro banner de configuración de cookies. También puedes
+            configurar tu navegador para bloquearlas o eliminarlas.
+          </p>
 
-    <Spacer className="spacer-s" />
+          <Spacer className="spacer-s" />
 
-    <p>Para más información sobre cómo gestionar y borrar cookies, visita la configuración de tu navegador.</p>
+          <p>
+            Para más información sobre cómo gestionar las cookies en tu
+            navegador, consulta las instrucciones de tu navegador.
+          </p>
 
-    </div>
-
-
-    </div>
+        </div>
+      </div>
     </Inner>
-    );
-  }
-  
+  );
+}
