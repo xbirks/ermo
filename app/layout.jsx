@@ -5,6 +5,8 @@ import Footer from './components/footer/footer.jsx';
 import Spacer from './buttons/spacer.jsx';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from 'next/script';
+
  
 
 export const metadata = {
@@ -64,7 +66,12 @@ export const metadata = {
 
 
   //SECURITY
-  contentSecurityPolicy: "default-src 'self'; img-src 'self' https://www.ermo.es; script-src 'self' https://apis.google.com",
+  contentSecurityPolicy:
+  "default-src 'self'; " +
+  "img-src 'self' https://www.ermo.es https://www.google-analytics.com https://www.googletagmanager.com data:; " +
+  "script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline'; " +
+  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; " +
+  "style-src 'self' https://use.typekit.net 'unsafe-inline';",
   referrerPolicy: 'no-referrer-when-downgrade', 
   xContentTypeOptions: 'nosniff', 
   xFrameOptions: 'DENY', 
@@ -73,6 +80,8 @@ export const metadata = {
 
   
 }
+
+
  
 
 export default function RootLayout({ children }) {
@@ -137,6 +146,27 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+
+
+
+        {/* Google Analytics 4 */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XHXYQ2JL9P"
+        />
+        <Script
+          id="ga-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-XHXYQ2JL9P', { page_path: window.location.pathname });
+            `,
+          }}
+        />
+
         
     
         <Header/>

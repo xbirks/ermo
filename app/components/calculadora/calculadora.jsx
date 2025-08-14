@@ -2,6 +2,8 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import StandardButton from '@/app/buttons/standard-button';
 import "./calculadora.scss";
+import { trackCalcInteraction, trackFirstCalcInteraction } from '@/lib/ga';
+
 
 /* ---------- Config ---------- */
 const LS_KEY = 'calc-web-v1';
@@ -499,7 +501,10 @@ const handleDownloadPDF = async () => {
                       className={`chip ${tamano === k ? 'active' : ''}`}
                       onClick={() => {
                         setTamano(k);
-                        notifyFirstCalcInteraction(`tamano:${k}`, total); // <- aquí
+                        // Registra SIEMPRE cada cambio:
+                        trackCalcInteraction('tamano', k, total);
+                        // O si prefieres solo la primera interacción de la sesión:
+                        // trackFirstCalcInteraction('tamano', k, total);
                       }}
                       type="button"
                     >
