@@ -21,7 +21,18 @@ export default function IntroVideo() {
             alt="Portada del vídeo"
             priority
           />
-          <span className="yt-play" aria-hidden="true">▶</span>
+          {/* Reemplazo del emoji por SVG vectorial */}
+          <svg
+            className="yt-play"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <polygon
+              points="8,5 19,12 8,19"
+              fill="currentColor"
+            />
+          </svg>
         </button>
       ) : (
         <div className="yt-embed">
