@@ -302,9 +302,41 @@ const total = useMemo(() => {
 
 
 
+
+
+// DISCORD Envia un ping solo una vez por sesión (por pestaña)
+function notifyFirstCalcInteraction(source, total) {
+  try {
+    if (sessionStorage.getItem('calcPingSent')) return;
+    sessionStorage.setItem('calcPingSent', '1');
+
+    const payload = { t: Date.now(), source, total };
+
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/calc-interaction', blob);
+    } else {
+      fetch('/api/calc-interaction', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {});
+    }
+
+    // Opcional: GA4
+    window.gtag?.('event', 'calc_interaction', {
+      interaction: source,
+      value: total,
+      currency: 'EUR',
+    });
+  } catch {}
+}
+
+
+
+
   // --- PDF ---
-/* ---------- Helpers PDF ---------- */
-// Carga PNG desde /public y devuelve dataURL + medidas
 async function loadPngWithSize(path) {
   const res = await fetch(path, { cache: 'no-cache' });
   const blob = await res.blob();
@@ -465,12 +497,16 @@ const handleDownloadPDF = async () => {
                     <button
                       key={k}
                       className={`chip ${tamano === k ? 'active' : ''}`}
-                      onClick={() => setTamano(k)}
+                      onClick={() => {
+                        setTamano(k);
+                        notifyFirstCalcInteraction(`tamano:${k}`, total); // <- aquí
+                      }}
                       type="button"
                     >
                       {k === 'pequena' ? 'PEQUEÑO' : k === 'mediana' ? 'MEDIANO' : 'GRANDE'}
                     </button>
                   ))}
+
                 </div>
               </div>
             </div>
