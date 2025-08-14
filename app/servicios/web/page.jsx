@@ -52,7 +52,7 @@ const [playIntro, setPlayIntro] = useState(false);
             />
 
             <StandardButton
-            link="FALTA"
+            link="#contacto"
             title="Contacto"
             style="mt-xs margin-auto"
             bg="white"
@@ -318,7 +318,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
 
 <section className="grid__master contacto">
 
-  <h2>Ponte en contacto y hagamos tu web juntos</h2>
+  <h2 id="contacto">Ponte en contacto y hagamos tu web juntos</h2>
 
   <div className="contacto__info">
     <div className="contacto__info-text">
@@ -327,7 +327,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
 
 
     <StandardButton
-            link="#calculadora"
+            link="https://wa.me/message/HJYSEK4RPLOSI1"
             title="Whatsapp"
             style="mt-xs "
             bg="#3F52FF"
@@ -339,7 +339,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
            />
 
            <StandardButton
-            link="FALTA"
+            link="tel:675392216"
             title="Llamar"
             style="mt-xs "
             bg="transparent"

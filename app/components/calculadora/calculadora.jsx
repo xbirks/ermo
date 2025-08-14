@@ -108,7 +108,7 @@ function SummaryBox({ total, onDownloadPDF }) {
 
         <span id="contacto_calc">
           <StandardButton
-            link="#precio"
+            link="tel:675392216"
             title="Contactar"
             style=""
             bg="#B3B3B3"
@@ -303,49 +303,120 @@ const total = useMemo(() => {
 
 
   // --- PDF ---
+/* ---------- Helpers PDF ---------- */
+// Carga PNG desde /public y devuelve dataURL + medidas
+async function loadPngWithSize(path) {
+  const res = await fetch(path, { cache: 'no-cache' });
+  const blob = await res.blob();
+  const dataURL = await new Promise((resolve) => {
+    const r = new FileReader();
+    r.onloadend = () => resolve(r.result);
+    r.readAsDataURL(blob);
+  });
+  const img = await new Promise((resolve) => {
+    const i = new Image();
+    i.onload = () => resolve(i);
+    i.src = dataURL;
+  });
+  return { dataURL, naturalW: img.naturalWidth, naturalH: img.naturalHeight };
+}
+
+/* ---------- PDF ---------- */
 const handleDownloadPDF = async () => {
   const { jsPDF } = await import('jspdf');
-  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-  const m = 48; let y = 72;
+  const doc = new jsPDF({ unit: 'pt', format: 'a4', compress: true, precision: 12 });
 
+  const m = 48;
+  let y = 72;
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const colW  = pageW - m * 2;
+  const fmt = (n) => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n);
+
+  // helpers de texto
+  doc.setLineHeightFactor(1.35);
   const p = (txt, size = 12, bold = false, color = [51,51,51]) => {
     doc.setTextColor(...color);
     doc.setFont('helvetica', bold ? 'bold' : 'normal');
     doc.setFontSize(size);
-    const lines = doc.splitTextToSize(txt, 495);
+    const lines = doc.splitTextToSize(txt, colW);
     doc.text(lines, m, y);
-    y += lines.length * (size + 4);
+    y += lines.length * (size * 1.35);
   };
-  const h = (txt) => { p(txt.toUpperCase(), 12, true, [120,120,120]); y += 2; };
-  const s = () => { doc.setDrawColor(215,215,215); doc.line(m, y, 595 - m, y); y += 18; };
+  const h  = (txt) => { p(txt.toUpperCase(), 12, true, [120,120,120]); y += 2; };
+  const hr = () => { doc.setDrawColor(215,215,215); doc.line(m, y, pageW - m, y); y += 18; };
 
-  p('RESUMEN DEL PROYECTO', 12, true, [120,120,120]);
-  p(new Date().toLocaleDateString('es-ES'), 10, false, [153,153,153]);
-  p(new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(total), 28, true, [63,82,255]);
-  s();
+  /* --------- HEADER: logo + título/fecha + precio derecha --------- */
+  // Cambia la ruta del logo si procede
+  const { dataURL, naturalW, naturalH } = await loadPngWithSize('/assets/01_ERMO_MARCA.jpg');
 
-  h('Tipo de proyecto'); p(PROJECT_TYPES[tipo].label);
-  h('Número de páginas'); p(`${Math.max(1, Number(paginas)||1)}`);
-  h('Complejidad del diseño'); p({basico:'Básico',intermedio:'Intermedio',avanzado:'Avanzado'}[complejidad]);
-  h('Accesibilidad y calidad'); p(accesibilidad === 'aa' ? 'Objetivo AA' : 'Incluido');
-  const seoSel = [seoTec && 'Técnico extra (schema/CWV/redirects)', seoCont && 'Contenido y posicionamiento'].filter(Boolean);
-  h('SEO y rendimiento'); p(seoSel.length ? seoSel.join(' · ') : 'Incluido');
+  const logoX = m, logoY = 20, logoW = 120;
+  const logoH = logoW * (naturalH / naturalW);
+  doc.addImage(dataURL, 'PNG', logoX, logoY, logoW, logoH);
+
+  const headerBottom = logoY + logoH;
+  const gap = 18;
+  const yHeader = headerBottom + gap;
+
+  // Título + fecha (izquierda)
+  doc.setFont('helvetica', 'bold');  doc.setFontSize(12); doc.setTextColor(120,120,120);
+  doc.text('RESUMEN DEL PROYECTO', m, yHeader);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(153,153,153);
+  doc.text(new Date().toLocaleDateString('es-ES'), m, yHeader + 16);
+
+  // Precio (derecha)
+  const rightX = pageW - m;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(28); doc.setTextColor(63,82,255);
+  doc.text(fmt(total), rightX, yHeader, { align: 'right', baseline: 'alphabetic' });
+
+  // Cursor global para el cuerpo
+  y = yHeader + 32;
+  hr();
+
+  /* ------------------ CUERPO ------------------ */
+  h('TIPO DE PROYECTO');          p(PROJECT_TYPES[tipo].label);
+
+  const numPags = TAMANOS[tamano] || 1;
+  h('NÚMERO DE PÁGINAS');         p(String(numPags));
+
+  h('COMPLEJIDAD DEL DISEÑO');    p({ basico:'Básico', intermedio:'Intermedio', avanzado:'Avanzado' }[complejidad]);
+
+  h('ACCESIBILIDAD Y CALIDAD');   p(accesibilidad === 'aa' ? 'Objetivo AA' : 'Incluido');
+
+  const seoSel = [
+    'Incluido',
+    seoTec  && 'Avanzado y estándares Google',
+    seoCont && 'Optimización de contenidos',
+  ].filter(Boolean).join(' · ');
+  h('SEO Y RENDIMIENTO');         p(seoSel || 'Incluido');
+
   const opSel = [
-    opRedaccion && 'Redacción de textos', opTraducciones && 'Traducciones',
-    opImagenes && 'Imágenes/ilustraciones/íconos', opFotografia && 'Fotografía o vídeo',
-    opUrgente && 'Entrega con urgencia', opRevisionExtra && 'Ronda de revisión extra',
+    opRedaccion      && 'Redacción de textos',
+    opTraducciones   && 'Traducciones',
+    opImagenes       && 'Imágenes/ilustraciones/íconos',
+    opFotografia     && 'Fotografía o vídeo',
+    opRevisionExtra  && 'Ronda de revisión extra',
     opReunionesExtra && 'Reuniones extra',
-  ].filter(Boolean);
-  h('Operativa, contenidos y recursos'); p(opSel.length ? opSel.join(' · ') : 'Ninguno');
-  const mantSel = [mantAnual && 'Anual', mantHoras && 'Por horas (10h)', mantExternos && 'Servicios externos'].filter(Boolean);
-  h('Mantenimiento'); p(mantSel.length ? mantSel.join(' · ') : 'Ninguno');
+    opUrgente        && 'Entrega con urgencia',
+  ].filter(Boolean).join(' · ') || 'Ninguno';
+  h('CONTENIDOS Y RECURSOS');     p(opSel);
 
-  s(); p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153,153,153]);
+  const mantSel = [
+    mantAnual && 'Anual',
+    mantHoras && 'Por horas (10h)',
+    mantExternos && 'Servicios externos',
+  ].filter(Boolean).join(' · ') || 'Ninguno';
+  h('MANTENIMIENTO');             p(mantSel);
+
+  hr();
+  p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153,153,153]);
+
+  // Footer
+  doc.setFontSize(10); doc.setTextColor(120,120,120);
+  doc.text('ERMO Estudio de diseño · hola@soyandres.es · 675 392 216 · ermo.es', m, pageH - 30);
+
   doc.save('presupuesto-web.pdf');
 };
-
-
-
 
 
 

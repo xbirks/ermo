@@ -72,12 +72,6 @@ function GridAll() {
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
         
-        {/* <StandardButton
-        link="https://wa.me/message/HJYSEK4RPLOSI1"
-        title="Pedir presupuesto"
-        style="mt-l margin-auto"
-      /> */}
-
 
 
     </div>
