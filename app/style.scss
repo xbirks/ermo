@@ -119,7 +119,7 @@ p{
     font-family: $neue;
     color: $gris-oscuro;
     line-height: $line-height; 
-    letter-spacing: -0.54px;
+    letter-spacing: -0.5px;
     text-align: left;
 
     @include media800px {
@@ -131,6 +131,7 @@ p{
 a{
     font-size: $fuente-p;
     font-weight: 400;
+    line-height: $line-height;
     font-family: $owners;
     color: $gris-ermo;
     letter-spacing: 0.5px;

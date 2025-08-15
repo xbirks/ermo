@@ -16,6 +16,7 @@
     color: $negro-ermo;
     font-family: $neue;
     font-weight: 400;
+    margin-left: 7px;
   }
 }
 
@@ -28,19 +29,33 @@
 .cookie-buttons {
   display: flex;
   gap: 0.5rem;
+  margin-top: 10px;
 }
 
 .cookie-buttons button {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   border: none;
   cursor: pointer;
   font-family: $neue;
+  border-radius: 30px;
+  text-transform: uppercase;
+  font-weight: 300;
 }
 
-.cookie-buttons button:nth-child(1) { background: $azul-ermo; color: $blanco-ermo; }
+.cookie-buttons button:nth-child(1) {
+  background: $azul-ermo;
+  color: $blanco-ermo; 
+  transition: 0.3s;
+
+  &:hover{
+    background-color: $mar-ermo;
+  }
+ }
 .cookie-buttons button:nth-child(2) { background: $gris-oscuro; color: $blanco-ermo; }
 
 
 .cookie__link{
     color: $azul-ermo;
+    font-family: $neue;
+    letter-spacing: -0.4px;
 }
