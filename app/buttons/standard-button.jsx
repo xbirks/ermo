@@ -43,7 +43,8 @@ function StandardButton({
 
   return (
     <div className={`master_button ${style}`}>
-      <a href={link} onClick={onClick}>
+      <a href={link} onClick={onClick}
+  rel="noopener noreferrer">
         <div className="button" style={cssVars}>
           <p>{title}</p>
           <ArrowInButton rotation={arrowRotation} />

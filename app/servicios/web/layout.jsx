@@ -1,64 +1,69 @@
 import "../../style.scss";
 
 const municipio = "Valencia"; 
+const urlCanonical = "https://www.ermo.es/servicios/web";
+const ogImage = "https://www.ermo.es/seo/web-1200x630.jpg";
 
 export const metadata = {
 
   //GENERIC
-  title: `Webs y SEO para emprendedores, pymes y startups en ${municipio}`,
-  description: `Diseñamos páginas web rápidas y optimizadas, diseño UI/UX a medida sin plantillas ni Wordpress y SEO en ${municipio}.`,
+  title: `Hacer web en ${municipio} | Diseño y programación a medida`,
+  description: `Webs rápidas, optimizadas para SEO y con diseño a medida en ${municipio}. Sin plantillas pesadas. Casos reales y resultados medibles.`,
   keywords: [
-    `diseño web para startups en ${municipio}`, 
-    `UI/UX para emprendedores en ${municipio}`, 
-    `desarrollo web y UI/UX para restaurantes en ${municipio}`, 
-    `optimización SEO para sitios web de startups en ${municipio}`, 
-    `programación web para emprendedores en el sector de restaurantes en ${municipio}`, 
-    `soluciones de UI/UX para jardineros en ${municipio}`, 
-    `diseño de sitios web para electricistas en ${municipio}`, 
-    `servicios de programación web para fontaneros en ${municipio}`, 
-    `desarrollo web optimizado para SEO en ${municipio}`, 
-    `creación de UX para cerrajeros en ${municipio}`, 
-    `estrategias de UI para mejorar la experiencia del cliente en restaurantes en ${municipio}`,
-    `diseño web a medida para startups y pequeños negocios en ${municipio}`, 
-    `programación web y UI/UX para mejorar la visibilidad online de oficios en ${municipio}`,
-    `soluciones web completas para emprendedores en ${municipio}`, 
-    `diseño UX para aplicaciones de gestión para restaurantes en ${municipio}`, 
-    `servicios de programación y diseño web para fontaneros y electricistas en ${municipio}`,
-    `implementación de UI/UX para mejorar la conversión en sitios de startups en ${municipio}`,
-    `consultoría de UI/UX para startups tecnológicas en ${municipio}`, 
-    `diseño web personalizado para cerrajeros y otros oficios en ${municipio}`,
-    `mejora de la presencia online de emprendedores mediante SEO y diseño web en ${municipio}`,
-  ],
+  `hacer web ${municipio}`,
+  `diseño web ${municipio}`,
+  `desarrollo web ${municipio}`,
+  `SEO web ${municipio}`,
+  `programación web ${municipio}`,
+],
 
-  // META 
+  alternates: {
+    canonical: urlCanonical,
+  },
+
+  // Open Graph META
   openGraph: {
-    title: `Hacemos webs y SEO para emprendedores y startups en ${municipio}`,
-    description: `Diseñamos páginas web rápidas y optimizadas, diseño UI/UX a medida sin plantillas ni Wordpress y SEO en ${municipio}.`,
-    url: 'https://ermo.es',
-    type: 'website',
+    title: `Hacer web en ${municipio} | Diseño y desarrollo a medida`,
+    description:
+      `Webs rápidas, optimizadas para SEO y con UI/UX a medida en ${municipio}. Sin plantillas pesadas. Casos reales y resultados medibles.`,
+    url: urlCanonical,
+    type: "website",
+    siteName: "ERMO",
+    locale: "es_ES",
     images: [
       {
-        url: 'https://ermo.es/seo/web-1200x630.jpg',
+        url: ogImage,
         width: 1200,
         height: 630,
-        alt: `Página web de Gartalia Jardineros programada en Next.js por Andrés Ortega Montoya en ${municipio}`,
+        alt: `Caso real: web Next.js optimizada para SEO en ${municipio}`,
       },
     ],
-    site_name: `Hacemos webs y UI / UX para emprendedores y startups en ${municipio}`,
-    locale: 'es_ES',
   },
 
-  // TWITTER
+  // Twitter / X 
   twitter: {
-    card: `Hacemos webs, UI/UX y SEO para emprendedores y startups en ${municipio}`,
-    site: '@ermo.es',
-    creator: '@ermo.es',
-    title: `Hacemos webs y UI / UX para emprendedores y startups en ${municipio}`,
-    description: `Diseñamos páginas web rápidas y optimizadas, diseño UI/UX a medida sin plantillas ni Wordpress y SEO en ${municipio}.`,
-    image: 'https://ermo.es/seo/web-1200-600.jpg',
-    imageAlt: `Página web de Gartalia Jardineros programada en Next.js por Andrés Ortega Montoya en ${municipio}`,
+    card: "summary_large_image",
+    title: `Hacer web en ${municipio} | Diseño y desarrollo a medida`,
+    description:
+      `Diseño y programación web con SEO en ${municipio}. Rápidas, optimizadas y orientadas a negocio.`,
+    images: [ogImage],
+  },
+
+
+  // Robots
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
 };
+
+
+
 
 export default function WebLayout({ children }) {
   return (

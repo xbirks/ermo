@@ -21,7 +21,7 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
       <section className="intro-landing__master">
-        <h1><span className="landing__destacado">Diseño y programación web en valencia</span> para pymes y emprendedores</h1>
+        <h1><span className="landing__destacado">Hacer web en Valencia</span> para PYMES y emprendedores</h1>
 
         
         <div className="intro-landing__content">
@@ -29,11 +29,11 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
 
-      <div class="intro-landing-mobile__img"><IntroVideo /></div>
+      <div className="intro-landing-mobile__img"><IntroVideo /></div>
 
 
 
-            <p className="intro-landing__big">En este video te cuento todo sobre nuestro método de trabajo y los buenos resultados que hemos tenido.</p>
+            <p className="intro-landing__big">¿Quieres <strong>hacer tu web en Valencia</strong> con resultados reales? En este vídeo te cuento nuestro método y casos.</p>
 
             <p className="intro-landing__texto-op">Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
 
@@ -49,6 +49,7 @@ const [playIntro, setPlayIntro] = useState(false);
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor=""
+            aria-label="Abrir calculadora de precios para estimar tu web"
             />
 
             <StandardButton
@@ -68,8 +69,8 @@ const [playIntro, setPlayIntro] = useState(false);
             <div className="intro-landing__line"></div>
 
             <div className="intro-landing__valora">
-                <p><strong>Valoración excelente 5/5</strong> por nuestros clientes en <a href="https://share.google/sgxK7s6x94HnnciWA">Google Reviews</a> y otros reseñadores:</p>
-                <Image src="/assets/stars.png" width={90} height={18} alt="Vista móvil de la web de jardinería" />
+                <p><strong>Valoración excelente 5/5</strong> por nuestros clientes en <a href="https://www.google.com/maps/place/ERMO+%7C+Estudio+de+diseño+y+programación+web/@39.4953188,-0.468962,17z/data=!3m1!4b1!4m6!3m5!1s0xa037438d44ecf51d:0x2bb2886e9e8b3b1c!8m2!3d39.4953188!4d-0.4663871!16s%2Fg%2F11tdq_0qcf?entry=ttu" target="_blank" rel="noopener noreferrer">Google Reviews</a> y otros reseñadores:</p>
+                <Image src="/assets/stars.png" width={90} height={18} alt="Valoración 5/5 en Google Reviews" />
             </div>
 
 
@@ -199,7 +200,7 @@ const [playIntro, setPlayIntro] = useState(false);
       {/* CTA inferior (ocupa el ancho del grid) */}
       <div className="exito__cta">
         <StandardButton
-          link="#precio"
+          link="#"
           title="Ver más casos de éxito"
           style="mt-xs"
           bg="#3F52FF"
@@ -218,7 +219,7 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
       <section className="grid__master">
-        <h2>Beneficios de hacer una web con nosotros</h2>
+        <h2>Webs en Valencia rápidas y optimizadas</h2>
 
         <div className="grid">
           <div className="grid__element" id="servicio">
@@ -228,8 +229,8 @@ const [playIntro, setPlayIntro] = useState(false);
           </div>
           <div className="grid__element">
             <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img"></Image>
-            <h4>Diseño a medida 100%. Ni plantillas. Ni wordpress.</h4>
-            <p>No usamos plantillas. Creamos un diseño exclusivo adaptado a tu marca que mejora la experiencia del usuario y aumenta las conversiones. Por supuesto, nada de temas de Wordpress lentos y pesados.</p>
+            <h4>Diseño a medida 100%. Ni plantillas. Ni WordPress.</h4>
+            <p>No usamos plantillas. Creamos un diseño exclusivo adaptado a tu marca que mejora la experiencia del usuario y aumenta las conversiones. Por supuesto, nada de temas de WordPress lentos y pesados.</p>
           </div>
           <div className="grid__element">
             <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img"></Image>
@@ -237,7 +238,7 @@ const [playIntro, setPlayIntro] = useState(false);
             <p>Desarrollamos sitios que cargan en segundos y funcionan siempre, incluso con mala conexión. Una web rápida retiene a tus visitantes y mejora tu posicionamiento.</p>
           </div>
           <div className="grid__element-grey">
-            <p>Menos lio.</p>
+            <p>Menos lío.</p>
             <p>Más llamadas.</p>
           </div>
           <div className="grid__element grid__element-delete">
@@ -264,6 +265,7 @@ const [playIntro, setPlayIntro] = useState(false);
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
+            aria-label="Abrir calculadora de precios para estimar tu web"
            />
 
            <StandardButton
@@ -358,7 +360,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
     </div>
 
     <div className="contacto__info-image">
-      <img src="/assets/escri.jpg" alt="Andrés Ortega" className="contacto__info-img" loading="lazy" />
+      <img src="/assets/escri.jpg" width="720" height="1280" alt="Andrés Ortega" className="contacto__info-img" loading="lazy" />
     </div>
 
 

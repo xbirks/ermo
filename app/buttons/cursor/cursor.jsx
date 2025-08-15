@@ -1,88 +1,67 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
+import "./cursor.scss";
 
-import React, { useEffect, useRef, useState } from 'react';
-import './cursor.scss';
-
-const Cursor = () => {
-  const cursorRef = useRef(null);
-  const requestRef = useRef(null);
-  const prevX = useRef(0);
-  const prevY = useRef(0);
-  const targetX = useRef(0);
-  const targetY = useRef(0);
-
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  const moveCursor = (e) => {
-    targetX.current = e.clientX;
-    targetY.current = e.clientY;
-  };
-
-  const animateCursor = () => {
-    prevX.current += (targetX.current - prevX.current) * 1;
-    prevY.current += (targetY.current - prevY.current) * 1;
-
-    if (cursorRef.current) {
-      cursorRef.current.style.left = `${prevX.current}px`;
-      cursorRef.current.style.top = `${prevY.current}px`;
-    }
-
-    requestRef.current = requestAnimationFrame(animateCursor);
-  };
+export default function Cursor() {
+  const elRef = useRef(null);
+  const rafId = useRef(0);
+  const x = useRef(0), y = useRef(0);
+  const tx = useRef(0), ty = useRef(0);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    const checkIfTouchDevice = () => {
-      if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
-        setIsTouchDevice(true);
-      }
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setDisabled(isTouch || mql.matches);
+    const onChange = (e) => setDisabled(isTouch || e.matches);
+    mql.addEventListener?.("change", onChange);
+    return () => mql.removeEventListener?.("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (disabled || !elRef.current) return;
+    const el = elRef.current;
+
+    const onMove = (e) => { tx.current = e.clientX; ty.current = e.clientY; };
+    const onOver = (e) => {
+      const overInteractive = e.target.closest?.("a,button,.interactive,[role='button']");
+      el.classList.toggle("hover", !!overInteractive);
     };
 
-    checkIfTouchDevice();
+    const animate = () => {
+      // Interpolación (1 = seguir al instante; 0.2 = más "lag")
+      const k = 1;
+      x.current += (tx.current - x.current) * k;
+      y.current += (ty.current - y.current) * k;
+      // Centro el cursor (-50%, -50%) sin tocar layout
+      el.style.transform = `translate3d(${x.current}px, ${y.current}px, 0) translate(-50%, -50%)`;
+      rafId.current = requestAnimationFrame(animate);
+    };
 
-    if (!isTouchDevice) {
-      document.addEventListener('mousemove', moveCursor);
-      requestRef.current = requestAnimationFrame(animateCursor);
-    }
+    const onVis = () => {
+      if (document.hidden) cancelAnimationFrame(rafId.current);
+      else rafId.current = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("mouseover", onOver, { passive: true });
+    document.addEventListener("visibilitychange", onVis);
+    rafId.current = requestAnimationFrame(animate);
 
     return () => {
-      if (!isTouchDevice) {
-        document.removeEventListener('mousemove', moveCursor);
-        cancelAnimationFrame(requestRef.current);
-      }
+      cancelAnimationFrame(rafId.current);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("mouseover", onOver);
+      document.removeEventListener("visibilitychange", onVis);
     };
-  }, [isTouchDevice, animateCursor]);
+  }, [disabled]);
 
-  useEffect(() => {
-    if (!isTouchDevice) {
-      const interactiveElements = document.querySelectorAll('a, button, .interactive');
-
-      const addHoverClass = () => cursorRef.current.classList.add('hover');
-      const removeHoverClass = () => cursorRef.current.classList.remove('hover');
-
-      interactiveElements.forEach((el) => {
-        el.addEventListener('mouseenter', addHoverClass);
-        el.addEventListener('mouseleave', removeHoverClass);
-      });
-
-      return () => {
-        interactiveElements.forEach((el) => {
-          el.removeEventListener('mouseenter', addHoverClass);
-          el.removeEventListener('mouseleave', removeHoverClass);
-        });
-      };
-    }
-  }, [isTouchDevice]);
-
-  if (isTouchDevice) {
-    return null;
-  }
+  if (disabled) return null;
 
   return (
-    <div ref={cursorRef} className="curzr-big-circle">
-      <div className="circle"></div>
-      <div className="dot"></div>
+    <div ref={elRef} className="curzr-big-circle" aria-hidden="true">
+      <div className="circle" />
+      <div className="dot" />
     </div>
   );
-};
-
-export default Cursor;
+}

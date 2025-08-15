@@ -13,14 +13,28 @@ import CookieConsent from "./components/cookies/cookieConsent";
 export const metadata = {
 
   //GENERIC
-  title: 'ERMO | Diseño y programación web en Valencia',
+   title: 'ERMO | Diseño y programación web en Valencia',
   description: 'Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.',
   applicationName: 'ERMO',
-  keywords: ['diseño gráfico en Valencia', 'estudio de diseño gráfico en Manises', 'branding en Manises', 'animación 2D en Manises', 'diseño web en Manises', 'fotografía de producto en Manises', 'diseñador gráfico en Manises', 'diseñador gráfico en Valencia', 'creatividad en Manises', 'marketing digital en Manises', 'diseño de logos en Manises', 'identidad corporativa en Manises', 'diseño de interiores en Manises', 'diseño de packaging en Manises', 'diseño de folletos en Manises', 'diseño de carteles en Manises', 'desarrollo de marca en Manises', 'consultoría de diseño en Manises', 'diseñador gráfico Manises'],
-  authors: [{ name: 'Andrés Ortega', url: 'https://soyandres.es' }],
+    keywords: [
+    'diseño gráfico en Valencia',
+    'branding en Valencia',
+    'diseño web en Valencia',
+    'diseñador gráfico en Valencia',
+    'diseñador web en Valencia',
+  ],
+  authors: [{ name: 'Andrés Ortega', url: 'https://ermo.es' }],
   creator: 'Andrés Ortega',
   publisher: 'Andrés Ortega',
-  robots: 'index, follow',
+    robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
   revisitAfter: '1 days',
   formatDetection: {
     email: false,
@@ -40,10 +54,10 @@ export const metadata = {
         url: 'https://ermo.es/seo/meta-1200x630.jpg',
         width: 1200,
         height: 630,
-        alt: 'Diferentes proyectos hechos por el estudio de diseño gráfico Ermo. Fotografía, branding, web, 3D.',
+        alt: 'Proyectos del estudio ERMO: fotografía, branding, web, 3D.',
       },
     ],
-    site_name: 'ERMO | Diseño y programación web en Valencia',
+    siteName: 'ERMO',
     locale: 'es_ES',
   },
 
@@ -66,20 +80,6 @@ export const metadata = {
 
 
 
-  //SECURITY
-  contentSecurityPolicy:
-  "default-src 'self'; " +
-  "img-src 'self' https://www.ermo.es https://www.google-analytics.com https://www.googletagmanager.com data:; " +
-  "script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline'; " +
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; " +
-  "style-src 'self' https://use.typekit.net 'unsafe-inline';",
-  referrerPolicy: 'no-referrer-when-downgrade', 
-  xContentTypeOptions: 'nosniff', 
-  xFrameOptions: 'DENY', 
-  xXssProtection: '1; mode=block',
-  permissionsPolicy: "geolocation=(self)",
-
-  
 }
 
 
@@ -92,60 +92,75 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <head>
         <meta charSet="UTF-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://use.typekit.net/ury2gea.css"></link>
-        <link rel="preload" href="https://use.typekit.net/ury2gea.css" as="font" type="font/woff2" crossOrigin="anonymous" />
 
-       
+        {/* Adobe Fonts */}
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://use.typekit.net/ury2gea.css" />
+
+        {/* LCP poster (si aplica) */}
+        <link rel="preload" as="image" href="/assets/test_vid_poster.jpg" />
+
+        {/* GA/Tag Manager preconnect */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+
+        {/* UI meta */}
         <meta name="theme-color" content="#3F52FF" />
-        <meta name="background-color" content="#333333" />
-        <link rel="canonical" href="https://ermo.es" hrefLang="es-ES" />
-        <meta name="robots" content="index, follow" />
-        <link rel="icon" href="https://ermo.es/favicon_500x500.png" title="Ícono de la pestaña de la web Ermo" type="image/png" />
-        <link rel="apple-touch-icon" sizes="500x500" href="https://ermo.es/favicon_500x500.png" />
+
+        {/* Favicons */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+        {/* JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
               {
-                "@context": "http://schema.org",
+                "@context": "https://schema.org",
                 "@type": "WebSite",
                 "url": "https://ermo.es",
                 "name": "ERMO ESTUDIO"
               },
               {
-                "@context": "http://schema.org",
+                "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "Ermo",
                 "description": "Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.",
                 "email": "estudio@ermo.es",
                 "logo": "https://ermo.es/favicon_500x500.png",
-                "url": "https://ermo.es"
+                "url": "https://ermo.es",
+                "sameAs": [
+                  "https://www.instagram.com/ermo.es",
+                  "https://www.linkedin.com/in/andres-ermo",
+                  "https://www.behance.net/ermo"
+                ]
               },
               {
-                "@context": "http://schema.org",
+                "@context": "https://schema.org",
                 "@type": "LocalBusiness",
-                "logo": "https://ermo.es/favicon_500x500.png",
                 "name": "Ermo",
                 "description": "Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.",
                 "image": "https://ermo.es/seo/meta-1200x630.jpg",
                 "url": "https://ermo.es",
-                "hasMap": "#",
-                "telephone": "675392216",
+                "telephone": "+34675392216",
                 "priceRange": "$$$",
                 "address": {
                   "@type": "PostalAddress",
                   "streetAddress": "Pl. Rafael Atard, 20A",
                   "addressLocality": "Manises",
                   "addressRegion": "Valencia",
-                  "postalCode": "46940"
+                  "postalCode": "46940",
+                  "addressCountry": "ES"
                 }
               }
             ])
           }}
         />
       </head>
+
       <body>
 
 
