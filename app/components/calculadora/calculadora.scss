@@ -132,6 +132,8 @@
       .box{
         background-color:  rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(10px);
+        display: flex;
+        gap: 30px;
       }
 
       #contacto_calc{
@@ -180,7 +182,7 @@
       margin-bottom: 70px;
 
       @media (max-width: 900px) {
-          margin-bottom: 20px;
+          margin-bottom: 0px;
       }
 
     }
@@ -204,6 +206,10 @@
       display: grid;
       gap: 8px;
       margin-top: 12px;
+
+            @media (max-width: 900px) {
+                margin-top: 0px;
+                    }
     }
   }
 }
@@ -508,7 +514,7 @@
 
     /* Hereda el estilo de .calc-summary móvil cuando está "abajo" */
     .box {
-      background-color: $nardo;  /* mismo fondo que tu estado .is-bottom */
+      background-color: $nardo; 
     }
 
     #contacto_calc {
@@ -516,3 +522,17 @@
     }
   }
 }
+
+
+      .box__resumen{
+        display: block;
+            @media (max-width: 700px) {
+                  display: block;
+                  width: 100%;
+                  gap: 40px;
+
+                  h4{
+                    margin-bottom: 0px;
+                  }
+              }
+      }

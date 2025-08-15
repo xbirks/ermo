@@ -91,8 +91,8 @@ function SettingsBlock({ title, description, items, onToggle }) {
 function SummaryBox({ total, onDownloadPDF }) {
   return (
     <div className="box">
-      <h4>Resumen del<br></br>proyecto</h4>
-      <div className="total">{fmt(total)}</div>
+      <div className="box__resumen"><h4>Resumen del<br></br>proyecto</h4>
+      <div className="total">{fmt(total)}</div></div>
 
       <div className="cta">
         <StandardButton
