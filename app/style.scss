@@ -86,6 +86,7 @@ h1{
 
 h2{
     font-size: 32px;
+    line-height: 36px;
     font-weight: 400;
     font-family: $owners;
     text-transform: uppercase;
@@ -123,8 +124,8 @@ p{
     text-align: left;
 
     @include media800px {
-        font-size: 1.05em;
-        line-height: 1.35em;
+        // font-size: 1.05em;
+        // line-height: 1.35em;
     }
 }
 
@@ -986,6 +987,8 @@ a:hover .curzr-big-circle {
         margin-bottom: 16px;
     }.footer__info-datos a{
         display: block;
+        font-size: $fuente-p;
+        line-height: $line-height;
         margin-bottom: 10px;
         font-family: $neue;
         letter-spacing: -0.5px;

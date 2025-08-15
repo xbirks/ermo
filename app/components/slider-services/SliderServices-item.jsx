@@ -11,11 +11,7 @@ function SliderServicesItem({nameService, descriptionService, link}) {
             <h3>{nameService}</h3>
 
             <p>{descriptionService}</p>
-{/* 
-            <ServicesFloatButton
-                link={link}
-                title="Más info"
-            /> */}
+
 
             <StandardButton
             link={link}
