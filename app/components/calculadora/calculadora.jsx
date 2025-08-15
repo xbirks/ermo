@@ -98,7 +98,7 @@ function SummaryBox({ total, onDownloadPDF }) {
         <StandardButton
           link="#precio"
           title="Descargar PDF"
-          style="mt-s"
+          style="mt-m"
           bg="#DC4946"
           color="white"
           borderColor="transparent"
