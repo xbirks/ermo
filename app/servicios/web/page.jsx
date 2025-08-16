@@ -11,7 +11,7 @@ import ContactFormLanding from "@/app/components/formularios/ContactFormLanding"
 
 
 
-export default function WebPage({municipio}) {
+export default function WebPage({municipio = "Valencia"}) {
 
 const [playIntro, setPlayIntro] = useState(false);
 
@@ -21,7 +21,7 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
       <section className="intro-landing__master">
-        <h1><span className="landing__destacado">Hacer web en Valencia</span> para PYMES y emprendedores</h1>
+        <h1><span className="landing__destacado">Hacemos webs</span> para PYMES y emprendedores en {municipio}</h1>
 
         
         <div className="intro-landing__content">
@@ -33,7 +33,7 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
 
-            <p className="intro-landing__big">¿Quieres <strong>hacer tu web en Valencia</strong> con resultados reales? En este vídeo te cuento nuestro método y casos.</p>
+            <p className="intro-landing__big">¿Quieres <strong>hacer tu web en {municipio}</strong> con resultados reales? En este vídeo te cuento nuestro método y casos.</p>
 
             <p className="intro-landing__texto-op">Diseñamos páginas web rápidas y optimizadas, diseño UI/UX y SEO para emprendedores.</p>
 
@@ -143,7 +143,7 @@ const [playIntro, setPlayIntro] = useState(false);
         {/* Texto debajo de la tarjeta */}
         <p className="exito__review">
           Gartalia pasó de no tener presencia online a estar
-          <strong> posicionada como una de las mejores empresas de jardinería de Valencia. </strong>
+          <strong> posicionada como una de las mejores empresas de jardinería de {municipio}. </strong>
           Gracias a una web bien optimizada y una estrategia SEO efectiva.
         </p>
       </div>
@@ -219,7 +219,7 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
       <section className="grid__master">
-        <h2>Webs en Valencia rápidas y optimizadas</h2>
+        <h2>Webs en {municipio} rápidas y optimizadas</h2>
 
         <div className="grid">
           <div className="grid__element" id="servicio">

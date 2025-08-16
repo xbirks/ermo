@@ -546,36 +546,8 @@ const handleDownloadPDF = async () => {
           </div>
         </section>
 
-        {/* ACCESIBILIDAD Y CALIDAD (exclusivo) */}
-        <SettingsBlock
-          title="ACCESIBILIDAD Y CALIDAD"
-          description="¿Quieres que tu web sea fácil de usar para cualquier persona, incluyendo aquellas con necesidades especiales? La opción AA asegura un nivel extra de accesibilidad y cuidado en los detalles."
-          items={[
-            { id: 'acc_incluido', label: 'INCLUIDO',  checked: accesibilidad === 'incluido' },
-            { id: 'acc_aa',       label: 'OBJETIVO AA', checked: accesibilidad === 'aa' },
-          ]}
-          onToggle={(id, next) => {
-            if (!next) return; 
-            setAccesibilidad(id === 'acc_aa' ? 'aa' : 'incluido');
-          }}
-        />
 
-        {/* SEO Y RENDIMIENTO (múltiple) */}
-        <SettingsBlock
-          title="SEO Y RENDIMIENTO"
-          description="Opciones para que tu web aparezca mejor posicionada en Google y cargue más rápido. Esto ayuda a que más personas te encuentren y a que la experiencia de navegación sea fluida."
-          items={[
-            { id: 'seoIncluido', label: 'INCLUIDO', checked: true, disabled: true },
-            { id: 'seoTec',      label: 'AVANZADO Y ESTANDARES GOOGLE', checked: seoTec },
-            { id: 'seoCont',     label: 'OPTIMIZACIÓN DE CONTENIDOS',      checked: seoCont },
-          ]}
-          onToggle={(id, next) => {
-            if (id === 'seoTec') setSeoTec(next);
-            if (id === 'seoCont') setSeoCont(next);
-          }}
-        />
-
-        {/* OPERATIVA, CONTENIDOS Y RECURSOS */}
+                {/* OPERATIVA, CONTENIDOS Y RECURSOS */}
         <SettingsBlock
           title="CONTENIDOS Y RECURSOS"
           description="Selecciona el apoyo que necesites para crear y preparar todo el contenido de la web. Tener contenido bien hecho ayuda a que tu web sea más atractiva, clara y convincente para tus clientes."
@@ -597,6 +569,39 @@ const handleDownloadPDF = async () => {
           }}
         />
 
+
+
+
+        {/* ACCESIBILIDAD Y CALIDAD (exclusivo) */}
+        <SettingsBlock
+          title="ACCESIBILIDAD Y CALIDAD"
+          description="¿Quieres que tu web pueda ser utilizada por cualquier persona, incluso con limitaciones visuales, auditivas o de movilidad? La opción AA garantiza un nivel avanzado de accesibilidad para que todos tus usuarios puedan navegar sin barreras."
+          items={[
+            { id: 'acc_incluido', label: 'INCLUIDO',  checked: accesibilidad === 'incluido' },
+            { id: 'acc_aa',       label: 'OBJETIVO AA', checked: accesibilidad === 'aa' },
+          ]}
+          onToggle={(id, next) => {
+            if (!next) return; 
+            setAccesibilidad(id === 'acc_aa' ? 'aa' : 'incluido');
+          }}
+        />
+
+        {/* SEO Y RENDIMIENTO (múltiple) */}
+        <SettingsBlock
+          title="SEO (APARECER EN GOOGLE)"
+          description="Opciones para que tu web aparezca mejor posicionada en Google y cargue más rápido. Esto ayuda a que más personas te encuentren y a que la experiencia de navegación sea fluida."
+          items={[
+            { id: 'seoIncluido', label: 'INCLUIDO', checked: true, disabled: true },
+            { id: 'seoTec',      label: 'AVANZADO Y ESTANDARES GOOGLE', checked: seoTec },
+            { id: 'seoCont',     label: 'OPTIMIZACIÓN DE CONTENIDOS',      checked: seoCont },
+          ]}
+          onToggle={(id, next) => {
+            if (id === 'seoTec') setSeoTec(next);
+            if (id === 'seoCont') setSeoCont(next);
+          }}
+        />
+
+
         {/* MANTENIMIENTO */}
         <SettingsBlock
           title="MANTENIMIENTO Y OPERATIVA"
@@ -605,8 +610,8 @@ const handleDownloadPDF = async () => {
             { id: 'mant_anual',  label: 'MANT. ANUAL',             checked: mantAnual },
             { id: 'mant_horas',  label: 'POR HORAS (10h)',   checked: mantHoras },
             { id: 'mant_ext',    label: 'SERVICIOS EXTERNOS',checked: mantExternos },
-             { id: 'op_revision',    label: 'RONDA DE REVISIÓN EXTRA',              checked: opRevisionExtra },
-            { id: 'op_reuniones',   label: 'REUNIONES EXTRA',                      checked: opReunionesExtra },
+            //  { id: 'op_revision',    label: 'RONDA DE REVISIÓN EXTRA',              checked: opRevisionExtra },
+            // { id: 'op_reuniones',   label: 'REUNIONES EXTRA',                      checked: opReunionesExtra },
             { id: 'op_urgente',     label: 'ENTREGA CON URGENCIA',                 checked: opUrgente },
           ]}
           onToggle={(id, next) => {

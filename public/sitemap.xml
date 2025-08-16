@@ -1,458 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://ermo.es/</loc>
-        <lastmod>2024-08-06T15:02:24.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-    <url>
-        <loc>https://www.ermo.es/proyectos/private-label-bsn-cosmetics</loc>
-        <lastmod>2024-08-06T15:04:24.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.ermo.es/proyectos/sanoguera</loc>
-        <lastmod>2024-08-06T15:04:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.ermo.es/servicios/fotografia</loc>
-        <lastmod>2024-08-09T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-    
-
-    <url>
-        <loc>https://www.ermo.es/servicios/animacion</loc>
-        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-    
-    <url>
-        <loc>https://www.ermo.es/servicios/web</loc>
-        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-    
-    <url>
-        <loc>https://www.ermo.es/servicios/ilustracion</loc>
-        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-    
-    <url>
-        <loc>https://www.ermo.es/servicios/branding</loc>
-        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-    
-    <url>
-        <loc>https://www.ermo.es/servicios/video</loc>
-        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-
-        <url>
-        <loc>https://www.ermo.es/servicios/principal</loc>
-        <lastmod>2024-08-27T15:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-
-        <url>
-        <loc>https://www.ermo.es/proyectos/principal</loc>
-        <lastmod>2024-09-05T16:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1</priority>
-    </url>
-
-        <url>
-        <loc>https://www.ermo.es/legal/aviso-legal</loc>
-        <lastmod>2024-09-05T16:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0</priority>
-    </url>
-
-        <url>
-        <loc>https://www.ermo.es/legal/aviso-de-cookies</loc>
-        <lastmod>2024-09-05T16:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0</priority>
-    </url>
-
-        <url>
-        <loc>https://www.ermo.es/legal/politica-de-privacidad</loc>
-        <lastmod>2024-09-05T16:08:29.021Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0</priority>
-    </url>
-
-
-    
-
-<url><loc>https://www.ermo.es/municipios/local/manises</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/alboraya</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/almussafes</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/altea</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/betera</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/calpe</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/catarroja</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/denia</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/elche</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/eliana</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/gandia</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/godella</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/javea</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/mas-camarena</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/mislata</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/moraira</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/paterna</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/riba-roja</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/rocafort</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/sagunto</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/segorbe</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/torrente</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/local/xirivella</loc>
-<lastmod>2024-09-10T19:43:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-
-
-
-
-<url><loc>https://www.ermo.es/municipios/fotografo/manises</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/alboraya</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/almussafes</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/altea</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/betera</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/calpe</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/catarroja</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/denia</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/elche</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/eliana</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/gandia</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/godella</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/javea</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/mas-camarena</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/mislata</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/moraira</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/paterna</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/riba-roja</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/rocafort</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/sagunto</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/segorbe</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/torrente</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/fotografo/xirivella</loc>
-<lastmod>2024-09-10T19:45:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-
-
-
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/alboraya</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/almussafes</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/altea</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/betera</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/calpe</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/catarroja</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/denia</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/elche</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/eliana</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/gandia</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/godella</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/javea</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/manises</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/mas-camarena</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/mislata</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/moraira</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/paterna</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/riba-roja</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/rocafort</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/sagunto</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/segorbe</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/torrente</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-<url><loc>https://www.ermo.es/municipios/diseno-grafico/xirivella</loc>
-<lastmod>2024-09-10T21:14:00.021Z</lastmod>
-<changefreq>daily</changefreq>
-<priority>1</priority></url>
-
-
-
-    
+  <!-- Home -->
+  <url>
+    <loc>https://www.ermo.es/</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Landing local principal -->
+  <url>
+    <loc>https://www.ermo.es/diseno-web-manises</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Servicios -->
+  <url>
+    <loc>https://www.ermo.es/servicios/web</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/servicios/seo</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/servicios/branding</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/servicios/fotografia</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/servicios/animacion</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/servicios/ilustracion</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/servicios/video</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Proyectos -->
+  <url>
+    <loc>https://www.ermo.es/proyectos/principal</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/proyectos/private-label-bsn-cosmetics</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/proyectos/sanoguera</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Legales -->
+  <url>
+    <loc>https://www.ermo.es/legal/aviso-legal</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/legal/aviso-de-cookies</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://www.ermo.es/legal/politica-de-privacidad</loc>
+    <lastmod>2025-08-16T09:00:00.000Z</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>
