@@ -9,6 +9,10 @@ import Script from "next/script";
 export default function Jardineria() {
   const sliderRef = useRef(null);
 
+  //Desplegar precios slider
+  const [exp, setExp] = useState({ web: false, google: false, gpt: false });
+
+
   // Array de clientes con datos base
   const [clientes, setClientes] = useState([
     {
@@ -288,11 +292,19 @@ const faqSchema = {
           <div className="slide">
             <div>
               <h4>Plan<br></br><strong>web</strong></h4>
-              <ul>
+              <ul id="lista-web" className={`expandable ${exp.web ? 'expanded' : 'collapsed'}`} aria-expanded={exp.web} aria-describedby="nota-web">
                 <li>Tu web pensada para conseguir nuevos clientes gracias a nuestra <br></br><strong>MAQUETA MODULAR</strong></li>
                 <li>Configuración inicial del perfil de Google Business</li>
                 <li>Correo para recibir solicitudes de presupuesto</li>
               </ul>
+              <button
+                className="expandable__btn"
+                aria-controls="lista-web"
+                aria-expanded={exp.web}
+                onClick={() => setExp(s => ({ ...s, web: !s.web }))}
+              >
+                {exp.web ? "Cerrar lista" : "Leer más"}
+            </button>
             </div>
             <div>
               <h5>95€<span className="little">/mes</span></h5>
@@ -314,10 +326,10 @@ const faqSchema = {
             </div>
           </div>
 
-          <div className="slide slide-blue" >
+          <div className={`slide slide-blue ${exp.gpt ? "expanded" : ""}`}>
             <div>
               <h4>Plan<br></br><strong>Google</strong></h4>
-              <ul>
+              <ul className={`expandable ${exp.google ? 'expanded' : 'collapsed'}`} aria-expanded={exp.google} aria-describedby="nota-google">
                 <li className="amarillo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
                 <li className="amarillo"><strong>EXCLUSIVIDAD</strong><br></br>por zona geográfica</li>
                 <li>Flujo de clientes constante</li>
@@ -326,6 +338,14 @@ const faqSchema = {
                 <li>Configuración inicial del perfil de Google Business</li>
                 
               </ul>
+              <button
+                    className="expandable__btn"
+                    aria-controls="lista-google"
+                    aria-expanded={exp.google}
+                    onClick={() => setExp(s => ({ ...s, google: !s.google }))}
+                  >
+                    {exp.google ? "Cerrar lista" : "Leer más"}
+                </button>
             </div>
             <div>
               <h5 className="confi_precio" >120€<span className="little">/mes</span></h5>
@@ -347,10 +367,13 @@ const faqSchema = {
             </div>
           </div>
 
-          <div className="slide">
+          <div className={`slide ${exp.gpt ? "expanded" : ""}`}>
             <div>
               <h4>Plan<br></br><strong>GPT</strong></h4>
-              <ul>
+              <ul id="lista-gpt"
+      className={`expandable ${exp.gpt ? "expanded" : "collapsed"}`}
+      aria-expanded={exp.gpt}
+      aria-describedby="nota-gpt">
                 <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando pregunten por jardineros en tu zona</li>
                 <li className="rojo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
                 <li className="rojo"><strong>EXCLUSIVIDAD</strong><br></br> por zona geográfica expandida</li>
@@ -360,6 +383,14 @@ const faqSchema = {
                 <li>Configuración inicial del perfil de Google Business</li>
                 
               </ul>
+              <button
+                    className="expandable__btn"
+                    aria-controls="lista-gpt"
+                    aria-expanded={exp.gpt}
+                    onClick={() => setExp(s => ({ ...s, gpt: !s.gpt }))}
+                  >
+                    {exp.gpt ? "Cerrar lista" : "Leer más"}
+                </button>
             </div>
             <div className="slide__precios">
               <h5>150€<span className="little">/mes</span></h5>
@@ -479,23 +510,23 @@ const faqSchema = {
             <p>Menos lio.</p>
             <p>Más llamadas</p>
           </div>
-          <div className="grid__element">
+          <div className="grid__element grid__disapear">
             <h4>Una sección para mostrar lo que haces</h4>
             <p>Podas, diseño, mantenimiento… Con texto claro y tus propias fotos si las tienes. Si no, te digo cómo hacerlo bien.</p>
           </div>
-          <div className="grid__element">
+          <div className="grid__element grid__disapear">
             <h4>Todo lo técnico déjamelo a mí</h4>
             <p>Tú no te preocupas de renovar nada. Dominio y alojamiento incluidos. Lo técnico queda en mis manos.</p>
           </div>
-          <div className="grid__element">
+          <div className="grid__element grid__disapear">
             <h4>Soporte si algo falla</h4>
             <p>Durante el tiempo acordado, puedes escribirme si hay algún problema. Y lo resolvemos.</p>
           </div>
-          <div className="grid__element">
+          <div className="grid__element grid__disapear">
             <h4>Contacto directo sin rodeos</h4>
             <p>Botón de WhatsApp y formulario sencillo. El cliente llega y te escribe. Así de simple.</p>
           </div>
-          <div className="grid__element-grey">
+          <div className="grid__element-grey grid__disapear">
             <p>Muestra.</p>
             <p>Conecta.</p>
             <p>Vende.</p>

@@ -12,7 +12,7 @@ function FooterItem({title, link, textButton}){
       </div>
 
 
-    );
+    ); 
 
 
 }
