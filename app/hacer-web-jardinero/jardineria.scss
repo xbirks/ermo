@@ -12,8 +12,8 @@ h1{
 
 p{
     color: #393939;
-    font-size: 1.1rem;
-    line-height: 1.3rem;
+    font-size: 1.125rem;
+    line-height: 1.6rem;
             @include media600px {
             font-size: 1rem;
             line-height: 1.1rem;
@@ -253,7 +253,7 @@ p{
             }
 
             p{
-                line-height: 1.1rem;
+                line-height: 1.4rem;
                         @include media600px {
                                 margin-top: 20px;
                             }
@@ -347,10 +347,10 @@ p{
             color: $azul-ermo;
             text-transform: uppercase;
             letter-spacing: -0.5px;
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            line-height: 1.8rem;
-            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 50px;
+            line-height: 2.3rem;
+            text-align: left;
         }
 
     h5{
@@ -360,7 +360,7 @@ p{
             letter-spacing: -0.5px;
             font-size: 3rem;
             line-height: 1.8rem;
-            text-align: center;
+            text-align: left;
 
             .little{
                 font-size: 1.4rem;
@@ -375,12 +375,16 @@ p{
         color: #393939;
         letter-spacing: -0.5px;
         font-size: 1rem;
-        line-height: 1.1rem;
-        text-align: center;
+        line-height: 1.3rem;
+        text-align: left;
         margin-bottom: 14px;
+        
+        &:hover{
+            text-decoration: underline;
+        }
                 @include media600px {
                             font-size: 1rem;
-                            line-height: 1rem;
+                            line-height: 1.4rem;
                         }
         
 }
@@ -411,7 +415,6 @@ p{
 
             .slide{
                 background-color: $nardo;
-                height: 650px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -427,6 +430,10 @@ p{
                     margin-left: 10px;
                     margin-right: 10px;
                 }
+
+                .slide__precios{
+                    margin-top: 50px;
+                }
                 
             }
 
@@ -440,35 +447,14 @@ p{
                 }
                 .amarillo{
                 color: #F4FF5C;
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                line-height: 1.4rem;
             }
-                .button{
-                    background-color: $blanco-ermo;
-                    width: 100%;
-                    border-color: $mar-ermo;
-                            @include media600px {
-                            width: auto;
-                            }
-                    p{
-                        color: $azul-ermo;
-                    }
-                    .arrow__svg {
-                        fill: $azul-ermo;
-                    }
-                    &:hover{
-                        background-color: $azul-ermo;
-                        p{
-                            color: $blanco-ermo;
-                        }
-                        .arrow__svg {
-                            fill: $blanco-ermo;
-                        }
-                    }
-                }
+               
             }
 
             .aviso{
-                text-align: center;
+                text-align: left;
                 font-size: 0.8rem;
                 margin-bottom: 20px;
                 margin-top: 10px;
@@ -491,7 +477,8 @@ p{
 
             .rojo{
                 color: #ec6c04;
-                font-size: 1rem;
+                font-size: 1.2rem;
+                line-height: 1.4rem;
             }
            
     }
@@ -797,6 +784,16 @@ p{
                 font-weight: 500;
                 text-transform: uppercase;
             }
+            
+
+       
         }
     }
 }
+
+     .data_note{
+                font-size: 0.7rem;
+                letter-spacing: -0.3px;
+                color: $gris-ermo;
+                margin-top: 20px;
+            }

@@ -92,6 +92,7 @@ const nextConfig = {
     { source: '/web/segorbe/:path*', destination: '/diseno-web-manises', permanent: true },
     { source: '/web/torrente/:path*', destination: '/diseno-web-manises', permanent: true },
     { source: '/web/xirivella/:path*', destination: '/diseno-web-manises', permanent: true },
+     {source: '/jardineria', destination: '/hacer-web-jardinero', permanent: true},
 
     // --- fallback general de /web por seguridad ---
     { source: '/web/:city/:path*', destination: '/diseno-web-manises', permanent: true },
