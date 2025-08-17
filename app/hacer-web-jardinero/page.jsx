@@ -178,7 +178,7 @@ const faqSchema = {
     "offers": [
       { "@type": "Offer", "name": "Plan Web", "price": "95", "priceCurrency": "EUR", "url": "https://www.ermo.es/hacer-web-jardinero#precios" },
       { "@type": "Offer", "name": "Plan Google (SEO local)", "price": "120", "priceCurrency": "EUR", "url": "https://www.ermo.es/hacer-web-jardinero#precios" },
-      { "@type": "Offer", "name": "Plan GPT + Google", "price": "150", "priceCurrency": "EUR", "url": "https://www.ermo.es/hacer-web-jardinero#precios" }
+      { "@type": "Offer", "name": "Plan GPT + Google", "price": "390", "priceCurrency": "EUR", "url": "https://www.ermo.es/hacer-web-jardinero#precios" }
     ]
 
 
@@ -245,7 +245,7 @@ const faqSchema = {
         <div className="ventajas__element" id="ventajas">
           <div className="ventajas__element-img"><Image src="/jardineria/GART1.jpg" width={1024} height={1536} alt="Ejemplo de página web para jardineros en Valencia (vista móvil)" /></div>
           <h3>SEO local: aparece en <strong>Google</strong> cuando busquen <strong>“jardinero en tu zona”</strong></h3>
-          <p>Tu web estará bien posicionada para búsquedas reales como “jardinero en Valencia”.<br></br><br></br>No pagas por tener una página bonita, pagas para que te encuentren y te contacten.</p>
+          <p>Tu web estará bien posicionada para búsquedas reales como “jardinero en Valencia”.</p>
         </div>
 
         <div className="ventajas__element">
@@ -293,9 +293,9 @@ const faqSchema = {
             <div>
               <h4>Plan<br></br><strong>web</strong></h4>
               <ul id="lista-web" className={`expandable ${exp.web ? 'expanded' : 'collapsed'}`} aria-expanded={exp.web} aria-describedby="nota-web">
-                <li>Tu web pensada para conseguir nuevos clientes gracias a nuestra <br></br><strong>MAQUETA MODULAR</strong></li>
-                <li>Configuración inicial del perfil de Google Business</li>
-                <li>Correo para recibir solicitudes de presupuesto</li>
+                <li>Tu web pensada para conseguir nuevos clientes gracias a nuestra <br></br><strong>MAQUETA MODULAR.</strong></li>
+                <li>Configuración inicial del perfil de Google Business.</li>
+                <li>Correo para recibir solicitudes de presupuesto.</li>
               </ul>
               <button
                 className="expandable__btn"
@@ -328,14 +328,16 @@ const faqSchema = {
 
           <div className={`slide slide-blue ${exp.gpt ? "expanded" : ""}`}>
             <div>
-              <h4>Plan<br></br><strong>Google</strong></h4>
+              
+              <h4>Plan<br></br><strong>Google</strong><span className="precios__aviso-dia">Solo 3,8€/día</span></h4>
+               
               <ul className={`expandable ${exp.google ? 'expanded' : 'collapsed'}`} aria-expanded={exp.google} aria-describedby="nota-google">
-                <li className="amarillo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
-                <li className="amarillo"><strong>EXCLUSIVIDAD</strong><br></br>por zona geográfica</li>
-                <li>Flujo de clientes constante</li>
-                <li>Adaptación de nuestra<br></br><strong>MAQUETA MODULAR</strong><br></br>a tus necesidades</li>
-                <li>Informes mensuales con visitas, clics y llamadas</li>
-                <li>Configuración inicial del perfil de Google Business</li>
+                <li className="amarillo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones.</li>
+                <li className="amarillo"><strong>EXCLUSIVIDAD</strong><br></br>por zona geográfica.</li>
+                <li>Flujo de clientes constante.</li>
+                <li>Adaptación de nuestra<br></br><strong>MAQUETA MODULAR</strong><br></br>a tus necesidades.</li>
+                <li>Informes mensuales con visitas, clics y llamadas.</li>
+                <li>Configuración inicial del perfil de Google Business.</li>
                 
               </ul>
               <button
@@ -364,6 +366,8 @@ const faqSchema = {
                 hoverBorderColor=""
                 aria-label="Contratar PLAN GOOGLE"
                 />
+
+               
             </div>
           </div>
 
@@ -374,13 +378,13 @@ const faqSchema = {
       className={`expandable ${exp.gpt ? "expanded" : "collapsed"}`}
       aria-expanded={exp.gpt}
       aria-describedby="nota-gpt">
-                <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando pregunten por jardineros en tu zona</li>
-                <li className="rojo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones</li>
-                <li className="rojo"><strong>EXCLUSIVIDAD</strong><br></br> por zona geográfica expandida</li>
-                <li>Flujo de clientes constante</li>
-                <li>Adaptación de nuestra<br></br><strong>MAQUETA MODULAR</strong><br></br>a tus necesidades</li>
-                <li>Informes mensuales con visitas, clics y llamadas</li>
-                <li>Configuración inicial del perfil de Google Business</li>
+                <li className="rojo"><strong>APARECER EN CHATGPT</strong><br></br> cuando pregunten por jardineros en tu zona.</li>
+                <li className="rojo"><strong>APARECER EN GOOGLE</strong><br></br> en primeras posiciones.</li>
+                <li className="rojo"><strong>EXCLUSIVIDAD</strong><br></br> por zona geográfica expandida.</li>
+                <li>Flujo de clientes constante.</li>
+                <li>Adaptación de nuestra<br></br><strong>MAQUETA MODULAR</strong><br></br>a tus necesidades.</li>
+                <li>Informes mensuales con visitas, clics y llamadas y configuración de Google Business.</li>
+                <li></li>
                 
               </ul>
               <button
@@ -393,7 +397,7 @@ const faqSchema = {
                 </button>
             </div>
             <div className="slide__precios">
-              <h5>150€<span className="little">/mes</span></h5>
+              <h5>390€<span className="little">/mes</span></h5>
               <p className="aviso">Con una permanencia de 3 meses. <br></br>Si durante los primeros 3 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
                 
                 <StandardButton
