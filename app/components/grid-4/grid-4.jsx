@@ -48,16 +48,11 @@ function Grid4() {
               altAtribute="Imagen vibrante de los cubitos de hielo premium de Cubers, mostrando su perfecta claridad y forma única."
             />
         
-        {/* <StandardButton
-        link="/proyectos/principal"
-        title="Ver más proyectos"
-        style="mt-l margin-auto"
-      /> */}
 
           <StandardButton
             link="/proyectos/principal"
             title="Ver más proyectos"
-            style="mt-l margin-auto"
+            style=""
             bg="#3F52FF"
             color="white"
             borderColor="transparent"

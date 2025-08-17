@@ -133,15 +133,13 @@ a{
     font-size: $fuente-p;
     font-weight: 400;
     line-height: $line-height;
-    font-family: $owners;
+    font-family: $neue;
     color: $gris-ermo;
     letter-spacing: 0.5px;
     text-align: left;
     text-decoration: auto;
 
-    @include media800px {
-        font-size: 11pt;
-    }
+    
 }
 
 ::selection {
@@ -579,12 +577,12 @@ a:hover .curzr-big-circle {
 
 .index__introduction{
     display: flex;
-    padding: 8vw 0vw 5vw 0vw;
+    padding: 8vw 0vw 2vw 0vw;
     gap: 48px;
 
     @include media800px {
         display: block;
-        padding: 8vw 5vw 5vw 5vw;
+        padding: 8vw 5vw 2vw 5vw;
     }
 }
 
@@ -606,7 +604,9 @@ a:hover .curzr-big-circle {
 
 .index__projects{
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 80px 20px;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     box-sizing: border-box;
@@ -619,9 +619,9 @@ a:hover .curzr-big-circle {
 }
 
 .post__container{
-    width: 50%; 
+    width: 100%; 
     max-width: 100%; 
-    padding: 18px 10px;
+    
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -775,20 +775,24 @@ a:hover .curzr-big-circle {
 .index__services-container{
     border:solid 1.5px $azul-ermo;
     padding: 20px;
-    height: 450px;
+    height: 550px;
     position: relative;
     &:hover{
         background-color: rgb(247, 247, 247);
     }
 
     @include media1400px {
-        height: 400px;
+        height: 500px;
     }
 
     @include media800px {
         width: 60vw;
         flex: 0 0 auto;
         height: 450px;
+    }
+
+    .index__services-container-img{
+        margin-bottom: 10px;
     }
 }
 

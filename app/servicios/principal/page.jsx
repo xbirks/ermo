@@ -9,7 +9,6 @@ import Inner from "@/app/components/Transiciones/inner";
 
 //IMAGENES
 import imgfoto from '@/app/assets/img/servicios/fotografia/principal.jpg';
-import imgilustracion from '@/app/assets/img/servicios/ilustracion/dibujo3.jpg';
 import imgweb from '@/app/assets/img/servicios/web/diveroci.jpg';
 import imganimacion from '@/app/assets/img/servicios/ilustracion/dibujo7.jpg';
 
@@ -19,16 +18,12 @@ import amazon from '@/app/assets/icon/destacados/amazon.png';
 import arrow from '@/app/assets/icon/destacados/arrow.png';
 import colab from '@/app/assets/icon/destacados/punos.png';
 import memo from '@/app/assets/icon/destacados/pensar.png';
-import coherencia from '@/app/assets/icon/destacados/coherencia.png';
-import elevacion from '@/app/assets/icon/destacados/elevacion.png';
-import merchan from '@/app/assets/icon/destacados/borsa.png';
 import iman from '@/app/assets/icon/destacados/iman.png';
 import google from '@/app/assets/icon/destacados/google.png';
 import carga from '@/app/assets/icon/destacados/carga.png';
 import responsive from '@/app/assets/icon/destacados/responsive.png';
 import comunicacion from '@/app/assets/icon/destacados/comunicacion.png';
 import viralidad from '@/app/assets/icon/destacados/viralidad.png';
-import competencia from '@/app/assets/icon/destacados/competencia-dest.svg';
 import cohete from '@/app/assets/icon/destacados/cohete.png';
 
 
@@ -52,9 +47,9 @@ export default function ServiciosPrincipalPage() {
 
 
     <SliderServices></SliderServices>
-    <Spacer className="spacer-xl" />
+    {/* <Spacer className="spacer-xl" /> */}
 
-    <ServicioComp
+    {/* <ServicioComp
         title="Imágenes creadas con Inteligencia artificial (IA)"
         imgsrc={imgfoto}
         altimg="Portada del servicio de fotografía Profesional que Impulsa tu Negocio"
@@ -77,9 +72,9 @@ export default function ServiciosPrincipalPage() {
         btn1title="ver fotos"
         btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
-    ></ServicioComp>
+    ></ServicioComp> */}
 
-<Spacer className="spacer-xl" />
+{/* <Spacer className="spacer-xl" /> */}
 {/* 
 <ServicioComp
         title="Ilustramos para dar una personalidad auténtica a tu marca"
@@ -111,7 +106,7 @@ export default function ServiciosPrincipalPage() {
 
 <Spacer className="spacer-xl" /> */}
 
-<ServicioComp
+{/* <ServicioComp
         title="Desarrollo web centrado en tus usuarios"
         imgsrc={imgweb}
         altimg="Portada del servicio de programación web y diseño ui/ux que impacta, convierte y fideliza"
@@ -133,11 +128,11 @@ export default function ServiciosPrincipalPage() {
         btn1title="ver webs"
         btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
-    ></ServicioComp>
+    ></ServicioComp> */}
 
-<Spacer className="spacer-xl" />
+{/* <Spacer className="spacer-xl" /> */}
 
-<ServicioComp
+{/* <ServicioComp
         title="Animación 2D y motion graphics que comunican"
         imgsrc={imganimacion}
         altimg="Portada del servicio de movimiento que impacta:  Animación 2D y motion graphics"
@@ -159,7 +154,7 @@ export default function ServiciosPrincipalPage() {
         btn1title="ver más"
         btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
         btn2title="contratar"
-    ></ServicioComp>
+    ></ServicioComp> */}
 
 <Spacer className="spacer-xl" />
 

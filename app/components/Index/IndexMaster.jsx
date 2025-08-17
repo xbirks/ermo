@@ -24,7 +24,7 @@ function IndexMaster({municipio}) {
       />
       <div className="master__body">
         <IndexIntro municipio={municipio} />
-        <Spacer className="spacer-m" />
+        <Spacer className="spacer-xl" />
         <Grid4 />
         <Spacer className="spacer-xl" />
         <SliderServices municipio={municipio} enMunicipio={<>en {municipio}</>} />
