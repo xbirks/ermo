@@ -8,13 +8,14 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "img-src * data: blob:",                     // imágenes desde cualquier dominio
-      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ""}https:`, // scripts https y eval en dev
-      "connect-src *",                             // APIs/analytics
-      "style-src 'self' 'unsafe-inline' https:",   // CSS inline + cualquier https (Typekit, etc.)
+      "img-src 'self' data: blob: https://i.ytimg.com https://*.ggpht.com https:",
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ""}https:`,
+      "connect-src 'self' https://*.youtube.com https://*.youtube-nocookie.com https://*.googlevideo.com https:",
+      "style-src 'self' 'unsafe-inline' https:",
       "style-src-attr 'unsafe-inline'",
-      "font-src 'self' data: https:",              // fuentes de cualquier https
-      "media-src * data: blob:",                   // video/audio desde cualquier dominio
+      "font-src 'self' data: https:",
+      "media-src * data: blob:",
+      "frame-src https://www.youtube-nocookie.com https://*.youtube.com",
       "frame-ancestors 'none'",
     ].join('; '),
   },
