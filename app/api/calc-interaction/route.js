@@ -1,7 +1,8 @@
+import { NextResponse } from 'next/server';
+
 export async function POST(req) {
   try {
     const data = await req.json(); // { t, source, total }
-
     if (process.env.DISCORD_WEBHOOK_URL) {
       const text =
         `🧮 Interacción en calculadora\n` +
@@ -13,12 +14,10 @@ export async function POST(req) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: text }),
-        keepalive: true,
-      }).catch(() => {});
+      });
     }
-
-    return Response.json({ ok: true });
+    return NextResponse.json({ ok: true });
   } catch {
-    return new Response('Bad Request', { status: 400 });
+    return new NextResponse('Bad Request', { status: 400 });
   }
 }

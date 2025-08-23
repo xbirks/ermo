@@ -501,9 +501,8 @@ const handleDownloadPDF = async () => {
                       className={`chip ${tamano === k ? 'active' : ''}`}
                       onClick={() => {
                         setTamano(k);
-                        // Registra SIEMPRE cada cambio:
                         trackCalcInteraction('tamano', k, total);
-                        // O si prefieres solo la primera interacción de la sesión:
+                        notifyFirstCalcInteraction('tamano', total); // <-- ping a /api/calc-interaction (una vez por pestaña)
                         // trackFirstCalcInteraction('tamano', k, total);
                       }}
                       type="button"
@@ -511,8 +510,8 @@ const handleDownloadPDF = async () => {
                       {k === 'pequena' ? 'PEQUEÑO' : k === 'mediana' ? 'MEDIANO' : 'GRANDE'}
                     </button>
                   ))}
-
                 </div>
+
               </div>
             </div>
           </div>
