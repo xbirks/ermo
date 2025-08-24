@@ -335,7 +335,7 @@ p{
             @include media500px {
             padding-left: 3vw;
             padding-right: 3vw;
-            margin-top: 100px;
+            margin-top: 130px;
         }
     
     h2{
@@ -1004,7 +1004,7 @@ p{
     display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 100px;
-        row-gap: 10px;
+        row-gap: 60px;
         margin-top: 60px;
 
                 @include media1100px {
@@ -1024,9 +1024,9 @@ p{
   position: relative;
   width: 100%;               /* ajusta a tu grid */
   aspect-ratio: 3/4;
-  border-radius: 32px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0px 10px 26px rgba(0, 0, 0, .10);
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, .10);
   gap: 10px;
 
                      @include media800px {
@@ -1046,7 +1046,7 @@ p{
     content: '';
     position: absolute;
     inset: 0;                       
-    backdrop-filter: blur(34px);        
+    backdrop-filter: blur(14px);        
     -webkit-backdrop-filter: blur(34px);
 
     /* La máscara hace que el efecto solo se note
@@ -1070,7 +1070,7 @@ p{
     padding: 24px 24px 32px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 10px;
     color: #535353;
     z-index: 1;    
     top: auto;             
@@ -1105,22 +1105,25 @@ p{
 
 
     &__labels{
-        position: absolute;
+        position: static;            /* o relative + bottom si debe ir superpuesto */
         display: flex;
-        gap: 5px;
-        margin-top: auto;
-        top: -20px;
+        flex-wrap: wrap;             /* que el grupo pueda bajar a otra línea */
+        gap: .5rem;
 
             &-icon{
-                font-family: $neue;
-                font-size: 0.7rem;
-                color: #567E28;
+                display: inline-flex;
+                align-items: center;
+                white-space: nowrap;         /* no partir en 2 líneas */
+                line-height: 1;              /* altura controlada */
+                flex: 0 0 auto;              /* que no se estiren */
+                font-size: .7rem;
+                color: $azul-ermo;
+                border: 1px solid $azul-ermo;
                 border-radius: 30px;
-                border: 1px solid #567E28;
-                padding: 6px 10px 5px 10px;
-                background-color: #B3F459;
+                padding: 6px 10px 5px;
+                background-color: $gris-claro-ermo;
                 text-transform: uppercase;
-        
+                font-family: $neue;
             }
     }
 

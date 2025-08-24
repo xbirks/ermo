@@ -116,7 +116,7 @@ export default function ProcesoSection() {
                 <Image src="/assets/pp4.png" alt="Cliente 4" width={24} height={24} />
               </span>
             </div>
-            <p>+82 clientes satisfechos con el sistema</p>
+            <p>+42 clientes satisfechos con el sistema</p>
           </div>
         </div>
       </div>

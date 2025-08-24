@@ -129,8 +129,8 @@ const [playIntro, setPlayIntro] = useState(false);
                 link="https://www.gartalia.com"
                 title="Ver web"
                 style=""
-                bg="white"
-                color="#3F52FF"
+                bg="#3F52FF"
+                color="white"
                 borderColor="transparent"
                 hoverBg="#0E1C9D"
                 hoverColor="white"
@@ -166,12 +166,12 @@ const [playIntro, setPlayIntro] = useState(false);
 
             <div className="exito__labels">
               <div className="exito__labels-icon">web</div>
-              <div className="exito__labels-icon">branding</div>
+              <div className="exito__labels-icon">branding y marca paraguas</div>
             </div>
             
             <div className="exito__footer">
               <img
-                src="/assets/AR_black.svg"
+                src="/assets/ar_logo.svg"
                 alt="Logo Gartalia"
                 className="exito__logo"
                 width="180"
@@ -181,8 +181,8 @@ const [playIntro, setPlayIntro] = useState(false);
                 link="https://www.ariannyrivasagency.com"
                 title="Ver web"
                 style=""
-                bg="white"
-                color="#3F52FF"
+                bg="#3F52FF"
+                color="white"
                 borderColor="transparent"
                 hoverBg="#3F52FF"
                 hoverColor="white"
@@ -196,6 +196,118 @@ const [playIntro, setPlayIntro] = useState(false);
           Arianny Rivas necesitaba un portfolio para sus modelos que se sintiera <strong>Premium</strong>, que fuera rápida y que mostrara las fotos y videos de sus modelos a la calidad más alta. Utilizamos <strong>animación entre páginas</strong> para que la usabilidad se sintiera como una APP.
         </p>
       </div>
+
+
+
+
+       {/* ITEM 3 SANOGUERA */}
+      <div className="exito__item">
+        <div className="exito">
+          <video
+            className="exito__bg"
+            src="/videos/landing_web/sanoguera_vid.mp4"
+            poster="/assets/test_vid_poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Sanoguera"
+          />
+          <div className="exito__info">
+
+            <div className="exito__labels">
+              <div className="exito__labels-icon">Web</div>
+              <div className="exito__labels-icon">Branding</div>
+              <div className="exito__labels-icon">Fotografía</div>
+              <div className="exito__labels-icon">Redacción artículos</div>
+            </div>
+            
+            <div className="exito__footer">
+              <img
+                src="/assets/sanoguera_logo.svg"
+                alt="Logo de Sanoguera"
+                className="exito__logo"
+                width="180"
+                height="90"
+              />
+              <StandardButton
+                link="https://sanoguera-asesores.com"
+                title="Ver web"
+                style=""
+                bg="#3F52FF"
+                color="white"
+                borderColor="transparent"
+                hoverBg="#3F52FF"
+                hoverColor="white"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Texto debajo de la tarjeta */}
+        <p className="exito__review">
+          Sanoguera quería dar un paso más: pasar de ser una simple asesoría a <strong>transformar su negocio en una consultoría especializada en el sector primario</strong>. Su localización era ideal: en MercaValencia. Solo les faltaba proyectar una imagen profesional y que correspondiera a su nuevo modelo de negocio.
+        </p>
+      </div>
+
+
+
+
+
+          {/* ITEM 4 SEGORBINA */}
+      <div className="exito__item">
+        <div className="exito">
+          <video
+            className="exito__bg"
+            src="/videos/landing_web/segorbina_vid.mp4"
+            poster="/assets/test_vid_poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Segorbina Bastones"
+          />
+          <div className="exito__info">
+
+            <div className="exito__labels">
+              <div className="exito__labels-icon">Web</div>
+              <div className="exito__labels-icon">Branding</div>
+              <div className="exito__labels-icon">Fotografía</div>
+              <div className="exito__labels-icon">Video</div>
+            </div>
+            
+            <div className="exito__footer">
+              <img
+                src="/assets/segorbina_logo.svg"
+                alt="Logo de Sanoguera"
+                className="exito__logo"
+                width="180"
+                height="90"
+              />
+              <StandardButton
+                link="https://sanoguera-asesores.com"
+                title="Ver web"
+                style=""
+                bg="#3F52FF"
+                color="white"
+                borderColor="transparent"
+                hoverBg="#3F52FF"
+                hoverColor="white"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Texto debajo de la tarjeta */}
+        <p className="exito__review">
+          Carlos necesitaba <strong>renovar la web de su empresa de bastones</strong> y convertirla en un catálogo para mostrar la variedad de bastones que dispone. Además, le renovamos el branding, las fotografías de los bastones y le hicimos un video corporativo.
+        </p>
+      </div>
+
+
+
 
       {/* CTA inferior (ocupa el ancho del grid) */}
       <div className="exito__cta">
@@ -360,7 +472,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
     </div>
 
     <div className="contacto__info-image">
-      <img src="/assets/escri.jpg" width="720" height="1280" alt="Andrés Ortega" className="contacto__info-img" loading="lazy" />
+      <img src="/assets/oficina_1.jpg" width="1774" height="1280" alt="Oficina y escritorio de Andrés Ortega Montoya" className="contacto__info-img" loading="lazy" />
     </div>
 
 
