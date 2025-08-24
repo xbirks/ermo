@@ -1,0 +1,40 @@
+@import '../variables.scss';
+
+.landing-calculadora{
+
+    .calculadora{
+        margin-top: 70px;
+    }
+
+    .landing-calculadora__explica{
+        margin-top: 20px;
+        max-width: 600px;
+    }
+
+    .factores{
+
+        .contacto__info{
+            margin-bottom: 90px;
+        }
+        .contacto__info-image{
+            aspect-ratio: inherit;
+        }
+
+        .exito__bg{
+            max-height: 300px;
+            object-position: top;
+            aspect-ratio: 1/1;
+        }
+
+        .grid{
+            grid-template-columns: repeat(2, 1fr);
+
+            h3{
+                color: $azul-ermo;
+            }
+        }
+    }
+
+}
+
+

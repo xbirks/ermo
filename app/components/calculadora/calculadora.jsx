@@ -489,7 +489,7 @@ const handleDownloadPDF = async () => {
           <div className="calc-block__grid">
             <div className="calc-block__text">
               <h3>TAMAÑO DEL SITIO</h3>
-              <p>Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada.</p>
+              <p>Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada. <br></br><br></br>/Pequeño: 1-5 pág. <br></br>/Mediano: 5-10 pág. <br></br>/Grande: +10 pág.</p>
             </div>
             <div className="calc-block__services">
               <div className="service">
