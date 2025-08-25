@@ -29,8 +29,68 @@
         .grid{
             grid-template-columns: repeat(2, 1fr);
 
+                    @include media800px {
+                        grid-template-columns: repeat(1, minmax(0, 1fr));
+                    }
+
             h3{
                 color: $azul-ermo;
+            }
+        }
+    }
+
+    .presupuesto{
+
+        .presupuesto__grid{
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            row-gap: 60px;
+
+                    @include media800px {
+                        grid-template-columns: repeat(1, minmax(0, 1fr));
+                    }
+        }
+
+        .presupuesto__element{
+
+            &-image{
+                object-fit: cover;
+                width: 100%;
+                height: auto;
+                border-radius: 20px;
+
+                img{
+                    object-fit: cover;
+                    aspect-ratio: 3/2;
+                    width: 100%;
+                    height: auto;
+                    object-position: top;
+                    border-radius: 20px;
+                }
+            }
+
+            h3{
+                color: $azul-ermo;
+            }
+
+            &-detalles{
+                font-size: 0.9rem;
+                line-height: 0.9rem;
+                color: $gris-ermo;
+                font-style: italic;
+            }
+
+            &-total{
+                font-weight: 500;
+                font-size: 1.3rem;
+            }
+
+            &-precio{
+                color: $azul-ermo;
+                font-size: 1.4rem;
+                font-weight: 700;
             }
         }
     }

@@ -8,6 +8,7 @@ import "../servicios/landing.scss";
 import StandardButton from "../buttons/standard-button";
 import CalculadoraWeb from "@/app/components/calculadora/calculadora";
 import ContactFormLanding from "@/app/components/formularios/ContactFormLanding";
+import CasosExito from "../components/casos-exito-web";
 
 
 
@@ -20,7 +21,7 @@ export default function WebPage({municipio = "Valencia"}) {
 
 
       <section className="intro-landing__master">
-        <h1><span className="landing__destacado">Calcula el precio de tu página web</span> sin dar tus datos</h1>
+        <h1><span className="landing__destacado">Calcula el precio de tu página web</span> gratis y sin dar tus datos</h1>
 
          <p className="landing-calculadora__explica">¿Necesitas saber cuánto cuesta una página web para tu negocio? <br></br>En ERMO te damos esta herramienta <strong>100% gratuita y transparente</strong>: sin correos, sin teléfonos, sin registros. Calcula, compara y, si encaja contigo, contáctanos por WhatsApp, correo o teléfono.</p>
 
@@ -39,6 +40,8 @@ export default function WebPage({municipio = "Valencia"}) {
 
 
 
+<CasosExito></CasosExito>
+
 
 
 
@@ -55,7 +58,7 @@ export default function WebPage({municipio = "Valencia"}) {
 
     <StandardButton
             link="https://wa.me/message/HJYSEK4RPLOSI1"
-            title="Ver ejemplos"
+            title="Ver presupuestos"
             style="mt-xs "
             bg="#3F52FF"
             color="white"
@@ -146,13 +149,60 @@ export default function WebPage({municipio = "Valencia"}) {
 </div>
 
 
+</section>
 
 
+
+
+
+
+
+
+
+
+
+<section className="grid__master presupuesto">
+
+  <h2 id="contacto">Presupuestos de ejemplo</h2>
+
+  <div className="presupuesto__grid">
+
+    
+        <div className="presupuesto__element">
+      <div className="presupuesto__element-image"><Image src="/assets/belles_pres.jpg" height="1000" width="1000" load="lazy"></Image></div>
+      <h3>Gimnasio Bellés (Segorbe y Alfara)</h3>
+      <p>Jesús tiene el mejor gimnasio de Segorbe, pero le faltaba mejorar su presencia digital. Le hicimos una web moderna, animada, rápida e intuitiva. Y también para el nuevo gimnasio que estaba montando al lado del CEU de Godella.
+      <br></br><br></br>
+      <span className="presupuesto__element-detalles">Tamaño del sitio pequeño, diseño básico, fotografía, iconografía, SEO básico y gestión de compra de hosting y dominio.</span>
+      <br></br><br></br>
+      <span className="presupuesto__element-total">TOTAL:</span> <span className="presupuesto__element-precio">710€</span></p>
+    </div>
+
+
+    <div className="presupuesto__element">
+      <div className="presupuesto__element-image"><Image src="/assets/ep_pres.jpg" height="1000" width="1000" load="lazy"></Image></div>
+      <h3>Entre Prendas</h3>
+      <p>Nora, modista y costurera, nos pidió una web para que la encontrarar en las primeras posiciones de Google. Y también que tuviera los precios reales de sus servicios para usarlo como gancho de venta.
+      <br></br><br></br>
+      <span className="presupuesto__element-detalles">Tamaño del sitio pequeño, diseño básico y redacción de textos, fotografía, SEO avanzado y mantenimiento anual.</span>
+      <br></br><br></br>
+      <span className="presupuesto__element-total">TOTAL:</span> <span className="presupuesto__element-precio">1785€</span></p>
+    </div>
+
+        <div className="presupuesto__element">
+      <div className="presupuesto__element-image"><Image src="/assets/place_pres.jpg" height="1000" width="1000" load="lazy"></Image></div>
+      <h3>The Place Valencia</h3>
+      <p>Esta gestora de inmuebles nos pidió una web sencilla (tipo landing page) para explicar a sus clientes su metodología de trabajo y para mostrar los inmuebles que tenían disponibles para alquiler.
+      <br></br><br></br>
+      <span className="presupuesto__element-detalles">Tamaño del sitio pequeño, diseño básico, SEO básico y redacción de textos e imagenes.</span>
+      <br></br><br></br>
+      <span className="presupuesto__element-total">TOTAL:</span> <span className="presupuesto__element-precio">950€</span></p>
+    </div>
+
+  </div>
 
  
-
-
-
+ 
 </section>
 
 

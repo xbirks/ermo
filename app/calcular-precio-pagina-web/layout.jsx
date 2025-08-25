@@ -5,7 +5,7 @@ export const metadata = {
   // BASE
   metadataBase: new URL("https://www.ermo.es"),
   // SEO
-  title: "Calcular precio página web – Presupuesto online inmediato",
+  title: "Calcular precio página web GRATIS – Presupuesto online inmediato",
   description:
     "Calcula online el precio de tu página web con una herramienta transparente: sin correo ni teléfono, resultado inmediato y desglose por partidas.",
   keywords: [
