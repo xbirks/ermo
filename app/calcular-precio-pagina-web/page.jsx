@@ -12,7 +12,61 @@ import CasosExito from "../components/casos-exito-web";
 
 
 
+
+
+
+const faqs = [
+  {
+    id: "faq1",
+    q: "¿Cuánto cuesta hacer una página web?",
+    a: "Los proyectos que vemos con más frecuencia se mueven entre 800 y 1.500 €. Depende del alcance: páginas, funcionalidades (blog, multiidioma, reservas…), nivel de diseño y si añadimos contenidos, fotos o SEO avanzado. En general: cuanto más azúcar, más dulce.",
+  },
+  {
+    id: "faq2",
+    q: "¿En qué tecnología desarrolláis las webs?",
+    a: "Las tiendas online las construimos en Shopify por su estabilidad, ecosistema de apps y checkout optimizado. El resto (corporativas, portfolios, landings) las desarrollamos con código: rendimiento alto, diseño a medida y cero dependencias de plantillas pesadas. Resultado: webs más rápidas y con mejor Core Web Vitals.",
+  },
+  {
+    id: "faq3",
+    q: "¿El precio incluye dominio y hosting?",
+    a: "Sí, si no los tienes los incluimos en el presupuesto y te asesoramos para elegir una opción rápida y segura. Preferimos proveedores con buen soporte y servidores en la UE para cumplir RGPD.",
+  },
+  {
+    id: "faq4",
+    q: "¿Necesito dejar datos para calcular el precio?",
+    a: "No. La calculadora es gratuita y sin registro: ni correo ni teléfono. Buscamos transparencia real: pruebas la herramienta, comparas y, si te encaja, nos contactas por WhatsApp, correo o llamada.",
+  },
+  {
+    id: "faq5",
+    q: "¿Qué plazos manejáis y cómo se trabaja?",
+    a: "Para una web corporativa sencilla, el rango típico es 2–4 semanas; proyectos con SEO avanzado, multiidioma o integraciones pueden ir a 4–8 semanas. Trabajamos por fases: definición del alcance, wireframe, diseño, contenidos, desarrollo, pruebas y publicación.",
+  },
+  {
+    id: "faq6",
+    q: "¿Ofrecéis mantenimiento y soporte?",
+    a: "Sí. Podemos cubrir actualizaciones, copias de seguridad, seguridad y pequeñas mejoras. Hay plan anual y bolsa de horas. La idea es que no tengas que preocuparte por el día a día técnico.",
+  },
+];
+
+
+
+
+
 export default function WebPage({municipio = "Valencia"}) {
+
+
+
+   const ld = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  };
+
+
 
 
     
@@ -57,7 +111,7 @@ export default function WebPage({municipio = "Valencia"}) {
 
 
     <StandardButton
-            link="https://wa.me/message/HJYSEK4RPLOSI1"
+            link="#presupuestos"
             title="Ver presupuestos"
             style="mt-xs "
             bg="#3F52FF"
@@ -163,15 +217,15 @@ export default function WebPage({municipio = "Valencia"}) {
 
 <section className="grid__master presupuesto">
 
-  <h2 id="contacto">Presupuestos de ejemplo</h2>
+  <h2 id="presupuestos">Presupuestos de ejemplo</h2>
 
   <div className="presupuesto__grid">
 
     
         <div className="presupuesto__element">
       <div className="presupuesto__element-image"><Image src="/assets/belles_pres.jpg" height="1000" width="1000" load="lazy"></Image></div>
-      <h3>Gimnasio Bellés (Segorbe y Alfara)</h3>
-      <p>Jesús tiene el mejor gimnasio de Segorbe, pero le faltaba mejorar su presencia digital. Le hicimos una web moderna, animada, rápida e intuitiva. Y también para el nuevo gimnasio que estaba montando al lado del CEU de Godella.
+      <h3>Gimnasio Bellés</h3>
+      <p>Jesús tiene el mejor gimnasio de Segorbe, pero le faltaba mejorar su presencia digital. Le hicimos una <strong>web moderna, animada, rápida e intuitiva.</strong> Y también para el nuevo gimnasio que estaba montando al lado del CEU de Godella.
       <br></br><br></br>
       <span className="presupuesto__element-detalles">Tamaño del sitio pequeño, diseño básico, fotografía, iconografía, SEO básico y gestión de compra de hosting y dominio.</span>
       <br></br><br></br>
@@ -182,7 +236,7 @@ export default function WebPage({municipio = "Valencia"}) {
     <div className="presupuesto__element">
       <div className="presupuesto__element-image"><Image src="/assets/ep_pres.jpg" height="1000" width="1000" load="lazy"></Image></div>
       <h3>Entre Prendas</h3>
-      <p>Nora, modista y costurera, nos pidió una web para que la encontrarar en las primeras posiciones de Google. Y también que tuviera los precios reales de sus servicios para usarlo como gancho de venta.
+      <p>Nora, modista y costurera, nos pidió <strong>una web para que la encontrarar en las primeras posiciones de Google</strong>. Y también que tuviera los precios reales de sus servicios para usarlo como gancho de venta.
       <br></br><br></br>
       <span className="presupuesto__element-detalles">Tamaño del sitio pequeño, diseño básico y redacción de textos, fotografía, SEO avanzado y mantenimiento anual.</span>
       <br></br><br></br>
@@ -192,7 +246,7 @@ export default function WebPage({municipio = "Valencia"}) {
         <div className="presupuesto__element">
       <div className="presupuesto__element-image"><Image src="/assets/place_pres.jpg" height="1000" width="1000" load="lazy"></Image></div>
       <h3>The Place Valencia</h3>
-      <p>Esta gestora de inmuebles nos pidió una web sencilla (tipo landing page) para explicar a sus clientes su metodología de trabajo y para mostrar los inmuebles que tenían disponibles para alquiler.
+      <p>Esta gestora de inmuebles nos pidió una web sencilla (tipo landing page) para explicar a sus clientes su metodología de trabajo y <strong>para mostrar los inmuebles que tenían disponibles para alquiler.</strong>
       <br></br><br></br>
       <span className="presupuesto__element-detalles">Tamaño del sitio pequeño, diseño básico, SEO básico y redacción de textos e imagenes.</span>
       <br></br><br></br>
@@ -272,6 +326,46 @@ export default function WebPage({municipio = "Valencia"}) {
 
 
 
+
+
+
+<section className="grid__master faq">
+      <h2 className="faq__title">Preguntas frecuentes</h2>
+
+      {/* Acordeón sin JS: inputs tipo radio con mismo name */}
+      <div className="faq__list">
+        {faqs.map((item, idx) => (
+          <div className="faq__item" key={item.id}>
+            <input
+              type="radio"
+              name="faq"
+              id={item.id}
+              className="faq__toggle"
+              // Ninguno marcado por defecto → todos cerrados al cargar
+            />
+            <label className="faq__question" htmlFor={item.id}>
+              {item.q}
+              <span className="faq__icon" aria-hidden="true" />
+            </label>
+            <div className="faq__answer">
+              <p>{item.a}</p>
+            </div>
+          </div>
+        ))}
+
+        {/* Opción “cerrar todos” accesible: un radio oculto que desmarca los demás */}
+        <div className="faq__item faq__item--reset">
+          <input type="radio" name="faq" id="faq-reset" className="faq__toggle" />
+          <label htmlFor="faq-reset" className="faq__reset">Cerrar todas</label>
+        </div>
+      </div>
+
+      <script
+        type="application/ld+json"
+        // JSON minificado para rendimiento
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      />
+    </section>
 
 
 
