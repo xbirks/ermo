@@ -1,0 +1,239 @@
+@import '../../../variables.scss';
+
+
+
+.grid__couple{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.125rem;
+        margin-top: 60px;
+
+           @include media1000px {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.6rem;
+            }
+
+            @include media800px {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+                gap: 0.6rem;
+            }
+
+        .grid__element{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: auto;
+            min-height: 150px;
+            background-color: $nardo;
+            border-radius: 15px;
+            padding: 2rem;
+                    @include media600px {
+                        padding: 1.3rem;
+                        height: auto;
+                    }
+
+            h4{
+                font-size: 1.4rem;
+                line-height: 1.6rem;
+                max-width: 50vw;
+                        @include media1000px {
+                        // font-size: 1.3rem;
+                        // line-height: 1.3rem;
+                        }
+
+            }
+
+            p{
+                line-height: 1.4rem;
+                margin-top: 20px;
+                        @include media600px {
+                                margin-top: 20px;
+                            }
+            }
+
+           li{
+            font-family: $neue;
+            font-size: 1.125rem;
+            color: $gris-oscuro;
+            margin-top: 15px;
+            font-weight: 400;
+            line-height: 1.6rem;
+            letter-spacing: -0.5px;
+            text-align: left;
+           }
+            .grid__element-img{
+                margin-bottom: 20px;
+            }
+
+    
+        }
+
+        .grid__element-delete{
+                        @include media800px {
+                    display: none;
+                }
+            }
+       
+
+        .grid__element-grey{
+            background-color: #393939;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 150px;
+            height: auto;
+            border-radius: 15px;
+            padding: 2rem;
+                    @include media600px {
+                        padding: 1.3rem;
+                        height: auto;
+                        min-height: 200px;
+                    }
+
+            p{
+                color: $blanco-ermo;
+                text-transform: uppercase;
+                font-size: 2.5rem;
+                font-weight: 200;
+                line-height: 2.3rem;
+                        @include media600px {
+                        font-size: 1.8rem;
+                        line-height: 1.8rem;
+                        }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    //FREQUENT ANSWERED QUESTIONS
+
+        .faq {
+  --c-border: #e6e8ef;
+  --c-bg: #f8f9fc;
+  --c-text: #1f2430;
+  --radius: 14px;
+
+
+
+  &__list {
+    display: grid;
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  &__item {
+    background: white;
+    border: 1px solid $nardo;
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color .2s ease;
+
+    &:has(.faq__toggle:checked) {
+      border-color: $azul-ermo;
+      box-shadow: 0 6px 22px rgba(63,82,255,.08);
+    }
+
+
+  }
+
+
+  &__question {
+    font-family: $neue;
+    text-transform: uppercase;
+    color: $gris-oscuro;
+    font-size: 1.125rem;
+    line-height: 1.6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: .75rem;
+    padding: 16px 18px;
+    cursor: pointer;
+
+    &:hover { background: var(--c-bg); }
+
+    .faq__icon {
+      inline-size: 18px;
+      block-size: 18px;
+      border-radius: 50%;
+      border: 2px solid $azul-ermo;
+      position: relative;
+    }
+  }
+
+  // “+” / “–” animado con pseudo-elementos
+  &__question .faq__icon::before,
+  &__question .faq__icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    block-size: 2px;
+    inline-size: 10px;
+    background: $azul-ermo;
+    transition: transform .2s ease;
+  }
+  &__question .faq__icon::after { transform: rotate(90deg); }
+
+  // cuerpo
+  &__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .25s ease;
+    padding-inline: 18px;
+    > * { overflow: hidden; }
+    p { padding-block: 0; margin: 0; color: $gris-ermo; line-height: 1.6rem;}
+  }
+
+  // toggle (oculto)
+  &__toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  // Estado: abierto
+  &__toggle:checked ~ .faq__answer {
+    grid-template-rows: 1fr;
+    padding-block: 0 14px;
+  }
+  &__toggle:checked + .faq__question .faq__icon::after { transform: rotate(0deg); }
+
+  // Reset (cerrar todos)
+  &__item--reset {
+    border: 0;
+    background: transparent;
+
+    .faq__reset {
+        font-family: $neue;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-top: .5rem;
+      color: $blanco-ermo;
+      background-color: $azul-ermo;
+      cursor: pointer;
+      font-size: .9rem;
+      padding: .45rem .45rem;
+      border-radius: 8px;
+
+      &:hover { background: rgba(63,82,255,.08); }
+    }
+  }
+}
+
+/* Soporte: si el navegador no entiende :has(), degradado suave */
+@supports not (selector(:has(*))) {
+  .faq__item { box-shadow: none; border-color: $nardo; }
+}
+
+
+
+
+
