@@ -7,7 +7,7 @@ const ogImage = "https://www.ermo.es/seo/web-1200x630.jpg";
 export const metadata = {
 
   //GENERIC
-  title: `Hacer web en ${municipio} | Diseño y programación a medida`,
+  title: `diseñador web ${municipio} | Diseño y programación a medida sin Wordpress`,
   description: `Webs rápidas, optimizadas para SEO y con diseño a medida en ${municipio}. Sin plantillas pesadas. Casos reales y resultados medibles.`,
   keywords: [
   `hacer web ${municipio}`,
