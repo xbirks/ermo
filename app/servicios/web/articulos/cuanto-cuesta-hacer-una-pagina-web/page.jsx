@@ -163,42 +163,47 @@ const faqs = [
 
         <div className="grid">
           <div className="grid__element" id="servicio">
-            <Image src="/assets/gl01.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gla.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Web corporativa</h4>
             <p>desde 500 €</p>
           </div>
           <div className="grid__element">
-            <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/glb.png" width={70} height={47} className="grid__element-img"></Image>
+            <h4>Carta online para restaurante o bar + QR</h4>
+            <p>desde 400 €</p>
+          </div>
+            <div className="grid__element grid__element-delete">
+            <Image src="/assets/glc.png" width={70} height={47} className="grid__element-img"></Image>
+            <h4>E-commerce o tienda online</h4>
+            <p>desde 800 €</p>
+          </div>
+          <div className="grid__element">
+            <Image src="/assets/gld.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Portfolio personal/profesional</h4>
             <p>desde 450 €</p>
           </div>
           <div className="grid__element">
-            <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gle.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Carta online para restaurante o bar + QR</h4>
             <p>desde 400 €</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl04.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/glf.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Agencia o estudio creativo</h4>
             <p>desde 600 €</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img"></Image>
-            <h4>E-commerce o tienda online</h4>
-            <p>desde 800 €</p>
-          </div>
-          <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/glf.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Web con reservas (hotel, estudio de fotografía…)</h4>
             <p>desde 950 €</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/glg.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Landing page</h4>
             <p>desde 450 €</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/glh.png" width={70} height={47} className="grid__element-img"></Image>
             <h4>Otros tipos de webs</h4>
             <p>desde 700 € (según necesidades específicas)</p>
           </div>
@@ -231,7 +236,7 @@ const faqs = [
 
 <section className="grid__master factores">
 
-  <h2 id="contacto">¿Qué hace que una web cueste más o menos?</h2>
+  <h2>¿Qué hace que una web cueste más o menos?</h2>
 
   <div className="contacto__info">
     <div className="contacto__info-text">
@@ -277,7 +282,7 @@ const faqs = [
   
 
   <div className="grid__element">
-    <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl15.png" width={70} height={47} className="grid__element-img" />
     <h3>El tipo de contenido</h3>
     <ul>
       <li><strong>Solo texto →</strong> más económico, aunque necesitas un buen redactor SEO.</li>
@@ -290,7 +295,7 @@ const faqs = [
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl13.png" width={70} height={47} className="grid__element-img" />
     <h3>Traducciones y versiones multilingües</h3>
     <p>
       Si quieres la web en catalán, valenciano, gallego, euskera o inglés, ten en cuenta que no basta con traducir los textos: hay que duplicar menús, páginas, descripciones de fotos, SEO, etc. Puedes tirar de traductor automático, pero lo profesional es hacerlo con un traductor humano.
@@ -298,7 +303,7 @@ const faqs = [
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl04.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl14.png" width={70} height={47} className="grid__element-img" />
     <h3>Diseño a medida vs. plantilla</h3>
     <p>
       Aquí no me corto: el diseño es lo más importante. Es como cómo te vistes: habla de quién eres, de tu personalidad, de tu negocio. Una web con un diseño cutre transmite desconfianza. Una web con un diseño pensado para ti transmite profesionalidad, orden, confianza. Eso es lo que yo hago.
@@ -306,14 +311,14 @@ const faqs = [
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl11.png" width={70} height={47} className="grid__element-img" />
     <h3>Mantenimiento y evolución de la web</h3>
     <p>
       Mucha gente piensa: “Pago una vez y ya está.” Error. Una web es como un coche: necesita revisiones, gasolina y actualizaciones. Lo caro no es solo hacer la web, lo caro es no mantenerla y que al año esté rota, lenta o hackeada.
     </p>
   </div>
   <div className="grid__element">
-    <Image src="/assets/gl01.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl10.png" width={70} height={47} className="grid__element-img" />
     <h3>El número de páginas</h3>
     <p>
       No es lo mismo una web pequeña (1–5 páginas) que una mediana (5–10) o una grande (+10). Más páginas = más contenido, más diseño, más desarrollo.
@@ -336,7 +341,7 @@ const faqs = [
 
 <section className="grid__master factores">
 
-  <h2 id="contacto">¿Por qué el diseño no es un extra sino lo más importante?</h2>
+  <h2>¿Por qué el diseño no es un extra sino lo más importante?</h2>
 
   <div className="contacto__info">
     <div className="contacto__info-text">
@@ -385,7 +390,7 @@ Y no, no es lo mismo descargarte una plantilla de WordPress que tener un diseño
 
 <section className="grid__master factores">
 
-  <h2 id="contacto">WordPress vs Web hecha a medida: lo que no te cuentan</h2>
+  <h2>WordPress vs Web hecha a medida: lo que no te cuentan</h2>
 
   <div className="contacto__info">
     <div className="contacto__info-text">
@@ -440,7 +445,7 @@ Yo trabajo con React y Next.js, tecnologías modernas que hacen que tu web sea r
 
 <section className="grid__master factores">
 
-  <h2 id="contacto">Calculadora de precios online</h2>
+  <h2>Calculadora de precios online</h2>
 
   <div className="contacto__info">
 

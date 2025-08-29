@@ -146,7 +146,7 @@ export default function WebPage({municipio = "Valencia"}) {
 
   <div className="grid">
   <div className="grid__element">
-    <Image src="/assets/gl01.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl15.png" width={70} height={47} className="grid__element-img" />
     <h3>Tipo de web</h3>
     <p>
       <strong>El tipo de proyecto es la base del presupuesto</strong>. No es lo mismo una página corporativa sencilla para presentar servicios que un ecommerce (tipo Shopify) con cientos de productos o un sistema de reservas. <strong>Aquí defines el punto de partida</strong>: una web para mostrar tu negocio, un portfolio personal, un restaurante que necesita carta online, una agencia con varias secciones o un proyecto a medida. Cada elección marca la complejidad técnica y el tiempo de desarrollo.
@@ -154,7 +154,7 @@ export default function WebPage({municipio = "Valencia"}) {
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl10.png" width={70} height={47} className="grid__element-img" />
     <h3>Tamaño del sitio</h3>
     <p>
       El tamaño hace referencia al número aproximado de páginas internas. Una web pequeña puede resolverse con una home y 2–3 apartados, mientras que un sitio mediano ya incluye secciones como servicios, blog, contacto, etc. Un proyecto grande puede superar las diez páginas e incorporar catálogos, listados o secciones avanzadas. <strong>Cuantas más páginas, más diseño, más contenido que preparar y más programación</strong>, por lo que el coste aumenta de forma proporcional.
@@ -162,7 +162,7 @@ export default function WebPage({municipio = "Valencia"}) {
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl12.png" width={70} height={47} className="grid__element-img" />
     <h3>Complejidad del diseño</h3>
     <p>
       La complejidad define hasta dónde quieres llevar la personalización. <strong>Un diseño básico prioriza lo funcional</strong>: limpio, directo y efectivo. <strong>Un nivel intermedio incluye más cuidado estético</strong>, adaptaciones visuales y algunos efectos interactivos. <strong>Y en un nivel avanzado</strong> entran en juego animaciones, microinteracciones, transiciones fluidas y <strong>un acabado más exclusivo</strong>. No es solo cuestión de estética: un diseño más complejo exige más horas de desarrollo y pruebas.
@@ -170,7 +170,7 @@ export default function WebPage({municipio = "Valencia"}) {
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl04.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl13.png" width={70} height={47} className="grid__element-img" />
     <h3>Contenidos y recursos</h3>
     <p>
       <strong>El contenido es lo que da vida a la web</strong>. Puedes aportar tus textos e imágenes o delegar en nosotros parte del trabajo. La redacción profesional transmite mejor tu mensaje y conecta con el cliente. Las traducciones abren la puerta a mercados internacionales o de diversidad lingüística de un territorio. Un banco de imágenes o ilustraciones aporta frescura, y la fotografía propia eleva la confianza mostrando tu negocio real. <strong>Cada recurso extra implica inversión, pero también aumenta el impacto de tu página.</strong>
@@ -178,7 +178,7 @@ export default function WebPage({municipio = "Valencia"}) {
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl08.png" width={70} height={47} className="grid__element-img" />
     <h3>Accesibilidad y calidad</h3>
     <p>
       Una web accesible no solo cumple la normativa, también <strong>asegura que cualquier persona pueda usarla sin barreras</strong>: navegación con teclado, contraste de colores correcto, textos alternativos en imágenes, compatibilidad con lectores de pantalla. La opción básica ya incluye buenas prácticas, pero <strong>si seleccionas el objetivo AA garantizas un nivel más alto de calidad</strong>, especialmente importante en proyectos públicos o con vocación de llegar a un público amplio y diverso.
@@ -186,7 +186,7 @@ export default function WebPage({municipio = "Valencia"}) {
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl06.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl09.png" width={70} height={47} className="grid__element-img" />
     <h3>SEO y visibilidad</h3>
     <p>
       <strong>El SEO es clave para que tu web no se quede invisible</strong>. De base se incluyen buenas prácticas: estructura limpia, títulos optimizados y carga rápida. Con la opción de SEO técnico avanzado se optimizan aspectos más profundos como metaetiquetas, tiempos de respuesta o indexación. Y con la optimización de contenidos se trabajan los textos para que respondan a búsquedas reales de tus clientes. Cada nivel refuerza tu visibilidad y multiplica la probabilidad de recibir visitas de calidad.
@@ -194,7 +194,7 @@ export default function WebPage({municipio = "Valencia"}) {
   </div>
 
   <div className="grid__element">
-    <Image src="/assets/gl07.png" width={70} height={47} className="grid__element-img" />
+    <Image src="/assets/gl11.png" width={70} height={47} className="grid__element-img" />
     <h3>Mantenimiento y operativa</h3>
     <p>
       Un proyecto web no termina cuando se publica. Requiere actualizaciones de seguridad, corrección de posibles errores y <strong>soporte ante imprevistos</strong>. El mantenimiento anual garantiza que todo siga funcionando sin sobresaltos. La bolsa de horas (10h) es útil si prefieres ajustes puntuales. Los servicios externos cubren integraciones o tareas que puedan surgir fuera del alcance inicial. <strong>También puedes marcar la opción de entrega urgente si necesitas la web lista en un plazo mucho más corto.</strong>

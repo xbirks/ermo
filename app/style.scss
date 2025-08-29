@@ -1429,7 +1429,7 @@ a:hover .curzr-big-circle {
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 400;
-                    line-height: 16px;
+                    line-height: $line-height;
                     letter-spacing: -0.28px;
                 }
             }
@@ -1482,7 +1482,7 @@ a:hover .curzr-big-circle {
                     }
 
                 p{
-                    font-size: 14px;
+                    font-size: $fuente-p;
                     color: $blanco-ermo;
                 }
 
