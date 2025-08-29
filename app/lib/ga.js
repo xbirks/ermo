@@ -27,3 +27,25 @@ export function trackFirstCalcInteraction(action, detail, value) {
   } catch {}
   trackCalcInteraction(action, detail, value);
 }
+
+/* ---------------- NUEVOS EVENTOS PRINCIPALES ---------------- */
+
+/** Envío de formulario de contacto */
+export function trackFormSubmit(form_name = "contacto_landing_web") {
+  sendGA("form_submit", { form_name });
+}
+
+/** Clic en botón de WhatsApp */
+export function trackClickWhatsapp(section = "contacto") {
+  sendGA("click_whatsapp", { section });
+}
+
+/** Clic en botón de Llamada */
+export function trackClickCall(section = "contacto") {
+  sendGA("click_call", { section });
+}
+
+/** Descarga de PDF desde la calculadora */
+export function trackCalcPDF(value = 0) {
+  sendGA("calc_pdf", { value, currency: "EUR" });
+}

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
 import StandardSubmit from '@/app/buttons/standard-submit';
+import { trackFormSubmit } from '@/app/lib/ga';  
 
 export default function ContactFormLanding() {
   const [name, setName] = useState('');
@@ -13,32 +14,35 @@ export default function ContactFormLanding() {
   const isValidEmail = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), [email]);
   const canSubmit    = isValidName && isValidEmail && !sending;
 
-async function handleSubmit(e) {
-  e.preventDefault();
-  if (!canSubmit) return;
-  setSending(true); setOkMsg(''); setErrMsg('');
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name.trim(), email: email.trim() })
-    });
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!canSubmit) return;
+    setSending(true); setOkMsg(''); setErrMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email: email.trim() })
+      });
 
-    const data = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({}));
 
-    if (!res.ok || data?.ok === false) {
-      throw new Error(data?.error || 'Error al enviar');
+      if (!res.ok || data?.ok === false) {
+        throw new Error(data?.error || 'Error al enviar');
+      }
+
+      setOkMsg('Enviado correctamente. Te contactaré en breve.');
+      setName(''); setEmail('');
+
+      // 👇 evento GA4 solo si fue correcto
+      trackFormSubmit("contacto_landing_web");
+
+    } catch (err) {
+      setErrMsg(err.message || 'No se ha podido enviar. Inténtalo de nuevo.');
+    } finally {
+      setSending(false);
     }
-
-    setOkMsg('Enviado correctamente. Te contactaré en breve.');
-    setName(''); setEmail('');
-  } catch (err) {
-    setErrMsg(err.message || 'No se ha podido enviar. Inténtalo de nuevo.');
-  } finally {
-    setSending(false);
   }
-}
-
 
   return (
     <form className="cf" onSubmit={handleSubmit} noValidate aria-busy={sending}>

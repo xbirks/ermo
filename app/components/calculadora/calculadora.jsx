@@ -105,7 +105,11 @@ function SummaryBox({ total, onDownloadPDF }) {
           hoverBg="#3F52FF"
           hoverColor="white"
           hoverBorderColor=""
-          onClick={(e) => { e.preventDefault(); onDownloadPDF(); }}
+              onClick={(e) => {
+                e.preventDefault();
+                trackCalcPDF(total);   // 👈 envía evento GA4
+                onDownloadPDF();       // sigue generando el PDF
+              }}
         />
 
         <span id="contacto_calc">
@@ -119,6 +123,7 @@ function SummaryBox({ total, onDownloadPDF }) {
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
+            onClick={() => trackClickCall("contacto")}
           />
         </span>
 

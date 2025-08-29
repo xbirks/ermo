@@ -41,7 +41,7 @@ const [playIntro, setPlayIntro] = useState(false);
              
 
             <StandardButton
-            link="#calculadora"
+            link="https://www.ermo.es/calcular-precio-pagina-web"
             title="Calculadora precios"
             style="mt-m margin-auto"
             bg="#3F52FF"
@@ -214,6 +214,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="transparent"
+            onClick={() => trackClickWhatsapp("contacto")}
            />
 
            <StandardButton
@@ -226,6 +227,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#3F52FF"
+            onClick={() => trackClickCall("contacto")}
            />
 
 
