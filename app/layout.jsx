@@ -159,6 +159,8 @@ export default function RootLayout({ children }) {
             ])
           }}
         />
+
+        
       </head>
 
       <body>
@@ -182,6 +184,16 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+        <Script
+          id="ads-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              gtag('config', 'AW-11336883443');
+            `,
+          }}
+        />
+
 
         
     
