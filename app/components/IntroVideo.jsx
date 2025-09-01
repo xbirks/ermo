@@ -15,7 +15,7 @@ export default function IntroVideo() {
           aria-label="Reproducir vídeo"
         >
           <Image
-            src="/assets/miniweb.jpg"
+            src="/assets/miniwebdark.jpg"
             width={1280}
             height={720}
             alt="Portada del vídeo introductorio de la sección hacer web de ERMO Estudio"
@@ -37,7 +37,7 @@ export default function IntroVideo() {
       ) : (
         <div className="yt-embed">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/txxewSJ-RcM?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1"
+            src="https://www.youtube-nocookie.com/embed/X3PaBPro7EA?autoplay=1&mute=0&playsinline=1&rel=0&modestbranding=1"
             title="Presentación ERMO"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen

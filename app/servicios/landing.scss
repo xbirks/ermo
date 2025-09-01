@@ -1093,13 +1093,14 @@ p{
   &__logo { 
     max-width: auto;
     height: 70px;
+    display: none;
     
                      @include media900px {
                             display: none;
                         }
 
                      @include media700px {
-                            display: block;
+                            display: none;
                             width: 140px;
                         }
     }
