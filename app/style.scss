@@ -390,14 +390,38 @@ a:hover .curzr-big-circle {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 99%;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 12px 20px 8px 20px;
+    margin: 10px 15px 5px 15px;
+    border-radius: 40px;
     z-index: 100;
+    transition: top 1s ease, background-color 0.3s ease;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+ 
 
     @include media500px {
         padding: 10px 20px 5px 0px;
     }
+ 
+    &.hide {
+        top: -100px; 
+    }
+    
+    &.show {
+        top: 0;
+    }
+    
+    &.no-bg {
+        background-color: $nardo;
+    }
+    
+    &.with-bg {
+        background-color: $nardo;
+    }
+
     
 }
 
@@ -525,29 +549,6 @@ a:hover .curzr-big-circle {
 
 
 
-  .header__master {
-    transition: top 1s ease, background-color 0.3s ease;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .header__master.hide {
-    top: -100px; 
-  }
-  
-  .header__master.show {
-    top: 0;
-  }
-  
-  .header__master.no-bg {
-    background-color: transparent;
-  }
-  
-  .header__master.with-bg {
-    background-color: $blanco-ermo;
-  }
 
 
 
