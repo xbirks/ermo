@@ -102,7 +102,7 @@ export default function WebPage({municipio = "Valencia"}) {
 
 <section className="grid__master factores">
 
-  <h2 id="contacto">Factores que influyen en el precio de una página web</h2>
+  <h2 id="factores">Factores que influyen en el precio de una página web</h2>
 
   <div className="contacto__info">
     <div className="contacto__info-text">

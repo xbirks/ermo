@@ -204,32 +204,121 @@ strong{
     }
 }
 
+// .button {
+//   --btn-bg: transparent;
+//   --btn-color: $azul-ermo;
+//   --btn-border: $azul-ermo;
+//   --btn-bg-hover: $azul-ermo;
+//   --btn-color-hover: $blanco-ermo;
+//   --btn-border-hover: $azul-ermo;
+
+//   display: inline-flex;
+//   align-items: center;
+//   gap: 8px;
+//   padding: 12px 16px;
+//   border: 1.5px solid var(--btn-border);
+//   border-radius: 32px;
+//   width: fit-content;
+//   max-width: none;
+//   min-width: 0;
+//   white-space: nowrap;
+//   background: var(--btn-bg);
+//   color: var(--btn-color);
+//   transition:  $transition-short, color $transition-short, border-color $transition-short, transform $transition-short;
+
+//   @include media800px {
+//     padding: 10px 16px;
+//   }
+
+//   p {
+//     font-size: 18px;
+//     font-weight: 400;
+//     font-family: $owners;
+//     text-transform: uppercase;
+//     letter-spacing: 0.5px;
+//     margin-top: 3px;
+//     margin-right: 5px;
+//     color: currentColor;
+
+//     @include media800px {
+//       font-size: 16px;
+//     }
+//   }
+
+//   .arrow__svg {
+//     fill: currentColor;
+//     transition: transform $transition-short;
+//   }
+
+//   &:hover {
+//     background: var(--btn-bg-hover);
+//     color: var(--btn-color-hover);
+//     /* descomenta si quieres cambiar también el borde en hover */
+//     /* border-color: var(--btn-border-hover, var(--btn-border)); */
+
+//     .arrow__svg {
+//       transform: rotateZ(-45deg);
+//     }
+//   }
+
+//   &.button-large {
+//     width: 20vw;
+
+//     @include media1200px {
+//       width: 50vw;
+//     }
+//   }
+
+//   &.button-white {
+//     --btn-border: $blanco-ermo;
+//     --btn-color: $blanco-ermo;
+//     --btn-bg: transparent;
+//     --btn-bg-hover: $blanco-ermo;
+//     --btn-color-hover: $azul-ermo;
+//   }
+// }
+
+
 .button {
-  --btn-bg: transparent;
-  --btn-color: $azul-ermo;
-  --btn-border: $azul-ermo;
-  --btn-bg-hover: $azul-ermo;
-  --btn-color-hover: $blanco-ermo;
-  --btn-border-hover: $azul-ermo;
+  /* Tokens opcionales (se pueden inyectar desde JSX vía style) */
+  /* --btn-bg, --btn-color, --btn-border, --btn-bg-hover, --btn-color-hover, --btn-border-hover */
 
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
-  border: 1.5px solid var(--btn-border);
-  border-radius: 32px;
+  padding: 14px 24px;
+  border-radius: 50px;
   width: fit-content;
   max-width: none;
   min-width: 0;
   white-space: nowrap;
-  background: var(--btn-bg);
-  color: var(--btn-color);
-  transition:  $transition-short, color $transition-short, border-color $transition-short, transform $transition-short;
+  font-weight: 600;
+  position: relative;
 
-  @include media800px {
-    padding: 10px 16px;
-  }
+  /* Color y borde con fallback a tu sistema */
+  color: var(--btn-color, $azul-ermo);
+  border: 1px solid var(--btn-border, transparent);
 
+  /* Fondo:
+     - Si existe --btn-bg → lo usa (sólido, gradiente, lo que sea).
+     - Si no existe → gradiente iOS por defecto (con borde degradado). */
+  background: var(
+    --btn-bg,
+    linear-gradient(180deg, #ffffff, #e2e3e4) padding-box,
+    linear-gradient(180deg, #c5dbf0, #9ea3a8) border-box
+  );
+
+  /* Sombra iOS */
+  box-shadow:
+    0 3px 20px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -12px 20px rgba(0,0,0,.07),
+    inset 12px 12px 22px rgba(0,0,0,.04),
+    inset 0 0 0 999px rgba(120,180,255,.08);
+
+  transition: $transition-short, transform $transition-short, color $transition-short, border-color $transition-short, background $transition-short;
+
+  /* Texto interno */
   p {
     font-size: 18px;
     font-weight: 400;
@@ -239,10 +328,6 @@ strong{
     margin-top: 3px;
     margin-right: 5px;
     color: currentColor;
-
-    @include media800px {
-      font-size: 16px;
-    }
   }
 
   .arrow__svg {
@@ -250,32 +335,105 @@ strong{
     transition: transform $transition-short;
   }
 
+  /* Halo opcional */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.7) inset,
+      0 6px 14px rgba(120,180,255,.18);
+  }
+
+  /* Hover:
+     - Si existen vars hover → las usa.
+     - Si no → mantiene fondo y solo anima transform/icono. */
   &:hover {
-    background: var(--btn-bg-hover);
-    color: var(--btn-color-hover);
-    /* descomenta si quieres cambiar también el borde en hover */
-    /* border-color: var(--btn-border-hover, var(--btn-border)); */
+    background: var(
+      --btn-bg-hover,
+      var(
+        --btn-bg,
+        linear-gradient(180deg, #ffffff, #e2e3e4) padding-box,
+        linear-gradient(180deg, #c5dbf0, #9ea3a8) border-box
+      )
+    );
+    color: var(--btn-color-hover, var(--btn-color, $azul-ermo));
+    border-color: var(--btn-border-hover, var(--btn-border, transparent));
+    transform: translateY(-1px);
 
-    .arrow__svg {
-      transform: rotateZ(-45deg);
+    .arrow__svg { transform: rotateZ(-45deg); }
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow:
+      0 6px 14px rgba(0,0,0,.08),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      inset 0 -10px 18px rgba(0,0,0,.09),
+      inset 12px 12px 20px rgba(0,0,0,.05),
+      inset 0 0 0 999px rgba(120,180,255,.12);
+  }
+
+  /* Responsivo */
+  @include media800px {
+    padding: 10px 16px;
+    p { font-size: 16px; }
+  }
+
+  /* ================== Modificadores ================== */
+
+  /* Equivalente a combo__standard (ancho responsivo y margen inferior en móviles) */
+  &--standard {
+    @include media500px {
+      width: 100%;
+      max-width: 200px;
+      margin-bottom: 6px;
     }
   }
 
-  &.button-large {
+  /* Espaciado lateral (equivale al margin-right de combo__standard) */
+  &--spaced {
+    margin-right: 10px;
+  }
+
+  /* Equivalente a combo__blue:
+     Define un set por defecto de vars para botón sólido azul,
+     pero si desde JSX pasas --btn-* se respetarán. */
+  &--blue {
+    --btn-color: $blanco-ermo;
+    --btn-bg: #0E1C9D;              /* Azul base si no llega var */
+    --btn-border: #0E1C9D;
+    --btn-bg-hover: #0B167D;        /* Azul más oscuro al hover */
+    --btn-color-hover: $blanco-ermo;
+    --btn-border-hover: #0B167D;
+  }
+
+  /* Tamaño ancho (igual a tu .button-large) */
+  &.button-large,
+  &--large {
     width: 20vw;
-
-    @include media1200px {
-      width: 50vw;
-    }
+    @include media1200px { width: 50vw; }
   }
 
-  &.button-white {
+  /* Variante blanca (mapea a tokens, sin tocar JSX) */
+  &.button-white,
+  &--white {
     --btn-border: $blanco-ermo;
     --btn-color: $blanco-ermo;
     --btn-bg: transparent;
     --btn-bg-hover: $blanco-ermo;
     --btn-color-hover: $azul-ermo;
   }
+}
+
+/* Cursor grande sobre .button (soporta <a class="button">) */
+.button:hover .curzr-big-circle,
+a.button:hover .curzr-big-circle {
+  width: 90px;
+  height: 90px;
+  transition: width, height 0.3s ease;
 }
 
 

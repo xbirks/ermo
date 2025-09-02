@@ -5,6 +5,22 @@ import "./calculadora.scss";
 import { trackCalcInteraction, trackFirstCalcInteraction } from '@/app/lib/ga';
 
 
+// --- fallback mínimos para evitar ReferenceError ---
+const trackClickCall = (destino) => {
+  try {
+    // Si tienes GA4 cargado, registra el evento; si no, no pasa nada.
+    window.gtag?.('event', 'contact_click', { destino });
+  } catch {}
+};
+
+const trackCalcPDF = (total) => {
+  try {
+    window.gtag?.('event', 'calc_pdf_download', { value: total, currency: 'EUR' });
+  } catch {}
+};
+
+
+
 /* ---------- Config ---------- */
 const LS_KEY = 'calc-web-v1';
 
@@ -114,7 +130,7 @@ function SummaryBox({ total, onDownloadPDF }) {
 
         <span id="contacto_calc">
           <StandardButton
-            link="tel:675392216"
+            link="#contacto"
             title="Contactar"
             style=""
             bg="#B3B3B3"

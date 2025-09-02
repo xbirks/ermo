@@ -1043,26 +1043,26 @@ p{
     object-fit: cover;
   }
 
-   &::after {
-    content: '';
-    position: absolute;
-    inset: 0;                       
-    backdrop-filter: blur(14px);        
-    -webkit-backdrop-filter: blur(34px);
+//    &::after {
+//     content: '';
+//     position: absolute;
+//     inset: 0;                       
+//     backdrop-filter: blur(14px);        
+//     -webkit-backdrop-filter: blur(34px);
 
-    /* La máscara hace que el efecto solo se note
-       del 100 % (abajo) al 50 % (mitad) y
-       se desvanezca progresivamente hacia arriba   */
-    mask-image: linear-gradient(to top,
-                 #000 20%,               
-                 #000 20%,
-                 #0000 40%,            
-                 #0000 50%);       
-    -webkit-mask-image: linear-gradient(to top,
-                 #000 20%, #000 20%, #0000 40%, #0000 50%);
+//     /* La máscara hace que el efecto solo se note
+//        del 100 % (abajo) al 50 % (mitad) y
+//        se desvanezca progresivamente hacia arriba   */
+//     mask-image: linear-gradient(to top,
+//                  #000 20%,               
+//                  #000 20%,
+//                  #0000 40%,            
+//                  #0000 50%);       
+//     -webkit-mask-image: linear-gradient(to top,
+//                  #000 20%, #000 20%, #0000 40%, #0000 50%);
 
-    pointer-events: none;             
-  }
+//     pointer-events: none;             
+//   }
 
   /* ---------- panel inferior ---------- */
   &__info {
@@ -1123,7 +1123,7 @@ p{
                 border: 1px solid $azul-ermo;
                 border-radius: 30px;
                 padding: 6px 10px 5px;
-                background-color: $gris-claro-ermo;
+                background-color: $blanco-ermo;
                 text-transform: uppercase;
                 font-family: $neue;
             }
