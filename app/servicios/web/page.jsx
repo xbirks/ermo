@@ -99,17 +99,17 @@ const [playIntro, setPlayIntro] = useState(false);
 
         <div className="grid">
           <div className="grid__element" id="servicio">
-            <Image src="/assets/gl01.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gl01.png" width={70} height={47} className="grid__element-img" alt="icono de dos circulos con una flecha hacia arriba"></Image>
             <h4>Más visibilidad y más clientes</h4>
             <p>Optimizamos tu web para que aparezcas en las primeras posiciones de Google y te encuentren cuando busquen tus servicios. Más llamadas, más correos y más negocio.</p>
           </div>
           <div className="grid__element">
-            <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gl02.png" width={70} height={47} className="grid__element-img" alt="icono de una flecha seleccionando un círculo"></Image>
             <h4>Diseño a medida 100%. Ni plantillas. Ni WordPress.</h4>
             <p>No usamos plantillas. Creamos un diseño exclusivo adaptado a tu marca que mejora la experiencia del usuario y aumenta las conversiones. Por supuesto, nada de temas de WordPress lentos y pesados.</p>
           </div>
           <div className="grid__element">
-            <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gl03.png" width={70} height={47} className="grid__element-img" alt="icono de una flecha a modo de velocímetro"></Image>
             <h4>Velocidad y rendimiento sin fallos</h4>
             <p>Desarrollamos sitios que cargan en segundos y funcionan siempre, incluso con mala conexión. Una web rápida retiene a tus visitantes y mejora tu posicionamiento.</p>
           </div>
@@ -118,12 +118,12 @@ const [playIntro, setPlayIntro] = useState(false);
             <p>Más llamadas.</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl04.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gl04.png" width={70} height={47} className="grid__element-img" alt="icono de un ordenador y un móvil para represntar el responsive"></Image>
             <h4>Experiencia móvil perfecta</h4>
             <p>Tu web se verá impecable en móviles, tablets y ordenadores. Nos aseguramos de que cada visitante disfrute de una navegación fluida, esté donde esté.</p>
           </div>
           <div className="grid__element grid__element-delete">
-            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img"></Image>
+            <Image src="/assets/gl05.png" width={70} height={47} className="grid__element-img" alt="icono de una calculadora online gratuita"></Image>
             <h4>Calculadora de precios gratuita</h4>
             <p>Queremos ser transparentes con nuestros clientes. Para que tengas claridad desde el inicio, usa nuestra calculadora y obtén una estimación antes de ponerte en contacto.</p>
           </div>

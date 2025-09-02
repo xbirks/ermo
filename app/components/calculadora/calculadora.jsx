@@ -81,7 +81,9 @@ function SettingsBlock({ title, description, items, onToggle }) {
         <ul className="calc-block__services">
           {items.map((it) => (
             <li className="service" key={it.id}>
-              <span className="service__label">{it.label}</span>
+              {/* añade id para referenciarlo desde el input */}
+              <span id={`lbl-${it.id}`} className="service__label">{it.label}</span>
+
               <label
                 className={`switch ${it.checked ? 'is-on' : ''} ${it.disabled ? 'is-disabled' : ''}`}
               >
@@ -90,6 +92,10 @@ function SettingsBlock({ title, description, items, onToggle }) {
                   checked={!!it.checked}
                   disabled={!!it.disabled}
                   onChange={(e) => onToggle && onToggle(it.id, e.target.checked)}
+                  /* === accesibilidad === */
+                  aria-labelledby={`lbl-${it.id}`}   // usa el texto de la izquierda como nombre
+                  role="switch"                      // opcional: semántica de switch
+                  aria-checked={!!it.checked}        // opcional: estado para AT
                 />
                 <span className="slider" aria-hidden="true" />
               </label>
@@ -484,18 +490,28 @@ const handleDownloadPDF = async () => {
         <section className="calc-block">
           <div className="calc-block__grid">
             <div className="calc-block__text">
-
               <h3>TIPO DE PROYECTO</h3>
               <p>Selecciona el tipo de proyecto para estimar el alcance inicial.</p>
-
             </div>
             
-            <div className="calc-block__services" >
+            <div className="calc-block__services">
               <div className="tipo">
                 <span className="service__label" aria-hidden="true"></span>
-                <select  value={tipo} onChange={(e) => setTipo(e.target.value)}>
+
+                {/* Label accesible pero oculto visualmente */}
+                <label htmlFor="tipo-proyecto" className="visually-hidden">
+                  Tipo de proyecto
+                </label>
+
+                <select
+                  id="tipo-proyecto"
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                >
                   {Object.entries(PROJECT_TYPES).map(([key, cfg]) => (
-                    <option key={key} value={key}>{cfg.label}</option>
+                    <option key={key} value={key}>
+                      {cfg.label}
+                    </option>
                   ))}
                 </select>
               </div>
