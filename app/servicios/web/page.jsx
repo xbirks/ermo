@@ -9,7 +9,7 @@ import CalculadoraWeb from "@/app/components/calculadora/calculadora";
 import IntroVideo from "@/app/components/IntroVideo";
 import ContactFormLanding from "@/app/components/formularios/ContactFormLanding";
 import CasosExito from "@/app/components/casos-exito-web";
-import { reportAdsConversionAndGo } from '@/lib/adsConversion';
+import { reportAdsConversionAndGo } from '../../lib/adsConversion';
 
 
 
