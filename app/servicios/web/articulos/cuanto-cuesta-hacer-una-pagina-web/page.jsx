@@ -551,6 +551,7 @@ Yo trabajo con React y Next.js, tecnologías modernas que hacen que tu web sea r
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="transparent"
+            onClick={(e)=>reportAdsConversionAndGo(e, waUrl)}
            />
 
            <StandardButton
@@ -563,6 +564,7 @@ Yo trabajo con React y Next.js, tecnologías modernas que hacen que tu web sea r
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#3F52FF"
+            onClick={(e)=>reportAdsConversionAndGo(e, telUrl)}
            />
 
 

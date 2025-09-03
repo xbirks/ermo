@@ -288,6 +288,7 @@ export default function WebPage({municipio = "Valencia"}) {
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="transparent"
+            onClick={(e)=>reportAdsConversionAndGo(e, waUrl)}
            />
 
            <StandardButton
@@ -300,6 +301,7 @@ export default function WebPage({municipio = "Valencia"}) {
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#3F52FF"
+            onClick={(e)=>reportAdsConversionAndGo(e, telUrl)}
            />
 
 
