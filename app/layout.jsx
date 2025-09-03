@@ -160,40 +160,37 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        
-      </head>
-
-      <body>
 
 
 
-        {/* Google Analytics 4 */}
         <Script
-          strategy="afterInteractive"
+          id="gtag-src"
           src="https://www.googletagmanager.com/gtag/js?id=G-XHXYQ2JL9P"
+          strategy="beforeInteractive"
         />
         <Script
-          id="ga-init"
-          strategy="afterInteractive"
+          id="gtag-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XHXYQ2JL9P', { page_path: window.location.pathname });
-            `,
-          }}
-        />
-        <Script
-          id="ads-config"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+
+              // GA4
+              gtag('config', 'G-XHXYQ2JL9P');
+
+              // Google Ads
               gtag('config', 'AW-11336883443');
             `,
           }}
         />
 
+
+        
+      </head>
+
+      <body>
 
         
     

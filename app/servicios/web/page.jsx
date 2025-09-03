@@ -9,12 +9,15 @@ import CalculadoraWeb from "@/app/components/calculadora/calculadora";
 import IntroVideo from "@/app/components/IntroVideo";
 import ContactFormLanding from "@/app/components/formularios/ContactFormLanding";
 import CasosExito from "@/app/components/casos-exito-web";
+import { reportAdsConversionAndGo } from '@/lib/adsConversion';
 
 
 
 export default function WebPage({municipio = "Valencia"}) {
 
 const [playIntro, setPlayIntro] = useState(false);
+  const waUrl = 'https://wa.me/message/HJYSEK4RPLOSI1';
+  const telUrl = 'tel:675392216';
 
     
    return (
@@ -145,7 +148,7 @@ const [playIntro, setPlayIntro] = useState(false);
            />
 
            <StandardButton
-            link="FALTA"
+            link="#contacto"
             title="conocer equipo"
             style="mt-xs "
             bg="transparent"
@@ -214,7 +217,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="transparent"
-            onClick={() => trackClickWhatsapp("contacto")}
+            onClick={(e)=>reportAdsConversionAndGo(e, waUrl)}
            />
 
            <StandardButton
@@ -227,7 +230,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#3F52FF"
-            onClick={() => trackClickCall("contacto")}
+            onClick={(e)=>reportAdsConversionAndGo(e, telUrl)}
            />
 
 
