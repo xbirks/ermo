@@ -25,13 +25,13 @@ const trackCalcPDF = (total) => {
 const LS_KEY = 'calc-web-v1';
 
 const PROJECT_TYPES = {
-  corporativa:    { label: 'Web corporativa', base: 500 },
+  corporativa:    { label: 'Web corporativa', base: 400 },
   portfolio:      { label: 'Portfolio personal o profesional', base: 450 },
   restaurante:    { label: 'Web restaurante', base: 400 },
   agencias:       { label: 'Web para agencias', base: 600 },
   ecommerce:      { label: 'Ecommerce', base: 700 },
   reservas:       { label: 'Web con sistema de reservas', base: 950 },
-  landing:        { label: 'Landing page', base: 450 },
+  landing:        { label: 'Landing page', base: 350 },
   otros:          { label: 'Otros', base: 700 },
 };
 
@@ -67,6 +67,165 @@ const fmt = (n) =>
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(n);
+
+
+
+
+// ====== TRACKING CALCULADORA (no tocar) ======
+
+function getSessionId() {
+  try {
+    let sid = sessionStorage.getItem('calc_sid');
+    if (!sid) {
+      sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      sessionStorage.setItem('calc_sid', sid);
+    }
+    return sid;
+  } catch {
+    return 'sid-' + Date.now();
+  }
+}
+
+function sendCalcEvent(payload) {
+  try {
+    fetch('/api/calc-interaction', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+
+function shallowDiff(prev, next) {
+  const changed = [];
+  const keys = new Set([...Object.keys(prev || {}), ...Object.keys(next || {})]);
+  for (const k of keys) {
+    if (prev?.[k] !== next?.[k]) changed.push({ field: k, from: prev?.[k], to: next?.[k] });
+  }
+  return changed;
+}
+
+/**
+ * Hook de auto-tracking:
+ * - Envía "view" al montar y "session_end" al ocultar/cerrar.
+ * - Detecta cambios en el estado y envía "change" por campo + "snapshot".
+ * - Detecta clicks en "Descargar PDF" (href="#precio") y "Contactar" (href="#contacto" o #contacto_calc).
+ */
+export function useCalcTracking(state) {
+  const sidRef = useRef('');
+  const prevStateRef = useRef(null);
+
+  // Identidad de sesión + view + fin de sesión
+  useEffect(() => {
+    sidRef.current = getSessionId();
+
+    sendCalcEvent({
+      event: 'view',
+      details: {},
+      state,
+      sid: sidRef.current,
+      t: Date.now(),
+      url: typeof location !== 'undefined' ? location.href : '',
+    });
+
+    const onEnd = () =>
+      sendCalcEvent({
+        event: 'session_end',
+        details: {},
+        state,
+        sid: sidRef.current,
+        t: Date.now(),
+        url: typeof location !== 'undefined' ? location.href : '',
+      });
+
+    window.addEventListener('beforeunload', onEnd);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') onEnd();
+    });
+
+    return () => {
+      window.removeEventListener('beforeunload', onEnd);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Clicks en PDF / Contacto por delegación (sin tocar tus botones)
+  useEffect(() => {
+    function onClick(e) {
+      const target = e.target;
+      if (!target) return;
+
+      // Descargar PDF: enlace o botón con href "#precio"
+      const pdfEl = target.closest?.('[href="#precio"], a[href="#precio"]');
+      if (pdfEl) {
+        sendCalcEvent({
+          event: 'download_pdf',
+          details: {},
+          state,
+          sid: sidRef.current,
+          t: Date.now(),
+          url: typeof location !== 'undefined' ? location.href : '',
+        });
+        return;
+      }
+
+      // Contactar: href "#contacto" o dentro del contenedor #contacto_calc
+      const contactEl =
+        target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]');
+      if (contactEl) {
+        sendCalcEvent({
+          event: 'contact_click',
+          details: {},
+          state,
+          sid: sidRef.current,
+          t: Date.now(),
+          url: typeof location !== 'undefined' ? location.href : '',
+        });
+        return;
+      }
+    }
+
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, [state]);
+
+  // Cambios de estado -> change(s) + snapshot
+  useEffect(() => {
+    const prev = prevStateRef.current;
+    if (prev) {
+      const diffs = shallowDiff(prev, state);
+      if (diffs.length) {
+        // Emite un "change" por cada campo alterado
+        for (const d of diffs) {
+          sendCalcEvent({
+            event: 'change',
+            details: { field: d.field, from: d.from, to: d.to },
+            state,
+            sid: sidRef.current,
+            t: Date.now(),
+            url: typeof location !== 'undefined' ? location.href : '',
+          });
+        }
+        // Y un "snapshot" del estado actual
+        sendCalcEvent({
+          event: 'snapshot',
+          details: {},
+          state,
+          sid: sidRef.current,
+          t: Date.now(),
+          url: typeof location !== 'undefined' ? location.href : '',
+        });
+      }
+    }
+    prevStateRef.current = { ...state };
+  }, [state]);
+}
+// ====== FIN TRACKING ======
+
+
+
+
 
 /* ---------- Bloque reutilizable: Título + descripción + toggles ---------- */
 function SettingsBlock({ title, description, items, onToggle }) {
@@ -332,6 +491,16 @@ const total = useMemo(() => {
 
 
 
+useCalcTracking({
+  tipo, tamano, complejidad,
+  accesibilidad, seoTec, seoCont,
+  opRedaccion, opTraducciones, opImagenes, opFotografia,
+  opUrgente, opRevisionExtra, opReunionesExtra,
+  mantAnual, mantHoras, mantExternos,
+  total
+});
+
+
 
 // DISCORD Envia un ping solo una vez por sesión (por pestaña)
 function notifyFirstCalcInteraction(source, total) {
@@ -526,7 +695,7 @@ const handleDownloadPDF = async () => {
           <div className="calc-block__grid">
             <div className="calc-block__text">
               <h3>TAMAÑO DEL SITIO</h3>
-              <p>Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada. <br></br><br></br>/Pequeño: 1-5 pág. <br></br>/Mediano: 5-10 pág. <br></br>/Grande: +10 pág.</p>
+              <p>Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada. <br></br><br></br>/Pequeño: 1-8 pág. <br></br>/Mediano: 8-15 pág. <br></br>/Grande: +15 pág.</p>
             </div>
             <div className="calc-block__services">
               <div className="service">
@@ -539,8 +708,6 @@ const handleDownloadPDF = async () => {
                       onClick={() => {
                         setTamano(k);
                         trackCalcInteraction('tamano', k, total);
-                        notifyFirstCalcInteraction('tamano', total); // <-- ping a /api/calc-interaction (una vez por pestaña)
-                        // trackFirstCalcInteraction('tamano', k, total);
                       }}
                       type="button"
                     >

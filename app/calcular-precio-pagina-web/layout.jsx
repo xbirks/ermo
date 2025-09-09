@@ -1,23 +1,24 @@
+// app/(marketing)/cuanto-cuesta-hacer-una-pagina-web/layout.js
 import "@/app/style.scss";
 import Script from "next/script";
 
 export const metadata = {
-  // BASE
   metadataBase: new URL("https://www.ermo.es"),
-  // SEO
-  title: "Calcular precio página web GRATIS – Presupuesto online inmediato",
+  title: "Calculadora de precios | ¿Cuánto cuesta hacer una página web?",
   description:
-    "Calcula online el precio de tu página web con una herramienta transparente: sin correo ni teléfono, resultado inmediato y desglose por partidas.",
+    "Precios reales para webs a medida (corporativa, portfolio, restaurante, e-commerce, reservas y landings). Calculadora gratuita y factores que suben o bajan el presupuesto.",
   keywords: [
-    "calcular precio página web",
-    "presupuesto página web online",
-    "cuánto cuesta una página web",
-    "calculadora precio web",
+    "cuánto cuesta hacer una página web",
+    "precio página web",
+    "tarifas diseño web",
+    "presupuesto web online",
     "precio web corporativa",
     "precio ecommerce",
+    "diseño web profesional",
+    "React Next.js desarrollo web"
   ],
   alternates: {
-    canonical: "https://www.ermo.es/calcular-precio-pagina-web",
+    canonical: "https://www.ermo.es/calcular-precio-pagina-web"
   },
   robots: {
     index: true,
@@ -27,16 +28,15 @@ export const metadata = {
       follow: true,
       maxSnippet: -1,
       maxImagePreview: "large",
-      maxVideoPreview: -1,
-    },
+      maxVideoPreview: -1
+    }
   },
-  // OPEN GRAPH
   openGraph: {
-    title: "Calcular precio página web – Presupuesto online inmediato",
+    title: "Calculadora de precios | ¿Cuánto cuesta hacer una página web?",
     description:
-      "Calcula el precio de tu web en segundos. Sin datos personales. Desglose claro y opción de descargar PDF.",
+      "Desglose de precios, factores de coste y calculadora gratuita para estimar tu presupuesto web.",
     url: "https://www.ermo.es/calcular-precio-pagina-web",
-    type: "website",
+    type: "article",
     siteName: "ERMO",
     locale: "es_ES",
     images: [
@@ -44,69 +44,46 @@ export const metadata = {
         url: "https://www.ermo.es/seo/calculadora-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Calculadora de precio de página web (ERMO)",
-      },
-    ],
+        alt: "¿Cuánto cuesta hacer una página web? (ERMO)"
+      }
+    ]
   },
-  // TWITTER
   twitter: {
     card: "summary_large_image",
-    title: "Calcular precio página web – Presupuesto online inmediato",
+    title: "Calculadora de precios | ¿Cuánto cuesta hacer una página web?",
     description:
-      "Herramienta transparente para calcular el precio de tu web. Sin formularios, resultado al instante.",
-    images: ["https://www.ermo.es/seo/calculadora-1200x630.jpg"],
+      "Consulta precios base, factores de coste y usa mi calculadora gratuita para tu presupuesto web.",
+    images: ["https://www.ermo.es/seo/calculadora-1200x630.jpg"]
   },
+  authors: [{ name: "ERMO" }],
+  category: "Tecnología"
 };
 
-export default function FotografiaLayout({ children }) {
-const howTo = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "Cómo calcular el precio de una página web",
-  description:
-    "Guía paso a paso para calcular online el precio de tu página web con una herramienta gratuita y transparente.",
-  totalTime: "PT2M",
-  supply: [{ "@type": "HowToSupply", name: "Acceso a Internet" }],
-  tool: [{ "@type": "HowToTool", name: "Calculadora de precio web gratuita" }],
-  step: [
-    {
-      "@type": "HowToStep",
-      name: "Selecciona el tipo de web",
-      text:
-        "Elige entre corporativa, ecommerce, blog u otro proyecto según tus necesidades. Si no encuentras un encaje exacto, marca «Otros» y lo ajustamos en la llamada para cerrar el presupuesto. Así partimos del escalón correcto desde el principio.",
-      image: "https://www.ermo.es/assets/tipoweb.png"
+export default function PrecioWebLayout({ children }) {
+  const article = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Calculadora de precios",
+    description:
+      "Precios base por tipo de web, factores que influyen en el presupuesto y calculadora online gratuita para estimar tu coste.",
+    inLanguage: "es-ES",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://www.ermo.es/calcular-precio-pagina-web"
     },
-    {
-      "@type": "HowToStep",
-      name: "Define el tamaño y el diseño",
-      text:
-        "Indica si tu web será pequeña, mediana o grande según el número de páginas que necesitas. Después, escoge la complejidad del diseño: básico para algo funcional y económico, intermedio si quieres más personalidad, o avanzado si buscas un resultado espectacular.",
-      image: "https://www.ermo.es/assets/tamanositio.png"
+    author: { "@type": "Organization", name: "ERMO" },
+    publisher: {
+      "@type": "Organization",
+      name: "ERMO",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.ermo.es/seo/ermo.png"
+      }
     },
-    {
-      "@type": "HowToStep",
-      name: "Añade funcionalidades y contenidos",
-      text:
-        "Activa lo que necesites: formularios, multiidioma, pasarela de pago, SEO, mantenimiento, redacción profesional, traducciones, iconografía propia, fotografía o incluso vídeo. Cada extra aporta valor y verás al instante cómo afecta al presupuesto.",
-      image: "https://www.ermo.es/assets/funcionalidades.png"
-    },
-    {
-      "@type": "HowToStep",
-      name: "Activa el SEO que necesitas",
-      text:
-        "De base incluimos lo esencial para una web correcta a nivel SEO. Si quieres ir a por primeras posiciones, marca el SEO técnico avanzado y la optimización de contenidos. Es la diferencia entre estar y que te encuentren.",
-      image: "https://www.ermo.es/assets/seoweb.png"
-    },
-    {
-      "@type": "HowToStep",
-      name: "Obtén tu presupuesto al instante",
-      text:
-        "La calculadora muestra un desglose actualizado en tiempo real con cada clic. Cuando lo tengas, descarga el PDF y envíamelo; lo revisamos juntos para afinar el alcance y darte un precio cerrado.",
-      image: "https://www.ermo.es/assets/resumen.png"
-    }
-  ]
-};
-
+    image: "https://www.ermo.es/seo/calculadora-1200x630.jpg",
+    datePublished: "2025-08-28",
+    dateModified: "2025-08-28"
+  };
 
   const faq = {
     "@context": "https://schema.org",
@@ -118,8 +95,8 @@ const howTo = {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Lo que vemos con más frecuencia es un rango entre 800 y 1.500 €. Depende del alcance: número de páginas, funciones (blog, multiidioma, reservas), nivel de diseño y si añadimos contenidos, fotos o SEO avanzado. En resumen: cuanto más azúcar, más dulce.",
-        },
+            "Los proyectos más frecuentes se mueven entre 800 y 1.500 €. Depende de páginas, funcionalidades, nivel de diseño y si añadimos contenidos, fotos o SEO avanzado. La calculadora te da un importe orientativo al momento."
+        }
       },
       {
         "@type": "Question",
@@ -127,8 +104,8 @@ const howTo = {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Las tiendas online las desarrollamos en Shopify por su estabilidad, ecosistema de apps y checkout optimizado. El resto (corporativas, portfolios y landings) las hacemos con código para lograr más rendimiento, diseño a medida y mejores Core Web Vitals que las plantillas pesadas.",
-        },
+            "Tiendas online en Shopify. El resto (corporativas, portfolios, landings) con React/Next.js, priorizando rendimiento y Core Web Vitals."
+        }
       },
       {
         "@type": "Question",
@@ -136,8 +113,8 @@ const howTo = {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Sí. Si no los tienes, los incluimos en el presupuesto y te asesoramos para elegir una opción rápida y segura. Preferimos proveedores con buen soporte y servidores en la UE para cumplir RGPD.",
-        },
+            "Si no los tienes, se incluyen en el presupuesto y se asesora la mejor opción con servidores en la UE para cumplir RGPD."
+        }
       },
       {
         "@type": "Question",
@@ -145,8 +122,8 @@ const howTo = {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "No. La calculadora es gratuita y sin registro: ni correo ni teléfono. Buscamos transparencia real; pruebas la herramienta, comparas y, si te encaja, nos llamas o nos escribes por WhatsApp o email.",
-        },
+            "No. La calculadora es gratuita y sin registro: ni correo ni teléfono."
+        }
       },
       {
         "@type": "Question",
@@ -154,8 +131,8 @@ const howTo = {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Para una web corporativa sencilla, solemos estar entre 2 y 4 semanas. Si añadimos SEO avanzado, multiidioma o integraciones, el rango típico es 4–8 semanas. Trabajamos por fases: alcance, wireframe, diseño, contenidos, desarrollo, pruebas y publicación.",
-        },
+            "Web corporativa sencilla: 2–4 semanas; proyectos con SEO avanzado, multiidioma o integraciones: 4–8 semanas."
+        }
       },
       {
         "@type": "Question",
@@ -163,25 +140,30 @@ const howTo = {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Sí. Podemos encargarnos de actualizaciones, copias de seguridad, seguridad y pequeñas mejoras. Tenemos plan anual y bolsa de horas para que no tengas que preocuparte por el día a día técnico.",
-        },
-      },
-    ],
+            "Sí: actualizaciones, copias, seguridad y mejoras. Plan anual y bolsa de horas."
+        }
+      }
+    ]
   };
 
   return (
     <>
       <Script
-        id="ld-howto"
+        id="ld-article"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howTo) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}
       />
       <Script
         id="ld-faq"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
       />
-      <main>{children}</main>
+      <a className="skip-link" href="#contenido">
+        Saltar al contenido
+      </a>
+      <main id="contenido" role="main">
+        {children}
+      </main>
     </>
   );
 }
