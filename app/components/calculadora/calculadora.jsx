@@ -90,83 +90,115 @@ function sendCalcEvent(payload) {
   } catch {}
 }
 
+
+
+
+
+
+
+
+// ====== TRACKING: Notificación única tras 5 min (o evento clave) ======
 export function useCalcTracking(state) {
-  // 1) Al entrar (opcional). Borra este bloque si no quieres este aviso.
-  useEffect(() => {
-    try {
-      const payload = {
-        event: 'view',
-        state,
-        sid: getSessionId(),
-        t: Date.now(),
-        url: typeof location !== 'undefined' ? location.href : '',
-      };
-      sendCalcEvent(payload);
-    } catch {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // solo una vez
+  const timerRef = useRef(null);
+  const sentRef = useRef(false);        // evita duplicados por sesión
+  const lastStateRef = useRef(state);   // último snapshot enviado
+  const RECAP_DELAY_MS = 5 * 60 * 1000; // 5 minutos
 
-  // 2) Al salir/ocultar la pestaña → enviar el resumen final
-  useEffect(() => {
-    const onEnd = () => {
-      try {
-        const payload = {
-          event: 'session_end',
-          state,
-          sid: getSessionId(),
-          t: Date.now(),
-          url: typeof location !== 'undefined' ? location.href : '',
-        };
-        sendCalcEvent(payload);
-      } catch {}
+  // Empaqueta solo los campos mínimos que quieres
+  function buildMinimalState(s) {
+    return {
+      total: s?.total,
+      tipo: s?.tipo,
+      tamano: s?.tamano,
+      complejidad: s?.complejidad,
     };
+  }
 
+  function sendSummary(reason) {
+    if (sentRef.current) return; // ya se envió en esta sesión
+    sentRef.current = true;
+
+    const payload = {
+      event: 'summary',                   // nuevo tipo de evento
+      state: buildMinimalState(lastStateRef.current),
+      sid: getSessionId(),
+      t: Date.now(),
+      url: typeof location !== 'undefined' ? location.href : '',
+      reason,                             // opcional: "idle", "download_pdf", "contact_click", "unload"
+    };
+    sendCalcEvent(payload);
+
+    // Por si el usuario sigue en la página, no queremos más envíos
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    // Marca en sessionStorage para blindar doble envío si recargas rápido
+    try { sessionStorage.setItem('calc_summary_sent', '1'); } catch {}
+  }
+
+  function scheduleSummary(reason = 'idle') {
+    if (sentRef.current) return;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
+  }
+
+  // Al montar: si ya se envió en esta sesión, no volvemos a enviar
+  useEffect(() => {
+    try { if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true; } catch {}
+    // Opcional: NO mandamos "view". Solo programamos el resumen si el usuario no hace nada.
+    scheduleSummary('idle');
+    // Fallback: si cierra antes de 5 min, enviamos lo que haya (un solo mensaje)
+    const onEnd = () => { if (!sentRef.current) sendSummary('unload'); };
     window.addEventListener('beforeunload', onEnd);
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') onEnd();
     });
-
     return () => {
       window.removeEventListener('beforeunload', onEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Cualquier cambio en el estado = actividad -> reprograma el resumen y guarda snapshot
+  useEffect(() => {
+    lastStateRef.current = state;
+    scheduleSummary('activity');
   }, [state]);
 
-  // 3) Descargar PDF o Contactar → enviar único mensaje con estado completo
+  // Clicks clave: enviamos YA (y bloqueamos futuros envíos)
   useEffect(() => {
     function onClick(e) {
       const target = e.target;
-      if (!target) return;
+      if (!target || sentRef.current) return;
 
+      // Descargar PDF
       const pdfEl = target.closest?.('[href="#precio"], a[href="#precio"]');
       if (pdfEl) {
-        sendCalcEvent({
-          event: 'download_pdf',
-          state,
-          sid: getSessionId(),
-          t: Date.now(),
-          url: typeof location !== 'undefined' ? location.href : '',
-        });
+        sendSummary('download_pdf');
         return;
       }
 
+      // Contactar
       const contactEl = target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]');
       if (contactEl) {
-        sendCalcEvent({
-          event: 'contact_click',
-          state,
-          sid: getSessionId(),
-          t: Date.now(),
-          url: typeof location !== 'undefined' ? location.href : '',
-        });
+        sendSummary('contact_click');
         return;
       }
     }
-
     document.addEventListener('click', onClick, true);
     return () => document.removeEventListener('click', onClick, true);
-  }, [state]);
+  }, []);
 }
+
 // ====== FIN TRACKING ======
+
+
+
+
+
+
+
 
 
 /* ---------- Bloque reutilizable: Título + descripción + toggles ---------- */
