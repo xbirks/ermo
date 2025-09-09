@@ -125,27 +125,7 @@ export default function ContactFormLanding() {
         />
       </div>
 
-      <div className={`cf__field ${phone ? 'is-filled' : ''}`}>
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Teléfono (opcional)"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          aria-invalid={phone ? !isValidPhone : undefined}
-          autoComplete="tel"
-        />
-      </div>
 
-      <div className={`cf__field ${message ? 'is-filled' : ''}`}>
-        <textarea
-          name="message"
-          placeholder="Cuéntame tu proyecto (opcional)"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={4}
-        />
-      </div>
 
       {/* Hidden tracking fields (útil si inspeccionas en el backend) */}
       <input type="hidden" name="utm_source" value={utm.utm_source} readOnly />
