@@ -45,7 +45,7 @@ export const metadata = {
     locale: "es_ES",
     images: [
       {
-        url: "https://www.ermo.es/seo/cuanto-cuesta-una-web-1200x630.jpg",
+        url: "https://www.ermo.es/seo/calculadora-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "¿Cuánto cuesta hacer una página web? (ERMO)",
@@ -59,7 +59,7 @@ export const metadata = {
     title: "¿Cuánto cuesta hacer una página web conmigo? | Precios y calculadora",
     description:
       "Consulta precios base, factores de coste y usa mi calculadora gratuita para tu presupuesto web.",
-    images: ["https://www.ermo.es/seo/cuanto-cuesta-una-web-1200x630.jpg"],
+    images: ["https://www.ermo.es/seo/calculadora-1200x630.jpg"],
   },
 };
 
@@ -84,7 +84,7 @@ export default function PrecioWebLayout({ children }) {
         url: "https://www.ermo.es/seo/logo-ermo-600x600.png"
       }
     },
-    image: "https://www.ermo.es/seo/cuanto-cuesta-una-web-1200x630.jpg",
+    image: "https://www.ermo.es/seo/calculadora-1200x630.jpg",
     datePublished: "2025-08-28",
     dateModified: "2025-08-28"
   };
