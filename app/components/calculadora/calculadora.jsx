@@ -101,10 +101,10 @@ export function useCalcTracking(state) {
   const timerRef = useRef(null);
   const sentRef = useRef(false);
   const lastStateRef = useRef(state);
-  const touchedRef = useRef(false);          // interacción humana real
-  const RECAP_DELAY_MS = 5 * 60 * 1000;      // 5 minutos
+  const touchedRef = useRef(false);              // Solo true tras gesto humano
+  const RECAP_DELAY_MS = 5 * 60 * 1000;          // 5 minutos
 
-  // Solo los campos mínimos
+  // Campos mínimos
   function buildMinimalState(s) {
     return {
       total: s?.total,
@@ -114,8 +114,17 @@ export function useCalcTracking(state) {
     };
   }
 
+  // Señal fiable de gesto humano (si el navegador la soporta)
+  function hasUserActivation() {
+    try { return !!(navigator.userActivation && navigator.userActivation.hasBeenActive); }
+    catch { return false; }
+  }
+
   function sendSummary(reason) {
     if (sentRef.current) return;
+    // Nunca enviar si no hubo interacción humana, salvo acciones clave
+    if (!touchedRef.current && reason !== 'download_pdf' && reason !== 'contact_click') return;
+
     sentRef.current = true;
 
     const payload = {
@@ -124,7 +133,7 @@ export function useCalcTracking(state) {
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason, // 'activity' | 'download_pdf' | 'contact_click' | 'unload'
+      reason, // 'activity' | 'download_pdf' | 'contact_click'
     };
     sendCalcEvent(payload);
 
@@ -135,70 +144,66 @@ export function useCalcTracking(state) {
     try { sessionStorage.setItem('calc_summary_sent', '1'); } catch {}
   }
 
-  function scheduleSummary(reason = 'activity') {
+  function scheduleSummary() {
     if (sentRef.current) return;
-    if (!touchedRef.current) return;           // <- solo si hubo interacción humana
+    if (!touchedRef.current) return;             // Solo si hubo gesto humano
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
+    timerRef.current = window.setTimeout(() => sendSummary('activity'), RECAP_DELAY_MS);
   }
 
-  // Montaje (no programar nada aquí)
+  // NO programar nada al montar
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true;
-    } catch {}
-
-    // Enviar al cerrar/ocultar SOLO si hubo interacción humana antes
-    const onEnd = () => {
-      if (!sentRef.current && touchedRef.current) sendSummary('unload');
-    };
-    window.addEventListener('beforeunload', onEnd);
-    const onVis = () => { if (document.visibilityState === 'hidden') onEnd(); };
-    document.addEventListener('visibilitychange', onVis);
-
-    // Interacción humana global (sin 'change' para evitar falsos positivos)
-    const markTouched = () => {
-      const first = !touchedRef.current;
-      touchedRef.current = true;
-      // Programa el resumen en la PRIMERA interacción y reprograma en las siguientes
-      scheduleSummary('activity');
-    };
-    window.addEventListener('pointerdown', markTouched, { capture: true, passive: true });
-    window.addEventListener('keydown', markTouched, { capture: true });
-
-    return () => {
-      window.removeEventListener('beforeunload', onEnd);
-      document.removeEventListener('visibilitychange', onVis);
-      window.removeEventListener('pointerdown', markTouched, { capture: true });
-      window.removeEventListener('keydown', markTouched, { capture: true });
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    try { if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true; } catch {}
   }, []);
 
-  // Solo actualiza el snapshot; NO programa aquí (evita disparos por cambios programáticos)
+  // NO programar por cambios de estado; solo mantener snapshot
   useEffect(() => {
     lastStateRef.current = state;
   }, [state]);
 
-  // Clicks clave: envío inmediato y marcan interacción
+  // Iniciar/reiniciar temporizador solo tras gesto humano real
+  useEffect(() => {
+    const onHuman = () => {
+      // Doble verificación: gesto humano + API de activación si existe
+      touchedRef.current = true;
+      if (hasUserActivation() === false) {
+        // Aunque la API no esté, consideramos válido el gesto (pointer/tecla)
+      }
+      scheduleSummary();
+    };
+    window.addEventListener('pointerdown', onHuman, { capture: true, passive: true });
+    window.addEventListener('keydown', onHuman, { capture: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', onHuman, { capture: true });
+      window.removeEventListener('keydown', onHuman, { capture: true });
+    };
+  }, []);
+
+  // Acciones clave: envío inmediato y marcan interacción
   useEffect(() => {
     function onClick(e) {
       if (sentRef.current) return;
       const target = e.target;
       if (!target) return;
 
-      // Esto sí cuenta como interacción humana
-      touchedRef.current = true;
-
-      // Descargar PDF
+      // Descargar PDF -> enviar ya
       if (target.closest?.('[href="#precio"], a[href="#precio"]')) {
+        touchedRef.current = true;
         sendSummary('download_pdf');
         return;
       }
-      // Contactar
+      // Contactar -> enviar ya
       if (target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]')) {
+        touchedRef.current = true;
         sendSummary('contact_click');
         return;
+      }
+
+      // Cualquier otro click (humano) solo reprograma
+      if (hasUserActivation()) {
+        touchedRef.current = true;
+        scheduleSummary();
       }
     }
     document.addEventListener('click', onClick, true);
@@ -206,7 +211,6 @@ export function useCalcTracking(state) {
   }, []);
 }
 // ====== FIN TRACKING ======
-
 
 
 
