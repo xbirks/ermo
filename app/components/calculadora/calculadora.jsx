@@ -101,9 +101,10 @@ export function useCalcTracking(state) {
   const timerRef = useRef(null);
   const sentRef = useRef(false);
   const lastStateRef = useRef(state);
-  const touchedRef = useRef(false);        // Solo true tras interacción humana
-  const RECAP_DELAY_MS = 5 * 60 * 1000;    // 5 minutos
+  const touchedRef = useRef(false);          // interacción humana real
+  const RECAP_DELAY_MS = 5 * 60 * 1000;      // 5 minutos
 
+  // Solo los campos mínimos
   function buildMinimalState(s) {
     return {
       total: s?.total,
@@ -136,65 +137,69 @@ export function useCalcTracking(state) {
 
   function scheduleSummary(reason = 'activity') {
     if (sentRef.current) return;
-    if (!touchedRef.current) return;               // Solo si hubo interacción humana
+    if (!touchedRef.current) return;           // <- solo si hubo interacción humana
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
   }
 
-  // Montaje
+  // Montaje (no programar nada aquí)
   useEffect(() => {
     try {
       if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true;
     } catch {}
 
-    // NO programar nada en el montaje
-
-    // Enviar en cierre/ocultación solo si hubo interacción humana
-    const onEnd = () => { if (!sentRef.current && touchedRef.current) sendSummary('unload'); };
+    // Enviar al cerrar/ocultar SOLO si hubo interacción humana antes
+    const onEnd = () => {
+      if (!sentRef.current && touchedRef.current) sendSummary('unload');
+    };
     window.addEventListener('beforeunload', onEnd);
     const onVis = () => { if (document.visibilityState === 'hidden') onEnd(); };
     document.addEventListener('visibilitychange', onVis);
 
-    // Detectar interacción humana global
+    // Interacción humana global (sin 'change' para evitar falsos positivos)
     const markTouched = () => {
-      if (!touchedRef.current) {
-        touchedRef.current = true;
-        scheduleSummary('activity'); // programa por primera vez
-      }
+      const first = !touchedRef.current;
+      touchedRef.current = true;
+      // Programa el resumen en la PRIMERA interacción y reprograma en las siguientes
+      scheduleSummary('activity');
     };
     window.addEventListener('pointerdown', markTouched, { capture: true, passive: true });
     window.addEventListener('keydown', markTouched, { capture: true });
-    window.addEventListener('change', markTouched, { capture: true });
 
     return () => {
       window.removeEventListener('beforeunload', onEnd);
       document.removeEventListener('visibilitychange', onVis);
       window.removeEventListener('pointerdown', markTouched, { capture: true });
       window.removeEventListener('keydown', markTouched, { capture: true });
-      window.removeEventListener('change', markTouched, { capture: true });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Cambios de estado: reprograma solo si ya hubo interacción humana
+  // Solo actualiza el snapshot; NO programa aquí (evita disparos por cambios programáticos)
   useEffect(() => {
     lastStateRef.current = state;
-    scheduleSummary('activity'); // touchedRef filtra si procede
   }, [state]);
 
   // Clicks clave: envío inmediato y marcan interacción
   useEffect(() => {
     function onClick(e) {
+      if (sentRef.current) return;
       const target = e.target;
-      if (!target || sentRef.current) return;
+      if (!target) return;
 
+      // Esto sí cuenta como interacción humana
       touchedRef.current = true;
 
-      const pdfEl = target.closest?.('[href="#precio"], a[href="#precio"]');
-      if (pdfEl) { sendSummary('download_pdf'); return; }
-
-      const contactEl = target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]');
-      if (contactEl) { sendSummary('contact_click'); return; }
+      // Descargar PDF
+      if (target.closest?.('[href="#precio"], a[href="#precio"]')) {
+        sendSummary('download_pdf');
+        return;
+      }
+      // Contactar
+      if (target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]')) {
+        sendSummary('contact_click');
+        return;
+      }
     }
     document.addEventListener('click', onClick, true);
     return () => document.removeEventListener('click', onClick, true);
