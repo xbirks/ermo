@@ -98,14 +98,13 @@ function sendCalcEvent(payload) {
 
 // ====== TRACKING: Notificación única tras 5 min (o evento clave) ======
 export function useCalcTracking(state) {
-  const timerRef = useRef(null);
+  const timerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
   const sentRef = useRef(false);
   const lastStateRef = useRef(state);
-  const touchedRef = useRef(false);        // <- nuevo: marca si hubo interacción real
+  const touchedRef = useRef(false);        // Solo true tras interacción humana
   const RECAP_DELAY_MS = 5 * 60 * 1000;    // 5 minutos
 
-  // Empaqueta solo los campos mínimos que quieres
-  function buildMinimalState(s) {
+  function buildMinimalState(s:any) {
     return {
       total: s?.total,
       tipo: s?.tipo,
@@ -114,78 +113,86 @@ export function useCalcTracking(state) {
     };
   }
 
-  function sendSummary(reason) {
-    if (sentRef.current) return; // ya se envió en esta sesión
+  function sendSummary(reason: 'activity' | 'download_pdf' | 'contact_click' | 'unload') {
+    if (sentRef.current) return;
     sentRef.current = true;
 
     const payload = {
-      event: 'summary',                   // nuevo tipo de evento
+      event: 'summary',
       state: buildMinimalState(lastStateRef.current),
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason,                             // opcional: "activity", "download_pdf", "contact_click", "unload"
+      reason,
     };
     sendCalcEvent(payload);
 
-    // Por si el usuario sigue en la página, no queremos más envíos
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    // Marca en sessionStorage para blindar doble envío si recargas rápido
     try { sessionStorage.setItem('calc_summary_sent', '1'); } catch {}
   }
 
-  // ÚNICA versión: solo programa si hubo interacción
-  function scheduleSummary(reason = 'activity') {
+  function scheduleSummary(reason: 'activity' = 'activity') {
     if (sentRef.current) return;
-    if (!touchedRef.current) return;        // <- Solo si hubo interacción
+    if (!touchedRef.current) return;               // <-- Solo si hubo interacción humana
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
   }
 
-  // Al montar: si ya se envió en esta sesión, no volvemos a enviar
+  // Montaje
   useEffect(() => {
     try {
       if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true;
     } catch {}
 
-    // Importante: NO programar nada en el montaje (antes se hacía scheduleSummary('idle'))
+    // NO programar nada en el montaje
 
-    // Fallback: si cierra antes de 5 min, enviamos solo si hubo interacción
+    // Enviar en cierre/ocultación solo si hubo interacción humana
     const onEnd = () => { if (!sentRef.current && touchedRef.current) sendSummary('unload'); };
     window.addEventListener('beforeunload', onEnd);
     const onVis = () => { if (document.visibilityState === 'hidden') onEnd(); };
     document.addEventListener('visibilitychange', onVis);
 
+    // Detectar interacción humana global (sin tocar los controladores existentes)
+    const markTouched = () => {
+      if (!touchedRef.current) {
+        touchedRef.current = true;
+        scheduleSummary('activity'); // programa por primera vez
+      }
+    };
+    window.addEventListener('pointerdown', markTouched, { capture: true, passive: true });
+    window.addEventListener('keydown', markTouched, { capture: true });
+    window.addEventListener('change', markTouched, { capture: true });
+
     return () => {
       window.removeEventListener('beforeunload', onEnd);
       document.removeEventListener('visibilitychange', onVis);
+      window.removeEventListener('pointerdown', markTouched, { capture: true } as any);
+      window.removeEventListener('keydown', markTouched, { capture: true } as any);
+      window.removeEventListener('change', markTouched, { capture: true } as any);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Cualquier cambio en el estado = actividad -> reprograma el resumen y guarda snapshot
+  // Cambios de estado: reprograma solo si ya hubo interacción humana
   useEffect(() => {
     lastStateRef.current = state;
-    touchedRef.current = true;           // <- marca interacción tras primer cambio real
-    scheduleSummary('activity');
+    scheduleSummary('activity');               // touchedRef filtra si procede
   }, [state]);
 
-  // Clicks clave: enviamos YA (y bloqueamos futuros envíos)
+  // Clicks clave: envío inmediato y marcan interacción
   useEffect(() => {
-    function onClick(e) {
-      const target = e.target;
+    function onClick(e: MouseEvent) {
+      const target = e.target as HTMLElement | null;
       if (!target || sentRef.current) return;
 
-      touchedRef.current = true; // <- cuenta como interacción
+      touchedRef.current = true;
 
-      // Descargar PDF
       const pdfEl = target.closest?.('[href="#precio"], a[href="#precio"]');
       if (pdfEl) { sendSummary('download_pdf'); return; }
 
-      // Contactar
       const contactEl = target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]');
       if (contactEl) { sendSummary('contact_click'); return; }
     }
@@ -194,6 +201,7 @@ export function useCalcTracking(state) {
   }, []);
 }
 // ====== FIN TRACKING ======
+
 
 
 
