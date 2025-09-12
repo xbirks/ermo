@@ -96,13 +96,13 @@ function sendCalcEvent(payload) {
 
 
 
-
 // ====== TRACKING: Notificación única tras 5 min (o evento clave) ======
 export function useCalcTracking(state) {
   const timerRef = useRef(null);
-  const sentRef = useRef(false);        // evita duplicados por sesión
-  const lastStateRef = useRef(state);   // último snapshot enviado
-  const RECAP_DELAY_MS = 5 * 60 * 1000; // 5 minutos
+  const sentRef = useRef(false);
+  const lastStateRef = useRef(state);
+  const touchedRef = useRef(false);        // <- nuevo: marca si hubo interacción real
+  const RECAP_DELAY_MS = 5 * 60 * 1000;    // 5 minutos
 
   // Empaqueta solo los campos mínimos que quieres
   function buildMinimalState(s) {
@@ -124,7 +124,7 @@ export function useCalcTracking(state) {
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason,                             // opcional: "idle", "download_pdf", "contact_click", "unload"
+      reason,                             // opcional: "activity", "download_pdf", "contact_click", "unload"
     };
     sendCalcEvent(payload);
 
@@ -137,25 +137,31 @@ export function useCalcTracking(state) {
     try { sessionStorage.setItem('calc_summary_sent', '1'); } catch {}
   }
 
-  function scheduleSummary(reason = 'idle') {
+  // ÚNICA versión: solo programa si hubo interacción
+  function scheduleSummary(reason = 'activity') {
     if (sentRef.current) return;
+    if (!touchedRef.current) return;        // <- Solo si hubo interacción
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
+    timerRef.current = window.setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
   }
 
   // Al montar: si ya se envió en esta sesión, no volvemos a enviar
   useEffect(() => {
-    try { if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true; } catch {}
-    // Opcional: NO mandamos "view". Solo programamos el resumen si el usuario no hace nada.
-    scheduleSummary('idle');
-    // Fallback: si cierra antes de 5 min, enviamos lo que haya (un solo mensaje)
-    const onEnd = () => { if (!sentRef.current) sendSummary('unload'); };
+    try {
+      if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true;
+    } catch {}
+
+    // Importante: NO programar nada en el montaje (antes se hacía scheduleSummary('idle'))
+
+    // Fallback: si cierra antes de 5 min, enviamos solo si hubo interacción
+    const onEnd = () => { if (!sentRef.current && touchedRef.current) sendSummary('unload'); };
     window.addEventListener('beforeunload', onEnd);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') onEnd();
-    });
+    const onVis = () => { if (document.visibilityState === 'hidden') onEnd(); };
+    document.addEventListener('visibilitychange', onVis);
+
     return () => {
       window.removeEventListener('beforeunload', onEnd);
+      document.removeEventListener('visibilitychange', onVis);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -163,6 +169,7 @@ export function useCalcTracking(state) {
   // Cualquier cambio en el estado = actividad -> reprograma el resumen y guarda snapshot
   useEffect(() => {
     lastStateRef.current = state;
+    touchedRef.current = true;           // <- marca interacción tras primer cambio real
     scheduleSummary('activity');
   }, [state]);
 
@@ -172,26 +179,22 @@ export function useCalcTracking(state) {
       const target = e.target;
       if (!target || sentRef.current) return;
 
+      touchedRef.current = true; // <- cuenta como interacción
+
       // Descargar PDF
       const pdfEl = target.closest?.('[href="#precio"], a[href="#precio"]');
-      if (pdfEl) {
-        sendSummary('download_pdf');
-        return;
-      }
+      if (pdfEl) { sendSummary('download_pdf'); return; }
 
       // Contactar
       const contactEl = target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]');
-      if (contactEl) {
-        sendSummary('contact_click');
-        return;
-      }
+      if (contactEl) { sendSummary('contact_click'); return; }
     }
     document.addEventListener('click', onClick, true);
     return () => document.removeEventListener('click', onClick, true);
   }, []);
 }
-
 // ====== FIN TRACKING ======
+
 
 
 
