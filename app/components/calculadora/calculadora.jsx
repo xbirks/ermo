@@ -98,13 +98,13 @@ function sendCalcEvent(payload) {
 
 // ====== TRACKING: Notificación única tras 5 min (o evento clave) ======
 export function useCalcTracking(state) {
-  const timerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const timerRef = useRef(null);
   const sentRef = useRef(false);
   const lastStateRef = useRef(state);
   const touchedRef = useRef(false);        // Solo true tras interacción humana
   const RECAP_DELAY_MS = 5 * 60 * 1000;    // 5 minutos
 
-  function buildMinimalState(s:any) {
+  function buildMinimalState(s) {
     return {
       total: s?.total,
       tipo: s?.tipo,
@@ -113,7 +113,7 @@ export function useCalcTracking(state) {
     };
   }
 
-  function sendSummary(reason: 'activity' | 'download_pdf' | 'contact_click' | 'unload') {
+  function sendSummary(reason) {
     if (sentRef.current) return;
     sentRef.current = true;
 
@@ -123,7 +123,7 @@ export function useCalcTracking(state) {
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason,
+      reason, // 'activity' | 'download_pdf' | 'contact_click' | 'unload'
     };
     sendCalcEvent(payload);
 
@@ -134,9 +134,9 @@ export function useCalcTracking(state) {
     try { sessionStorage.setItem('calc_summary_sent', '1'); } catch {}
   }
 
-  function scheduleSummary(reason: 'activity' = 'activity') {
+  function scheduleSummary(reason = 'activity') {
     if (sentRef.current) return;
-    if (!touchedRef.current) return;               // <-- Solo si hubo interacción humana
+    if (!touchedRef.current) return;               // Solo si hubo interacción humana
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => sendSummary(reason), RECAP_DELAY_MS);
   }
@@ -155,7 +155,7 @@ export function useCalcTracking(state) {
     const onVis = () => { if (document.visibilityState === 'hidden') onEnd(); };
     document.addEventListener('visibilitychange', onVis);
 
-    // Detectar interacción humana global (sin tocar los controladores existentes)
+    // Detectar interacción humana global
     const markTouched = () => {
       if (!touchedRef.current) {
         touchedRef.current = true;
@@ -169,9 +169,9 @@ export function useCalcTracking(state) {
     return () => {
       window.removeEventListener('beforeunload', onEnd);
       document.removeEventListener('visibilitychange', onVis);
-      window.removeEventListener('pointerdown', markTouched, { capture: true } as any);
-      window.removeEventListener('keydown', markTouched, { capture: true } as any);
-      window.removeEventListener('change', markTouched, { capture: true } as any);
+      window.removeEventListener('pointerdown', markTouched, { capture: true });
+      window.removeEventListener('keydown', markTouched, { capture: true });
+      window.removeEventListener('change', markTouched, { capture: true });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -179,13 +179,13 @@ export function useCalcTracking(state) {
   // Cambios de estado: reprograma solo si ya hubo interacción humana
   useEffect(() => {
     lastStateRef.current = state;
-    scheduleSummary('activity');               // touchedRef filtra si procede
+    scheduleSummary('activity'); // touchedRef filtra si procede
   }, [state]);
 
   // Clicks clave: envío inmediato y marcan interacción
   useEffect(() => {
-    function onClick(e: MouseEvent) {
-      const target = e.target as HTMLElement | null;
+    function onClick(e) {
+      const target = e.target;
       if (!target || sentRef.current) return;
 
       touchedRef.current = true;
@@ -201,7 +201,6 @@ export function useCalcTracking(state) {
   }, []);
 }
 // ====== FIN TRACKING ======
-
 
 
 
