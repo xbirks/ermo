@@ -33,7 +33,7 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
 
-      <div className="intro-landing-mobile__img"><IntroVideo /></div>
+      <div className="IntroVideoMobile"><IntroVideo /></div>
 
 
 
@@ -83,12 +83,12 @@ const [playIntro, setPlayIntro] = useState(false);
 
 
           
-        <IntroVideo
+        <div className="IntroVideoDesktop"><IntroVideo
           posterSrc="/assets/miniwebdark.jpg"
           posterAlt="Portada del vídeo introductorio"
           videoSrc="https://www.youtube-nocookie.com/embed/X3PaBPro7EA?autoplay=1&mute=0"
           videoTitle="Presentación ERMO"
-        />
+        /></div>
 
         </div>
       </section>

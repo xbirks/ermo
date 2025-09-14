@@ -1091,3 +1091,15 @@ p{
 
     
 }
+
+
+
+.IntroVideoMobile{
+    display: none;
+            @include media700px { display: block; }
+        }
+
+.IntroVideoDesktop{
+    display: block;
+            @include media700px { display: none; }
+        }

@@ -203,7 +203,7 @@ const faqSchema = {
   <div className="intro-landing__content">
     <div className="intro-landing__text">
 
-      <div className="intro-landing-mobile__img">
+      <div className="IntroVideoMobile">
             <IntroVideo
               posterSrc="/assets/MINI_JARDIN_WEB.jpg"
               posterAlt="Gana clientes como jardinero con una buena web"
@@ -271,12 +271,12 @@ const faqSchema = {
       </div>
     </div>
 
-    <IntroVideo
+    <div className="IntroVideoDesktop"><IntroVideo
       posterSrc="/assets/MINI_JARDIN_WEB.jpg"
       posterAlt="Si te encuentran en Google conseguirás más clientes"
       videoSrc="https://www.youtube-nocookie.com/embed/owo5eibqnxE?autoplay=1&mute=0&rel=0&modestbranding=1"
       videoTitle="Si te encuentran en Google conseguirás más clientes"
-    />
+    /></div>
   </div>
 </section>
 
