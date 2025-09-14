@@ -145,7 +145,13 @@ const faqs = [
 
 
           
-          <div className="intro-landing__img"><IntroVideo /></div>
+          <IntroVideo
+            posterSrc="/assets/miniwebdark.jpg"
+            posterAlt="Portada del vídeo introductorio"
+            videoSrc="https://www.youtube-nocookie.com/embed/X3PaBPro7EA?autoplay=1&mute=0"
+            videoTitle="Presentación ERMO"
+          />
+
 
         </div>
       </section>

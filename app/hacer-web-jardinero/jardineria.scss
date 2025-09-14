@@ -163,7 +163,7 @@ p{
             border-radius: 25px;
         }
 
-            @include media600px {
+            @include media700px {
             display: none;
             }
     }
@@ -877,3 +877,217 @@ p{
                 color: $gris-ermo;
                 margin-top: 20px;
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//VIDEO YT //
+
+.intro-landing__master{
+    margin-top: 180px;
+
+            @include media1200px {
+            margin-top: 150px;
+            }
+
+            @include media600px {
+            padding-left: 3vw;
+            padding-right: 3vw;
+            margin-top: 120px;
+            }
+
+    .intro-landing__content{
+        display: flex;
+        margin-top: 60px;
+
+            @include media1200px {
+            margin-top: 40px;
+            }
+
+            @include media600px {
+            display: block;
+            margin-top: 40px;
+            }
+    }
+
+    .intro-landing__text{
+        width: 46vw;
+        margin-right: 40px;
+
+            @include media700px {
+            width: 100%;
+            margin-right: 0px;
+            }
+
+        .intro-landing__big{
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            line-height: 1.9rem;
+
+            @include media800px {
+            font-size: 1.4rem;
+            line-height: 1.6rem;
+            }
+
+            @include media600px {
+            font-size: 1.2rem;
+            line-height: 1.4rem;
+            }
+        }
+
+        .intro-landing__texto-op{
+            @include media800px {
+            display: none;
+            }
+        }
+    }
+
+    .intro-landing__img{
+        height: auto;
+        width: 40vw;
+        object-fit: cover;
+
+        .intro-video{
+           aspect-ratio: 4/5;
+            max-width: 100%;
+        }
+
+        img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+        }
+
+            @include media700px {
+            display: none;
+            }
+    }
+
+    .intro-landing-mobile__img{
+        height: auto;
+        width: 100%;
+        object-fit: cover;
+        display: none;
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        .intro-video{
+            aspect-ratio: 4/5;
+            max-width: 400px;
+        }
+
+        img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+        }
+
+            @include media600px {
+            display: block;
+            }
+    }
+
+    .intro-landing__line{
+        height: 1px;
+        width: 100%;
+        background: rgba(0,0,0,1); // color editable
+        margin: 5rem 0 1rem 0;
+                    @include media700px {
+                    margin: 2rem 0 1rem 0;
+                    }
+    }
+
+    .intro-landing__valora{
+        p{
+            font-size: 0.8rem;
+            line-height: 1rem;
+            margin-bottom: 10px;
+        }
+
+        a{
+            color: $azul-ermo;
+            font-size: 0.8rem;
+            font-family: $neue;
+            letter-spacing: -0.3px;
+            text-decoration: underline;
+        }
+    }
+
+
+        .intro-landing-mobile__video {
+        width: 100%;
+        aspect-ratio: 4/5;
+        margin: 30px 0;
+        display: none;
+
+        @include media700px { display: block; }
+        }
+
+        .yt-poster {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        background: none;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            display: block;
+        }
+
+        .yt-play {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: rgba(212, 24, 24, 0.8);
+            color: #fff;
+            font-size: 28px;
+            line-height: 68px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+        }
+
+        .yt-embed {
+        width: 100%;
+        height: 100%;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 20px;
+        }
+        }
+
+        .yt-open {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: .85rem;
+        text-decoration: underline;
+        color: $azul-ermo;
+        }
+
+    
+}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import StandardButton from "../buttons/standard-button";
 import "./jardineria.scss";
 import Script from "next/script";
+import IntroVideo from "../components/IntroVideo";
 
 export default function Jardineria() {
   const sliderRef = useRef(null);
@@ -193,48 +194,92 @@ const faqSchema = {
     <main className="landing-jardineria master__body">
 
 
-      <section className="intro-jardin__master">
-        <h1>¿Buscas hacer una web de <span className="jardin__destacado">jardinero</span> que aparezca en <span className="jardin__destacado">Google y ChatGPT?</span></h1>
-        
-        <div className="intro-jardin__content">
-          <div className="intro-jardin__text">
-            <p className="intro-jardin__big">Si tu <strong>web</strong> es lenta, vieja o directamente no existe, estás <strong>perdiendo clientes</strong> cada semana.</p>
+      <section className="intro-landing__master">
+  <h1>
+    ¿Buscas hacer una web de <span className="jardin__destacado">jardinero </span> 
+    que aparezca en <span className="jardin__destacado">Google y ChatGPT?</span>
+  </h1>
 
-            <p>Lo que ofrezco NO es tener una web por gusto. Es una herramienta clara para que te encuentren, te llamen y te contraten.
-            <br></br><br></br><strong>Sin promesas vacías</strong>. Solo trabajo real y resultados demostrables.</p>
+  <div className="intro-landing__content">
+    <div className="intro-landing__text">
 
-            <StandardButton
-            link="#precios"
-            title="Precios"
-            style="mt-m margin-auto"
-            bg="transparent"
-            color="#3F52FF"
-            borderColor="#3F52FF"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor="#0E1C9D"
-            aria-label="Ver precios de cada tipo de web"
+      <div className="intro-landing-mobile__img">
+            <IntroVideo
+              posterSrc="/assets/MINI_JARDIN_WEB.jpg"
+              posterAlt="Gana clientes como jardinero con una buena web"
+              videoSrc="https://www.youtube-nocookie.com/embed/owo5eibqnxE?autoplay=1&mute=0&rel=0&modestbranding=1"
+              videoTitle="Gana clientes como jardinero con una buena web"
             />
+      </div>
 
-            <StandardButton
-            link="#clientes"
-            title="Ver ejemplos reales"
-            style="mt-xs margin-auto"
-            bg="#3F52FF"
-            color="white"
-            borderColor="transparent"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor=""
-            aria-label="Ver ejemplos de webs que ya están consiguiendo clientes"
-            />
+      <p className="intro-landing__big">
+        Si tu <strong>web</strong> es lenta, vieja o directamente no existe, 
+        estás <strong>perdiendo clientes</strong> cada semana.
+      </p>
 
+      <p className="intro-landing__texto-op">
+        Lo que ofrezco NO es tener una web por gusto. 
+        Es una herramienta clara para que te encuentren, te llamen y te contraten.  
+        <br /><br /><strong>Sin promesas vacías</strong>. 
+        Solo trabajo real y resultados demostrables.
+      </p>
 
-          </div>
-          <div className="intro-jardin__img"><Image src="/jardineria/movil_01_1.jpg" width={1024} height={1536} alt="Ejemplo de web para jardineros en móvil" /></div>
+      <StandardButton
+        link="#precios"
+        title="Precios"
+        style="mt-m margin-auto"
+        bg="transparent"
+        color="#3F52FF"
+        borderColor="#3F52FF"
+        hoverBg="#0E1C9D"
+        hoverColor="white"
+        hoverBorderColor="#0E1C9D"
+        aria-label="Ver precios de cada tipo de web"
+      />
 
-        </div>
-      </section>
+      <StandardButton
+        link="#clientes"
+        title="Ver ejemplos reales"
+        style="mt-xs margin-auto"
+        bg="#3F52FF"
+        color="white"
+        borderColor="transparent"
+        hoverBg="#0E1C9D"
+        hoverColor="white"
+        hoverBorderColor=""
+        aria-label="Ver ejemplos de webs que ya están consiguiendo clientes"
+      />
+
+      <div className="intro-landing__line"></div>
+
+      <div className="intro-landing__valora">
+        <p>
+          <strong>Valoración excelente 5/5</strong> por nuestros clientes en 
+          <a 
+            href="https://www.google.com/maps/place/ERMO+%7C+Estudio+de+diseño+y+programación+web/@39.4953188,-0.468962,17z/data=!3m1!4b1!4m6!3m5!1s0xa037438d44ecf51d:0x2bb2886e9e8b3b1c!8m2!3d39.4953188!4d-0.4663871!16s%2Fg%2F11tdq_0qcf?entry=ttu" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            {" "}Google Reviews
+          </a> y otros reseñadores:
+        </p>
+        <Image 
+          src="/assets/stars.png" 
+          width={90} height={18} 
+          alt="Valoración 5/5 en Google Reviews" 
+        />
+      </div>
+    </div>
+
+    <IntroVideo
+      posterSrc="/assets/MINI_JARDIN_WEB.jpg"
+      posterAlt="Si te encuentran en Google conseguirás más clientes"
+      videoSrc="https://www.youtube-nocookie.com/embed/owo5eibqnxE?autoplay=1&mute=0&rel=0&modestbranding=1"
+      videoTitle="Si te encuentran en Google conseguirás más clientes"
+    />
+  </div>
+</section>
+
 
 
 
