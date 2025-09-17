@@ -76,26 +76,39 @@ function getSessionId() {
   }
 }
 
+const DEBUG = true; // pon a false para silenciar logs
+
+function log(...args) {
+  if (DEBUG) console.debug('[calc-track]', ...args);
+}
+
 function sendCalcEvent(payload) {
   try {
     const body = JSON.stringify(payload);
-    // Más fiable en cierre/ocultación de página
+
+    // Más fiable al cerrar/ocultar la página
     if (navigator.sendBeacon) {
       const blob = new Blob([body], { type: 'application/json' });
-      navigator.sendBeacon('/api/calc-interaction', blob);
+      const ok = navigator.sendBeacon('/api/calc-interaction', blob);
+      log('sendBeacon:', ok, payload);
       return;
     }
+
     // Fallback
     fetch('/api/calc-interaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,
       keepalive: true,
-    }).catch(() => {});
-  } catch {}
+    })
+      .then((r) => log('fetch keepalive status:', r.status))
+      .catch((e) => log('fetch keepalive error:', e));
+  } catch (e) {
+    log('sendCalcEvent error:', e);
+  }
 }
 
-/* ====== TRACKING: Notificación única tras 5 min (o evento clave/leave) ====== */
+/* ====== TRACKING: Notificación única tras 5 min (o evento clave/leave/view) ====== */
 export function useCalcTracking(state) {
   const timerRef = useRef(null);
   const sentRef = useRef(false);
@@ -120,14 +133,17 @@ export function useCalcTracking(state) {
   }
 
   function sendSummary(reason) {
-    if (sentRef.current) return;
+    if (sentRef.current) { log('skip: already sent'); return; }
 
     // Permitir envío sin gesto humano en razones clave
     const allowWithoutTouch =
-      reason === 'download_pdf' || reason === 'contact_click' || reason === 'leave';
+      reason === 'download_pdf' || reason === 'contact_click' || reason === 'leave' || reason === 'view';
 
     // No enviar si no hubo interacción humana, salvo acciones clave
-    if (!touchedRef.current && !allowWithoutTouch) return;
+    if (!touchedRef.current && !allowWithoutTouch) {
+      log('blocked: no human interaction for reason', reason);
+      return;
+    }
 
     sentRef.current = true;
 
@@ -137,8 +153,9 @@ export function useCalcTracking(state) {
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason, // 'activity' | 'download_pdf' | 'contact_click' | 'leave'
+      reason, // 'activity' | 'download_pdf' | 'contact_click' | 'leave' | 'view'
     };
+    log('sending summary:', payload);
     sendCalcEvent(payload);
 
     if (timerRef.current) {
@@ -153,11 +170,16 @@ export function useCalcTracking(state) {
     if (!touchedRef.current) return;             // Solo si hubo gesto humano
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => sendSummary('activity'), RECAP_DELAY_MS);
+    log('timer scheduled for activity');
   }
 
-  // NO programar nada al montar
+  // NO programar nada al montar, pero: programar "view" a los 2s (sin interacción)
   useEffect(() => {
     try { if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true; } catch {}
+    if (!sentRef.current) {
+      const t = window.setTimeout(() => sendSummary('view'), 2000);
+      return () => clearTimeout(t);
+    }
   }, []);
 
   // Mantener snapshot del estado
@@ -169,7 +191,10 @@ export function useCalcTracking(state) {
   useEffect(() => {
     const onHuman = () => {
       touchedRef.current = true;
-      // Aunque la API no esté, consideramos válido el gesto (pointer/tecla)
+      if (hasUserActivation() === false) {
+        // Aunque la API no esté, consideramos válido el gesto (pointer/tecla)
+      }
+      log('human gesture detected');
       scheduleSummary();
     };
     window.addEventListener('pointerdown', onHuman, { capture: true, passive: true });
@@ -181,17 +206,20 @@ export function useCalcTracking(state) {
     };
   }, []);
 
-  // Acciones clave: eventos personalizados (más fiable que selectores del DOM)
+  // Acciones clave: eventos personalizados + función global directa
   useEffect(() => {
     const onPdf = () => { touchedRef.current = true; sendSummary('download_pdf'); };
     const onContact = () => { touchedRef.current = true; sendSummary('contact_click'); };
 
     window.addEventListener('calc:download_pdf', onPdf);
     window.addEventListener('calc:contact_click', onContact);
+    // Expone una función global por si quieres llamar directo sin eventos
+    try { window.__calcSendSummary = (r) => sendSummary(r); } catch {}
 
     return () => {
       window.removeEventListener('calc:download_pdf', onPdf);
       window.removeEventListener('calc:contact_click', onContact);
+      try { delete window.__calcSendSummary; } catch {}
     };
   }, []);
 
@@ -270,8 +298,9 @@ function SummaryBox({ total, onDownloadPDF }) {
           onClick={(e) => {
             e.preventDefault();
             trackCalcPDF(total);
-            // Notificar al hook de forma explícita (evento personalizado)
+            // Notificar de forma explícita (dos vías)
             try { window.dispatchEvent(new CustomEvent('calc:download_pdf')); } catch {}
+            try { window.__calcSendSummary?.('download_pdf'); } catch {}
             onDownloadPDF();
           }}
         />
@@ -289,8 +318,9 @@ function SummaryBox({ total, onDownloadPDF }) {
             hoverBorderColor="#0E1C9D"
             onClick={() => {
               trackClickCall("contacto");
-              // Notificar al hook de forma explícita (evento personalizado)
+              // Notificar de forma explícita (dos vías)
               try { window.dispatchEvent(new CustomEvent('calc:contact_click')); } catch {}
+              try { window.__calcSendSummary?.('contact_click'); } catch {}
             }}
           />
         </span>
@@ -336,9 +366,7 @@ export default function CalculadoraWeb() {
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowSummary(entry.isIntersecting)
-    );
+    const observer = new IntersectionObserver(([entry]) => setShowSummary(entry.isIntersecting));
     observer.observe(node);
     return () => observer.unobserve(node);
   }, []);
@@ -357,9 +385,7 @@ export default function CalculadoraWeb() {
   useEffect(() => {
     const node = bottomRef.current;
     if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setAtBottom(entry.isIntersecting)
-    );
+    const observer = new IntersectionObserver(([entry]) => setAtBottom(entry.isIntersecting));
     observer.observe(node);
     return () => observer.unobserve(node);
   }, []);
