@@ -1,8 +1,54 @@
 'use client';
 import { useEffect, useMemo, useState, useRef } from 'react';
 import StandardButton from '@/app/buttons/standard-button';
-import "./calculadora.scss";
+import './calculadora.scss';
 import { trackCalcInteraction } from '@/app/lib/ga';
+
+/* ---------- Config ---------- */
+const LS_KEY = 'calc-web-v1';
+
+const PROJECT_TYPES = {
+  corporativa: { label: 'Web corporativa', base: 400 },
+  portfolio: { label: 'Portfolio personal o profesional', base: 450 },
+  restaurante: { label: 'Web restaurante', base: 400 },
+  agencias: { label: 'Web para agencias', base: 600 },
+  ecommerce: { label: 'Ecommerce', base: 700 },
+  reservas: { label: 'Web con sistema de reservas', base: 950 },
+  landing: { label: 'Landing page', base: 350 },
+  otros: { label: 'Otros', base: 700 },
+};
+
+const COMPLEJIDAD = { basico: 1.0, intermedio: 1.5, avanzado: 2.1 };
+const ACCESIBILIDAD = { incluido: 1.0, aa: 1.3 };
+const SEO_TEC = 1.1;
+const SEO_CONT = 1.35;
+const PRECIO_PAGINA_INTERNA = 70;
+const URGENCIA_MULT = 1.45;
+const TAMANOS = { pequena: 1, mediana: 10, grande: 20 };
+
+const EXTRA_COSTS = {
+  redaccion: 200,
+  traducciones: 120,
+  imagenes: 250,
+  fotografia: 700,
+  revisionExtra: 80,
+  reunionesExtra: 60,
+};
+
+const MANT_COSTS = {
+  anual: 300,
+  bolsa10h: 350,
+  externos: 120,
+};
+
+/* ---------- Formateo ---------- */
+const EUR_FMT = new Intl.NumberFormat('es-ES', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+const fmt = (n) => EUR_FMT.format(n);
 
 /* ---------- Fallback mínimos para evitar ReferenceError ---------- */
 const trackClickCall = (destino) => {
@@ -17,58 +63,14 @@ const trackCalcPDF = (total) => {
   } catch {}
 };
 
-/* ---------- Config ---------- */
-const LS_KEY = 'calc-web-v1';
-
-const PROJECT_TYPES = {
-  corporativa:    { label: 'Web corporativa', base: 400 },
-  portfolio:      { label: 'Portfolio personal o profesional', base: 450 },
-  restaurante:    { label: 'Web restaurante', base: 400 },
-  agencias:       { label: 'Web para agencias', base: 600 },
-  ecommerce:      { label: 'Ecommerce', base: 700 },
-  reservas:       { label: 'Web con sistema de reservas', base: 950 },
-  landing:        { label: 'Landing page', base: 350 },
-  otros:          { label: 'Otros', base: 700 },
-};
-
-const COMPLEJIDAD = { basico: 1.0, intermedio: 1.5, avanzado: 2.1 };
-const ACCESIBILIDAD = { incluido: 1.0, aa: 1.3 };
-const SEO_TEC = 1.1;
-const SEO_CONT = 1.35;
-const PRECIO_PAGINA_INTERNA = 70;
-const URGENCIA_MULT = 1.45;
-const TAMANOS = { pequena: 1, mediana: 10, grande: 20 };
-const TAMANO_LABEL = { pequena: 'Pequeño', mediana: 'Mediano', grande: 'Grande' };
-
-const EXTRA_COSTS = {
-  redaccion: 200,
-  traducciones: 120,
-  imagenes: 250,
-  fotografia: 700,
-  revisionExtra: 80,
-  reunionesExtra: 60,
-};
-const MANT_COSTS = {
-  anual: 300,
-  bolsa10h: 350,
-  externos: 120,
-};
-
-const fmt = (n) =>
-  new Intl.NumberFormat('es-ES', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(n);
-
 /* ====== TRACKING CALCULADORA (versión notificación única) ====== */
 function getSessionId() {
   try {
-    let sid = sessionStorage.getItem('calc_sid');
+    const k = 'calc_sid';
+    let sid = sessionStorage.getItem(k);
     if (!sid) {
       sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
-      sessionStorage.setItem('calc_sid', sid);
+      sessionStorage.setItem(k, sid);
     }
     return sid;
   } catch {
@@ -76,25 +78,21 @@ function getSessionId() {
   }
 }
 
-const DEBUG = true; // pon a false para silenciar logs
-
-function log(...args) {
+const DEBUG = false;
+const log = (...args) => {
   if (DEBUG) console.debug('[calc-track]', ...args);
-}
+};
 
 function sendCalcEvent(payload) {
   try {
     const body = JSON.stringify(payload);
 
-    // Más fiable al cerrar/ocultar la página
-    if (navigator.sendBeacon) {
-      const blob = new Blob([body], { type: 'application/json' });
-      const ok = navigator.sendBeacon('/api/calc-interaction', blob);
+    if ('sendBeacon' in navigator && typeof Blob !== 'undefined') {
+      const ok = navigator.sendBeacon('/api/calc-interaction', new Blob([body], { type: 'application/json' }));
       log('sendBeacon:', ok, payload);
       return;
     }
 
-    // Fallback
     fetch('/api/calc-interaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -113,33 +111,25 @@ export function useCalcTracking(state) {
   const timerRef = useRef(null);
   const sentRef = useRef(false);
   const lastStateRef = useRef(state);
-  const touchedRef = useRef(false);              // Solo true tras gesto humano
-  const RECAP_DELAY_MS = 5 * 60 * 1000;          // 5 minutos
+  const touchedRef = useRef(false);
+  const RECAP_DELAY_MS = 5 * 60 * 1000;
 
-  // Campos mínimos
-  function buildMinimalState(s) {
-    return {
-      total: s?.total,
-      tipo: s?.tipo,
-      tamano: s?.tamano,
-      complejidad: s?.complejidad,
-    };
-  }
+  const buildMinimalState = (s) => ({
+    total: s?.total,
+    tipo: s?.tipo,
+    tamano: s?.tamano,
+    complejidad: s?.complejidad,
+  });
 
-  // Señal de gesto humano (si existe)
-  function hasUserActivation() {
-    try { return !!(navigator.userActivation && navigator.userActivation.hasBeenActive); }
-    catch { return false; }
-  }
+  const sendSummary = (reason) => {
+    if (sentRef.current) {
+      log('skip: already sent');
+      return;
+    }
 
-  function sendSummary(reason) {
-    if (sentRef.current) { log('skip: already sent'); return; }
-
-    // Permitir envío sin gesto humano en razones clave
     const allowWithoutTouch =
       reason === 'download_pdf' || reason === 'contact_click' || reason === 'leave' || reason === 'view';
 
-    // No enviar si no hubo interacción humana, salvo acciones clave
     if (!touchedRef.current && !allowWithoutTouch) {
       log('blocked: no human interaction for reason', reason);
       return;
@@ -153,7 +143,7 @@ export function useCalcTracking(state) {
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason, // 'activity' | 'download_pdf' | 'contact_click' | 'leave' | 'view'
+      reason,
     };
     log('sending summary:', payload);
     sendCalcEvent(payload);
@@ -162,39 +152,35 @@ export function useCalcTracking(state) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    try { sessionStorage.setItem('calc_summary_sent', '1'); } catch {}
-  }
+    try {
+      sessionStorage.setItem('calc_summary_sent', '1');
+    } catch {}
+  };
 
-  function scheduleSummary() {
-    if (sentRef.current) return;
-    if (!touchedRef.current) return;             // Solo si hubo gesto humano
+  const scheduleSummary = () => {
+    if (sentRef.current || !touchedRef.current) return;
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = window.setTimeout(() => sendSummary('activity'), RECAP_DELAY_MS);
     log('timer scheduled for activity');
-  }
+  };
 
-  // NO programar nada al montar, pero: programar "view" a los 2s (sin interacción)
   useEffect(() => {
-    try { if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true; } catch {}
+    try {
+      if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true;
+    } catch {}
     if (!sentRef.current) {
       const t = window.setTimeout(() => sendSummary('view'), 2000);
       return () => clearTimeout(t);
     }
   }, []);
 
-  // Mantener snapshot del estado
   useEffect(() => {
     lastStateRef.current = state;
   }, [state]);
 
-  // Iniciar/reiniciar temporizador tras gesto humano real
   useEffect(() => {
     const onHuman = () => {
       touchedRef.current = true;
-      if (hasUserActivation() === false) {
-        // Aunque la API no esté, consideramos válido el gesto (pointer/tecla)
-      }
-      log('human gesture detected');
       scheduleSummary();
     };
     window.addEventListener('pointerdown', onHuman, { capture: true, passive: true });
@@ -206,29 +192,38 @@ export function useCalcTracking(state) {
     };
   }, []);
 
-  // Acciones clave: eventos personalizados + función global directa
   useEffect(() => {
-    const onPdf = () => { touchedRef.current = true; sendSummary('download_pdf'); };
-    const onContact = () => { touchedRef.current = true; sendSummary('contact_click'); };
+    const onPdf = () => {
+      touchedRef.current = true;
+      sendSummary('download_pdf');
+    };
+    const onContact = () => {
+      touchedRef.current = true;
+      sendSummary('contact_click');
+    };
 
     window.addEventListener('calc:download_pdf', onPdf);
     window.addEventListener('calc:contact_click', onContact);
-    // Expone una función global por si quieres llamar directo sin eventos
-    try { window.__calcSendSummary = (r) => sendSummary(r); } catch {}
+    try {
+      window.__calcSendSummary = (r) => sendSummary(r);
+    } catch {}
 
     return () => {
       window.removeEventListener('calc:download_pdf', onPdf);
       window.removeEventListener('calc:contact_click', onContact);
-      try { delete window.__calcSendSummary; } catch {}
+      try {
+        delete window.__calcSendSummary;
+      } catch {}
     };
   }, []);
 
-  // Enviar al salir/ocultar la página
   useEffect(() => {
     const onLeave = () => sendSummary('leave');
-    const onVis = () => { if (document.visibilityState === 'hidden') sendSummary('leave'); };
+    const onVis = () => {
+      if (document.visibilityState === 'hidden') sendSummary('leave');
+    };
 
-    window.addEventListener('pagehide', onLeave, { capture: true });
+    window.addEventListener('pagehide', onLeave, { capture: true, passive: true });
     document.addEventListener('visibilitychange', onVis, { capture: true });
 
     return () => {
@@ -251,11 +246,11 @@ function SettingsBlock({ title, description, items, onToggle }) {
         <ul className="calc-block__services">
           {items.map((it) => (
             <li className="service" key={it.id}>
-              <span id={`lbl-${it.id}`} className="service__label">{it.label}</span>
+              <span id={`lbl-${it.id}`} className="service__label">
+                {it.label}
+              </span>
 
-              <label
-                className={`switch ${it.checked ? 'is-on' : ''} ${it.disabled ? 'is-disabled' : ''}`}
-              >
+              <label className={`switch ${it.checked ? 'is-on' : ''} ${it.disabled ? 'is-disabled' : ''}`}>
                 <input
                   type="checkbox"
                   checked={!!it.checked}
@@ -280,7 +275,11 @@ function SummaryBox({ total, onDownloadPDF }) {
   return (
     <div className="box">
       <div className="box__resumen">
-        <h4>Resumen del<br></br>proyecto</h4>
+        <h4>
+          Resumen del
+          <br />
+          proyecto
+        </h4>
         <div className="total">{fmt(total)}</div>
       </div>
 
@@ -298,9 +297,12 @@ function SummaryBox({ total, onDownloadPDF }) {
           onClick={(e) => {
             e.preventDefault();
             trackCalcPDF(total);
-            // Notificar de forma explícita (dos vías)
-            try { window.dispatchEvent(new CustomEvent('calc:download_pdf')); } catch {}
-            try { window.__calcSendSummary?.('download_pdf'); } catch {}
+            try {
+              window.dispatchEvent(new CustomEvent('calc:download_pdf'));
+            } catch {}
+            try {
+              window.__calcSendSummary?.('download_pdf');
+            } catch {}
             onDownloadPDF();
           }}
         />
@@ -317,10 +319,13 @@ function SummaryBox({ total, onDownloadPDF }) {
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
             onClick={() => {
-              trackClickCall("contacto");
-              // Notificar de forma explícita (dos vías)
-              try { window.dispatchEvent(new CustomEvent('calc:contact_click')); } catch {}
-              try { window.__calcSendSummary?.('contact_click'); } catch {}
+              trackClickCall('contacto');
+              try {
+                window.dispatchEvent(new CustomEvent('calc:contact_click'));
+              } catch {}
+              try {
+                window.__calcSendSummary?.('contact_click');
+              } catch {}
             }}
           />
         </span>
@@ -345,11 +350,10 @@ export default function CalculadoraWeb() {
   const [atBottom, setAtBottom] = useState(false);
 
   // Estado de bloques
-  const [accesibilidad, setAccesibilidad] = useState('incluido'); // 'incluido' | 'aa'
+  const [accesibilidad, setAccesibilidad] = useState('incluido');
   const [seoTec, setSeoTec] = useState(false);
   const [seoCont, setSeoCont] = useState(false);
 
-  // Operativa / recursos
   const [opRedaccion, setOpRedaccion] = useState(false);
   const [opTraducciones, setOpTraducciones] = useState(false);
   const [opImagenes, setOpImagenes] = useState(false);
@@ -358,54 +362,56 @@ export default function CalculadoraWeb() {
   const [opRevisionExtra, setOpRevisionExtra] = useState(false);
   const [opReunionesExtra, setOpReunionesExtra] = useState(false);
 
-  // Mantenimiento
   const [mantAnual, setMantAnual] = useState(false);
   const [mantHoras, setMantHoras] = useState(false);
   const [mantExternos, setMantExternos] = useState(false);
 
+  /* ---- Observers ---- */
   useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+
     const node = sectionRef.current;
     if (!node) return;
-    const observer = new IntersectionObserver(([entry]) => setShowSummary(entry.isIntersecting));
-    observer.observe(node);
-    return () => observer.unobserve(node);
-  }, []);
 
-  useEffect(() => {
-    const node = bottomRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      const { top } = entry.boundingClientRect;
-      setAtBottom(top <= window.innerHeight);
+    const observer = new IntersectionObserver(([entry]) => setShowSummary(entry.isIntersecting), {
+      root: null,
+      threshold: 0,
     });
     observer.observe(node);
-    return () => observer.unobserve(node);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+
     const node = bottomRef.current;
     if (!node) return;
-    const observer = new IntersectionObserver(([entry]) => setAtBottom(entry.isIntersecting));
+
+    const observer = new IntersectionObserver(([entry]) => setAtBottom(entry.isIntersecting), {
+      root: null,
+      threshold: 0,
+    });
     observer.observe(node);
-    return () => observer.unobserve(node);
+    return () => observer.disconnect();
   }, []);
 
-  // Cargar estado
+  /* ---- Cargar estado ---- */
   useEffect(() => {
     try {
       const raw = localStorage.getItem(LS_KEY);
       if (!raw) return;
       const s = JSON.parse(raw);
-      if (s.tipo) setTipo(s.tipo);
-      if (s.tamano) {
+
+      if (s.tipo && PROJECT_TYPES[s.tipo]) setTipo(s.tipo);
+      if (s.tamano && TAMANOS[s.tamano]) {
         setTamano(s.tamano);
       } else if (typeof s.paginas === 'number') {
         const p = s.paginas;
         setTamano(p <= 3 ? 'pequena' : p <= 7 ? 'mediana' : 'grande');
       }
 
-      if (s.complejidad) setComplejidad(s.complejidad);
-      if (s.accesibilidad) setAccesibilidad(s.accesibilidad);
+      if (s.complejidad && COMPLEJIDAD[s.complejidad]) setComplejidad(s.complejidad);
+      if (s.accesibilidad && ACCESIBILIDAD[s.accesibilidad]) setAccesibilidad(s.accesibilidad);
       setSeoTec(!!s.seoTec);
       setSeoCont(!!s.seoCont);
       setOpRedaccion(!!s.opRedaccion);
@@ -421,7 +427,7 @@ export default function CalculadoraWeb() {
     } catch {}
   }, []);
 
-  // Guardar estado
+  /* ---- Guardar estado ---- */
   useEffect(() => {
     const s = {
       tipo,
@@ -441,7 +447,9 @@ export default function CalculadoraWeb() {
       mantHoras,
       mantExternos,
     };
-    localStorage.setItem(LS_KEY, JSON.stringify(s));
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(s));
+    } catch {}
   }, [
     tipo,
     tamano,
@@ -458,16 +466,15 @@ export default function CalculadoraWeb() {
     opReunionesExtra,
     mantAnual,
     mantHoras,
-    mantExternos
+    mantExternos,
   ]);
 
-  // Cálculo en tiempo real
+  /* ---- Cálculo en tiempo real ---- */
   const total = useMemo(() => {
-    const base = PROJECT_TYPES[tipo].base;
+    const base = PROJECT_TYPES[tipo]?.base ?? 0;
 
     const numPags = TAMANOS[tamano] || 1;
-    const extraPages = Math.max(0, numPags - 1); // Home incluida
-    const pagesCost = extraPages * PRECIO_PAGINA_INTERNA;
+    const pagesCost = Math.max(0, numPags - 1) * PRECIO_PAGINA_INTERNA;
 
     const extrasOperativa =
       (opRedaccion ? EXTRA_COSTS.redaccion : 0) +
@@ -485,25 +492,47 @@ export default function CalculadoraWeb() {
       (opUrgente ? URGENCIA_MULT : 1);
 
     const mantenimiento =
-      (mantAnual ? MANT_COSTS.anual : 0) +
-      (mantHoras ? MANT_COSTS.bolsa10h : 0) +
-      (mantExternos ? MANT_COSTS.externos : 0);
+      (mantAnual ? MANT_COSTS.anual : 0) + (mantHoras ? MANT_COSTS.bolsa10h : 0) + (mantExternos ? MANT_COSTS.externos : 0);
 
     return Math.round(((base + pagesCost + extrasOperativa) * multiplicador + mantenimiento) * 100) / 100;
   }, [
-    tipo, tamano, complejidad, accesibilidad, seoTec, seoCont,
-    opRedaccion, opTraducciones, opImagenes, opFotografia, opUrgente, opRevisionExtra, opReunionesExtra,
-    mantAnual, mantHoras, mantExternos
+    tipo,
+    tamano,
+    complejidad,
+    accesibilidad,
+    seoTec,
+    seoCont,
+    opRedaccion,
+    opTraducciones,
+    opImagenes,
+    opFotografia,
+    opUrgente,
+    opRevisionExtra,
+    opReunionesExtra,
+    mantAnual,
+    mantHoras,
+    mantExternos,
   ]);
 
-  // Tracking (una sola notificación por acción relevante)
+  /* ---- Tracking ---- */
   useCalcTracking({
-    tipo, tamano, complejidad,
-    accesibilidad, seoTec, seoCont,
-    opRedaccion, opTraducciones, opImagenes, opFotografia,
-    opUrgente, opRevisionExtra, opReunionesExtra,
-    mantAnual, mantHoras, mantExternos,
-    total
+    tipo,
+    tamano,
+    complejidad,
+    accesibilidad,
+    seoTec,
+    seoCont,
+    opRedaccion,
+    opTraducciones,
+    opImagenes,
+    opFotografia,
+    opUrgente,
+    opRevisionExtra,
+    opReunionesExtra,
+    mantAnual,
+    mantHoras,
+    mantExternos,
+    total,
   });
 
   /* --- PDF --- */
@@ -512,7 +541,7 @@ export default function CalculadoraWeb() {
     const blob = await res.blob();
     const dataURL = await new Promise((resolve) => {
       const r = new FileReader();
-      r.onloadend = () => resolve(r.result);
+      r.onloadend = () => resolve(String(r.result));
       r.readAsDataURL(blob);
     });
     const img = await new Promise((resolve) => {
@@ -531,11 +560,11 @@ export default function CalculadoraWeb() {
     let y = 72;
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
-    const colW  = pageW - m * 2;
-    const fmtLocal = (n) => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n);
+    const colW = pageW - m * 2;
+    const fmtLocal = (n) => EUR_FMT.format(n);
 
     doc.setLineHeightFactor(1.35);
-    const p = (txt, size = 12, bold = false, color = [51,51,51]) => {
+    const p = (txt, size = 12, bold = false, color = [51, 51, 51]) => {
       doc.setTextColor(...color);
       doc.setFont('helvetica', bold ? 'bold' : 'normal');
       doc.setFontSize(size);
@@ -543,8 +572,15 @@ export default function CalculadoraWeb() {
       doc.text(lines, m, y);
       y += lines.length * (size * 1.35);
     };
-    const h  = (txt) => { p(txt.toUpperCase(), 12, true, [120,120,120]); y += 2; };
-    const hr = () => { doc.setDrawColor(215,215,215); doc.line(m, y, pageW - m, y); y += 18; };
+    const h = (txt) => {
+      p(txt.toUpperCase(), 12, true, [120, 120, 120]);
+      y += 2;
+    };
+    const hr = () => {
+      doc.setDrawColor(215, 215, 215);
+      doc.line(m, y, pageW - m, y);
+      y += 18;
+    };
 
     const { dataURL, naturalW, naturalH } = await loadPngWithSize('/assets/01_ERMO_MARCA.jpg');
 
@@ -556,56 +592,61 @@ export default function CalculadoraWeb() {
     const gap = 18;
     const yHeader = headerBottom + gap;
 
-    doc.setFont('helvetica', 'bold');  doc.setFontSize(12); doc.setTextColor(120,120,120);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(120, 120, 120);
     doc.text('RESUMEN DEL PROYECTO', m, yHeader);
-    doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(153,153,153);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(153, 153, 153);
     doc.text(new Date().toLocaleDateString('es-ES'), m, yHeader + 16);
 
     const rightX = pageW - m;
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(28); doc.setTextColor(63,82,255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(28);
+    doc.setTextColor(63, 82, 255);
     doc.text(fmtLocal(total), rightX, yHeader, { align: 'right', baseline: 'alphabetic' });
 
     y = yHeader + 32;
     hr();
 
-    h('TIPO DE PROYECTO');          p(PROJECT_TYPES[tipo].label);
+    const tipoLabel = PROJECT_TYPES[tipo]?.label ?? '';
+    h('TIPO DE PROYECTO'); p(tipoLabel);
 
     const numPags = TAMANOS[tamano] || 1;
-    h('NÚMERO DE PÁGINAS');         p(String(numPags));
+    h('NÚMERO DE PÁGINAS'); p(String(numPags));
 
-    h('COMPLEJIDAD DEL DISEÑO');    p({ basico:'Básico', intermedio:'Intermedio', avanzado:'Avanzado' }[complejidad]);
+    h('COMPLEJIDAD DEL DISEÑO');
+    p({ basico: 'Básico', intermedio: 'Intermedio', avanzado: 'Avanzado' }[complejidad]);
 
-    h('ACCESIBILIDAD Y CALIDAD');   p(accesibilidad === 'aa' ? 'Objetivo AA' : 'Incluido');
+    h('ACCESIBILIDAD Y CALIDAD');
+    p(accesibilidad === 'aa' ? 'Objetivo AA' : 'Incluido');
 
-    const seoSel = [
-      'Incluido',
-      seoTec  && 'Avanzado y estándares Google',
-      seoCont && 'Optimización de contenidos',
-    ].filter(Boolean).join(' · ');
-    h('SEO Y RENDIMIENTO');         p(seoSel || 'Incluido');
+    const seoSel = ['Incluido', seoTec && 'Avanzado y estándares Google', seoCont && 'Optimización de contenidos']
+      .filter(Boolean)
+      .join(' · ');
+    h('SEO Y RENDIMIENTO'); p(seoSel || 'Incluido');
 
     const opSel = [
-      opRedaccion      && 'Redacción de textos',
-      opTraducciones   && 'Traducciones',
-      opImagenes       && 'Imágenes/ilustraciones/íconos',
-      opFotografia     && 'Fotografía o vídeo',
-      opRevisionExtra  && 'Ronda de revisión extra',
+      opRedaccion && 'Redacción de textos',
+      opTraducciones && 'Traducciones',
+      opImagenes && 'Imágenes/ilustraciones/íconos',
+      opFotografia && 'Fotografía o vídeo',
+      opRevisionExtra && 'Ronda de revisión extra',
       opReunionesExtra && 'Reuniones extra',
-      opUrgente        && 'Entrega con urgencia',
+      opUrgente && 'Entrega con urgencia',
     ].filter(Boolean).join(' · ') || 'Ninguno';
-    h('CONTENIDOS Y RECURSOS');     p(opSel);
+    h('CONTENIDOS Y RECURSOS'); p(opSel);
 
-    const mantSel = [
-      mantAnual && 'Anual',
-      mantHoras && 'Por horas (10h)',
-      mantExternos && 'Servicios externos',
-    ].filter(Boolean).join(' · ') || 'Ninguno';
-    h('MANTENIMIENTO');             p(mantSel);
+    const mantSel = [mantAnual && 'Anual', mantHoras && 'Por horas (10h)', mantExternos && 'Servicios externos']
+      .filter(Boolean).join(' · ') || 'Ninguno';
+    h('MANTENIMIENTO'); p(mantSel);
 
     hr();
-    p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153,153,153]);
+    p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153, 153, 153]);
 
-    doc.setFontSize(10); doc.setTextColor(120,120,120);
+    doc.setFontSize(10);
+    doc.setTextColor(120, 120, 120);
     doc.text('ERMO Estudio de diseño · hola@soyandres.es · 675 392 216 · ermo.es', m, pageH - 30);
 
     doc.save('presupuesto-web.pdf');
@@ -631,11 +672,7 @@ export default function CalculadoraWeb() {
                   Tipo de proyecto
                 </label>
 
-                <select
-                  id="tipo-proyecto"
-                  value={tipo}
-                  onChange={(e) => setTipo(e.target.value)}
-                >
+                <select id="tipo-proyecto" value={tipo} onChange={(e) => setTipo(e.target.value)}>
                   {Object.entries(PROJECT_TYPES).map(([key, cfg]) => (
                     <option key={key} value={key}>
                       {cfg.label}
@@ -655,7 +692,8 @@ export default function CalculadoraWeb() {
             <div className="calc-block__text">
               <h3>TAMAÑO DEL SITIO</h3>
               <p>
-                Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada. <br /><br />
+                Elige un tamaño aproximado. Siempre podremos ajustar después en la propuesta cerrada. <br />
+                <br />
                 /Pequeño: 1-8 pág. <br />
                 /Mediano: 8-15 pág. <br />
                 /Grande: +15 pág.
@@ -665,7 +703,7 @@ export default function CalculadoraWeb() {
               <div className="service">
                 <span className="service__label" aria-hidden="true"></span>
                 <div className="chips">
-                  {['pequena','mediana','grande'].map((k) => (
+                  {['pequena', 'mediana', 'grande'].map((k) => (
                     <button
                       key={k}
                       className={`chip ${tamano === k ? 'active' : ''}`}
@@ -679,7 +717,6 @@ export default function CalculadoraWeb() {
                     </button>
                   ))}
                 </div>
-
               </div>
             </div>
           </div>
@@ -697,12 +734,7 @@ export default function CalculadoraWeb() {
                 <span className="service__label" aria-hidden="true"></span>
                 <div className="chips">
                   {['basico', 'intermedio', 'avanzado'].map((k) => (
-                    <button
-                      key={k}
-                      className={`chip ${complejidad === k ? 'active' : ''}`}
-                      onClick={() => setComplejidad(k)}
-                      type="button"
-                    >
+                    <button key={k} className={`chip ${complejidad === k ? 'active' : ''}`} onClick={() => setComplejidad(k)} type="button">
                       {k === 'basico' ? 'BÁSICO' : k === 'intermedio' ? 'INTERMEDIO' : 'AVANZADO'}
                     </button>
                   ))}
@@ -717,26 +749,26 @@ export default function CalculadoraWeb() {
           title="CONTENIDOS Y RECURSOS"
           description="Selecciona el apoyo que necesites para crear y preparar todo el contenido de la web. Tener contenido bien hecho ayuda a que tu web sea más atractiva, clara y convincente para tus clientes."
           items={[
-            { id: 'op_redaccion',   label: 'REDACCIÓN DE TEXTOS',                  checked: opRedaccion },
-            { id: 'op_traducciones',label: 'TRADUCCIONES',                          checked: opTraducciones },
-            { id: 'op_imagenes',    label: 'IMÁGENES, ILUSTRACIONES O ICONOS',     checked: opImagenes },
-            { id: 'op_foto',        label: 'FOTOGRAFÍA O VIDEO',                   checked: opFotografia },
+            { id: 'op_redaccion', label: 'REDACCIÓN DE TEXTOS', checked: opRedaccion },
+            { id: 'op_traducciones', label: 'TRADUCCIONES', checked: opTraducciones },
+            { id: 'op_imagenes', label: 'IMÁGENES, ILUSTRACIONES O ICONOS', checked: opImagenes },
+            { id: 'op_foto', label: 'FOTOGRAFÍA O VIDEO', checked: opFotografia },
           ]}
           onToggle={(id, next) => {
             if (id === 'op_redaccion') setOpRedaccion(next);
-            if (id === 'op_traducciones') setOpTraducciones(next);
-            if (id === 'op_imagenes') setOpImagenes(next);
-            if (id === 'op_foto') setOpFotografia(next);
+            else if (id === 'op_traducciones') setOpTraducciones(next);
+            else if (id === 'op_imagenes') setOpImagenes(next);
+            else if (id === 'op_foto') setOpFotografia(next);
           }}
         />
 
-        {/* ACCESIBILIDAD Y CALIDAD (exclusivo) */}
+        {/* ACCESIBILIDAD Y CALIDAD */}
         <SettingsBlock
           title="ACCESIBILIDAD Y CALIDAD"
           description="¿Quieres que tu web pueda ser utilizada por cualquier persona, incluso con limitaciones visuales, auditivas o de movilidad? La opción AA garantiza un nivel avanzado de accesibilidad para que todos tus usuarios puedan navegar sin barreras."
           items={[
-            { id: 'acc_incluido', label: 'INCLUIDO',  checked: accesibilidad === 'incluido' },
-            { id: 'acc_aa',       label: 'OBJETIVO AA', checked: accesibilidad === 'aa' },
+            { id: 'acc_incluido', label: 'INCLUIDO', checked: accesibilidad === 'incluido' },
+            { id: 'acc_aa', label: 'OBJETIVO AA', checked: accesibilidad === 'aa' },
           ]}
           onToggle={(id, next) => {
             if (!next) return;
@@ -744,14 +776,14 @@ export default function CalculadoraWeb() {
           }}
         />
 
-        {/* SEO Y RENDIMIENTO (múltiple) */}
+        {/* SEO Y RENDIMIENTO */}
         <SettingsBlock
           title="SEO (APARECER EN GOOGLE)"
           description="Opciones para que tu web aparezca mejor posicionada en Google y cargue más rápido. Esto ayuda a que más personas te encuentren y a que la experiencia de navegación sea fluida."
           items={[
             { id: 'seoIncluido', label: 'INCLUIDO', checked: true, disabled: true },
-            { id: 'seoTec',      label: 'AVANZADO Y ESTANDARES GOOGLE', checked: seoTec },
-            { id: 'seoCont',     label: 'OPTIMIZACIÓN DE CONTENIDOS',      checked: seoCont },
+            { id: 'seoTec', label: 'AVANZADO Y ESTANDARES GOOGLE', checked: seoTec },
+            { id: 'seoCont', label: 'OPTIMIZACIÓN DE CONTENIDOS', checked: seoCont },
           ]}
           onToggle={(id, next) => {
             if (id === 'seoTec') setSeoTec(next);
@@ -764,20 +796,20 @@ export default function CalculadoraWeb() {
           title="MANTENIMIENTO Y OPERATIVA"
           description="Puedes evitar muchos líos y dolores de cabeza contratando un mantenimiento para tu proyecto. Así tendrás cubierto cualquier error que pueda suceder."
           items={[
-            { id: 'mant_anual',  label: 'MANT. ANUAL',             checked: mantAnual },
-            { id: 'mant_horas',  label: 'POR HORAS (10h)',   checked: mantHoras },
-            { id: 'mant_ext',    label: 'SERVICIOS EXTERNOS',checked: mantExternos },
-            { id: 'op_urgente',  label: 'ENTREGA CON URGENCIA',     checked: opUrgente },
+            { id: 'mant_anual', label: 'MANT. ANUAL', checked: mantAnual },
+            { id: 'mant_horas', label: 'POR HORAS (10h)', checked: mantHoras },
+            { id: 'mant_ext', label: 'SERVICIOS EXTERNOS', checked: mantExternos },
+            { id: 'op_urgente', label: 'ENTREGA CON URGENCIA', checked: opUrgente },
           ]}
           onToggle={(id, next) => {
             if (id === 'mant_anual') setMantAnual(next);
-            if (id === 'mant_horas') setMantHoras(next);
-            if (id === 'mant_ext') setMantExternos(next);
-            if (id === 'op_urgente') setOpUrgente(next);
+            else if (id === 'mant_horas') setMantHoras(next);
+            else if (id === 'mant_ext') setMantExternos(next);
+            else if (id === 'op_urgente') setOpUrgente(next);
           }}
         />
 
-        <div ref={bottomRef} style={{ height: 1 }}></div>
+        <div ref={bottomRef} style={{ height: 1 }} />
 
         {/* Banner final solo móvil */}
         <div className="calc-summary calc-summary--mobileEnd">
