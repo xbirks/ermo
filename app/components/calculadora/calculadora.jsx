@@ -4,8 +4,7 @@ import StandardButton from '@/app/buttons/standard-button';
 import "./calculadora.scss";
 import { trackCalcInteraction } from '@/app/lib/ga';
 
-
-// --- fallback mínimos para evitar ReferenceError ---
+/* ---------- Fallback mínimos para evitar ReferenceError ---------- */
 const trackClickCall = (destino) => {
   try {
     window.gtag?.('event', 'contact_click', { destino });
@@ -17,7 +16,6 @@ const trackCalcPDF = (total) => {
     window.gtag?.('event', 'calc_pdf_download', { value: total, currency: 'EUR' });
   } catch {}
 };
-
 
 /* ---------- Config ---------- */
 const LS_KEY = 'calc-web-v1';
@@ -64,8 +62,7 @@ const fmt = (n) =>
     maximumFractionDigits: 2,
   }).format(n);
 
-
-// ====== TRACKING CALCULADORA (versión notificación única) ======
+/* ====== TRACKING CALCULADORA (versión notificación única) ====== */
 function getSessionId() {
   try {
     let sid = sessionStorage.getItem('calc_sid');
@@ -81,22 +78,24 @@ function getSessionId() {
 
 function sendCalcEvent(payload) {
   try {
+    const body = JSON.stringify(payload);
+    // Más fiable en cierre/ocultación de página
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: 'application/json' });
+      navigator.sendBeacon('/api/calc-interaction', blob);
+      return;
+    }
+    // Fallback
     fetch('/api/calc-interaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body,
       keepalive: true,
     }).catch(() => {});
   } catch {}
 }
 
-
-
-
-
-
-
-// ====== TRACKING: Notificación única tras 5 min (o evento clave) ======
+/* ====== TRACKING: Notificación única tras 5 min (o evento clave/leave) ====== */
 export function useCalcTracking(state) {
   const timerRef = useRef(null);
   const sentRef = useRef(false);
@@ -114,7 +113,7 @@ export function useCalcTracking(state) {
     };
   }
 
-  // Señal fiable de gesto humano (si el navegador la soporta)
+  // Señal de gesto humano (si existe)
   function hasUserActivation() {
     try { return !!(navigator.userActivation && navigator.userActivation.hasBeenActive); }
     catch { return false; }
@@ -122,8 +121,13 @@ export function useCalcTracking(state) {
 
   function sendSummary(reason) {
     if (sentRef.current) return;
-    // Nunca enviar si no hubo interacción humana, salvo acciones clave
-    if (!touchedRef.current && reason !== 'download_pdf' && reason !== 'contact_click') return;
+
+    // Permitir envío sin gesto humano en razones clave
+    const allowWithoutTouch =
+      reason === 'download_pdf' || reason === 'contact_click' || reason === 'leave';
+
+    // No enviar si no hubo interacción humana, salvo acciones clave
+    if (!touchedRef.current && !allowWithoutTouch) return;
 
     sentRef.current = true;
 
@@ -133,7 +137,7 @@ export function useCalcTracking(state) {
       sid: getSessionId(),
       t: Date.now(),
       url: typeof location !== 'undefined' ? location.href : '',
-      reason, // 'activity' | 'download_pdf' | 'contact_click'
+      reason, // 'activity' | 'download_pdf' | 'contact_click' | 'leave'
     };
     sendCalcEvent(payload);
 
@@ -156,19 +160,16 @@ export function useCalcTracking(state) {
     try { if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true; } catch {}
   }, []);
 
-  // NO programar por cambios de estado; solo mantener snapshot
+  // Mantener snapshot del estado
   useEffect(() => {
     lastStateRef.current = state;
   }, [state]);
 
-  // Iniciar/reiniciar temporizador solo tras gesto humano real
+  // Iniciar/reiniciar temporizador tras gesto humano real
   useEffect(() => {
     const onHuman = () => {
-      // Doble verificación: gesto humano + API de activación si existe
       touchedRef.current = true;
-      if (hasUserActivation() === false) {
-        // Aunque la API no esté, consideramos válido el gesto (pointer/tecla)
-      }
+      // Aunque la API no esté, consideramos válido el gesto (pointer/tecla)
       scheduleSummary();
     };
     window.addEventListener('pointerdown', onHuman, { capture: true, passive: true });
@@ -180,45 +181,34 @@ export function useCalcTracking(state) {
     };
   }, []);
 
-  // Acciones clave: envío inmediato y marcan interacción
+  // Acciones clave: eventos personalizados (más fiable que selectores del DOM)
   useEffect(() => {
-    function onClick(e) {
-      if (sentRef.current) return;
-      const target = e.target;
-      if (!target) return;
+    const onPdf = () => { touchedRef.current = true; sendSummary('download_pdf'); };
+    const onContact = () => { touchedRef.current = true; sendSummary('contact_click'); };
 
-      // Descargar PDF -> enviar ya
-      if (target.closest?.('[href="#precio"], a[href="#precio"]')) {
-        touchedRef.current = true;
-        sendSummary('download_pdf');
-        return;
-      }
-      // Contactar -> enviar ya
-      if (target.closest?.('#contacto_calc, [href="#contacto"], a[href="#contacto"]')) {
-        touchedRef.current = true;
-        sendSummary('contact_click');
-        return;
-      }
+    window.addEventListener('calc:download_pdf', onPdf);
+    window.addEventListener('calc:contact_click', onContact);
 
-      // Cualquier otro click (humano) solo reprograma
-      if (hasUserActivation()) {
-        touchedRef.current = true;
-        scheduleSummary();
-      }
-    }
-    document.addEventListener('click', onClick, true);
-    return () => document.removeEventListener('click', onClick, true);
+    return () => {
+      window.removeEventListener('calc:download_pdf', onPdf);
+      window.removeEventListener('calc:contact_click', onContact);
+    };
+  }, []);
+
+  // Enviar al salir/ocultar la página
+  useEffect(() => {
+    const onLeave = () => sendSummary('leave');
+    const onVis = () => { if (document.visibilityState === 'hidden') sendSummary('leave'); };
+
+    window.addEventListener('pagehide', onLeave, { capture: true });
+    document.addEventListener('visibilitychange', onVis, { capture: true });
+
+    return () => {
+      window.removeEventListener('pagehide', onLeave, { capture: true });
+      document.removeEventListener('visibilitychange', onVis, { capture: true });
+    };
   }, []);
 }
-// ====== FIN TRACKING ======
-
-
-
-
-
-
-
-
 
 /* ---------- Bloque reutilizable: Título + descripción + toggles ---------- */
 function SettingsBlock({ title, description, items, onToggle }) {
@@ -280,6 +270,8 @@ function SummaryBox({ total, onDownloadPDF }) {
           onClick={(e) => {
             e.preventDefault();
             trackCalcPDF(total);
+            // Notificar al hook de forma explícita (evento personalizado)
+            try { window.dispatchEvent(new CustomEvent('calc:download_pdf')); } catch {}
             onDownloadPDF();
           }}
         />
@@ -295,7 +287,11 @@ function SummaryBox({ total, onDownloadPDF }) {
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="#0E1C9D"
-            onClick={() => trackClickCall("contacto")}
+            onClick={() => {
+              trackClickCall("contacto");
+              // Notificar al hook de forma explícita (evento personalizado)
+              try { window.dispatchEvent(new CustomEvent('calc:contact_click')); } catch {}
+            }}
           />
         </span>
 
@@ -306,7 +302,6 @@ function SummaryBox({ total, onDownloadPDF }) {
     </div>
   );
 }
-
 
 export default function CalculadoraWeb() {
   // Estado visible
@@ -485,7 +480,7 @@ export default function CalculadoraWeb() {
     total
   });
 
-  // --- PDF ---
+  /* --- PDF --- */
   async function loadPngWithSize(path) {
     const res = await fetch(path, { cache: 'no-cache' });
     const blob = await res.blob();
@@ -511,7 +506,7 @@ export default function CalculadoraWeb() {
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
     const colW  = pageW - m * 2;
-    const fmt = (n) => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n);
+    const fmtLocal = (n) => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n);
 
     doc.setLineHeightFactor(1.35);
     const p = (txt, size = 12, bold = false, color = [51,51,51]) => {
@@ -542,7 +537,7 @@ export default function CalculadoraWeb() {
 
     const rightX = pageW - m;
     doc.setFont('helvetica', 'bold'); doc.setFontSize(28); doc.setTextColor(63,82,255);
-    doc.text(fmt(total), rightX, yHeader, { align: 'right', baseline: 'alphabetic' });
+    doc.text(fmtLocal(total), rightX, yHeader, { align: 'right', baseline: 'alphabetic' });
 
     y = yHeader + 32;
     hr();
