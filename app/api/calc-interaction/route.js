@@ -20,7 +20,6 @@ export async function POST(request) {
       state?.tipo ? `Tipo: ${state.tipo}` : undefined,
       state?.tamano ? `Tamaño: ${state.tamano}` : undefined,
       state?.complejidad ? `Complejidad: ${state.complejidad}` : undefined,
-      url ? `URL: ${url}` : undefined,
       sid ? `SID: \`${sid}\`` : undefined,
       t ? `Time: <t:${Math.floor(Number(t) / 1000)}:f>` : undefined,
     ].filter(Boolean);

@@ -1,0 +1,388 @@
+// ============================================
+// CHRISTMAS MENU - VARIABLES & ANIMATIONS
+// ============================================
+
+// Colors
+$burgundy-dark: #420001;
+$paper-bone: #f9f3ed;
+$rose-accent: #c64b52;
+$particle-beige: #f9f3ed; // Color de los puntos
+
+// Typography
+$font-body: 'kepler-std-condensed-display', serif;
+$font-display: 'snell-roundhand-lt-std', cursive;
+
+// ============================================
+// HIDE HEADER & FOOTER (Only for this page)
+// ============================================
+
+// Hide all global navigation elements
+.menu-navidad-container {
+  // Force full viewport
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  // Hide siblings (header, footer, etc)
+  &~* {
+    display: none !important;
+  }
+}
+
+// Global override when menu-navidad is present
+body {
+  &:has(.menu-navidad-container) {
+    overflow-x: hidden;
+
+    >header,
+    >footer {
+      display: none !important;
+    }
+  }
+}
+
+// ============================================
+// KEYFRAME ANIMATIONS
+// ============================================
+
+@keyframes floating {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInPulse {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// ============================================
+// GLOBAL LAYOUT
+// ============================================
+
+.menu-navidad-container {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: $burgundy-dark;
+  color: $paper-bone;
+  position: relative;
+}
+
+// ============================================
+// LAYER 0: PARTICLES
+// ============================================
+
+.particles-container {
+  position: fixed;
+  inset: 0;
+  z-index: 5; // Encima del stage
+  pointer-events: none;
+  // background-color: $burgundy-dark; // REMOVIDO - Tapa todo
+
+  .particle {
+    position: absolute;
+    background-color: $particle-beige;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+
+    &:nth-child(2n) {
+      animation-delay: 0.5s;
+    }
+
+    &:nth-child(3n) {
+      animation-delay: 1s;
+    }
+
+    &:nth-child(5n) {
+      animation-delay: 1.5s;
+    }
+  }
+}
+
+// ============================================
+// LAYER 1: PINNED STAGE
+// ============================================
+
+.stage {
+  position: relative; // Relative para que GSAP pin funcione
+  z-index: 1;
+  height: 100dvh;
+  height: 100vh; // fallback
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: $burgundy-dark;
+
+  .floating-element {
+    position: absolute;
+    animation: floating 3s ease-in-out infinite;
+    // will-change: transform; // Removido para blend mode
+    mix-blend-mode: screen; // Mismo blend mode que actores
+
+    &.delay-700 {
+      animation-delay: 0.7s;
+    }
+
+    &.delay-1400 {
+      animation-delay: 1.4s;
+    }
+
+    &.delay-2100 {
+      animation-delay: 2.1s;
+    }
+  }
+
+  .actor {
+    position: absolute;
+    // will-change: transform; // REMOVIDO
+    mix-blend-mode: screen; // Blend mode para efecto Trama
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  .title-group {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.9);
+
+    .scroll-hint {
+      font-family: 'kepler-std-condensed-display', serif;
+      font-weight: 300; // Light
+      font-style: italic;
+      font-size: 1.125rem;
+      margin-top: 4rem; // Espacio debajo del título
+      letter-spacing: 0.05em;
+      color: $paper-bone;
+      animation: pulse 2s ease-in-out infinite;
+      text-align: center;
+    }
+  }
+
+  .initial-scroll-hint {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'kepler-std-condensed-display', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 2rem; // Mismo tamaño que "MENÚ DE"
+    color: $paper-bone;
+    letter-spacing: 0.1em;
+    animation: fadeInPulse 1s ease-in-out forwards, pulse 2s ease-in-out infinite 1s;
+    z-index: 100;
+  }
+}
+
+// ============================================
+// LAYER 2: MENU CONTENT
+// ============================================
+
+.menu-content {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  min-height: 100vh;
+  margin-top: -2px;
+
+  .paper-divider {
+    width: 105%;
+    height: 150px;
+    position: absolute;
+    top: -75px; // Mitad arriba, mitad abajo
+    left: -2.5%;
+    transform: none;
+    z-index: 25;
+    pointer-events: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+  }
+
+  .paper-body {
+    width: 100%;
+    max-width: 100vw; // Respetar ancho de pantalla
+    background-color: $paper-bone;
+    background-image: url('/assets/navidad/paper_bg_tile.png');
+    background-repeat: repeat;
+    background-size: auto;
+    background-blend-mode: multiply;
+    padding-top: 6em;
+    padding-bottom: 6rem;
+    color: $burgundy-dark;
+    position: relative;
+    z-index: 20;
+    overflow-x: hidden;
+
+    h2 {
+      font-family: $font-display;
+      font-size: 3rem; // Responsive
+      text-align: center;
+      margin-bottom: 3rem;
+      line-height: 1;
+      text-transform: none;
+      max-width: 90%; // No salirse de pantalla
+      margin-left: auto;
+      margin-right: auto;
+
+      &::before {
+        content: 'MENÚ DE';
+        display: block;
+        font-family: 'kepler-std-condensed-display', serif;
+        font-weight: 300;
+        font-style: italic;
+        font-size: 2rem; // Responsive
+        color: $rose-accent;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+      }
+
+      color: $burgundy-dark;
+    }
+
+    .menu-section {
+      max-width: 90%;
+      margin: 0 auto 3rem; // Centrado
+      padding: 0;
+      text-align: center; // Centrar todo el contenido
+
+      h3 {
+        font-family: $font-display;
+        font-size: 3.4rem; // Responsive
+        text-align: center;
+        margin-bottom: 2rem;
+        margin-top: 3rem;
+        color: $rose-accent;
+        font-weight: 400;
+      }
+
+      .menu-items {
+        font-family: 'kepler-std-condensed-display', serif;
+        font-weight: 300; // Light
+        font-style: normal;
+        text-align: center;
+        max-width: 100%;
+        margin: 0 auto;
+
+        p {
+          font-family: 'kepler-std-condensed-display';
+          margin-bottom: 1.5rem;
+          line-height: 1.2;
+          font-size: 1.8rem;
+          color: $burgundy-dark;
+          letter-spacing: 0.03rem;
+          text-align: center;
+        }
+
+        .dish-name {
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    .divider-line {
+      width: 80%;
+      max-width: 300px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, $rose-accent, transparent);
+      margin: 8rem auto;
+    }
+  }
+}
+
+// ============================================
+// PRELOADER
+// ============================================
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: $burgundy-dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease-out;
+
+  &.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .preloader-logo {
+    width: 200px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 768px) {
+  .menu-content .paper-body {
+
+    h2 {
+      font-size: 3.5rem;
+    }
+
+    .menu-section h3 {
+      font-size: 2.5rem;
+    }
+
+    .menu-items p {
+      font-size: 1.125rem;
+    }
+  }
+}
