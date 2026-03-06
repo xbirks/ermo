@@ -4,23 +4,64 @@ import { useEffect, useRef, useState } from "react";
 
 export default function CamaraPage() {
     const videoRef = useRef(null);
+    const canvasRef = useRef(null);
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
+        let animationFrameId;
+
+        // 1. Pedimos permisos
         navigator.mediaDevices.getUserMedia({
             video: { facingMode: "environment" }
         })
             .then((stream) => {
                 if (videoRef.current) {
                     videoRef.current.srcObject = stream;
+                    // Forzamos el play por si el móvil bloquea el autoplay
+                    videoRef.current.play().catch(e => console.error(e));
                 }
             })
             .catch((error) => {
                 console.error("Error al acceder a la cámara:", error);
-                setErrorMsg("No se ha podido acceder a la cámara. Por favor, revisa los permisos de tu navegador.");
+                setErrorMsg("No se ha podido acceder a la cámara. Por favor, revisa los permisos.");
             });
 
+        // 2. El motor de renderizado del Canvas
+        const drawToCanvas = () => {
+            const video = videoRef.current;
+            const canvas = canvasRef.current;
+
+            // Solo pintamos si el vídeo está listo y emitiendo
+            if (video && canvas && video.readyState >= video.HAVE_CURRENT_DATA) {
+                // Ajustamos la resolución interna del canvas a la de la cámara
+                if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                }
+
+                const ctx = canvas.getContext("2d");
+
+                // A. Pintamos el fotograma real del vídeo
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // B. Aplicamos el modo fusión y pintamos un rectángulo rojo puro encima
+                // Esto multiplica los valores RGB: (Rojo*1, Verde*0, Azul*0) -> Destruye el verde/azul
+                ctx.globalCompositeOperation = "multiply";
+                ctx.fillStyle = "#FF0000";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // C. Restauramos el modo normal para el siguiente ciclo
+                ctx.globalCompositeOperation = "source-over";
+            }
+
+            // Repetimos el proceso en el siguiente fotograma (bucle a 60fps)
+            animationFrameId = requestAnimationFrame(drawToCanvas);
+        };
+
+        drawToCanvas();
+
         return () => {
+            cancelAnimationFrame(animationFrameId);
             if (videoRef.current && videoRef.current.srcObject) {
                 const tracks = videoRef.current.srcObject.getTracks();
                 tracks.forEach((track) => track.stop());
@@ -37,33 +78,26 @@ export default function CamaraPage() {
                 </div>
             )}
 
-            {/* FIX 1: En lugar de display: none, lo escondemos con tamaño 0. 
-          Así los navegadores móviles como Safari no lo ignoran. */}
-            <svg style={{ position: "absolute", width: 0, height: 0 }} aria-hidden="true">
-                <defs>
-                    <filter id="pure-red-matrix" colorInterpolationFilters="sRGB">
-                        <feColorMatrix
-                            type="matrix"
-                            values="1 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 1 0"
-                        />
-                    </filter>
-                </defs>
-            </svg>
-
+            {/* El vídeo original sigue aquí, pero lo escondemos.
+        OJO: No usamos display: "none" porque iOS pausaría la cámara. 
+        Lo hacemos invisible con opacidad casi cero.
+      */}
             <video
                 ref={videoRef}
                 autoPlay
                 playsInline
                 muted
+                style={{ position: "absolute", width: "1px", height: "1px", opacity: 0.001, pointerEvents: "none" }}
+            />
+
+            {/* Aquí es donde ocurre la magia. El usuario solo ve este Canvas.
+      */}
+            <canvas
+                ref={canvasRef}
                 style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
-                    // FIX 2: Quitamos el transform scaleX para que la cámara trasera se mueva natural
-                    filter: "url(#pure-red-matrix)",
+                    objectFit: "cover", // Se encarga de llenar toda la pantalla del móvil sin deformar
                 }}
             />
 
