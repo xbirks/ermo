@@ -53,26 +53,62 @@ export default function CamaraPage() {
                 // Obtenemos los valores en tiempo real del panel de depuración
                 const { brightness, contrast, saturate } = settingsRef.current;
 
-                // 1. SATURAR: Hace que el naranja impreso saque a relucir su canal rojo.
-                // 2. BRILLO + CONTRASTE: Fuerza al papel blanco y al naranja a llegar al límite de luz (255)
-                // de modo que ambos sean idénticamente blancos antes de ser pintados de rojo profundo.
-                ctx.filter = `saturate(${saturate}) brightness(${brightness}) contrast(${contrast})`;
-
-                // A. Pintamos el fotograma real del vídeo (ahora procesado)
+                // A. Pintamos el fotograma real del vídeo normal
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-                // NUEVO: Reseteamos el filtro para que no afecte al rectángulo rojo que vamos a pintar a continuación
-                ctx.filter = "none";
+                // --- MANIPULACIÓN DE PÍXELES EN BRUTO PARA SAFARI (iOS) ---
+                // Leemos los píxeles (esto es más pesado pero 100% compatible con todos los navegadores)
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                const len = data.length;
 
-                // B. Aplicamos el modo fusión y pintamos un rectángulo rojo puro encima
+                // Precalculamos las fórmulas para ir rápido
+                // Constantes matemáticas de luminiscencia
+                const rw = 0.3086, gw = 0.6094, bw = 0.0820;
+
+                for (let i = 0; i < len; i += 4) {
+                    let r = data[i];
+                    let g = data[i + 1];
+                    let b = data[i + 2];
+
+                    // 1. SATURACIÓN
+                    if (saturate !== 1) {
+                        const gray = r * rw + g * gw + b * bw;
+                        r = Math.round(gray + saturate * (r - gray));
+                        g = Math.round(gray + saturate * (g - gray));
+                        b = Math.round(gray + saturate * (b - gray));
+                    }
+
+                    // 2. CONTRASTE
+                    if (contrast !== 1) {
+                        const factor = (259 * (contrast * 255 + 255)) / (255 * (259 - contrast * 255));
+                        r = factor * (r - 128) + 128;
+                        g = factor * (g - 128) + 128;
+                        b = factor * (b - 128) + 128;
+                    }
+
+                    // 3. BRILLO
+                    if (brightness !== 1) {
+                        r = r * brightness;
+                        g = g * brightness;
+                        b = b * brightness;
+                    }
+
+                    // Aseguramos límites [0..255]
+                    data[i] = Math.max(0, Math.min(255, r));
+                    data[i + 1] = Math.max(0, Math.min(255, g));
+                    data[i + 2] = Math.max(0, Math.min(255, b));
+                }
+
+                // Guardamos los nuevos píxeles en el canvas
+                ctx.putImageData(imageData, 0, 0);
+
+                // --- CAPA ROJA (MULTIPLY) ---
                 ctx.globalCompositeOperation = "multiply";
-
-                // TRUCO: Si #FF0000 sigue siendo muy fuerte y quieres ver un poco más del fondo, 
-                // puedes usar "rgba(255, 0, 0, 0.9)"
                 ctx.fillStyle = "#FF0000";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // C. Restauramos el modo normal para el siguiente ciclo
+                // Restaurar para el siguiente frame
                 ctx.globalCompositeOperation = "source-over";
             }
 
@@ -112,13 +148,27 @@ export default function CamaraPage() {
                 style={{ position: "absolute", width: "1px", height: "1px", opacity: 0.001, pointerEvents: "none" }}
             />
 
-            {/* Aquí es donde ocurre la magia. El usuario solo ve este Canvas. */}
+            {/* Capa de vídeo procesada nativamente */}
             <canvas
                 ref={canvasRef}
                 style={{
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
+                }}
+            />
+
+            {/* Capa roja (Acetato): Multiplica sobre la imagen filtrada usando CSS en lugar de JS */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#FF0000",
+                    mixBlendMode: "multiply",
+                    pointerEvents: "none", // Deja pasar los toques a los sliders
                 }}
             />
 
