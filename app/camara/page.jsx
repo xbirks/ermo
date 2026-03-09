@@ -7,6 +7,15 @@ export default function CamaraPage() {
     const canvasRef = useRef(null);
     const [errorMsg, setErrorMsg] = useState("");
 
+    // Usamos useRef para no tener que reiniciar la cámara cada vez que movamos un slider
+    const settingsRef = useRef({ brightness: 1.5, contrast: 2.5, saturate: 2.0 });
+    const [uiSettings, setUiSettings] = useState(settingsRef.current);
+
+    const updateSetting = (key, val) => {
+        settingsRef.current[key] = parseFloat(val);
+        setUiSettings({ ...settingsRef.current });
+    };
+
     useEffect(() => {
         let animationFrameId;
 
@@ -41,12 +50,13 @@ export default function CamaraPage() {
 
                 const ctx = canvas.getContext("2d");
 
-                // NUEVO: Subimos el brillo y ajustamos el contraste para "quemar"
-                // las texturas del papel y hacer que el rojo/naranja impreso desaparezca.
-                // Te sugiero usar contraste > 1 (ej: 1.2 o 1.5) en vez de 0.8. 
-                // Un contraste alto oscurece los grises y aclara los naranjas/blancos hacia el límite (255), 
-                // garantizando que el naranja se funda con el papel.
-                ctx.filter = "brightness(1.4) contrast(1.2)";
+                // Obtenemos los valores en tiempo real del panel de depuración
+                const { brightness, contrast, saturate } = settingsRef.current;
+
+                // 1. SATURAR: Hace que el naranja impreso saque a relucir su canal rojo.
+                // 2. BRILLO + CONTRASTE: Fuerza al papel blanco y al naranja a llegar al límite de luz (255)
+                // de modo que ambos sean idénticamente blancos antes de ser pintados de rojo profundo.
+                ctx.filter = `saturate(${saturate}) brightness(${brightness}) contrast(${contrast})`;
 
                 // A. Pintamos el fotograma real del vídeo (ahora procesado)
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -102,16 +112,57 @@ export default function CamaraPage() {
                 style={{ position: "absolute", width: "1px", height: "1px", opacity: 0.001, pointerEvents: "none" }}
             />
 
-            {/* Aquí es donde ocurre la magia. El usuario solo ve este Canvas.
-      */}
+            {/* Aquí es donde ocurre la magia. El usuario solo ve este Canvas. */}
             <canvas
                 ref={canvasRef}
                 style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover", // Se encarga de llenar toda la pantalla del móvil sin deformar
+                    objectFit: "cover",
                 }}
             />
+
+            {/* PANEL DE CONTROL EN VIVO PARA ENCONTRAR EL PUNTO PERFECTO */}
+            <div style={{
+                position: "absolute", bottom: 20, left: 20, right: 20,
+                background: "rgba(0,0,0,0.8)", padding: 20, borderRadius: 15,
+                color: "white", zIndex: 100, fontFamily: "sans-serif"
+            }}>
+                <h3 style={{ margin: "0 0 10px 0", fontSize: "16px" }}>Ajuste de Filtro</h3>
+                <p style={{ margin: "0 0 15px 0", fontSize: "12px", color: "#aaa" }}>
+                    Mueve estos controles hasta que la palabra naranja desaparezca y la gris se lea.
+                </p>
+
+                <div style={{ marginBottom: 12 }}>
+                    <label style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "5px" }}>
+                        <span>Saturación (Destaca el rojo)</span>
+                        <span>{uiSettings.saturate}</span>
+                    </label>
+                    <input type="range" min="1" max="5" step="0.1" value={uiSettings.saturate}
+                        onChange={e => updateSetting('saturate', e.target.value)}
+                        style={{ width: "100%" }} />
+                </div>
+
+                <div style={{ marginBottom: 12 }}>
+                    <label style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "5px" }}>
+                        <span>Brillo (Aclara todo)</span>
+                        <span>{uiSettings.brightness}</span>
+                    </label>
+                    <input type="range" min="0.5" max="4" step="0.1" value={uiSettings.brightness}
+                        onChange={e => updateSetting('brightness', e.target.value)}
+                        style={{ width: "100%" }} />
+                </div>
+
+                <div style={{ marginBottom: 5 }}>
+                    <label style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "5px" }}>
+                        <span>Contraste (Quema los claros)</span>
+                        <span>{uiSettings.contrast}</span>
+                    </label>
+                    <input type="range" min="1" max="10" step="0.1" value={uiSettings.contrast}
+                        onChange={e => updateSetting('contrast', e.target.value)}
+                        style={{ width: "100%" }} />
+                </div>
+            </div>
 
         </main>
     );
