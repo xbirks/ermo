@@ -4,11 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 export default function CamaraPage() {
     const videoRef = useRef(null);
-    const canvasRef = useRef(null);
-    const [errorMsg, setErrorMsg] = useState("");
-
-    // Usamos useRef para no tener que reiniciar la cámara cada vez que movamos un slider
-    const settingsRef = useRef({ brightness: 1.5, contrast: 2.5, saturate: 2.0 });
+    // Usamos useRef para mantener los valores activos del filtro
+    // Valores guardados: saturación 1.3, brillo 1, contraste 1
+    const settingsRef = useRef({ brightness: 1, contrast: 1, saturate: 1.3 });
     const [uiSettings, setUiSettings] = useState(settingsRef.current);
 
     const updateSetting = (key, val) => {
@@ -172,7 +170,8 @@ export default function CamaraPage() {
                 }}
             />
 
-            {/* PANEL DE CONTROL EN VIVO PARA ENCONTRAR EL PUNTO PERFECTO */}
+            {/* PANEL DE CONTROL EN VIVO PARA ENCONTRAR EL PUNTO PERFECTO (Oculto en produccion) */}
+            {/*
             <div style={{
                 position: "absolute", bottom: 20, left: 20, right: 20,
                 background: "rgba(0,0,0,0.8)", padding: 20, borderRadius: 15,
@@ -213,6 +212,7 @@ export default function CamaraPage() {
                         style={{ width: "100%" }} />
                 </div>
             </div>
+            */}
 
         </main>
     );
