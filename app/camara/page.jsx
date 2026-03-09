@@ -41,12 +41,24 @@ export default function CamaraPage() {
 
                 const ctx = canvas.getContext("2d");
 
-                // A. Pintamos el fotograma real del vídeo
+                // NUEVO: Subimos el brillo y ajustamos el contraste para "quemar"
+                // las texturas del papel y hacer que el rojo/naranja impreso desaparezca.
+                // Te sugiero usar contraste > 1 (ej: 1.2 o 1.5) en vez de 0.8. 
+                // Un contraste alto oscurece los grises y aclara los naranjas/blancos hacia el límite (255), 
+                // garantizando que el naranja se funda con el papel.
+                ctx.filter = "brightness(1.4) contrast(1.2)";
+
+                // A. Pintamos el fotograma real del vídeo (ahora procesado)
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+                // NUEVO: Reseteamos el filtro para que no afecte al rectángulo rojo que vamos a pintar a continuación
+                ctx.filter = "none";
+
                 // B. Aplicamos el modo fusión y pintamos un rectángulo rojo puro encima
-                // Esto multiplica los valores RGB: (Rojo*1, Verde*0, Azul*0) -> Destruye el verde/azul
                 ctx.globalCompositeOperation = "multiply";
+
+                // TRUCO: Si #FF0000 sigue siendo muy fuerte y quieres ver un poco más del fondo, 
+                // puedes usar "rgba(255, 0, 0, 0.9)"
                 ctx.fillStyle = "#FF0000";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
