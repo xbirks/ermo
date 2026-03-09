@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 export default function CamaraPage() {
     const videoRef = useRef(null);
+    const canvasRef = useRef(null);
+    const [errorMsg, setErrorMsg] = useState("");
+
     // Usamos useRef para mantener los valores activos del filtro
     // Valores guardados: saturación 1.3, brillo 1, contraste 1
     const settingsRef = useRef({ brightness: 1, contrast: 1, saturate: 1.3 });
