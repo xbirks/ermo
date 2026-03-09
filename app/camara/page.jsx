@@ -138,6 +138,8 @@ export default function CamaraPage() {
         OJO: No usamos display: "none" porque iOS pausaría la cámara. 
         Lo hacemos invisible con opacidad casi cero.
       */}
+
+
             <video
                 ref={videoRef}
                 autoPlay
