@@ -308,13 +308,11 @@ strong{
     linear-gradient(180deg, #c5dbf0, #9ea3a8) border-box
   );
 
-  /* Sombra iOS */
+  /* Sombra iOS (sin sombra paralela exterior) */
   box-shadow:
-    0 3px 20px rgba(0,0,0,.08),
     inset 0 1px 0 rgba(255,255,255,.9),
     inset 0 -12px 20px rgba(0,0,0,.07),
-    inset 12px 12px 22px rgba(0,0,0,.04),
-    inset 0 0 0 999px rgba(120,180,255,.08);
+    inset 12px 12px 22px rgba(0,0,0,.04);
 
   transition: $transition-short, transform $transition-short, color $transition-short, border-color $transition-short, background $transition-short;
 
@@ -343,8 +341,7 @@ strong{
     border-radius: inherit;
     pointer-events: none;
     box-shadow:
-      0 0 0 1px rgba(255,255,255,.7) inset,
-      0 6px 14px rgba(120,180,255,.18);
+      0 0 0 1px rgba(255,255,255,.7) inset;
   }
 
   /* Hover:
@@ -369,11 +366,9 @@ strong{
   &:active {
     transform: translateY(0);
     box-shadow:
-      0 6px 14px rgba(0,0,0,.08),
       inset 0 1px 0 rgba(255,255,255,.85),
       inset 0 -10px 18px rgba(0,0,0,.09),
-      inset 12px 12px 20px rgba(0,0,0,.05),
-      inset 0 0 0 999px rgba(120,180,255,.12);
+      inset 12px 12px 20px rgba(0,0,0,.05);
   }
 
   /* Responsivo */

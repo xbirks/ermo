@@ -53,17 +53,16 @@ const REST_BLOCKS = [
     items: [
       {
         id: 'rest_carta_basica',
-        label: 'Carta digital (categorías, platos, precios, menú del día)',
-        cost: 400,
-        hint: 'Incluye menú del día. Carta estática gestionada por nosotros.',
+        label: 'Carta digital (categorías, platos, precios, menú del día, alérgenos)',
+        cost: 450,
+        hint: 'Incluye menú del día y alérgenos/info nutricional. Carta estática gestionada por nosotros.',
       },
-      { id: 'rest_alergenos', label: 'Alérgenos e info nutricional', cost: 90 },
       { id: 'rest_fotos_plato', label: 'Foto por plato', cost: 150 },
       { id: 'rest_carta_multiidioma', label: 'Carta multiidioma', cost: 180 },
       {
         id: 'rest_carta_editable',
         label: 'Carta editable',
-        cost: 350,
+        cost: 450,
         hint: 'CMS headless: editan ellos platos, precios, alérgenos e imágenes sin tocarnos.',
       },
       { id: 'rest_qr_mesa', label: 'QR de mesa que abre la carta', cost: 50 },
@@ -132,7 +131,6 @@ const REST_BLOCKS = [
     description: 'Visibilidad local y mapas.',
     items: [
       { id: 'rest_google_business', label: 'Ficha Google Business optimizada', cost: 150 },
-      { id: 'rest_maps', label: 'Google Maps / cómo llegar', cost: 70 },
       { id: 'rest_resenas', label: 'Reseñas embebidas', cost: 120 },
     ],
   },
@@ -970,7 +968,7 @@ export default function CalculadoraWeb({ modo = 'publico' }) {
       y += 6;
       doc.setFontSize(7);
       doc.setTextColor(160, 160, 160);
-      doc.text('Estimación orientativa. Sujeta a validación del alcance.', m, y);
+      doc.text('Presupuesto no vinculante, solo orientativo.', m, y);
       y += 12;
     } else {
       // ---- PDF GENÉRICO (calculadora pública) ----
@@ -1000,7 +998,7 @@ export default function CalculadoraWeb({ modo = 'publico' }) {
       h('MANTENIMIENTO'); p(mantSel);
 
       hr();
-      p('Estimación orientativa. No incluye impuestos. Sujeta a validación del alcance.', 10, false, [153, 153, 153]);
+      p('Presupuesto no vinculante, solo orientativo.', 10, false, [153, 153, 153]);
     }
 
     doc.setFontSize(8);
