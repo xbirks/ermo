@@ -3,8 +3,15 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '@/app/components/Transiciones/transiciones.scss';
-import { Player } from '@lottiefiles/react-lottie-player';
+import dynamic from 'next/dynamic';
 import ermoAni from '@/app/assets/logo/ERMO_logo.json';
+
+// El Lottie Player accede a `document`; cargar solo en cliente evita el
+// "document is not defined" durante el prerender (SSR).
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then((m) => m.Player),
+  { ssr: false }
+);
 
 export default function Inner({children}){
     

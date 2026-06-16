@@ -13,7 +13,8 @@ import { reportAdsConversionAndGo } from '../../lib/adsConversion';
 
 
 
-export default function WebPage({municipio = "Valencia"}) {
+export default function WebPage() {
+  const municipio = "Valencia";
 
 const [playIntro, setPlayIntro] = useState(false);
   const waUrl = 'https://wa.me/message/HJYSEK4RPLOSI1';

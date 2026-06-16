@@ -24,7 +24,8 @@ import colab from '@/app/assets/icon/destacados/coherencia.png';
 
 
 
-export default function BrandingPage({municipio}) {
+export default function BrandingPage() {
+  const municipio = "Valencia";
 
 
     

@@ -26,7 +26,8 @@ import colab from '@/app/assets/icon/destacados/punos.png';
 
 
 
-export default function FotografiaPage({municipio}) {
+export default function FotografiaPage() {
+  const municipio = "Valencia";
 
 
     

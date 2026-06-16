@@ -52,7 +52,8 @@ const faqs = [
 
 
 
-export default function WebPage({municipio = "Valencia"}) {
+export default function WebPage() {
+  const municipio = "Valencia";
 
 
 

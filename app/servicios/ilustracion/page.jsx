@@ -20,7 +20,8 @@ import elevacion from '@/app/assets/icon/destacados/elevacion.png';
 import merchan from '@/app/assets/icon/destacados/bolsa-top.png';
 
 
-export default function IlustracionPage({municipio}) {
+export default function IlustracionPage() {
+  const municipio = "Valencia";
 
 
     
