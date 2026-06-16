@@ -4,6 +4,7 @@ export default function robots() {
         {
           userAgent: ['Googlebot', 'Applebot', 'Bingbot'],
           allow: ['/'],
+          disallow: ['/interno/'],
         },
       ],
       sitemap: 'https://ermo.es/sitemap.xml',

@@ -274,7 +274,7 @@
     display: flex;
     grid-template-columns: 1fr 380px;
     gap: 24px;
-    align-items: baseline;
+    align-items: flex-start;
     justify-content: space-between;
 
     @media (max-width: 1200px) {
@@ -297,6 +297,11 @@
     h3 {
       margin: 0px;
       font-size: 1rem;
+      // misma altura de caja que la 1ª fila de servicios (switch ~24px),
+      // para que título y primer toggle queden alineados arriba.
+      min-height: 24px;
+      display: flex;
+      align-items: center;
       letter-spacing: -1%;
       text-transform: uppercase;
       color: #4b4b4b;
@@ -551,4 +556,95 @@
   padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0);
   white-space: nowrap; border: 0;
+}
+
+// OPCIONES RESTAURANTE (modo interno)
+.calc-block--rest {
+  // más aire entre una sección y la siguiente
+  padding: 40px 0;
+
+  // título y opciones arrancan exactamente a la misma altura, arriba
+  .calc-block__grid {
+    align-items: flex-start;
+  }
+
+  .calc-block__text {
+    // título con interletrado más aireado
+    h3 {
+      letter-spacing: 0.5px;
+      margin-top: 0;
+    }
+  }
+
+  // que la columna de opciones arranque a la altura del título
+  .calc-block__services {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .service {
+    margin-top: 18px;
+    align-items: flex-start; // switch arriba, no centrado
+
+    &:first-child { margin-top: 0; } // primera opción alineada con el h3
+
+    // label arriba + precio debajo, alineado a la derecha
+    .service__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .service__hint {
+      font-family: $neue;
+      font-size: 0.75rem;
+      font-weight: 300;
+      line-height: 1rem;
+      color: #8D8D8D;
+      letter-spacing: -0.2px;
+      text-transform: none;
+      text-align: right;
+      max-width: 320px;
+    }
+
+    .service__price {
+      font-family: $neue;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: $azul-ermo;
+      letter-spacing: -0.2px;
+      text-transform: none;
+      white-space: nowrap;
+    }
+
+    .switch {
+      flex: 0 0 auto;
+      margin-left: 16px;
+    }
+  }
+}
+
+// "El servicio NO incluye" (recordatorio interno)
+.calc-block--excluye {
+  .excluye__list {
+    display: grid;
+    gap: 8px;
+    max-width: 380px;
+  }
+
+  .excluye__item {
+    font-family: $neue;
+    font-size: 0.85rem;
+    font-weight: 300;
+    line-height: 1.15rem;
+    letter-spacing: -0.2px;
+    color: #8D8D8D;
+    text-align: right;
+
+    &::before {
+      content: '— ';
+    }
+  }
 }
