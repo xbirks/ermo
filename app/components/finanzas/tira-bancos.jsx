@@ -156,8 +156,10 @@ export default function TiraBancos({ cuentas, onCambio }) {
                                     Cancelar
                                 </button>
                             </form>
-                        ) : c.saldo_manual ? (
-                            // El saldo se puso a mano: se puede corregir.
+                        ) : (
+                            // Cualquier cuenta se corrige pulsando su
+                            // cifra: obligar a escribir SQL para cambiar
+                            // un saldo no tiene sentido.
                             <button
                                 className="fz-bancos__cifra fz-bancos__cifra--editable"
                                 type="button"
@@ -165,14 +167,10 @@ export default function TiraBancos({ cuentas, onCambio }) {
                                     setEditando(c.id);
                                     setValor(String(c.saldo_actual));
                                 }}
-                                title="Pulsa para actualizar el saldo"
+                                title="Pulsa para corregir el saldo"
                             >
                                 <Cifra valor={c.disponible} />
                             </button>
-                        ) : (
-                            <span className="fz-bancos__cifra">
-                                <Cifra valor={c.disponible} />
-                            </span>
                         )}
 
                         {retenido > 0 && !enEdicion && (

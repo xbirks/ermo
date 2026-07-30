@@ -62,11 +62,12 @@ export async function getCuentas() {
 }
 
 /**
- * Pone a mano el saldo de una cuenta de ahorro o inversión.
+ * Pone a mano el saldo de una cuenta.
  *
- * Sumar movimientos no vale para estas cuentas: B100 guarda el dinero
- * en la Hucha, que el extracto no refleja, y una cartera de fondos vale
- * hoy más que lo aportado. El saldo se dice y la app lo respeta.
+ * Vale para cualquiera, no sólo ahorro e inversión: el efectivo tampoco
+ * se puede calcular sumando movimientos, porque los gastos en metálico
+ * no dejan rastro en ningún extracto. Y con años de histórico
+ * importado, sumar todo daría un saldo ficticio en cualquier cuenta.
  */
 export async function declararSaldo(id, saldo) {
     await sql`
