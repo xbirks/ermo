@@ -27,16 +27,14 @@ export default function TiraBancos({ cuentas }) {
                         key={c.id}
                     >
                         <span className="fz-bancos__nombre">{c.nombre}</span>
-                        <span style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-                            {retenido > 0 && (
-                                <span className="fz-bancos__nota">
-                                    <Cifra valor={retenido} signo="−" tono="acento" /> retenidos
-                                </span>
-                            )}
-                            <span className="fz-bancos__cifra">
-                                <Cifra valor={c.disponible} />
-                            </span>
+                        <span className="fz-bancos__cifra">
+                            <Cifra valor={c.disponible} />
                         </span>
+                        {retenido > 0 && (
+                            <span className="fz-bancos__nota">
+                                <Cifra valor={retenido} signo="−" tono="acento" /> retenidos
+                            </span>
+                        )}
                     </div>
                 );
             })}

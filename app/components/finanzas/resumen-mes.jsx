@@ -47,7 +47,7 @@ export default function ResumenMes({ resumen, historico, mes }) {
                 <div className="fz-resumen__bloque">
                     <p className="fz-resumen__etiqueta">Ha entrado</p>
                     <p className="fz-resumen__cifra">
-                        <Cifra valor={ingresos_totales} signo={false} />
+                        <Cifra valor={ingresos_totales} signo={false} tono="entra" />
                     </p>
                     {cmpIngresos && (
                         <p className="fz-resumen__pie">{cmpIngresos}</p>

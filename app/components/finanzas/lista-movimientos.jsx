@@ -1,11 +1,11 @@
 "use client";
 
+import Cifra from './cifra';
 import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 
-// El signo distingue ingreso de gasto, no el color: en una interfaz en
-// grises, teñir cada fila haría que el ámbar del IVA dejara de
-// destacar, y ese es el dato que de verdad hay que ver.
-const SIGNO = { ingreso: '+', gasto: '−', transferencia_interna: '' };
+// Los ingresos van en verde. En una lista de treinta apuntes casi
+// todos negativos, el signo por sí solo no basta para localizar de un
+// vistazo el día que entró dinero.
 
 export default function ListaMovimientos({ movimientos, onBorrar }) {
     if (!movimientos.length) {
@@ -40,7 +40,11 @@ export default function ListaMovimientos({ movimientos, onBorrar }) {
                         </div>
 
                         <span className={`fz-movimientos__importe fz-movimientos__importe--${clase}`}>
-                            {SIGNO[m.tipo_movimiento]}{euros(m.importe)}
+                            <Cifra
+                                valor={m.importe}
+                                signo={m.tipo_movimiento === 'ingreso' ? '+' : m.tipo_movimiento === 'gasto' ? '−' : false}
+                                tono={m.tipo_movimiento === 'ingreso' ? 'entra' : undefined}
+                            />
                         </span>
 
                         <div className="fz-movimientos__acciones">

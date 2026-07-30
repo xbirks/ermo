@@ -18,29 +18,36 @@
 // =============================================================
 
 // --- Grises -----------------------------------------------------
+//
+// Neutros de verdad, no cálidos: los anteriores (#86867f, #a8a8a3)
+// tiraban a verdoso y daban un aspecto lavado. Y con salto real entre
+// ellos: el texto terciario estaba a 2,4:1 de contraste, por debajo
+// del mínimo legible, así que todo parecía deslavado.
 $blanco:   #ffffff;   // el fondo, invariable
-$hueso:    #f7f7f5;   // sólo para superficies hundidas (tarjetas mate)
-$linea:    #ececea;   // separadores
-$linea-fuerte: #1a1a18;
-$g-400:    #a8a8a3;   // decimales, texto terciario
-$g-500:    #86867f;   // etiquetas
-$g-600:    #5a5a55;   // texto secundario
-$g-900:    #1a1a18;   // texto principal
+$hueso:    #f6f6f7;   // superficies hundidas
+$linea:    #e5e5e8;   // separadores
+$linea-fuerte: #0a0a0b;
+$g-400:    #8e8e95;   // texto terciario  · 3,4:1
+$g-500:    #6b6b73;   // etiquetas        · 5,5:1
+$g-600:    #46464d;   // texto secundario · 9,3:1
+$g-900:    #0a0a0b;   // texto principal  · 19,8:1
 
-// --- El acento --------------------------------------------------
-// Azul del sistema (el mismo tono que usa iOS para lo interactivo).
-// Marca lo que se puede pulsar y lo que está seleccionado. El naranja
-// anterior teñía de alarma cosas que son normales —tener IVA retenido
-// no es un problema, es lo correcto— y hacía sentir que todo iba mal.
-$acento:      #0a6cff;
-$acento-piso: #eef4ff;   // fondo de lo seleccionado
+// --- Los acentos ------------------------------------------------
+// Colores saturados, no pastel. Sobre tanto blanco, un tono apagado
+// desaparece; uno vivo puntúa sin gritar, porque ocupa muy poca
+// superficie.
+$acento:      #0055ff;   // lo pulsable
+$acento-piso: #e8f0ff;
 
-// Ámbar sólo para lo que de verdad hay que atender: dinero retenido
-// que no es tuyo y recibos sin apuntar.
-$atencion:      #8a6d1f;
-$atencion-piso: #faf6ea;
+// Verde para el dinero que entra: sin él, ingresos y gastos sólo se
+// distinguen por el signo, y en una lista larga no basta.
+$entra:       #0f7a3d;
 
-$peligro:     #c8341c;   // sólo números en negativo
+// Ámbar para lo retenido y lo que hay que atender.
+$atencion:      #9a6b00;
+$atencion-piso: #fff4de;
+
+$peligro:     #d92b1c;   // negativos y acciones destructivas
 
 // --- Formas -----------------------------------------------------
 $romo:     10px;    // tarjetas
@@ -93,7 +100,16 @@ $t-caption-2:   11px;   // la etiqueta más pequeña
 
 // Alturas de línea de la misma guía: cuerpo holgado, títulos ajustados.
 $lh-cuerpo:  1.47;
-$lh-titulo:  1.15;
+$lh-titulo:  1.1;
+
+// --- Pesos ------------------------------------------------------
+// Antes todo vivía entre 500 y 600: ningún ligero, ningún negro. Con
+// tres pesos separados de verdad, la jerarquía se ve sin necesidad de
+// cambiar el tamaño.
+$p-ligero: 300;   // cifras grandes: a 30 px, el trazo fino luce
+$p-normal: 400;
+$p-medio:  500;
+$p-fuerte: 700;   // lo que manda en su bloque
 
 // Corrección óptica de las cifras.
 //
@@ -105,7 +121,7 @@ $lh-titulo:  1.15;
 //
 // Estas variables van un escalón por debajo de su pareja de texto, de
 // forma que concepto e importe se lean como iguales.
-$c-grande:  30px;   // pareja de $t-title-1 (el número que manda)
+$c-grande:  40px;   // la cifra que manda: grande y de trazo fino
 $c-media:   19px;   // pareja de $t-title-2
 $c-normal:  14px;   // pareja de $t-subhead (listas)
 $c-pequena: 12px;   // pareja de $t-footnote
@@ -119,8 +135,8 @@ $c-pequena: 12px;   // pareja de $t-footnote
 @mixin etiqueta {
     font-family: $cifras;
     font-size: $t-caption-2;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-weight: $p-fuerte;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
     color: $g-500;
 }
@@ -177,10 +193,11 @@ $c-pequena: 12px;   // pareja de $t-footnote
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 
-    &__dec { color: $g-400; font-weight: 400; }
-    &__eur { color: $g-400; font-weight: 400; margin-left: 2px; }
+    &__dec { color: $g-400; font-weight: $p-normal; }
+    &__eur { color: $g-400; font-weight: $p-normal; margin-left: 2px; }
 
-    &--negativo { color: $peligro; .fz-cifra__dec, .fz-cifra__eur { color: rgba($peligro, 0.55); } }
+    &--negativo { color: $peligro; .fz-cifra__dec, .fz-cifra__eur { color: rgba($peligro, 0.5); } }
+    &--entra    { color: $entra;   .fz-cifra__dec, .fz-cifra__eur { color: rgba($entra, 0.5); } }
     // "acento" en una cifra significa dinero retenido: ámbar, no azul.
     // El azul se reserva para lo que se puede pulsar.
     &--acento   { color: $atencion; .fz-cifra__dec, .fz-cifra__eur { color: rgba($atencion, 0.55); } }
@@ -211,10 +228,10 @@ $c-pequena: 12px;   // pareja de $t-footnote
     }
 
     &__cifra {
-        margin-top: 6px;
+        margin-top: 5px;
         font-family: $cifras;
         font-size: $c-media;
-        font-weight: 600;
+        font-weight: $p-normal;
         letter-spacing: -0.02em;
         font-variant-numeric: tabular-nums;
     }
@@ -226,13 +243,15 @@ $c-pequena: 12px;   // pareja de $t-footnote
     }
 
     &__total {
-        margin-top: 4px;
+        margin-top: 2px;
         font-family: $cifras;
         font-size: $c-grande;
-        font-weight: 600;
-        letter-spacing: -0.035em;
+        font-weight: $p-ligero;
+        letter-spacing: -0.045em;
         line-height: $lh-titulo;
         font-variant-numeric: tabular-nums;
+
+        @include hasta(400px) { font-size: 34px; }
     }
 
     &__pie {
@@ -254,10 +273,10 @@ $c-pequena: 12px;   // pareja de $t-footnote
     overflow: hidden;
 
     &__fila {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2px 12px;
         align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
         padding: 11px 14px;
         background: $blanco;
     }
@@ -278,7 +297,9 @@ $c-pequena: 12px;   // pareja de $t-footnote
     }
 
     // El desglose de lo retenido, cuando lo hay.
+    // Debajo del nombre, no apretando la fila.
     &__nota {
+        grid-column: 1 / -1;
         font-family: $cifras;
         font-size: $t-caption-2;
         color: $atencion;
@@ -332,7 +353,7 @@ $c-pequena: 12px;   // pareja de $t-footnote
 
     &__nombre {
         font-size: $t-title-1;
-        font-weight: 600;
+        font-weight: $p-fuerte;
         letter-spacing: -0.03em;
         line-height: 1.1;
 
