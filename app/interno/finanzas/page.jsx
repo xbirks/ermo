@@ -344,6 +344,7 @@ export default function FinanzasPage() {
                                 trimestres={trimestres}
                                 cuentas={cuentas}
                                 mes={mes}
+                                resumen={resumen}
                                 onCambio={cargar}
                             />
                         </Plegable>

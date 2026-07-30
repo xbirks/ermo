@@ -12,7 +12,7 @@ import { euros, nombreMes, hoyISO } from '@/app/lib/finanzas/formato';
  * liquida el trimestre entero de un botón, que además apunta el gasto
  * real en la cuenta desde la que sale el dinero.
  */
-export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCambio }) {
+export default function PanelIva({ provisiones, trimestres, cuentas, mes, resumen, onCambio }) {
     const [importe, setImporte] = useState('');
     const [cuentaId, setCuentaId] = useState(
         cuentas.find((c) => c.nombre === 'Imagin')?.id || ''
@@ -74,8 +74,21 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
         .filter((p) => p.estado === 'retenido')
         .reduce((s, p) => s + p.importe_calculado, 0);
 
+    // ¿Este mes ya tiene pagada una liquidación? Anotar encima una
+    // provisión del mismo trimestre lleva a contarlo dos veces: el pago
+    // ya salió del banco.
+    const yaPagadoEsteMes = (resumen?.iva_pagado || 0) > 0;
+
     return (
         <>
+            {yaPagadoEsteMes && (
+                <div className="fz-aviso fz-aviso--atencion">
+                    Este mes ya salió del banco una liquidación de IVA. Si vas a
+                    anotar lo que retienes para el próximo trimestre, ponlo en el
+                    mes en que toque pagarlo, no en éste.
+                </div>
+            )}
+
             {retenidoTotal > 0 && (
                 <div className="fz-aviso fz-aviso--atencion">
                     Tienes <Cifra valor={retenidoTotal} signo={false} /> de IVA retenido. Ese dinero está en la
@@ -168,7 +181,10 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
                                 readOnly
                             />
                             <p className="fz-form__pista">
-                                Cambia de mes arriba para anotar otro.
+                                Anota el IVA en el mes en que vas a pagarlo, no
+                                en el que lo has cobrado: así la app lo avisa
+                                cuando toca, y el pago se resta una sola vez
+                                cuando salga del banco.
                             </p>
                         </div>
 
