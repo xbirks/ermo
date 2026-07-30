@@ -259,6 +259,46 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                             </div>
                         )}
 
+                        {/* Mover el efectivo a una cuenta: se puede
+                            ingresar en el banco o pasarlo a ahorro. */}
+                        {c.tipo === 'efectivo' && c.saldo_actual > 0 && !enEdicion && (
+                            ingresando ? (
+                                <div className="fz-bancos__editor">
+                                    <span className="fz-form__pista" style={{ width: '100%' }}>
+                                        ¿A qué cuenta lo llevas?
+                                    </span>
+                                    {cuentas
+                                        .filter((x) => x.id !== c.id)
+                                        .map((x) => (
+                                            <button
+                                                key={x.id}
+                                                className="fz-boton fz-boton--suave"
+                                                type="button"
+                                                disabled={ocupado}
+                                                onClick={() => ingresarEfectivo(c, x.id, c.saldo_actual)}
+                                            >
+                                                {x.nombre}
+                                            </button>
+                                        ))}
+                                    <button
+                                        className="fz-boton fz-boton--texto"
+                                        type="button"
+                                        onClick={() => setIngresando(false)}
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    className="fz-boton fz-boton--texto fz-bancos__accion"
+                                    type="button"
+                                    onClick={() => setIngresando(true)}
+                                >
+                                    Llevarlo a una cuenta
+                                </button>
+                            )
+                        )}
+
                         {c.saldo_manual && c.saldo_declarado_en && !enEdicion && (() => {
                             const dias = diasDesde(c.saldo_declarado_en);
                             // Más de un mes sin comprobar: deja de ser un

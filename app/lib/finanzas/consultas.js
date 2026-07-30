@@ -293,6 +293,10 @@ export async function getTransaccionesDelMes(mes) {
     const filas = await sql`
         SELECT
             t.id, t.fecha, t.concepto, t.importe, t.tipo_movimiento, t.notas,
+            -- Los identificadores hacen falta para poder corregir el
+            -- movimiento desde la app: sin ellos el formulario no puede
+            -- preseleccionar la cuenta ni la categoría.
+            t.cuenta_id, t.cuenta_destino_id, t.categoria_id,
             c.nombre  AS cuenta,
             cd.nombre AS cuenta_destino,
             cat.nombre AS categoria,
@@ -333,6 +337,35 @@ export async function crearTransaccion(datos) {
         RETURNING id
     `;
     return fila;
+}
+
+/**
+ * Corrige un movimiento ya apuntado.
+ *
+ * Sin esto, arreglar un importe mal tecleado obligaba a borrar y volver
+ * a crear, perdiendo las notas por el camino.
+ */
+export async function editarTransaccion(datos) {
+    const {
+        id, fecha, cuenta_id, cuenta_destino_id, categoria_id,
+        concepto, importe, tipo_movimiento, notas,
+    } = datos;
+
+    const esTraspaso = tipo_movimiento === 'transferencia_interna';
+
+    await sql`
+        UPDATE transacciones SET
+            fecha             = ${fecha}::date,
+            cuenta_id         = ${cuenta_id}::uuid,
+            cuenta_destino_id = ${esTraspaso ? cuenta_destino_id : null}::uuid,
+            categoria_id      = ${categoria_id || null}::uuid,
+            concepto          = ${concepto},
+            importe           = ${importe}::numeric,
+            tipo_movimiento   = ${tipo_movimiento}::tipo_movimiento,
+            notas             = ${notas || null}
+        WHERE id = ${id}::uuid
+    `;
+    return { id };
 }
 
 export async function borrarTransaccion(id) {

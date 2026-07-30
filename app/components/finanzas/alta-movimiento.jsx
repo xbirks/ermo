@@ -13,9 +13,23 @@ const TIPOS = [
     { valor: 'transferencia_interna', texto: 'Traspaso' },
 ];
 
-export default function AltaMovimiento({ cuentas, categorias, mes, onGuardado }) {
-    const [tipo, setTipo] = useState('gasto');
-    const [form, setForm] = useState({
+export default function AltaMovimiento({
+    cuentas, categorias, mes, movimiento, onGuardado, onBorrar,
+}) {
+    // Con `movimiento` el formulario corrige el que ya existe; sin él,
+    // crea uno nuevo.
+    const editando = Boolean(movimiento?.id);
+
+    const [tipo, setTipo] = useState(movimiento?.tipo_movimiento || 'gasto');
+    const [form, setForm] = useState(() => (movimiento ? {
+        fecha: String(movimiento.fecha).slice(0, 10),
+        cuenta_id: movimiento.cuenta_id || '',
+        cuenta_destino_id: movimiento.cuenta_destino_id || '',
+        categoria_id: movimiento.categoria_id || '',
+        concepto: movimiento.concepto || '',
+        importe: String(movimiento.importe ?? ''),
+        notas: movimiento.notas || '',
+    } : {
         fecha: hoyISO(),
         cuenta_id: '',
         cuenta_destino_id: '',
@@ -23,7 +37,7 @@ export default function AltaMovimiento({ cuentas, categorias, mes, onGuardado })
         concepto: '',
         importe: '',
         notas: '',
-    });
+    }));
     const [error, setError] = useState('');
     const [guardando, setGuardando] = useState(false);
 
@@ -39,9 +53,13 @@ export default function AltaMovimiento({ cuentas, categorias, mes, onGuardado })
 
         try {
             const res = await fetch('/api/finanzas/transacciones', {
-                method: 'POST',
+                method: editando ? 'PATCH' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...form, tipo_movimiento: tipo }),
+                body: JSON.stringify({
+                    ...form,
+                    id: movimiento?.id,
+                    tipo_movimiento: tipo,
+                }),
             });
 
             const datos = await res.json().catch(() => ({}));
@@ -51,15 +69,18 @@ export default function AltaMovimiento({ cuentas, categorias, mes, onGuardado })
                 return;
             }
 
-            // Se conservan fecha y cuenta: al meter los recibos del mes
-            // de golpe, casi siempre son los mismos.
-            setForm((f) => ({
-                ...f,
-                categoria_id: '',
-                concepto: '',
-                importe: '',
-                notas: '',
-            }));
+            // Al crear se conservan fecha y cuenta —al meter los recibos
+            // del mes casi siempre son las mismas—, pero al corregir se
+            // cierra el formulario.
+            if (!editando) {
+                setForm((f) => ({
+                    ...f,
+                    categoria_id: '',
+                    concepto: '',
+                    importe: '',
+                    notas: '',
+                }));
+            }
             onGuardado?.();
         } catch {
             setError('Sin conexión con el servidor');
@@ -203,9 +224,21 @@ export default function AltaMovimiento({ cuentas, categorias, mes, onGuardado })
                     />
                 </div>
 
-                <button className="fz-boton fz-boton--ancho" type="submit" disabled={guardando}>
-                    {guardando ? 'Guardando' : 'Guardar movimiento'}
-                </button>
+                <div className="fz-editor__acciones">
+                    <button className="fz-boton" type="submit" disabled={guardando}>
+                        {guardando ? 'Guardando' : editando ? 'Guardar cambios' : 'Guardar movimiento'}
+                    </button>
+                    {editando && onBorrar && (
+                        <button
+                            className="fz-boton fz-boton--texto"
+                            type="button"
+                            onClick={onBorrar}
+                            disabled={guardando}
+                        >
+                            Borrar
+                        </button>
+                    )}
+                </div>
             </div>
         </form>
     );

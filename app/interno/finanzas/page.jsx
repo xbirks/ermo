@@ -300,7 +300,10 @@ export default function FinanzasPage() {
                         >
                             <ListaMovimientos
                                 movimientos={movimientos}
+                                cuentas={cuentas}
+                                categorias={categorias}
                                 onBorrar={borrarMovimiento}
+                                onCambio={cargar}
                             />
                         </Plegable>
 

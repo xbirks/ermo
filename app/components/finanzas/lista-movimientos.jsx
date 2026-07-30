@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from 'react';
 import Cifra from './cifra';
+import AltaMovimiento from './alta-movimiento';
 import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 
 // Los ingresos van en verde. En una lista de treinta apuntes casi
@@ -12,7 +14,8 @@ import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 // porque se importó.
 const NOTA_DE_IMPORTACION = /^\s*Importado del extracto del banco\.?\s*$/i;
 
-export default function ListaMovimientos({ movimientos, onBorrar }) {
+export default function ListaMovimientos({ movimientos, cuentas, categorias, onBorrar, onCambio }) {
+    const [editando, setEditando] = useState(null);
     if (!movimientos.length) {
         return <p className="fz-vacio">Todavía no hay movimientos en este mes.</p>;
     }
@@ -26,6 +29,7 @@ export default function ListaMovimientos({ movimientos, onBorrar }) {
     return (
         <div className="fz-movimientos">
             {movimientos.map((m) => {
+                const enEdicion = editando?.id === m.id;
                 const clase = m.tipo_movimiento === 'ingreso'
                     ? 'ingreso'
                     : m.tipo_movimiento === 'gasto' ? 'gasto' : 'interna';
@@ -54,13 +58,13 @@ export default function ListaMovimientos({ movimientos, onBorrar }) {
 
                         <div className="fz-movimientos__acciones">
                             <button
-                                className="fz-movimientos__borrar"
+                                className="fz-movimientos__editar"
                                 type="button"
-                                onClick={() => borrar(m)}
-                                aria-label={`Borrar ${m.concepto}`}
-                                title="Borrar"
+                                onClick={() => setEditando(editando?.id === m.id ? null : m)}
+                                aria-label={`Corregir ${m.concepto}`}
+                                title="Corregir"
                             >
-                                ×
+                                {editando?.id === m.id ? '×' : '⋯'}
                             </button>
                         </div>
 
@@ -69,8 +73,23 @@ export default function ListaMovimientos({ movimientos, onBorrar }) {
                             ocupaba una línea extra en cada una y doblaba el
                             alto de la lista en el móvil. Las notas escritas a
                             mano sí se ven. */}
-                        {m.notas && !NOTA_DE_IMPORTACION.test(m.notas) && (
+                        {m.notas && !NOTA_DE_IMPORTACION.test(m.notas) && !enEdicion && (
                             <p className="fz-movimientos__nota">{m.notas}</p>
+                        )}
+
+                        {/* El editor se abre bajo la fila que se corrige,
+                            no al final de la lista: con treinta apuntes,
+                            un formulario al pie queda fuera de pantalla. */}
+                        {enEdicion && (
+                            <div className="fz-movimientos__editor">
+                                <AltaMovimiento
+                                    cuentas={cuentas}
+                                    categorias={categorias}
+                                    movimiento={m}
+                                    onGuardado={() => { setEditando(null); onCambio?.(); }}
+                                    onBorrar={() => { setEditando(null); borrar(m); }}
+                                />
+                            </div>
                         )}
                     </div>
                 );

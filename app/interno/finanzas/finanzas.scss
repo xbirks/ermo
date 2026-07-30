@@ -1357,6 +1357,29 @@ $ancho-dos-columnas: 880px;
 
     &__importe { font-size: $c-normal; text-align: right; }
 
+    &__editar {
+        font-size: 15px;
+        line-height: 1;
+        color: $g-400;
+        background: none;
+        border: 0;
+        padding: 4px 6px;
+        border-radius: $pastilla;
+        transition: background 0.15s ease, color 0.15s ease;
+
+        &:hover { background: $hueso; color: $g-900; }
+        &:focus-visible { outline: 2px solid $acento; }
+    }
+
+    // El editor, bajo la fila que se corrige.
+    &__editor {
+        grid-column: 1 / -1;
+        margin: 8px 0 4px;
+        padding: 16px;
+        background: $hueso;
+        border-radius: $romo;
+    }
+
     &__borrar {
         font-size: $t-subhead;
         line-height: 1;
