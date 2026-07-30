@@ -71,6 +71,7 @@ export default function FinanzasPage() {
     const [anotando, setAnotando] = useState(false);
     // Sube al cambiar para abrir la sección de fijos desde el botón.
     const [abrirFijos, setAbrirFijos] = useState(0);
+    const [abrirApartado, setAbrirApartado] = useState(0);
     const [datos, setDatos] = useState(null);
     const [error, setError] = useState('');
     const [cargando, setCargando] = useState(true);
@@ -220,7 +221,11 @@ export default function FinanzasPage() {
                                 historico={historico}
                                 mes={mes}
                             />
-                            <TiraBancos cuentas={cuentas} onCambio={cargar} />
+                            <TiraBancos
+                                cuentas={cuentas}
+                                onCambio={cargar}
+                                onVerApartado={() => setAbrirApartado((n) => n + 1)}
+                            />
                         </div>
 
                         {/* Por qué el mes salió así, cuando hace falta
@@ -345,6 +350,7 @@ export default function FinanzasPage() {
 
                         <Plegable
                             titulo="Dinero apartado."
+                            abrir={abrirApartado}
                             resumen={
                                 totalApartado > 0
                                     ? <><Cifra valor={totalApartado} signo={false} tono="acento" /> sin tocar</>

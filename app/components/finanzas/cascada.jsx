@@ -14,7 +14,7 @@ import Cifra from './cifra';
 export default function Cascada({ resumen }) {
     const {
         ingresos_banco, ingresos_efectivo, ingresos_totales,
-        gastos_fijos, gastos_variables, iva_provisionado,
+        gastos_fijos, gastos_variables, iva_provisionado, iva_pagado,
         total_limpio, a_ahorro_inversion,
     } = resumen;
 
@@ -53,23 +53,33 @@ export default function Cascada({ resumen }) {
                 <Cifra className="fz-cascada__cifra" valor={-gastos_variables} />
             </div>
 
-            {/* El IVA en naranja: está en la cuenta pero no es tuyo. */}
-            <div className="fz-cascada__fila fz-cascada__fila--retenido">
-                <span className="fz-cascada__etiqueta">
-                    IVA del mes
-                    <span className="fz-cascada__nota">retenido para Hacienda</span>
-                </span>
-                <Cifra
-                    className="fz-cascada__cifra"
-                    valor={iva_provisionado}
-                    signo="−"
-                    tono="acento"
-                />
-            </div>
+            {/* El IVA pagado a Hacienda, cuando el mes tiene una
+                liquidación. Ya está dentro de los gastos del extracto,
+                así que se muestra para que se vea, sin restar otra vez. */}
+            {iva_pagado > 0 && (
+                <div className="fz-cascada__fila fz-cascada__fila--retenido">
+                    <span className="fz-cascada__etiqueta">
+                        IVA pagado a Hacienda
+                        <span className="fz-cascada__nota">liquidación del trimestre</span>
+                    </span>
+                    <Cifra
+                        className="fz-cascada__cifra"
+                        valor={iva_pagado}
+                        signo={false}
+                        tono="acento"
+                    />
+                </div>
+            )}
 
             <div className="fz-cascada__limpio">
                 <span className="fz-cascada__limpio-etiqueta">Total limpio</span>
                 <Cifra className="fz-cascada__limpio-cifra" valor={total_limpio} />
+                {iva_provisionado > 0 && (
+                    <p className="fz-cascada__limpio-pie">
+                        Guarda <Cifra valor={iva_provisionado} signo={false} tono="acento" />
+                        {' '}para el IVA del próximo trimestre.
+                    </p>
+                )}
                 {a_ahorro_inversion > 0 && (
                     <p className="fz-cascada__limpio-pie">
                         Ya has repartido <Cifra valor={a_ahorro_inversion} signo={false} />

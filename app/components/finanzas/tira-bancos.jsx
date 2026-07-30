@@ -32,7 +32,7 @@ function diasDesde(fecha) {
  *
  * Se editan pulsando la cifra.
  */
-export default function TiraBancos({ cuentas, onCambio }) {
+export default function TiraBancos({ cuentas, onCambio, onVerApartado }) {
     const [editando, setEditando] = useState(null);
     const [valor, setValor] = useState('');
     const [ocupado, setOcupado] = useState(false);
@@ -48,6 +48,9 @@ export default function TiraBancos({ cuentas, onCambio }) {
     const guardado = cuentas
         .filter((c) => !CORRIENTES.includes(c.tipo))
         .reduce((s, c) => s + c.disponible, 0);
+
+    // Lo que está en las cuentas pero no se puede gastar.
+    const apartado = cuentas.reduce((s, c) => s + c.iva_retenido + c.reservado, 0);
 
     async function guardar(e) {
         e.preventDefault();
@@ -174,9 +177,22 @@ export default function TiraBancos({ cuentas, onCambio }) {
                         )}
 
                         {retenido > 0 && !enEdicion && (
-                            <span className="fz-bancos__nota">
-                                <Cifra valor={retenido} signo="−" tono="acento" /> retenidos
-                            </span>
+                            // Pulsable: el saldo baja por esto, así que
+                            // desde aquí se llega a corregirlo en lugar
+                            // de tener que buscar la sección al final.
+                            <button
+                                className="fz-bancos__nota fz-bancos__nota--pulsable"
+                                type="button"
+                                onClick={() => onVerApartado?.()}
+                            >
+                                <Cifra valor={retenido} signo="−" tono="acento" />
+                                {c.iva_retenido > 0 && c.reservado > 0
+                                    ? ' retenidos (IVA y apartado)'
+                                    : c.iva_retenido > 0
+                                        ? ' de IVA retenido'
+                                        : ' apartados'}
+                                <span aria-hidden="true"> ›</span>
+                            </button>
                         )}
 
                         {/* Ingresar el efectivo en el banco es un
@@ -250,6 +266,26 @@ export default function TiraBancos({ cuentas, onCambio }) {
                     en las cuentas del día a día
                 </span>
             </div>
+
+            {apartado > 0 && (
+                // Lo apartado se ve arriba, junto a los saldos que
+                // reduce: enterrado al final de la página no se
+                // encontraba, y explica por qué el disponible no cuadra
+                // con lo que dice el banco.
+                <button
+                    className="fz-bancos__total fz-bancos__total--apartado"
+                    type="button"
+                    onClick={() => onVerApartado?.()}
+                >
+                    <span className="fz-bancos__nombre">Apartado, sin tocar.</span>
+                    <span className="fz-bancos__cifra">
+                        <Cifra valor={apartado} signo={false} tono="acento" />
+                    </span>
+                    <span className="fz-bancos__nota fz-bancos__nota--fecha">
+                        IVA retenido y dinero reservado · pulsa para verlo
+                    </span>
+                </button>
+            )}
 
             <div className="fz-bancos__total">
                 <span className="fz-bancos__nombre">Ahorrado.</span>

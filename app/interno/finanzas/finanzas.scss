@@ -114,6 +114,28 @@ $c-pequena: 14px;
     @media only screen and (max-width: $px) { @content; }
 }
 
+// Centra un glifo dentro de un círculo.
+//
+// Los signos +, × y las comillas angulares tienen su masa visual medio
+// píxel por encima del centro de su caja de texto. Flex centra la caja,
+// no el dibujo, así que en un círculo pequeño se nota descolocado.
+// `line-height: 0` elimina la caja del cálculo y deja mandar al glifo.
+@mixin glifo-centrado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    // !important porque la regla base de .fz reinyecta line-height en
+    // todos los botones, y va después en la cascada.
+    line-height: 0 !important;
+    // El signo + lleva la barra horizontal por encima del centro de su
+    // caja: medio píxel lo cuadra ópticamente.
+    padding-top: 0.5px;
+    // El texto del botón no debe heredar espacios en blanco que
+    // desplacen el glifo.
+    font-family: $texto;
+    text-align: center;
+}
+
 // A partir de aquí hay sitio para dos columnas.
 @mixin desde($px) {
     @media only screen and (min-width: $px) { @content; }
@@ -399,6 +421,23 @@ $ancho-dos-columnas: 880px;
         white-space: nowrap;
 
         &--fecha { color: $g-400; }
+
+        // La nota de lo retenido es pulsable: lleva a su sección.
+        &--pulsable {
+            background: none;
+            border: 0;
+            padding: 3px 6px;
+            margin-left: -6px;
+            border-radius: $romo-s;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
+            color: $atencion !important;
+            transition: background 0.15s ease;
+
+            &:hover { background: rgba($atencion, 0.1); }
+            &:focus-visible { outline: 2px solid $acento; outline-offset: 1px; }
+        }
         // Pasado un mes, el saldo puesto a mano deja de ser fiable.
         &--viejo { color: $atencion; }
     }
@@ -410,8 +449,20 @@ $ancho-dos-columnas: 880px;
         align-items: baseline;
         padding: 16px 18px;
         background: $hueso;
+        width: 100%;
+        border: 0;
+        text-align: left;
 
         .fz-bancos__nombre { color: $g-900; font-weight: $p-medio; }
+
+        // El bloque de lo apartado es pulsable: lleva a su sección.
+        &--apartado {
+            background: $atencion-piso;
+            transition: background 0.15s ease;
+            &:hover { background: darken($atencion-piso, 3%); }
+            &:focus-visible { outline: 2px solid $acento; outline-offset: -2px; }
+            .fz-bancos__nombre { color: $atencion !important; }
+        }
     }
 }
 
@@ -575,11 +626,11 @@ $ancho-dos-columnas: 880px;
     // Las flechas de mes: el `color: $blanco !important` de la base
     // las dejaba blancas sobre gris claro, invisibles.
     &--icono {
+        @include glifo-centrado;
         padding: 0;
         width: 38px;
         height: 38px;
         font-size: $t-title-3;
-        line-height: 1;
         background: $hueso;
         color: $g-900 !important;
         &:hover:not(:disabled) {
@@ -690,7 +741,13 @@ $ancho-dos-columnas: 880px;
         opacity: 0.72;
     }
 
-    &__signo { font-size: $t-title-3; font-weight: $p-ligero; line-height: 1; }
+    &__signo {
+        @include glifo-centrado;
+        width: 26px;
+        height: 26px;
+        font-size: $t-title-3;
+        font-weight: $p-ligero;
+    }
 }
 
 // --- Secciones --------------------------------------------------
@@ -756,18 +813,15 @@ $ancho-dos-columnas: 880px;
     // Un botón visible a la derecha: sin él, la fila parecía texto
     // suelto y no se adivinaba que se abre.
     &__abrir {
-        color: $g-600;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        @include glifo-centrado;
         flex-shrink: 0;
         width: 30px;
         height: 30px;
         border-radius: $pastilla;
         background: $hueso;
-        color: $g-600;
+        color: $g-600 !important;
         font-size: $t-body;
-        line-height: 1;
+        font-weight: $p-normal;
         transition: background 0.15s ease, color 0.15s ease, transform 0.2s ease;
     }
     &--abierta &__abrir { transform: rotate(45deg); background: $g-900; color: $blanco; }
