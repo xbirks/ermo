@@ -43,9 +43,11 @@ $acento-piso: #e8f0ff;
 // distinguen por el signo, y en una lista larga no basta.
 $entra:       #0f7a3d;
 
-// Ámbar para lo retenido y lo que hay que atender.
-$atencion:      #9a6b00;
-$atencion-piso: #fff4de;
+// Lo retenido y lo pendiente usan el mismo azul que lo pulsable, en un
+// tono más oscuro. El ámbar daba aire de aviso de error a cosas que son
+// normales: tener IVA retenido no es un problema, es lo correcto.
+$atencion:      #0040bf;
+$atencion-piso: #eaf1ff;
 
 $peligro:     #d92b1c;   // negativos y acciones destructivas
 
@@ -85,10 +87,13 @@ $lh-titulo:  1.1;
 // Antes todo vivía entre 500 y 600: ningún ligero, ningún negro. Con
 // tres pesos separados de verdad, la jerarquía se ve sin necesidad de
 // cambiar el tamaño.
-$p-ligero: 300;   // cifras grandes: a 30 px, el trazo fino luce
+// La fuente del sistema no trae todos los pesos: pedir 300 hace que
+// el navegador lo sintetice y el trazo sale sucio. Éstos existen de
+// verdad en San Francisco, Segoe UI y Roboto.
+$p-ligero: 200;   // cifras grandes: a 64 px, el trazo fino luce
 $p-normal: 400;
 $p-medio:  500;
-$p-fuerte: 700;   // lo que manda en su bloque
+$p-fuerte: 600;   // lo que manda en su bloque
 
 // Corrección óptica de las cifras.
 //
@@ -108,6 +113,12 @@ $c-pequena: 14px;
 @mixin hasta($px) {
     @media only screen and (max-width: $px) { @content; }
 }
+
+// A partir de aquí hay sitio para dos columnas.
+@mixin desde($px) {
+    @media only screen and (min-width: $px) { @content; }
+}
+$ancho-dos-columnas: 880px;
 
 // Etiqueta pequeña en mayúsculas monoespaciadas: se usa en toda la
 // interfaz para nombrar campos y secciones.
@@ -139,12 +150,46 @@ $c-pequena: 14px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 
-    &, * { cursor: auto !important; }
-    button, a, select, label { cursor: pointer !important; }
-    input, textarea {
-        cursor: auto !important;
+    // style.scss aplica `user-select: none !important` a a/button/input
+    // y `cursor: none !important` a todo, para el cursor personalizado
+    // de la web pública. Aquí hay cifras que copiar y botones que
+    // pulsar, así que se deshacen las dos cosas.
+    //
+    // El orden importa: ambas reglas llevan !important y tienen la
+    // misma especificidad, así que gana la última. Por eso el puntero
+    // de los elementos pulsables va después del `auto` general.
+    &, * {
         user-select: text !important;
+        -webkit-user-select: text !important;
     }
+    & { cursor: auto !important; }
+    * { cursor: auto !important; }
+
+    // style.scss hace `button { all: initial }`, que borra toda la
+    // herencia, tipografía incluida: sin esto los botones salen con la
+    // fuente por defecto del navegador y desentonan.
+    button, input, select, textarea {
+        font-family: $texto;
+        font-size: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+    }
+    // El color NO se hereda aquí: un botón de fondo negro necesita
+    // texto blanco, y `color: inherit` le daba el del contenedor.
+    button { color: $g-900; }
+
+    // La manita en todo lo que se puede pulsar, después del `auto`.
+    button, a, select, label, summary,
+    [role='button'], [type='submit'], [type='button'],
+    .fz-accion, .fz-plegable__cabecera, .fz-pildoras__item,
+    .fz-bancos__cifra--editable {
+        cursor: pointer !important;
+    }
+    input, textarea { cursor: text !important; }
+    input[type='date'], input[type='month'], input[type='number'] {
+        cursor: text !important;
+    }
+    button:disabled, .fz-boton:disabled { cursor: not-allowed !important; }
 
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -158,7 +203,7 @@ $c-pequena: 14px;
     }
 
     &__contenedor {
-        max-width: 760px;      // columna única: el mes se lee de arriba abajo
+        max-width: 1080px;
         margin: 0 auto;
         padding: 24px 24px 120px;
 
@@ -186,11 +231,36 @@ $c-pequena: 14px;
     &--acento   { color: $atencion; .fz-cifra__dec, .fz-cifra__eur { color: rgba($atencion, 0.55); } }
 }
 
+// --- Rejilla del mes --------------------------------------------
+// En escritorio, el resumen y los bancos van lado a lado: en una
+// columna estrecha se leían como dos bloques sin relación, y obligaban
+// a bajar para ver algo que cabe de sobra en la misma pantalla.
+.fz-cabeza {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 32px;
+
+    @include desde($ancho-dos-columnas) {
+        grid-template-columns: 1.15fr 1fr;
+        gap: 28px;
+        align-items: start;
+    }
+}
+
+// Las secciones plegables, repartidas en dos columnas cuando cabe.
+.fz-secciones {
+    @include desde($ancho-dos-columnas) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 32px;
+        align-items: start;
+    }
+}
+
 // --- Resumen del mes --------------------------------------------
 // Lo primero que se ve: cuánto ha entrado, cuánto ha salido y qué
 // queda. Es la respuesta a la pregunta con la que se abre la app.
 .fz-resumen {
-    margin-bottom: 28px;
 
     &__par {
         display: grid;
@@ -399,7 +469,7 @@ $c-pequena: 14px;
         font-family: $texto;
         font-size: $t-footnote;
         font-weight: 550;
-        color: $g-600;
+        color: $g-600 !important;
         background: transparent;
         border: 0;
         border-radius: $pastilla;
@@ -407,11 +477,11 @@ $c-pequena: 14px;
         white-space: nowrap;
         transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
 
-        &:hover:not(&--activo) { color: $g-900; background: rgba(0, 0, 0, 0.03); }
+        &:hover:not(&--activo) { color: $g-900 !important; background: rgba(0, 0, 0, 0.03); }
         &:active { transform: scale(0.98); }
         &--activo {
             background: $blanco;
-            color: $g-900;
+            color: $g-900 !important;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
         }
         &:focus-visible { outline: 2px solid $acento; outline-offset: 1px; }
@@ -468,7 +538,7 @@ $c-pequena: 14px;
     border: 0;
     border-radius: $pastilla;
     background: $linea-fuerte;
-    color: $blanco;
+    color: $blanco !important;
     transition: opacity 0.15s ease, background 0.15s ease, transform 0.1s ease;
     white-space: nowrap;
 
@@ -483,14 +553,14 @@ $c-pequena: 14px;
     // donde un botón con fondo pesa demasiado.
     &--texto {
         background: transparent;
-        color: $acento;
+        color: $acento !important;
         padding: 8px 10px;
         &:hover:not(:disabled) { background: $acento-piso; opacity: 1; }
     }
 
     &--suave {
         background: $hueso;
-        color: $g-900;
+        color: $g-900 !important;
         &:hover:not(:disabled) { background: darken($hueso, 4%); opacity: 1; }
     }
 
@@ -505,6 +575,64 @@ $c-pequena: 14px;
     }
 
     &--ancho { width: 100%; }
+}
+
+// --- Acciones destacadas ----------------------------------------
+// Lo que se hace a diario no puede tener el mismo peso que lo que se
+// consulta cada tres meses. Antes "Anotar movimiento" era un renglón
+// idéntico a "IVA", y había que leer los seis para encontrarlo.
+.fz-acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 30px;
+
+    @include hasta(460px) { grid-template-columns: 1fr; }
+}
+
+.fz-accion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 18px 20px;
+    background: $g-900;
+    color: $blanco !important;
+    border: 0;
+    border-radius: $romo;
+    text-align: left;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+
+    &:hover { opacity: 0.88; }
+    &:active { transform: scale(0.99); }
+    &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
+
+    // La secundaria: mismo tamaño, menos peso visual.
+    &--suave {
+        background: $hueso;
+        color: $g-900 !important;
+        &:hover { background: darken($hueso, 3%); opacity: 1; }
+    }
+
+    // Cuando hay algo pendiente, la acción lo lleva escrito.
+    &--pendiente {
+        background: $atencion-piso;
+        color: $atencion !important;
+        &:hover { background: darken($atencion-piso, 3%); opacity: 1; }
+    }
+
+    &__texto { font-size: $t-body; font-weight: $p-medio; }
+
+    &__pie {
+        display: block;
+        margin-top: 3px;
+        font-size: $t-footnote;
+        font-weight: $p-normal;
+        opacity: 0.72;
+    }
+
+    &__signo { font-size: $t-title-3; font-weight: $p-ligero; line-height: 1; }
 }
 
 // --- Secciones --------------------------------------------------
@@ -539,44 +667,73 @@ $c-pequena: 14px;
 // alta van cerrados por defecto. Con todo abierto la página pasaba de
 // 5.000 px en el móvil, seis pantallas de scroll para ver un mes.
 .fz-plegable {
-    padding-top: 22px;
-    margin-top: 22px;
-    border-top: 1px solid $linea;
+    margin-bottom: 10px;
+    border: 1px solid $linea;
+    border-radius: $romo;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+
+    &:hover { border-color: $g-400; }
+    &--abierta { border-color: $g-400; }
 
     &__cabecera {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 14px;
         width: 100%;
-        padding: 10px 12px;
-        margin: -10px -12px;
+        padding: 18px 20px;
         background: none;
         border: 0;
-        border-radius: $romo-s;
         text-align: left;
         transition: background 0.15s ease;
 
         &:hover {
             background: $hueso;
-            .fz-plegable__titulo { color: $g-900; }
-            .fz-plegable__flecha { color: $acento; }
+            .fz-plegable__abrir { background: $acento; color: $blanco; }
         }
-        &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: -2px; }
     }
 
+    // Un botón visible a la derecha: sin él, la fila parecía texto
+    // suelto y no se adivinaba que se abre.
+    &__abrir {
+        color: $g-600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: $pastilla;
+        background: $hueso;
+        color: $g-600;
+        font-size: $t-body;
+        line-height: 1;
+        transition: background 0.15s ease, color 0.15s ease, transform 0.2s ease;
+    }
+    &--abierta &__abrir { transform: rotate(45deg); background: $g-900; color: $blanco; }
+
     &__titulo {
-        @include etiqueta;
         display: flex;
         align-items: center;
-        gap: 9px;
+        gap: 10px;
+        font-size: $t-body;
+        font-weight: $p-medio;
+        color: $g-900;
         white-space: nowrap;
         flex-shrink: 0;
-        transition: color 0.15s ease;
     }
 
     // El resumen usa la misma versalita que las etiquetas: sin un
     // estilo propio se leía como texto suelto flotando a la derecha.
+    &__lado {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
     &__resumen {
         display: flex;
         align-items: center;
@@ -591,15 +748,11 @@ $c-pequena: 14px;
     }
 
     // La flecha gira al abrir.
-    &__flecha {
-        display: inline-block;
-        font-size: $t-caption-2;
-        color: $g-400;
-        transition: transform 0.2s ease, color 0.15s ease;
+    &__cuerpo {
+        padding: 4px 20px 22px;
+        border-top: 1px solid $linea;
+        margin-top: -1px;
     }
-    &--abierta &__flecha { transform: rotate(90deg); }
-
-    &__cuerpo { padding-top: 18px; }
 }
 
 // --- Tarjetas de cuenta -----------------------------------------

@@ -43,6 +43,9 @@ export default function FinanzasPage() {
     const router = useRouter();
     const [mes, setMes] = useState(mesActual);
     const [vista, setVista] = useState('mes');
+    const [anotando, setAnotando] = useState(false);
+    // Sube al cambiar para abrir la sección de fijos desde el botón.
+    const [abrirFijos, setAbrirFijos] = useState(0);
     const [datos, setDatos] = useState(null);
     const [error, setError] = useState('');
     const [cargando, setCargando] = useState(true);
@@ -184,28 +187,72 @@ export default function FinanzasPage() {
 
                 {vista === 'mes' && (
                     <>
-                        {/* Lo primero: cuánto ha entrado y salido este mes. */}
-                        <ResumenMes
-                            resumen={resumen}
-                            historico={historico}
-                            mes={mes}
-                        />
-
-                        {/* Qué hay en cada banco: se mira de reojo, pero
-                            se mira. */}
-                        <TiraBancos cuentas={cuentas} onCambio={cargar} />
-
-                        <Plegable
-                            titulo="Anotar movimiento."
-                            resumen="Gasto, ingreso o traspaso"
-                        >
-                            <AltaMovimiento
-                                cuentas={cuentas}
-                                categorias={categorias}
+                        {/* Lo primero: cuánto ha entrado y salido, y qué
+                            hay en cada banco. Lado a lado en escritorio. */}
+                        <div className="fz-cabeza">
+                            <ResumenMes
+                                resumen={resumen}
+                                historico={historico}
                                 mes={mes}
-                                onGuardado={cargar}
                             />
-                        </Plegable>
+                            <TiraBancos cuentas={cuentas} onCambio={cargar} />
+                        </div>
+
+                        {/* Las dos cosas que se hacen a diario, destacadas
+                            sobre lo que sólo se consulta. */}
+                        <div className="fz-acciones">
+                            <button
+                                className="fz-accion"
+                                type="button"
+                                onClick={() => setAnotando((v) => !v)}
+                            >
+                                <span className="fz-accion__texto">
+                                    {anotando ? 'Cerrar' : 'Anotar movimiento'}
+                                    <span className="fz-accion__pie">
+                                        Un gasto, un cobro o un traspaso
+                                    </span>
+                                </span>
+                                <span className="fz-accion__signo">{anotando ? '×' : '+'}</span>
+                            </button>
+
+                            {fijosPendientes.length > 0 ? (
+                                <button
+                                    className="fz-accion fz-accion--pendiente"
+                                    type="button"
+                                    onClick={() => setAbrirFijos((n) => n + 1)}
+                                >
+                                    <span className="fz-accion__texto">
+                                        Apuntar los recibos del mes
+                                        <span className="fz-accion__pie">
+                                            Quedan {fijosPendientes.length} por apuntar
+                                        </span>
+                                    </span>
+                                    <span className="fz-accion__signo">
+                                        <Cifra valor={totalPendiente} signo={false} />
+                                    </span>
+                                </button>
+                            ) : (
+                                <div className="fz-accion fz-accion--suave" style={{ cursor: 'default' }}>
+                                    <span className="fz-accion__texto">
+                                        Recibos al día
+                                        <span className="fz-accion__pie">
+                                            Los {listaFijos.length} del mes están apuntados
+                                        </span>
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+
+                        {anotando && (
+                            <div className="fz-editor" style={{ marginBottom: 30 }}>
+                                <AltaMovimiento
+                                    cuentas={cuentas}
+                                    categorias={categorias}
+                                    mes={mes}
+                                    onGuardado={() => { cargar(); setAnotando(false); }}
+                                />
+                            </div>
+                        )}
 
                         <Plegable
                             titulo="De dónde sale."
@@ -226,8 +273,10 @@ export default function FinanzasPage() {
                             />
                         </Plegable>
 
+                        <div className="fz-secciones">
                         <Plegable
                             titulo="Gastos fijos."
+                            abrir={abrirFijos}
                             etiqueta={fijosPendientes.length > 0 && (
                                 <span className="fz-tag fz-tag--acento">
                                     {fijosPendientes.length} sin apuntar
@@ -279,6 +328,7 @@ export default function FinanzasPage() {
                                 onCambio={cargar}
                             />
                         </Plegable>
+                        </div>
                     </>
                 )}
 

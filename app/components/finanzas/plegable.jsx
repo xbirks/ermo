@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 /**
  * Sección que se abre al pulsar el título.
@@ -17,12 +17,26 @@ export default function Plegable({
     resumen,
     etiqueta,
     inicial = false,
+    abrir,          // fuerza la apertura desde fuera (un botón de arriba)
     children,
 }) {
     const [abierta, setAbierta] = useState(inicial);
+    const contenedor = useRef(null);
+
+    // Al abrirse desde fuera, se desplaza hasta la sección: sin esto,
+    // pulsar el botón de arriba abre algo que queda fuera de pantalla y
+    // parece que no ha pasado nada.
+    useEffect(() => {
+        if (!abrir) return;
+        setAbierta(true);
+        contenedor.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, [abrir]);
 
     return (
-        <section className={`fz-plegable${abierta ? ' fz-plegable--abierta' : ''}`}>
+        <section
+            ref={contenedor}
+            className={`fz-plegable${abierta ? ' fz-plegable--abierta' : ''}`}
+        >
             <button
                 type="button"
                 className="fz-plegable__cabecera"
@@ -30,13 +44,15 @@ export default function Plegable({
                 aria-expanded={abierta}
             >
                 <span className="fz-plegable__titulo">
-                    <span className="fz-plegable__flecha" aria-hidden="true">›</span>
                     {titulo}
                     {etiqueta}
                 </span>
-                {!abierta && resumen && (
-                    <span className="fz-plegable__resumen">{resumen}</span>
-                )}
+                <span className="fz-plegable__lado">
+                    {!abierta && resumen && (
+                        <span className="fz-plegable__resumen">{resumen}</span>
+                    )}
+                    <span className="fz-plegable__abrir" aria-hidden="true">+</span>
+                </span>
             </button>
 
             {abierta && <div className="fz-plegable__cuerpo">{children}</div>}
