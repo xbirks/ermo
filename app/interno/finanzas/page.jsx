@@ -41,7 +41,29 @@ function desplazarMes(mes, salto) {
 
 export default function FinanzasPage() {
     const router = useRouter();
-    const [mes, setMes] = useState(mesActual);
+
+    // El mes vive en la URL: así se ve cuál se está mirando, recargar
+    // no devuelve a hoy, y se puede guardar el enlace de un mes
+    // concreto.
+    //
+    // Se lee de window en lugar de con useSearchParams porque ese hook
+    // obliga a envolver la página en <Suspense> y a renderizarla sólo
+    // en cliente. Aquí basta con leerlo al montar.
+    const [mes, setMes] = useState(() => {
+        if (typeof window === 'undefined') return mesActual();
+        const enUrl = new URLSearchParams(window.location.search).get('mes');
+        return /^\d{4}-\d{2}-01$/.test(enUrl || '') ? enUrl : mesActual();
+    });
+
+    // Refleja el mes en la barra de direcciones sin recargar la página.
+    useEffect(() => {
+        const actual = new URLSearchParams(window.location.search).get('mes');
+        if (actual === mes) return;
+        const url = mes === mesActual()
+            ? '/interno/finanzas'
+            : `/interno/finanzas?mes=${mes}`;
+        window.history.replaceState(null, '', url);
+    }, [mes]);
     const [vista, setVista] = useState('mes');
     const [anotando, setAnotando] = useState(false);
     // Sube al cambiar para abrir la sección de fijos desde el botón.

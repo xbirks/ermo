@@ -564,14 +564,20 @@ $ancho-dos-columnas: 880px;
         &:hover:not(:disabled) { background: darken($hueso, 4%); opacity: 1; }
     }
 
+    // Las flechas de mes: el `color: $blanco !important` de la base
+    // las dejaba blancas sobre gris claro, invisibles.
     &--icono {
         padding: 0;
-        width: 36px;
-        height: 36px;
-        font-size: $t-callout;
+        width: 38px;
+        height: 38px;
+        font-size: $t-title-3;
+        line-height: 1;
         background: $hueso;
-        color: $g-600;
-        &:hover:not(:disabled) { background: darken($hueso, 4%); color: $g-900; opacity: 1; }
+        color: $g-900 !important;
+        &:hover:not(:disabled) {
+            background: darken($hueso, 5%);
+            opacity: 1;
+        }
     }
 
     &--ancho { width: 100%; }
