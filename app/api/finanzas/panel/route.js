@@ -13,6 +13,46 @@ export const dynamic = 'force-dynamic';
 const num = (v) => (v === null || v === undefined ? 0 : Number(v));
 
 /**
+ * Convierte un fallo de conexión en una pista útil.
+ *
+ * Nunca devuelve la cadena de conexión ni la contraseña: sólo describe
+ * qué revisar. Sin esto, cualquier problema de red o credenciales se ve
+ * en pantalla como un "Error al cargar los datos" indistinguible de un
+ * error de programación.
+ */
+function diagnostico(error) {
+    const msg = String(error?.message || '');
+    const codigo = error?.code;
+
+    if (/DATABASE_URL/.test(msg)) {
+        return 'Falta la variable DATABASE_URL en Vercel.';
+    }
+    if (codigo === '28P01' || /password authentication failed/i.test(msg)) {
+        return 'Contraseña de la base de datos incorrecta. Revisa DATABASE_URL: '
+             + 'si la clave lleva @ / ? # o &, hay que codificarla en la URL.';
+    }
+    if (/\[YOUR-PASSWORD\]/i.test(msg)) {
+        return 'DATABASE_URL conserva el texto [YOUR-PASSWORD] sin sustituir.';
+    }
+    if (codigo === 'ENOTFOUND' || /getaddrinfo/i.test(msg)) {
+        return 'No se encuentra el servidor de la base de datos. Revisa el host de DATABASE_URL.';
+    }
+    if (codigo === 'ETIMEDOUT' || /timeout/i.test(msg)) {
+        return 'La base de datos no responde. Comprueba que el proyecto de Supabase esté activo.';
+    }
+    if (/SSL|self.signed|certificate/i.test(msg)) {
+        return 'Fallo de SSL al conectar con la base de datos.';
+    }
+    if (codigo === '3D000') {
+        return 'La base de datos indicada en DATABASE_URL no existe.';
+    }
+    if (codigo === '42P01') {
+        return 'Faltan las tablas. Ejecuta db/schema.sql y db/seed.sql en Supabase.';
+    }
+    return null;
+}
+
+/**
  * GET /api/finanzas/panel?mes=YYYY-MM-DD
  *
  * Todo lo que la pantalla necesita en una sola llamada. Con un usuario
@@ -67,8 +107,13 @@ export async function GET(request) {
         });
     } catch (error) {
         console.error('[finanzas/panel]', error);
+
+        // Traduce los fallos típicos de conexión a algo accionable. El
+        // mensaje describe la causa, nunca la cadena de conexión ni la
+        // contraseña.
+        const pista = diagnostico(error);
         return NextResponse.json(
-            { error: 'Error al cargar los datos' }, { status: 500 }
+            { error: pista || 'Error al cargar los datos' }, { status: 500 }
         );
     }
 }

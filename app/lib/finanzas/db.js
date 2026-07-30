@@ -14,6 +14,16 @@ import pg from 'pg';
 // conexiones directas se multiplican por cada instancia que arranque y
 // agotan el límite del plan. El pooler existe justo para eso.
 
+/** Un Postgres en la propia máquina no lleva SSL; cualquier otro sí. */
+function esLocal(url) {
+    try {
+        const host = new URL(url).hostname;
+        return host === 'localhost' || host === '127.0.0.1' || host === '::1';
+    } catch {
+        return false;   // ante la duda, cifrar
+    }
+}
+
 // La pool se crea la primera vez que se consulta, no al importar el
 // módulo. Es deliberado: si faltara DATABASE_URL, un error al importar
 // tumbaría el build de TODA la web (Next recorre las rutas al
@@ -47,10 +57,15 @@ function getPool() {
         idleTimeoutMillis: 10_000,
         connectionTimeoutMillis: 10_000,
 
-        // SSL sólo si la URL lo pide: un Postgres local no lo tiene.
-        ssl: /sslmode=require/.test(URL_BD)
-            ? { rejectUnauthorized: false }
-            : false,
+        // SSL para cualquier host que no sea local. Supabase lo exige
+        // siempre, pero su cadena de conexión no incluye `sslmode` por
+        // defecto: fiarse de ese parámetro dejaba la conexión sin cifrar
+        // y el servidor la rechazaba.
+        //
+        // rejectUnauthorized: false porque el pooler presenta un
+        // certificado que Node no valida contra sus CA por defecto. El
+        // tráfico va cifrado igualmente.
+        ssl: esLocal(URL_BD) ? false : { rejectUnauthorized: false },
     });
 
     // Sin este manejador, un error de red en una conexión ociosa tumba
