@@ -597,3 +597,59 @@ export async function getDeudas() {
         return [];
     }
 }
+
+// -------------------------------------------------------------
+// NOTAS DEL MES
+// Por qué un mes salió como salió. Marzo de 2026 aparece en negativo
+// porque el cobro se retrasó a abril, no porque se gastara de más: sin
+// una nota, dentro de un año ese número no se puede interpretar.
+// -------------------------------------------------------------
+
+export async function getNotaMes(mes) {
+    const inicio = primerDiaDelMes(mes);
+    try {
+        const [fila] = await sql`
+            SELECT mes, texto, editada_en FROM notas_mes WHERE mes = ${inicio}::date
+        `;
+        return fila || null;
+    } catch (e) {
+        // Falta la migración 009.
+        if (e?.code !== '42P01') throw e;
+        return null;
+    }
+}
+
+/** Guarda o borra la nota de un mes. Texto vacío = borrar. */
+export async function guardarNotaMes(mes, texto) {
+    const inicio = primerDiaDelMes(mes);
+    const limpio = (texto || '').trim();
+
+    if (!limpio) {
+        await sql`DELETE FROM notas_mes WHERE mes = ${inicio}::date`;
+        return { borrada: true };
+    }
+
+    await sql`
+        INSERT INTO notas_mes (mes, texto)
+        VALUES (${inicio}::date, ${limpio})
+        ON CONFLICT (mes) DO UPDATE
+            SET texto = EXCLUDED.texto, editada_en = now()
+    `;
+    return { ok: true };
+}
+
+/** Todas las notas de un año, para pintarlas en la vista anual. */
+export async function getNotasDelAnio(anio) {
+    try {
+        const filas = await sql`
+            SELECT mes, texto FROM notas_mes
+            WHERE EXTRACT(YEAR FROM mes) = ${anio}::int
+        `;
+        return Object.fromEntries(
+            filas.map((f) => [String(f.mes).slice(0, 10), f.texto])
+        );
+    } catch (e) {
+        if (e?.code !== '42P01') throw e;
+        return {};
+    }
+}

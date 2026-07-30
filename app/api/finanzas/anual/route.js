@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import {
-    getResumenAnual, getAniosDisponibles, getDeudas,
+    getResumenAnual, getAniosDisponibles, getDeudas, getNotasDelAnio,
 } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -19,13 +19,14 @@ export async function GET(request) {
             ? pedido
             : new Date().getFullYear();
 
-        const [meses, anios, deudas] = await Promise.all([
+        const [meses, anios, deudas, notas] = await Promise.all([
             getResumenAnual(anio),
             getAniosDisponibles(),
             getDeudas(),
+            getNotasDelAnio(anio),
         ]);
 
-        return NextResponse.json({ anio, meses, anios, deudas }, {
+        return NextResponse.json({ anio, meses, anios, deudas, notas }, {
             headers: { 'Cache-Control': 'no-store' },
         });
     } catch (error) {

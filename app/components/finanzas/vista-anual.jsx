@@ -36,7 +36,7 @@ export default function VistaAnual({ onIrAlMes }) {
         return <p className="fz-vacio">{datos?.error || 'No se ha podido cargar'}</p>;
     }
 
-    const { meses, anios, deudas } = datos;
+    const { meses, anios, deudas, notas } = datos;
     const conDatos = meses.filter((m) => m.tiene_datos);
 
     const total = (campo) => conDatos.reduce((s, m) => s + m[campo], 0);
@@ -117,6 +117,14 @@ export default function VistaAnual({ onIrAlMes }) {
                                 <span className="fz-anual__cifra">
                                     <Cifra valor={m.limpio} />
                                 </span>
+                                {/* La explicación del mes, cuando la hay:
+                                    un mes en rojo puede tener un motivo
+                                    que no se ve en las cifras. */}
+                                {notas?.[String(m.mes).slice(0, 10)] && (
+                                    <span className="fz-anual__nota">
+                                        {notas[String(m.mes).slice(0, 10)]}
+                                    </span>
+                                )}
                             </>
                         ) : (
                             <span className="fz-anual__sin">Sin movimientos</span>

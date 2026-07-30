@@ -382,6 +382,14 @@ $ancho-dos-columnas: 880px;
         .fz-boton { padding: 8px 14px; font-size: $t-footnote; }
     }
 
+    // Acción de la fila: ocupa su propia línea.
+    &__accion {
+        grid-column: 1 / -1;
+        justify-self: start;
+        margin: 4px 0 0 -10px;
+        font-size: $t-footnote;
+    }
+
     // Debajo del nombre, no apretando la fila.
     &__nota {
         grid-column: 1 / -1;
@@ -581,6 +589,50 @@ $ancho-dos-columnas: 880px;
     }
 
     &--ancho { width: 100%; }
+}
+
+// --- Nota del mes -----------------------------------------------
+// Por qué el mes salió así. Se pulsa para editarla, como las
+// anotaciones al margen de las hojas de papel.
+.fz-nota {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    background: $acento-piso;
+    border: 0;
+    border-radius: $romo;
+    font-size: $t-footnote;
+    line-height: $lh-cuerpo;
+    color: $atencion !important;
+    white-space: pre-wrap;
+    transition: background 0.15s ease;
+
+    &:hover { background: darken($acento-piso, 3%); }
+    &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
+
+    // Sin nota todavía: discreta, sólo una invitación.
+    &--vacia {
+        background: none;
+        color: $g-400 !important;
+        padding: 8px 0;
+        &:hover { background: none; color: $g-600 !important; }
+    }
+
+    &--editando {
+        background: $hueso;
+        cursor: default;
+        &:hover { background: $hueso; }
+    }
+
+    &__acciones {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
 }
 
 // --- Acciones destacadas ----------------------------------------
@@ -1137,6 +1189,18 @@ $ancho-dos-columnas: 880px;
         grid-column: 2 / -1;
         font-size: $t-footnote;
         color: $g-400;
+    }
+
+    // La explicación del mes, bajo su fila.
+    &__nota {
+        grid-column: 2 / -1;
+        margin-top: 6px;
+        padding-left: 10px;
+        border-left: 2px solid $acento;
+        font-size: $t-caption;
+        line-height: $lh-cuerpo;
+        color: $g-600;
+        white-space: pre-wrap;
     }
 }
 

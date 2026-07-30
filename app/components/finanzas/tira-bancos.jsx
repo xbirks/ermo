@@ -36,6 +36,7 @@ export default function TiraBancos({ cuentas, onCambio }) {
     const [editando, setEditando] = useState(null);
     const [valor, setValor] = useState('');
     const [ocupado, setOcupado] = useState(false);
+    const [ingresando, setIngresando] = useState(false);
 
     // Sumar las cinco cuentas y llamarlo "disponible" engaña: mezcla el
     // dinero del día a día con el ahorro y la inversión, que no se
@@ -61,6 +62,58 @@ export default function TiraBancos({ cuentas, onCambio }) {
                 setEditando(null);
                 onCambio?.();
             }
+        } finally {
+            setOcupado(false);
+        }
+    }
+
+    /**
+     * Ingresar el efectivo en una cuenta.
+     *
+     * Se registra como traspaso y se pone la cartera a cero: el dinero
+     * no entra de fuera, sólo cambia de sitio. Contarlo como ingreso
+     * inflaría el mes con dinero que ya estaba contado al cobrarlo.
+     */
+    async function ingresarEfectivo(cartera, destinoId, importe) {
+        setOcupado(true);
+        try {
+            const hoy = new Date();
+            const fecha = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+
+            const res = await fetch('/api/finanzas/transacciones', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    fecha,
+                    cuenta_id: cartera.id,
+                    cuenta_destino_id: destinoId,
+                    concepto: 'Ingreso de efectivo',
+                    importe,
+                    tipo_movimiento: 'transferencia_interna',
+                    notas: 'Dinero en mano ingresado en el banco.',
+                }),
+            });
+            if (!res.ok) return;
+
+            // La cartera queda a cero y la cuenta destino sube.
+            await fetch('/api/finanzas/cuentas', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: cartera.id, saldo: 0 }),
+            });
+            const destino = cuentas.find((c) => c.id === destinoId);
+            if (destino?.saldo_manual) {
+                await fetch('/api/finanzas/cuentas', {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: destinoId,
+                        saldo: destino.saldo_actual + importe,
+                    }),
+                });
+            }
+            setIngresando(false);
+            onCambio?.();
         } finally {
             setOcupado(false);
         }
@@ -126,6 +179,47 @@ export default function TiraBancos({ cuentas, onCambio }) {
                             <span className="fz-bancos__nota">
                                 <Cifra valor={retenido} signo="−" tono="acento" /> retenidos
                             </span>
+                        )}
+
+                        {/* Ingresar el efectivo en el banco es un
+                            traspaso, no un ingreso: es lo que se hace al
+                            volver del cajero al revés. */}
+                        {c.tipo === 'efectivo' && c.disponible > 0 && !enEdicion && (
+                            ingresando ? (
+                                <span className="fz-bancos__editor">
+                                    <span className="fz-form__pista" style={{ flex: 1 }}>
+                                        ¿En qué cuenta lo has ingresado?
+                                    </span>
+                                    {cuentas
+                                        .filter((x) => x.tipo === 'corriente')
+                                        .map((x) => (
+                                            <button
+                                                key={x.id}
+                                                className="fz-boton"
+                                                type="button"
+                                                disabled={ocupado}
+                                                onClick={() => ingresarEfectivo(c, x.id, c.disponible)}
+                                            >
+                                                {x.nombre}
+                                            </button>
+                                        ))}
+                                    <button
+                                        className="fz-boton fz-boton--texto"
+                                        type="button"
+                                        onClick={() => setIngresando(false)}
+                                    >
+                                        Cancelar
+                                    </button>
+                                </span>
+                            ) : (
+                                <button
+                                    className="fz-boton fz-boton--texto fz-bancos__accion"
+                                    type="button"
+                                    onClick={() => setIngresando(true)}
+                                >
+                                    Ingresarlo en el banco
+                                </button>
+                            )
                         )}
 
                         {c.saldo_manual && c.saldo_declarado_en && !enEdicion && (() => {

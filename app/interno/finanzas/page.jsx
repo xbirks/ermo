@@ -15,6 +15,7 @@ import PanelIva from '@/app/components/finanzas/panel-iva';
 import PanelReservas from '@/app/components/finanzas/panel-reservas';
 import Dashboard from '@/app/components/finanzas/dashboard';
 import VistaAnual from '@/app/components/finanzas/vista-anual';
+import NotaMes from '@/app/components/finanzas/nota-mes';
 import GastosFijos from '@/app/components/finanzas/gastos-fijos';
 import Plegable from '@/app/components/finanzas/plegable';
 import { nombreMes } from '@/app/lib/finanzas/formato';
@@ -135,7 +136,7 @@ export default function FinanzasPage() {
 
     const {
         cuentas, categorias, resumen, movimientos,
-        reservas, provisiones, trimestres, fijos, fijosDeBaja, historico,
+        reservas, provisiones, trimestres, fijos, fijosDeBaja, nota, historico,
     } = datos;
 
     const ivaRetenido = trimestres.reduce((s, t) => s + t.pendiente, 0);
@@ -221,6 +222,10 @@ export default function FinanzasPage() {
                             />
                             <TiraBancos cuentas={cuentas} onCambio={cargar} />
                         </div>
+
+                        {/* Por qué el mes salió así, cuando hace falta
+                            explicarlo. */}
+                        <NotaMes mes={mes} nota={nota} onGuardado={cargar} />
 
                         {/* Las dos cosas que se hacen a diario, destacadas
                             sobre lo que sólo se consulta. */}
