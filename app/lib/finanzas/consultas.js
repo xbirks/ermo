@@ -38,13 +38,34 @@ export async function getCuentas() {
     }));
 }
 
+/**
+ * Código de Postgres para "esa columna no existe".
+ *
+ * Se usa para tolerar que una migración aún no esté aplicada: la
+ * pantalla sigue funcionando con lo que sí hay, en lugar de caerse
+ * entera. Sin esto, subir código nuevo antes de migrar deja la app
+ * inservible en vez de degradarla.
+ */
+const COLUMNA_INEXISTENTE = '42703';
+
 export async function getCategorias() {
-    const filas = await sql`
-        SELECT id, nombre, es_fijo, importe_previsto, activa
-        FROM categorias
-        WHERE activa
-        ORDER BY es_fijo DESC, nombre ASC
-    `;
+    let filas;
+    try {
+        filas = await sql`
+            SELECT id, nombre, es_fijo, importe_previsto, activa
+            FROM categorias
+            WHERE activa
+            ORDER BY es_fijo DESC, nombre ASC
+        `;
+    } catch (e) {
+        if (e?.code !== COLUMNA_INEXISTENTE) throw e;
+        // Falta la migración 001: se leen las categorías sin el filtro.
+        filas = await sql`
+            SELECT id, nombre, es_fijo, importe_previsto
+            FROM categorias
+            ORDER BY es_fijo DESC, nombre ASC
+        `;
+    }
     return filas.map((f) => ({ ...f, importe_previsto: f.importe_previsto === null ? null : num(f.importe_previsto) }));
 }
 
@@ -63,24 +84,35 @@ export async function getCategorias() {
  */
 export async function getGastosFijos(mes) {
     const inicio = primerDiaDelMes(mes);
-    const filas = await sql`
-        SELECT
-            c.id, c.nombre, c.importe_previsto, c.dia_cobro,
-            c.cada_meses, c.primer_mes, c.activa, c.notas,
-            c.cuenta_id, cu.nombre AS cuenta,
-            fn_toca_en_mes(c.cada_meses, c.primer_mes, ${inicio}::date) AS toca,
-            -- ¿Ya hay un apunte de esta categoría en el mes?
-            EXISTS (
-                SELECT 1 FROM transacciones t
-                WHERE t.categoria_id = c.id
-                  AND t.fecha >= ${inicio}::date
-                  AND t.fecha <  (${inicio}::date + INTERVAL '1 month')
-            ) AS ya_apuntado
-        FROM categorias c
-        LEFT JOIN cuentas cu ON cu.id = c.cuenta_id
-        WHERE c.es_fijo AND c.activa
-        ORDER BY cu.nombre NULLS LAST, c.dia_cobro NULLS LAST, c.nombre
-    `;
+    let filas;
+    try {
+        filas = await sql`
+            SELECT
+                c.id, c.nombre, c.importe_previsto, c.dia_cobro,
+                c.cada_meses, c.primer_mes, c.activa, c.notas,
+                c.cuenta_id, cu.nombre AS cuenta,
+                fn_toca_en_mes(c.cada_meses, c.primer_mes, ${inicio}::date) AS toca,
+                -- ¿Ya hay un apunte de esta categoría en el mes?
+                EXISTS (
+                    SELECT 1 FROM transacciones t
+                    WHERE t.categoria_id = c.id
+                      AND t.fecha >= ${inicio}::date
+                      AND t.fecha <  (${inicio}::date + INTERVAL '1 month')
+                ) AS ya_apuntado
+            FROM categorias c
+            LEFT JOIN cuentas cu ON cu.id = c.cuenta_id
+            WHERE c.es_fijo AND c.activa
+            ORDER BY cu.nombre NULLS LAST, c.dia_cobro NULLS LAST, c.nombre
+        `;
+    } catch (e) {
+        // Códigos 42703 (falta columna) y 42883 (falta la función
+        // fn_toca_en_mes): la migración 001 no está aplicada. Se
+        // devuelve la lista vacía para que el resto del mes se vea
+        // igualmente, y la sección avisará de que falta migrar.
+        if (e?.code !== COLUMNA_INEXISTENTE && e?.code !== '42883') throw e;
+        console.warn('[finanzas] falta la migración 001-gastos-fijos');
+        return [];
+    }
     return filas.map((f) => ({
         ...f,
         importe_previsto: f.importe_previsto === null ? null : num(f.importe_previsto),

@@ -177,7 +177,11 @@ export default function GastosFijos({ fijos, cuentas, mes, onCambio }) {
             })}
 
             {!fijos.length && (
-                <p className="fz-vacio">Todavía no hay recibos fijos configurados.</p>
+                <div className="fz-aviso">
+                    No hay recibos fijos configurados. Si acabas de actualizar la
+                    app, puede que falte ejecutar{' '}
+                    <code>db/migraciones/001-gastos-fijos.sql</code> en Supabase.
+                </div>
             )}
 
             <div className="fz-form__par" style={{ marginTop: 18 }}>
