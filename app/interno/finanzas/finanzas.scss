@@ -8,8 +8,10 @@
 // Reglas del diseño:
 //   · Fondo blanco puro, siempre. Las secciones se separan con
 //     líneas, no con cajas de otro tono.
-//   · Un solo acento, naranja, para lo activo y lo urgente. Nada más
-//     lleva color salvo los números en negativo.
+//   · Dos colores y nada más: azul para lo que se puede pulsar, ámbar
+//     para lo que reclama atención (dinero retenido, recibos sin
+//     apuntar). Rojo sólo en números negativos.
+//   · Tamaños de letra según las Human Interface Guidelines de Apple.
 //   · Esquinas romas en tarjetas y campos. Botones y píldoras con
 //     radio completo.
 //   · Cifras en JetBrains Mono, con los decimales atenuados.
@@ -26,10 +28,18 @@ $g-600:    #5a5a55;   // texto secundario
 $g-900:    #1a1a18;   // texto principal
 
 // --- El acento --------------------------------------------------
-// Naranja: lo activo, lo retenido y lo que vence. Un solo color para
-// "esto reclama tu atención" mantiene el resto de la pantalla en calma.
-$acento:      #f26722;
-$acento-piso: #fdf0e9;   // fondo de la píldora activa
+// Azul del sistema (el mismo tono que usa iOS para lo interactivo).
+// Marca lo que se puede pulsar y lo que está seleccionado. El naranja
+// anterior teñía de alarma cosas que son normales —tener IVA retenido
+// no es un problema, es lo correcto— y hacía sentir que todo iba mal.
+$acento:      #0a6cff;
+$acento-piso: #eef4ff;   // fondo de lo seleccionado
+
+// Ámbar sólo para lo que de verdad hay que atender: dinero retenido
+// que no es tuyo y recibos sin apuntar.
+$atencion:      #8a6d1f;
+$atencion-piso: #faf6ea;
+
 $peligro:     #c8341c;   // sólo números en negativo
 
 // --- Formas -----------------------------------------------------
@@ -65,6 +75,26 @@ $pastilla: 999px;   // botones y píldoras
 $texto:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
+// --- Escala tipográfica ------------------------------------------
+// Los tamaños de las Human Interface Guidelines de Apple, con sus
+// nombres. Antes había veintiún tamaños distintos, con medios píxeles
+// (11,5 · 13,5 · 14,5) que no respondían a ninguna regla. Aquí hay
+// nueve, cada uno con un uso.
+$t-large-title: 34px;   // la cifra del total limpio
+$t-title-1:     28px;   // el mes
+$t-title-2:     22px;   // saldo de una cuenta
+$t-title-3:     20px;   // cifras destacadas de una fila
+$t-body:        17px;   // texto normal y campos de formulario
+$t-callout:     16px;   // cifras dentro de la cascada
+$t-subhead:     15px;   // filas de listas
+$t-footnote:    13px;   // detalles bajo un título
+$t-caption:     12px;   // etiquetas en versalita
+$t-caption-2:   11px;   // la etiqueta más pequeña
+
+// Alturas de línea de la misma guía: cuerpo holgado, títulos ajustados.
+$lh-cuerpo:  1.47;
+$lh-titulo:  1.15;
+
 @mixin hasta($px) {
     @media only screen and (max-width: $px) { @content; }
 }
@@ -73,7 +103,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 // interfaz para nombrar campos y secciones.
 @mixin etiqueta {
     font-family: $cifras;
-    font-size: 10.5px;
+    font-size: $t-caption-2;
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -93,7 +123,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     background: $blanco;
     color: $g-900;
     font-family: $texto;
-    font-size: 15px;
+    font-size: $t-subhead;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 
@@ -136,7 +166,9 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     &__eur { color: $g-400; font-weight: 400; margin-left: 2px; }
 
     &--negativo { color: $peligro; .fz-cifra__dec, .fz-cifra__eur { color: rgba($peligro, 0.55); } }
-    &--acento   { color: $acento;  .fz-cifra__dec, .fz-cifra__eur { color: rgba($acento, 0.55); } }
+    // "acento" en una cifra significa dinero retenido: ámbar, no azul.
+    // El azul se reserva para lo que se puede pulsar.
+    &--acento   { color: $atencion; .fz-cifra__dec, .fz-cifra__eur { color: rgba($atencion, 0.55); } }
 }
 
 // --- Cabecera ---------------------------------------------------
@@ -172,13 +204,13 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     margin-bottom: 22px;
 
     &__nombre {
-        font-size: 30px;
+        font-size: $t-title-1;
         font-weight: 600;
         letter-spacing: -0.03em;
         line-height: 1.1;
 
         &::first-letter { text-transform: uppercase; }
-        @include hasta(600px) { font-size: 25px; }
+        @include hasta(600px) { font-size: $t-title-2; }
     }
 
     &__nav { display: flex; align-items: center; gap: 6px; }
@@ -199,7 +231,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     &__item {
         flex: 1;
         font-family: $texto;
-        font-size: 13px;
+        font-size: $t-footnote;
         font-weight: 550;
         color: $g-600;
         background: transparent;
@@ -224,7 +256,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 .fz-input,
 .fz-area {
     font-family: $texto;
-    font-size: 15px;
+    font-size: $t-subhead;
     color: $g-900;
     background: $hueso;
     border: 1px solid transparent;
@@ -247,9 +279,8 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
 .fz-input--importe {
     font-family: $cifras;
-    font-size: 19px;
+    font-size: $t-body;
     font-weight: 500;
-    text-align: right;
     font-variant-numeric: tabular-nums;
 }
 
@@ -259,7 +290,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     justify-content: center;
     gap: 8px;
     font-family: $texto;
-    font-size: 14px;
+    font-size: $t-subhead;
     font-weight: 550;
     padding: 13px 22px;
     border: 0;
@@ -273,7 +304,14 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     &:disabled { opacity: 0.3; cursor: not-allowed !important; }
     &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
 
-    &--acento { background: $acento; }
+    // Variante de texto: para acciones secundarias dentro de una fila,
+    // donde un botón con fondo pesa demasiado.
+    &--texto {
+        background: transparent;
+        color: $acento;
+        padding: 8px 10px;
+        &:hover:not(:disabled) { background: $acento-piso; opacity: 1; }
+    }
 
     &--suave {
         background: $hueso;
@@ -285,7 +323,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
         padding: 0;
         width: 36px;
         height: 36px;
-        font-size: 16px;
+        font-size: $t-callout;
         background: $hueso;
         color: $g-600;
         &:hover:not(:disabled) { background: darken($hueso, 4%); color: $g-900; opacity: 1; }
@@ -315,7 +353,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
     &__extra {
         font-family: $texto;
-        font-size: 12.5px;
+        font-size: $t-caption;
         letter-spacing: 0;
         text-transform: none;
         color: $g-400;
@@ -349,20 +387,27 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
         display: flex;
         align-items: center;
         gap: 9px;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     &__resumen {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-size: 13px;
+        gap: 6px;
+        font-size: $t-footnote;
         color: $g-500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        // En pantallas estrechas el resumen cede antes que el título.
+        min-width: 0;
     }
 
     // La flecha gira al abrir.
     &__flecha {
         display: inline-block;
-        font-size: 11px;
+        font-size: $t-caption-2;
         color: $g-400;
         transition: transform 0.2s ease;
     }
@@ -384,16 +429,16 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     padding: 15px 16px;
 
     // La cuenta con dinero retenido se marca en naranja.
-    &--retenido { background: $acento-piso; }
+    &--retenido { background: $atencion-piso; }
 
     &__nombre {
         @include etiqueta;
-        font-size: 10px;
+        font-size: $t-caption-2;
     }
 
     &__saldo {
         margin-top: 8px;
-        font-size: 21px;
+        font-size: $t-title-2;
         font-weight: 600;
         letter-spacing: -0.02em;
     }
@@ -404,7 +449,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
         margin-top: 10px;
         padding-top: 9px;
         border-top: 1px solid rgba($g-900, 0.07);
-        font-size: 11.5px;
+        font-size: $t-caption-2;
         color: $g-600;
 
         span {
@@ -428,7 +473,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     }
 
     &__etiqueta {
-        font-size: 14.5px;
+        font-size: $t-subhead;
         color: $g-600;
         display: flex;
         align-items: baseline;
@@ -436,13 +481,13 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
         flex-wrap: wrap;
     }
 
-    &__nota { font-size: 11.5px; color: $g-400; }
+    &__nota { font-size: $t-caption-2; color: $g-400; }
 
-    &__cifra { font-size: 16px; color: $g-900; }
+    &__cifra { font-size: $t-subhead; color: $g-900; }
 
     // El IVA en naranja: está en la cuenta pero no es tuyo.
     &__fila--retenido {
-        .fz-cascada__etiqueta { color: $acento; }
+        .fz-cascada__etiqueta { color: $atencion; }
     }
 
     // Donde en el papel hay una raya a bolígrafo.
@@ -463,15 +508,15 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
         &-cifra {
             display: block;
             margin-top: 4px;
-            font-size: 42px;
+            font-size: $t-large-title;
             font-weight: 600;
             letter-spacing: -0.04em;
             line-height: 1.05;
 
-            @include hasta(600px) { font-size: 34px; }
+            @include hasta(600px) { font-size: $t-large-title; }
         }
 
-        &-pie { margin-top: 6px; font-size: 12.5px; color: $g-400; }
+        &-pie { margin-top: 6px; font-size: $t-caption; color: $g-400; }
     }
 }
 
@@ -497,7 +542,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
     &__fecha {
         font-family: $cifras;
-        font-size: 11px;
+        font-size: $t-caption-2;
         color: $g-400;
         font-variant-numeric: tabular-nums;
     }
@@ -505,14 +550,14 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     &__concepto { min-width: 0; }
 
     &__texto {
-        font-size: 14px;
+        font-size: $t-subhead;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
     &__meta {
-        font-size: 11px;
+        font-size: $t-caption-2;
         color: $g-400;
         margin-top: 1px;
         overflow: hidden;
@@ -522,22 +567,21 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
     &__nota {
         grid-column: 2 / -1;
-        font-size: 12px;
+        font-size: $t-caption;
         color: $g-600;
-        margin-top: 4px;
-        padding: 7px 10px;
-        background: $hueso;
-        border-radius: $romo-s;
-        line-height: 1.35;
+        margin-top: 3px;
+        padding-left: 10px;
+        border-left: 2px solid $linea;
+        line-height: $lh-cuerpo;
         white-space: pre-wrap;
 
-        @include hasta(420px) { grid-column: 1 / -1; }
+        @include hasta(420px) { grid-column: 2 / -1; }
     }
 
-    &__importe { font-size: 14.5px; text-align: right; }
+    &__importe { font-size: $t-subhead; text-align: right; }
 
     &__borrar {
-        font-size: 15px;
+        font-size: $t-subhead;
         line-height: 1;
         color: $g-400;
         background: none;
@@ -559,7 +603,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 .fz-tag {
     display: inline-block;
     font-family: $cifras;
-    font-size: 9.5px;
+    font-size: $t-caption-2;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -568,7 +612,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     background: $hueso;
     color: $g-500;
 
-    &--acento { background: $acento-piso; color: $acento; }
+    &--acento { background: $atencion-piso; color: $atencion; }
     &--negro  { background: $linea-fuerte; color: $blanco; }
 }
 
@@ -576,21 +620,40 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 .fz-aviso {
     padding: 13px 16px;
     border-radius: $romo;
-    font-size: 13.5px;
+    font-size: $t-footnote;
     line-height: 1.45;
     background: $hueso;
     color: $g-600;
     margin-bottom: 14px;
 
-    &--atencion { background: $acento-piso; color: darken($acento, 12%); }
+    &--atencion { background: $atencion-piso; color: $atencion; }
     &--error    { background: rgba($peligro, 0.07); color: $peligro; }
 }
 
 .fz-vacio {
     padding: 28px 0;
     text-align: center;
-    font-size: 13.5px;
+    font-size: $t-footnote;
     color: $g-400;
+}
+
+// --- Editor en línea --------------------------------------------
+// Se abre justo debajo de la fila que se está editando. Un formulario
+// al final de la lista queda fuera de pantalla con once recibos, y
+// parece que el botón no ha hecho nada.
+.fz-editor {
+    padding: 16px;
+    margin: 4px 0 12px;
+    background: $hueso;
+    border-radius: $romo;
+
+    &__acciones {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+    }
 }
 
 // --- Formularios ------------------------------------------------
@@ -600,7 +663,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
     &__campo { display: grid; gap: 6px; }
     &__etiqueta { @include etiqueta; }
-    &__pista { font-size: 11.5px; color: $g-400; }
+    &__pista { font-size: $t-caption-2; color: $g-400; }
 
     &__par {
         display: grid;
@@ -622,11 +685,11 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     border-radius: $romo;
     padding: 15px 16px;
 
-    &--acento { background: $acento-piso; }
+    &--acento { background: $atencion-piso; }
 
-    &__etiqueta { @include etiqueta; font-size: 10px; }
-    &__valor { margin-top: 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
-    &__pie { margin-top: 4px; font-size: 11.5px; color: $g-400; }
+    &__etiqueta { @include etiqueta; font-size: $t-caption-2; }
+    &__valor { margin-top: 8px; font-size: $t-title-3; font-weight: 600; letter-spacing: -0.02em; }
+    &__pie { margin-top: 4px; font-size: $t-caption-2; color: $g-400; }
 }
 
 // --- Barras -----------------------------------------------------
@@ -644,7 +707,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
     &__mes {
         font-family: $cifras;
-        font-size: 11px;
+        font-size: $t-caption-2;
         color: $g-500;
         white-space: nowrap;
         overflow: hidden;
@@ -670,7 +733,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
         &--negativo { background: $peligro; }
     }
 
-    &__cifra { font-size: 13px; text-align: right; }
+    &__cifra { font-size: $t-footnote; text-align: right; }
 }
 
 // --- Filas de detalle (IVA, reservas, avisos) -------------------
@@ -686,7 +749,7 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     &--apagada { opacity: 0.45; }
 
     &__titulo {
-        font-size: 14.5px;
+        font-size: $t-subhead;
         font-weight: 550;
         display: flex;
         align-items: center;
@@ -695,21 +758,26 @@ $cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
     }
 
     &__detalle {
-        font-size: 12px;
+        font-size: $t-caption;
         color: $g-400;
         margin-top: 3px;
-        line-height: 1.4;
-        max-width: 48ch;
+        line-height: $lh-cuerpo;
+        max-width: 46ch;
+        // Una sola línea: las notas largas no deben descuadrar la
+        // altura de las filas de la lista.
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__lado {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
         flex-shrink: 0;
     }
 
-    &__cifra { font-size: 18px; font-weight: 600; }
+    &__cifra { font-size: $t-title-3; font-weight: 600; }
 }
 
 // --- Login ------------------------------------------------------
