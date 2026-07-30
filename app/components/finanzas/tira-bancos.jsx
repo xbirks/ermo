@@ -2,7 +2,19 @@
 
 import { useState } from 'react';
 import Cifra from './cifra';
-import { diaCorto } from '@/app/lib/finanzas/formato';
+
+/**
+ * Cuántos días hace que se puso el saldo a mano.
+ *
+ * Una cifra escrita hace tres meses ya no dice la verdad, sobre todo en
+ * inversión, donde el valor cambia solo. Sin este aviso, un saldo viejo
+ * se lee igual que uno recién comprobado.
+ */
+function diasDesde(fecha) {
+    if (!fecha) return null;
+    const dif = (Date.now() - new Date(fecha).getTime()) / 86400000;
+    return Math.floor(dif);
+}
 
 /**
  * Los saldos de las cinco cuentas, en una línea cada uno.
@@ -107,11 +119,23 @@ export default function TiraBancos({ cuentas, onCambio }) {
                             </span>
                         )}
 
-                        {c.saldo_manual && c.saldo_declarado_en && !enEdicion && (
-                            <span className="fz-bancos__nota fz-bancos__nota--fecha">
-                                puesto a mano el {diaCorto(c.saldo_declarado_en)}
-                            </span>
-                        )}
+                        {c.saldo_manual && c.saldo_declarado_en && !enEdicion && (() => {
+                            const dias = diasDesde(c.saldo_declarado_en);
+                            // Más de un mes sin comprobar: deja de ser un
+                            // dato de contexto y pasa a ser un aviso.
+                            const viejo = dias !== null && dias > 30;
+                            return (
+                                <span className={`fz-bancos__nota fz-bancos__nota--${viejo ? 'viejo' : 'fecha'}`}>
+                                    {dias === 0
+                                        ? 'comprobado hoy'
+                                        : dias === 1
+                                            ? 'comprobado ayer'
+                                            : viejo
+                                                ? `sin comprobar desde hace ${dias} días`
+                                                : `comprobado hace ${dias} días`}
+                                </span>
+                            );
+                        })()}
                     </div>
                 );
             })}

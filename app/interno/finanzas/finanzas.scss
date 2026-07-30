@@ -334,6 +334,8 @@ $c-pequena: 12px;   // pareja de $t-footnote
         white-space: nowrap;
 
         &--fecha { color: $g-400; }
+        // Pasado un mes, el saldo puesto a mano deja de ser fiable.
+        &--viejo { color: $atencion; }
     }
 
     &__total {
