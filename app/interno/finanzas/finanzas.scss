@@ -335,36 +335,74 @@ $ancho-dos-columnas: 880px;
 // Una línea por cuenta bajo el resumen del mes. Las tarjetas grandes
 // ocupaban media pantalla para un dato que se consulta de reojo.
 .fz-bancos {
+    // Dos filas: arriba las cuentas con las que se opera, grandes;
+    // abajo el ahorro y el efectivo, en tarjetas pequeñas, porque se
+    // consultan de reojo.
     display: grid;
-    gap: 1px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     margin-bottom: 30px;
-    background: $linea;
-    border-radius: $romo;
-    overflow: hidden;
 
     &__fila {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 3px 12px;
-        align-items: baseline;
-        padding: 16px 18px;
-        background: $blanco;
+        display: flex;
+        flex-direction: column;
+        padding: 18px 20px;
+        background: $hueso;
+        border-radius: $romo;
     }
 
-    // La cuenta con dinero retenido se distingue por el fondo.
-    &__fila--retenido { background: $atencion-piso; }
+    // Las tres secundarias comparten la fila de abajo.
+    &__fila--secundaria {
+        grid-column: span 2;
+        padding: 14px 16px;
+
+        .fz-bancos__cifra { font-size: $c-normal; margin-top: 5px; }
+        .fz-bancos__nombre { font-size: $t-caption; }
+    }
+
+    // Móvil: Imagin y Santander a ancho completo, una encima de otra,
+    // y las tres pequeñas repartidas en la fila de abajo.
+    @include hasta(560px) {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+
+        &__fila { grid-column: span 6; }
+        &__fila--secundaria { grid-column: span 2; padding: 12px 13px; }
+    }
+
+    // Muy estrecho: las secundarias pasan a dos por fila para que no
+    // se aprieten las cifras.
+    @include hasta(380px) {
+        &__fila--secundaria { grid-column: span 3; }
+    }
+
+    // Escritorio: las dos grandes arriba y las tres pequeñas debajo.
+    @include desde(720px) {
+        grid-template-columns: repeat(6, 1fr);
+
+        &__fila { grid-column: span 3; }
+        &__fila--secundaria { grid-column: span 2; }
+    }
+
+    // El fondo distinto marcaba la cuenta con dinero retenido, pero
+    // eso ya lo dicen sus propias líneas. Todas iguales.
+    &__fila--retenido { background: $hueso; }
 
     &__nombre {
         @include etiqueta;
-        font-size: $t-subhead;
+        font-size: $t-footnote;
+        color: $g-500;
     }
 
     &__cifra {
+        margin-top: 8px;
         font-family: $texto;
         font-size: $c-media;
         font-weight: $p-ligero;
         letter-spacing: -0.03em;
+        line-height: $lh-titulo;
         font-variant-numeric: tabular-nums;
+        text-align: left;
     }
 
     // El desglose de lo retenido, cuando lo hay.
@@ -383,25 +421,43 @@ $ancho-dos-columnas: 880px;
 
         &:hover { background: rgba($acento, 0.09); }
         &:focus-visible { outline: 2px solid $acento; outline-offset: 1px; }
+
+        // En el móvil la cifra medía 27 px de alto: por debajo de los
+        // 44 px que Apple da como mínimo para tocar con el dedo, y es
+        // el control que más se usa de la pantalla.
+        @include hasta(600px) {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            margin: -2px -8px;
+        }
     }
 
     &__editor {
-        grid-column: 1 / -1;
         display: flex;
+        flex-wrap: wrap;
         gap: 6px;
         align-items: center;
-        margin-top: 6px;
+        margin-top: 10px;
 
         .fz-input { flex: 1; padding: 8px 10px; }
         .fz-boton { padding: 8px 14px; font-size: $t-footnote; }
     }
 
-    // Acción de la fila: ocupa su propia línea.
+    // Acción de la tarjeta, al pie.
+    //
+    // `.fz-boton` lleva `white-space: nowrap`, así que «Ingresarlo en
+    // el banco» medía más que la tarjeta y se salía por la derecha.
+    // Aquí se le deja partir en dos líneas.
     &__accion {
-        grid-column: 1 / -1;
-        justify-self: start;
-        margin: 4px 0 0 -10px;
+        align-self: stretch;
+        justify-content: flex-start;
+        max-width: 100%;
+        margin: 10px 0 0 -10px;
         font-size: $t-footnote;
+        white-space: normal;
+        text-align: left;
     }
 
     // Debajo del nombre, no apretando la fila.
@@ -410,15 +466,21 @@ $ancho-dos-columnas: 880px;
         font-family: $cifras;
         font-size: $t-caption-2;
         color: $atencion;
-        white-space: nowrap;
+        // Se envuelve en lugar de salirse: «−602,00 € de IVA para
+        // Hacienda» no cabe en una línea de 358 px.
+        white-space: normal;
 
         &--fecha { color: $g-400; }
 
-        // Lo retenido y lo gastable, cada uno en su línea: en una sola
-        // se salía del ancho en el móvil.
+        // Cada concepto retenido en su línea, y lo gastable al final.
         .fz-bancos__retenido,
         .fz-bancos__gastable { display: block; }
-        .fz-bancos__gastable { margin-top: 2px; color: $g-900; }
+        .fz-bancos__retenido + .fz-bancos__retenido { margin-top: 2px; }
+        .fz-bancos__gastable {
+            margin-top: 6px;
+            color: $g-900;
+            font-weight: $p-medio;
+        }
 
         // La nota de lo retenido es pulsable: lleva a su sección.
         &--pulsable {
@@ -502,12 +564,30 @@ $ancho-dos-columnas: 880px;
         font-weight: $p-fuerte;
         letter-spacing: -0.03em;
         line-height: 1.1;
+        min-width: 0;
 
         &::first-letter { text-transform: uppercase; }
         @include hasta(600px) { font-size: $t-title-2; }
     }
 
-    &__nav { display: flex; align-items: center; gap: 6px; }
+    &__nav { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+    // En el móvil, «Julio de 2026» más las dos flechas y «Este mes»
+    // competían por 358 px y quedaba todo apretado contra los bordes.
+    // El nombre del mes se queda solo en su línea y la navegación baja
+    // debajo, repartida a lo ancho: cada control gana sitio y el pulgar
+    // los alcanza sin apuntar.
+    @include hasta(600px) {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+
+        &__nav {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 8px;
+        }
+    }
 }
 
 // --- Píldoras (navegación y filtros) ----------------------------
@@ -636,9 +716,24 @@ $ancho-dos-columnas: 880px;
             background: darken($hueso, 5%);
             opacity: 1;
         }
+
+        // Con el dedo, 38 px se falla. 44 es el mínimo de las guías de
+        // Apple, y estas flechas se pulsan constantemente para moverse
+        // de mes.
+        @include hasta(600px) {
+            width: 44px;
+            height: 44px;
+        }
     }
 
     &--ancho { width: 100%; }
+
+    // Ningún botón por debajo del área de toque en el móvil, sea cual
+    // sea su variante.
+    @include hasta(600px) {
+        min-height: 44px;
+        &--texto { padding: 11px 14px; }
+    }
 }
 
 // --- Previsión --------------------------------------------------
@@ -838,6 +933,45 @@ $ancho-dos-columnas: 880px;
             .fz-plegable__abrir { background: $acento; color: $blanco; }
         }
         &:focus-visible { outline: 2px solid $acento; outline-offset: -2px; }
+
+        // En el móvil, título y resumen no caben en la misma línea:
+        // «130,00 € por apuntar» se quedaba en «130,00 € po». La
+        // cabecera pasa a rejilla: el título y el + arriba, y el
+        // resumen entero en su propia línea debajo.
+        @include hasta(600px) {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 4px 12px;
+            padding: 16px;
+        }
+    }
+
+    @include hasta(600px) {
+        // El + se queda arriba a la derecha, junto al título.
+        &__abrir { grid-column: 2; grid-row: 1; }
+
+        &__titulo {
+            grid-column: 1;
+            grid-row: 1;
+            white-space: normal;
+            flex-shrink: 1;
+            min-width: 0;
+        }
+
+        // `display: contents` deshace el contenedor intermedio para
+        // que resumen y botón se coloquen directamente en la rejilla
+        // de la cabecera.
+        &__lado { display: contents; }
+
+        &__resumen {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            font-size: $t-footnote;
+        }
     }
 
     // Un botón visible a la derecha: sin él, la fila parecía texto
@@ -914,7 +1048,8 @@ $ancho-dos-columnas: 880px;
 
     &__nombre {
         @include etiqueta;
-        font-size: $t-subhead;
+        font-size: $t-footnote;
+        color: $g-500;
     }
 
     &__saldo {
@@ -1020,9 +1155,13 @@ $ancho-dos-columnas: 880px;
 
         &:last-child { border-bottom: 0; }
 
-        @include hasta(420px) {
-            grid-template-columns: 34px 1fr auto;
+        // Cuatro columnas siempre: la fila tiene cuatro hijos (fecha,
+        // concepto, importe y borrar), y al bajar la rejilla a tres el
+        // botón de borrar caía a una línea nueva y descuadraba la lista.
+        @include hasta(600px) {
+            grid-template-columns: 30px 1fr auto 30px;
             gap: 8px;
+            padding: 10px 12px;
         }
     }
 
@@ -1040,6 +1179,19 @@ $ancho-dos-columnas: 880px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        // Los conceptos del banco vienen larguísimos («Bizum De Carlos
+        // Humberto Correa Mol…»): en una sola línea se cortaban justo
+        // donde está el dato que distingue un apunte de otro. En el
+        // móvil se les dan dos líneas.
+        @include hasta(600px) {
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
     }
 
     &__meta {
@@ -1079,10 +1231,21 @@ $ancho-dos-columnas: 880px;
 
         &:hover { color: $peligro; }
         &:focus-visible { opacity: 1; outline: 2px solid $acento; }
+
+        // En el móvil no hay hover que lo revele, así que se ve
+        // siempre, y con sitio para el dedo.
+        @include hasta(600px) {
+            min-width: 30px;
+            min-height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: $t-body;
+        }
     }
 
     &__fila:hover &__borrar { opacity: 1; }
-    @media (hover: none) { &__borrar { opacity: 0.5; } }
+    @media (hover: none) { &__borrar { opacity: 0.55; } }
 }
 
 // --- Etiquetas de estado ----------------------------------------
@@ -1231,9 +1394,14 @@ $ancho-dos-columnas: 880px;
 
         &--vacio { opacity: 0.45; }
 
+        // «septiembre» y «diciembre» no caben en 62 px y salían
+        // cortados a media palabra. Con la columna algo más ancha y el
+        // cuerpo un punto menor entran enteros, y el mes se lee sin
+        // tener que adivinarlo.
         @include hasta(560px) {
-            grid-template-columns: 62px 1fr auto;
+            grid-template-columns: 76px 1fr auto;
             gap: 10px;
+            padding: 14px 10px;
         }
     }
 
@@ -1241,6 +1409,11 @@ $ancho-dos-columnas: 880px;
         font-size: $t-subhead;
         color: $g-900;
         &::first-letter { text-transform: uppercase; }
+
+        @include hasta(560px) {
+            font-size: $t-footnote;
+            letter-spacing: -0.01em;
+        }
     }
 
     // Dos barras superpuestas: lo que entró y lo que salió, para ver de
@@ -1333,6 +1506,12 @@ $ancho-dos-columnas: 880px;
 }
 
 // --- Filas de detalle (IVA, reservas, avisos) -------------------
+//
+// En escritorio la fila es una línea: descripción a la izquierda,
+// importe y botones a la derecha. En el móvil eso no cabe —el importe
+// más «Apuntar» más «Editar» suman más que el ancho de la pantalla—,
+// así que los botones bajan a su propia línea. Antes `flex-shrink: 0`
+// los empujaba fuera del borde y quedaban sin poder pulsarse.
 .fz-fila {
     display: flex;
     align-items: flex-start;
@@ -1349,6 +1528,10 @@ $ancho-dos-columnas: 880px;
     &:last-child { border-bottom: 0; }
     &--apagada { opacity: 0.45; }
 
+    // El bloque de texto puede encoger; sin esto un concepto largo
+    // empuja al importe fuera de la fila.
+    > div:first-child { min-width: 0; flex: 1; }
+
     &__titulo {
         font-size: $t-subhead;
         font-weight: 550;
@@ -1356,6 +1539,8 @@ $ancho-dos-columnas: 880px;
         align-items: center;
         gap: 8px;
         flex-wrap: wrap;
+        // Un nombre largo parte por donde pueda antes que desbordar.
+        overflow-wrap: anywhere;
     }
 
     &__detalle {
@@ -1364,11 +1549,14 @@ $ancho-dos-columnas: 880px;
         margin-top: 3px;
         line-height: $lh-cuerpo;
         max-width: 46ch;
-        // Una sola línea: las notas largas no deben descuadrar la
-        // altura de las filas de la lista.
+        // Dos líneas como mucho: las notas largas no deben descuadrar
+        // la altura de las filas, pero cortarlas a una sola escondía
+        // la mitad del texto en el móvil.
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
     }
 
     &__lado {
@@ -1378,7 +1566,52 @@ $ancho-dos-columnas: 880px;
         flex-shrink: 0;
     }
 
-    &__cifra { font-size: $c-normal; font-weight: 600; }
+    &__cifra { font-size: $c-normal; font-weight: 600; white-space: nowrap; }
+
+    // --- Móvil: los botones, a su propia línea ------------------
+    //
+    // La fila pasa a rejilla de dos columnas: arriba el nombre del
+    // recibo con su importe a la derecha, como en un extracto; debajo
+    // los botones, alineados a la izquierda, donde el pulgar llega sin
+    // estirarse. Antes iban todos en línea y se salían de la pantalla.
+    @include hasta(600px) {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+        gap: 8px 12px;
+
+        > div:first-child { grid-column: 1; grid-row: 1; }
+
+        // `display: contents` disuelve el contenedor para que importe y
+        // botones se coloquen por separado en la rejilla de la fila.
+        &__lado {
+            display: contents;
+        }
+
+        // El importe, a la derecha del nombre: es el dato que se busca
+        // al recorrer la lista.
+        &__cifra {
+            grid-column: 2;
+            grid-row: 1;
+            font-size: $t-body;
+            text-align: right;
+        }
+
+        // Los botones comparten la segunda línea, a la izquierda.
+        &__lado .fz-boton {
+            grid-row: 2;
+            min-height: 40px;
+            padding: 9px 16px;
+            font-size: $t-footnote;
+            justify-self: start;
+        }
+        &__lado .fz-boton--texto { padding: 9px 12px; }
+
+        // El primer botón en la columna izquierda, el segundo a su
+        // lado; si sólo hay uno, se queda a la izquierda.
+        &__lado .fz-boton:first-of-type { grid-column: 1; }
+        &__lado .fz-boton:nth-of-type(2) { grid-column: 2; justify-self: end; }
+    }
 }
 
 // Reservas ya liberadas, apagadas al final de la sección.

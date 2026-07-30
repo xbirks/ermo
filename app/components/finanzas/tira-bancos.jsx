@@ -114,13 +114,21 @@ export default function TiraBancos({ cuentas, onCambio, onVerApartado }) {
 
     return (
         <div className="fz-bancos">
-            {cuentas.map((c) => {
+            {[...cuentas]
+                .sort((a, b) => {
+                    const orden = { Imagin: 0, Santander: 1 };
+                    return (orden[a.nombre] ?? 9) - (orden[b.nombre] ?? 9);
+                })
+                .map((c) => {
                 const retenido = c.iva_retenido + c.reservado;
                 const enEdicion = editando === c.id;
+                // Imagin y Santander son con las que se opera: van
+                // arriba y grandes. El ahorro y el efectivo, debajo.
+                const secundaria = !['Imagin', 'Santander'].includes(c.nombre);
 
                 return (
                     <div
-                        className={`fz-bancos__fila${retenido > 0 ? ' fz-bancos__fila--retenido' : ''}`}
+                        className={`fz-bancos__fila${secundaria ? ' fz-bancos__fila--secundaria' : ''}`}
                         key={c.id}
                     >
                         <span className="fz-bancos__nombre">{c.nombre}</span>
