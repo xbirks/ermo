@@ -16,7 +16,6 @@ import PanelReservas from '@/app/components/finanzas/panel-reservas';
 import Dashboard from '@/app/components/finanzas/dashboard';
 import VistaAnual from '@/app/components/finanzas/vista-anual';
 import NotaMes from '@/app/components/finanzas/nota-mes';
-import Prevision from '@/app/components/finanzas/prevision';
 import GastosFijos from '@/app/components/finanzas/gastos-fijos';
 import Plegable from '@/app/components/finanzas/plegable';
 import { nombreMes } from '@/app/lib/finanzas/formato';
@@ -214,17 +213,6 @@ export default function FinanzasPage() {
 
                 {vista === 'mes' && (
                     <>
-                        {/* Lo que queda libre de lo que hay hoy, una vez
-                            pagados los recibos que vienen. Es el cálculo
-                            que se hace a mano en la libreta. */}
-                        <Prevision
-                            cuentas={cuentas}
-                            fijos={listaFijos}
-                            iva={trimestres}
-                            reservas={reservas}
-                            mes={mes}
-                        />
-
                         {/* Lo primero: cuánto ha entrado y salido, y qué
                             hay en cada banco. Lado a lado en escritorio. */}
                         <div className="fz-cabeza fz-cabeza--secundaria">

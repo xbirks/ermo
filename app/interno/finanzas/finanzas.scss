@@ -430,6 +430,12 @@ $ancho-dos-columnas: 880px;
 
         &--fecha { color: $g-400; }
 
+        // Lo retenido y lo gastable, cada uno en su línea: en una sola
+        // se salía del ancho en el móvil.
+        .fz-bancos__retenido,
+        .fz-bancos__gastable { display: block; }
+        .fz-bancos__gastable { margin-top: 2px; color: $g-900; }
+
         // La nota de lo retenido es pulsable: lleva a su sección.
         &--pulsable {
             background: none;
@@ -441,6 +447,7 @@ $ancho-dos-columnas: 880px;
             font-family: inherit;
             font-size: inherit;
             color: $atencion !important;
+            white-space: normal;
             transition: background 0.15s ease;
 
             &:hover { background: rgba($atencion, 0.1); }
