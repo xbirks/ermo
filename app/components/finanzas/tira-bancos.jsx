@@ -32,7 +32,15 @@ function diasDesde(fecha) {
  *
  * Se editan pulsando la cifra.
  */
-export default function TiraBancos({ cuentas, onCambio, onVerApartado }) {
+export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) {
+    // Lo que aún tiene que salir de cada cuenta este mes. Sin esto, el
+    // saldo de hoy engaña: el día 1 se cargan los domiciliados y baja
+    // de golpe.
+    const porSalir = {};
+    for (const f of fijos || []) {
+        if (!f.toca || f.ya_apuntado || !f.cuenta) continue;
+        porSalir[f.cuenta] = (porSalir[f.cuenta] || 0) + (f.importe_previsto || 0);
+    }
     const [editando, setEditando] = useState(null);
     const [valor, setValor] = useState('');
     const [ocupado, setOcupado] = useState(false);
@@ -243,6 +251,14 @@ export default function TiraBancos({ cuentas, onCambio, onVerApartado }) {
                                     Ingresarlo en el banco
                                 </button>
                             )
+                        )}
+
+                        {porSalir[c.nombre] > 0 && !enEdicion && (
+                            <span className="fz-bancos__porsalir">
+                                Están por salir <Cifra valor={porSalir[c.nombre]} signo={false} />
+                                {' '}de recibos: quedarán{' '}
+                                <b><Cifra valor={c.disponible - porSalir[c.nombre]} signo={false} /></b>
+                            </span>
                         )}
 
                         {c.saldo_manual && c.saldo_declarado_en && !enEdicion && (() => {

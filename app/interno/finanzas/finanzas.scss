@@ -458,6 +458,17 @@ $ancho-dos-columnas: 880px;
         font-size: $t-footnote;
         white-space: normal;
         text-align: left;
+        // La tarjeta de efectivo mide poco más de 100 px en el móvil y
+        // el texto del botón es largo: sin esto se salía por la
+        // derecha, encima de la tarjeta vecina.
+        overflow-wrap: anywhere;
+        line-height: 1.3;
+
+        @include hasta(560px) {
+            font-size: $t-caption-2;
+            padding: 8px 10px;
+            margin: 8px 0 0 -10px;
+        }
     }
 
     // Debajo del nombre, no apretando la fila.
@@ -1201,6 +1212,14 @@ $ancho-dos-columnas: 880px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        // Cuenta y categoría («Santander · Comida y supervivencia») no
+        // caben en una línea estrecha, y cortarlas escondía justamente
+        // la categoría, que es lo que distingue el apunte.
+        @include hasta(600px) {
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
     }
 
     &__nota {

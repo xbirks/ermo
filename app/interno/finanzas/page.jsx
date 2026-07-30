@@ -219,6 +219,7 @@ export default function FinanzasPage() {
                             app. */}
                         <TiraBancos
                             cuentas={cuentas}
+                            fijos={listaFijos}
                             onCambio={cargar}
                             onVerApartado={() => setAbrirApartado((n) => n + 1)}
                         />
