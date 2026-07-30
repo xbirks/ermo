@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import {
-    getGastosFijos, guardarGastoFijo,
-    desactivarGastoFijo, cargarFijosDelMes,
+    getGastosFijos, guardarGastoFijo, desactivarGastoFijo,
+    reactivarGastoFijo, getGastosFijosDeBaja, cargarFijosDelMes,
 } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -11,7 +11,11 @@ export const dynamic = 'force-dynamic';
 export async function GET(request) {
     try {
         const mes = request.nextUrl.searchParams.get('mes') || new Date().toISOString();
-        return NextResponse.json(await getGastosFijos(mes));
+        const [activos, deBaja] = await Promise.all([
+            getGastosFijos(mes),
+            getGastosFijosDeBaja(),
+        ]);
+        return NextResponse.json({ activos, deBaja });
     } catch (error) {
         console.error('[finanzas/fijos GET]', error);
         return NextResponse.json({ error: 'Error al leer los gastos fijos' }, { status: 500 });
@@ -24,6 +28,15 @@ export async function POST(request) {
 
         // Dos operaciones: apuntar los recibos del mes de golpe, o
         // crear/editar un recibo de la lista.
+        // Volver a contratar algo que se dio de baja.
+        if (datos.accion === 'reactivar') {
+            if (!datos.id) {
+                return NextResponse.json({ error: 'Falta el id' }, { status: 400 });
+            }
+            await reactivarGastoFijo(datos.id);
+            return NextResponse.json({ ok: true });
+        }
+
         if (datos.accion === 'cargar_mes') {
             if (!datos.mes) {
                 return NextResponse.json({ error: 'Falta el mes' }, { status: 400 });

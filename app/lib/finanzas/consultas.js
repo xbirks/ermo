@@ -165,6 +165,36 @@ export async function desactivarGastoFijo(id) {
     await sql`UPDATE categorias SET activa = false WHERE id = ${id}::uuid`;
 }
 
+/** Vuelve a activar un recibo dado de baja. */
+export async function reactivarGastoFijo(id) {
+    await sql`
+        UPDATE categorias
+        SET activa = true, es_fijo = true
+        WHERE id = ${id}::uuid
+    `;
+}
+
+/**
+ * Los recibos dados de baja.
+ *
+ * Sin esta lista, un recibo desactivado desaparece para siempre de la
+ * interfaz: al volver a contratarlo habría que crearlo de nuevo, y el
+ * nombre único de la tabla lo impediría.
+ */
+export async function getGastosFijosDeBaja() {
+    const filas = await sql`
+        SELECT c.id, c.nombre, c.importe_previsto, c.notas, cu.nombre AS cuenta
+        FROM categorias c
+        LEFT JOIN cuentas cu ON cu.id = c.cuenta_id
+        WHERE NOT c.activa
+        ORDER BY c.nombre
+    `;
+    return filas.map((f) => ({
+        ...f,
+        importe_previsto: f.importe_previsto === null ? null : num(f.importe_previsto),
+    }));
+}
+
 /**
  * Apunta de una vez los recibos del mes.
  *

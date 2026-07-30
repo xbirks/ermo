@@ -33,7 +33,8 @@ const FORM_VACIO = {
     dia_cobro: '', cada_meses: 1, primer_mes: '', notas: '',
 };
 
-export default function GastosFijos({ fijos, cuentas, mes, onCambio }) {
+export default function GastosFijos({ fijos, deBaja = [], cuentas, mes, onCambio }) {
+    const [verBajas, setVerBajas] = useState(false);
     const [editando, setEditando] = useState(null);
     const [error, setError] = useState('');
     const [aviso, setAviso] = useState('');
@@ -363,6 +364,51 @@ export default function GastosFijos({ fijos, cuentas, mes, onCambio }) {
                     </button>
                 )}
             </div>
+
+            {/* Los dados de baja siguen accesibles: si se vuelve a
+                contratar algo, se reactiva en lugar de crearlo otra vez
+                (el nombre es único, así que duplicarlo fallaría). */}
+            {deBaja.length > 0 && (
+                <div className="fz-bajas">
+                    <button
+                        className="fz-boton fz-boton--texto"
+                        type="button"
+                        onClick={() => setVerBajas((v) => !v)}
+                    >
+                        {verBajas
+                            ? 'Ocultar los dados de baja'
+                            : `Ver ${deBaja.length} dado${deBaja.length === 1 ? '' : 's'} de baja`}
+                    </button>
+
+                    {verBajas && deBaja.map((r) => (
+                        <div className="fz-fila fz-fila--apagada" key={r.id}>
+                            <div>
+                                <p className="fz-fila__titulo">{r.nombre}</p>
+                                <p className="fz-fila__detalle">
+                                    {r.cuenta || 'Sin cuenta'}
+                                    {r.notas && ` · ${r.notas}`}
+                                </p>
+                            </div>
+                            <div className="fz-fila__lado">
+                                <span className="fz-fila__cifra">
+                                    <Cifra valor={r.importe_previsto ?? 0} signo={false} />
+                                </span>
+                                <button
+                                    className="fz-boton fz-boton--suave"
+                                    type="button"
+                                    onClick={async () => {
+                                        await llamar({ accion: 'reactivar', id: r.id });
+                                        setAviso(`${r.nombre} vuelve a la lista.`);
+                                    }}
+                                    disabled={ocupado}
+                                >
+                                    Reactivar
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </>
     );
 }

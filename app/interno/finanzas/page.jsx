@@ -8,6 +8,7 @@ import ermoLogo from '@/app/assets/logo/ERMO_blue.svg';
 import Cifra from '@/app/components/finanzas/cifra';
 import Cascada from '@/app/components/finanzas/cascada';
 import ResumenMes from '@/app/components/finanzas/resumen-mes';
+import TiraBancos from '@/app/components/finanzas/tira-bancos';
 import AltaMovimiento from '@/app/components/finanzas/alta-movimiento';
 import ListaMovimientos from '@/app/components/finanzas/lista-movimientos';
 import PanelIva from '@/app/components/finanzas/panel-iva';
@@ -107,7 +108,7 @@ export default function FinanzasPage() {
 
     const {
         cuentas, categorias, resumen, movimientos,
-        reservas, provisiones, trimestres, fijos, historico,
+        reservas, provisiones, trimestres, fijos, fijosDeBaja, historico,
     } = datos;
 
     const ivaRetenido = trimestres.reduce((s, t) => s + t.pendiente, 0);
@@ -190,6 +191,10 @@ export default function FinanzasPage() {
                             mes={mes}
                         />
 
+                        {/* Qué hay en cada banco: se mira de reojo, pero
+                            se mira. */}
+                        <TiraBancos cuentas={cuentas} />
+
                         <Plegable
                             titulo="Anotar movimiento"
                             resumen="Gasto, ingreso o traspaso"
@@ -207,51 +212,6 @@ export default function FinanzasPage() {
                             resumen="Ingresos, gastos e IVA"
                         >
                             <Cascada resumen={resumen} />
-                        </Plegable>
-
-                        <Plegable
-                            titulo="Cuentas"
-                            resumen={<><Cifra valor={disponibleTotal} signo={false} /> disponible</>}
-                        >
-                        <div>
-                            <div className="fz-cuentas">
-                                {cuentas.map((c) => {
-                                    const hayMerma = c.iva_retenido > 0 || c.reservado > 0;
-                                    return (
-                                        <div
-                                            className={`fz-cuenta${hayMerma ? ' fz-cuenta--retenido' : ''}`}
-                                            key={c.id}
-                                        >
-                                            <p className="fz-cuenta__nombre">{c.nombre}</p>
-                                            <p className="fz-cuenta__saldo">
-                                                <Cifra valor={c.disponible} />
-                                            </p>
-                                            {hayMerma && (
-                                                <div className="fz-cuenta__merma">
-                                                    <span>
-                                                        En el banco
-                                                        <b><Cifra valor={c.saldo_actual} signo={false} /></b>
-                                                    </span>
-                                                    {c.iva_retenido > 0 && (
-                                                        <span>
-                                                            IVA retenido
-                                                            <b><Cifra valor={c.iva_retenido} signo="−" /></b>
-                                                        </span>
-                                                    )}
-                                                    {c.reservado > 0 && (
-                                                        <span>
-                                                            Apartado
-                                                            <b><Cifra valor={c.reservado} signo="−" /></b>
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
                         </Plegable>
 
                         <Plegable
@@ -281,6 +241,7 @@ export default function FinanzasPage() {
                         >
                             <GastosFijos
                                 fijos={listaFijos}
+                                deBaja={fijosDeBaja || []}
                                 cuentas={cuentas}
                                 mes={mes}
                                 onCambio={cargar}
