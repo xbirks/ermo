@@ -1,12 +1,10 @@
 import "./style.scss";
-import Header from "./components/header.jsx";
-import Cursor from './buttons/cursor/cursor.jsx';
-import Footer from './components/footer/footer.jsx';
-import Spacer from './buttons/spacer.jsx';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from 'next/script';
-import CookieConsent from "./components/cookies/cookieConsent";
+// El header, el footer, el cursor y el banner de cookies se pintan
+// desde aquí salvo en las herramientas internas. Ver cromo-publico.jsx.
+import { CabeceraPublica, PiePublico } from "./components/cromo-publico.jsx";
 
  
 
@@ -194,13 +192,9 @@ export default function RootLayout({ children }) {
 
         
     
-        <Header/>
-        <CookieConsent />
+        <CabeceraPublica />
           {children}
-        <Spacer className="spacer-xl" />
-        <Footer />
-        <Spacer className="spacer-m" />
-        <Cursor />
+        <PiePublico />
         <Analytics /><SpeedInsights />
 
       </body>

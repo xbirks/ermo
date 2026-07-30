@@ -1,0 +1,227 @@
+"use client";
+
+import { useState } from 'react';
+import { euros, nombreMes, hoyISO } from '@/app/lib/finanzas/formato';
+
+/**
+ * IVA: se devenga por mes, se paga por trimestre.
+ *
+ * En las hojas esto aparece como "452 + 452 + 525 = 1429€": tres meses
+ * retenidos que se liquidan de una vez. Aquí se anota mes a mes y se
+ * liquida el trimestre entero de un botón, que además apunta el gasto
+ * real en la cuenta desde la que sale el dinero.
+ */
+export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCambio }) {
+    const [importe, setImporte] = useState('');
+    const [cuentaId, setCuentaId] = useState(
+        cuentas.find((c) => c.nombre === 'Imagin')?.id || ''
+    );
+    const [notas, setNotas] = useState('');
+    const [error, setError] = useState('');
+    const [ocupado, setOcupado] = useState(false);
+
+    async function llamar(cuerpo) {
+        setOcupado(true);
+        setError('');
+        try {
+            const res = await fetch('/api/finanzas/iva', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(cuerpo),
+            });
+            const datos = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                setError(datos.error || 'No se ha podido guardar');
+                return false;
+            }
+            onCambio?.();
+            return true;
+        } catch {
+            setError('Sin conexión con el servidor');
+            return false;
+        } finally {
+            setOcupado(false);
+        }
+    }
+
+    async function anotar(e) {
+        e.preventDefault();
+        const ok = await llamar({
+            mes_referencia: mes,
+            importe_calculado: importe,
+            cuenta_id: cuentaId,
+            notas,
+        });
+        if (ok) { setImporte(''); setNotas(''); }
+    }
+
+    async function liquidar(trimestre) {
+        const aviso =
+            `Vas a marcar como pagado a Hacienda el ${trimestre.trimestre_fiscal}, ` +
+            `${euros(trimestre.pendiente)}. Se apuntará también el gasto en la cuenta elegida.`;
+        if (!window.confirm(aviso)) return;
+
+        await llamar({
+            accion: 'pagar_trimestre',
+            trimestre_fiscal: trimestre.trimestre_fiscal,
+            fecha_pago: hoyISO(),
+            cuenta_id: cuentaId,
+        });
+    }
+
+    const retenidoTotal = provisiones
+        .filter((p) => p.estado === 'retenido')
+        .reduce((s, p) => s + p.importe_calculado, 0);
+
+    return (
+        <>
+            {retenidoTotal > 0 && (
+                <div className="fz-aviso fz-aviso--atencion">
+                    Tienes {euros(retenidoTotal)} de IVA retenido. Ese dinero está en la
+                    cuenta pero no es tuyo.
+                </div>
+            )}
+
+            <div className="fz-panel">
+                <p className="fz-panel__titulo">Por trimestre</p>
+
+                {!trimestres.length && (
+                    <p className="fz-vacio">Todavía no hay IVA anotado.</p>
+                )}
+
+                {trimestres.map((t) => {
+                    const pendiente = t.pendiente > 0;
+                    return (
+                        <div className="fz-trimestre" key={t.trimestre_fiscal}>
+                            <div>
+                                <p className="fz-trimestre__nombre">
+                                    {t.trimestre_fiscal}
+                                    <span className={`fz-tag fz-tag--${pendiente ? 'retenido' : 'pagado'}`}>
+                                        {pendiente ? 'Retenido' : 'Pagado'}
+                                    </span>
+                                </p>
+                                <p className="fz-trimestre__detalle">
+                                    {t.meses} {t.meses === 1 ? 'mes' : 'meses'} · total {euros(t.total)}
+                                </p>
+                            </div>
+
+                            <div className="fz-trimestre__cifras">
+                                <span className={`fz-trimestre__total${pendiente ? ' fz-trimestre__total--pendiente' : ''}`}>
+                                    {euros(pendiente ? t.pendiente : t.total)}
+                                </span>
+                                {pendiente && (
+                                    <button
+                                        className="fz-boton fz-boton--fantasma"
+                                        type="button"
+                                        onClick={() => liquidar(t)}
+                                        disabled={ocupado || !cuentaId}
+                                    >
+                                        Liquidar
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <div className="fz-rejilla">
+                <div className="fz-panel">
+                    <p className="fz-panel__titulo">Mes a mes</p>
+
+                    {!provisiones.length && <p className="fz-vacio">Sin registros.</p>}
+
+                    {provisiones.map((p) => (
+                        <div className="fz-trimestre" key={p.id}>
+                            <div>
+                                <p className="fz-trimestre__nombre fz-inicial">
+                                    {nombreMes(p.mes_referencia)}
+                                </p>
+                                <p className="fz-trimestre__detalle">
+                                    {p.trimestre_fiscal}
+                                    {p.cuenta && ` · ${p.cuenta}`}
+                                    {p.fecha_pago && ' · pagado'}
+                                    {p.notas && ` · ${p.notas}`}
+                                </p>
+                            </div>
+                            <span className={`fz-trimestre__total${p.estado === 'retenido' ? ' fz-trimestre__total--pendiente' : ''}`}>
+                                {euros(p.importe_calculado)}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                <form className="fz-panel" onSubmit={anotar}>
+                    <p className="fz-panel__titulo">Anotar IVA del mes</p>
+
+                    {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
+
+                    <div className="fz-form">
+                        <div className="fz-form__campo">
+                            <label className="fz-form__etiqueta" htmlFor="iva-mes">Mes</label>
+                            <input
+                                id="iva-mes"
+                                className="fz-input fz-inicial"
+                                type="text"
+                                value={nombreMes(mes)}
+                                readOnly
+                            />
+                            <p className="fz-form__pista">
+                                Cambia de mes arriba para anotar otro.
+                            </p>
+                        </div>
+
+                        <div className="fz-form__campo">
+                            <label className="fz-form__etiqueta" htmlFor="iva-importe">Importe</label>
+                            <input
+                                id="iva-importe"
+                                className="fz-input fz-input--importe"
+                                type="number"
+                                step="0.01"
+                                min="0"
+                                inputMode="decimal"
+                                placeholder="0,00"
+                                value={importe}
+                                onChange={(e) => setImporte(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="fz-form__campo">
+                            <label className="fz-form__etiqueta" htmlFor="iva-cuenta">
+                                Cuenta donde se retiene
+                            </label>
+                            <select
+                                id="iva-cuenta"
+                                className="fz-select"
+                                value={cuentaId}
+                                onChange={(e) => setCuentaId(e.target.value)}
+                                required
+                            >
+                                <option value="">Elegir</option>
+                                {cuentas.map((c) => (
+                                    <option key={c.id} value={c.id}>{c.nombre}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="fz-form__campo">
+                            <label className="fz-form__etiqueta" htmlFor="iva-notas">Notas</label>
+                            <textarea
+                                id="iva-notas"
+                                className="fz-area"
+                                value={notas}
+                                onChange={(e) => setNotas(e.target.value)}
+                                maxLength={400}
+                            />
+                        </div>
+
+                        <button className="fz-boton fz-boton--ancho" type="submit" disabled={ocupado}>
+                            {ocupado ? 'Guardando' : 'Anotar IVA'}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </>
+    );
+}
