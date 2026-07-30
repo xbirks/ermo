@@ -169,22 +169,26 @@ export default function TiraBancos({ cuentas, onCambio, onVerApartado }) {
                         )}
 
                         {retenido > 0 && !enEdicion && (
-                            // Lo retenido y lo que queda de verdad. Es la
-                            // única resta que se hace, y dentro de la
-                            // misma cuenta: nunca entre cuentas.
+                            // Cada concepto en su línea: sumarlos en una
+                            // sola cifra hacía imposible saber de dónde
+                            // salía el total.
                             <button
                                 className="fz-bancos__nota fz-bancos__nota--pulsable"
                                 type="button"
                                 onClick={() => onVerApartado?.()}
                             >
-                                <span className="fz-bancos__retenido">
-                                    <Cifra valor={retenido} signo="−" tono="acento" />
-                                    {c.iva_retenido > 0 && c.reservado > 0
-                                        ? ' de IVA y apartado'
-                                        : c.iva_retenido > 0
-                                            ? ' de IVA retenido'
-                                            : ' apartados'}
-                                </span>
+                                {c.iva_retenido > 0 && (
+                                    <span className="fz-bancos__retenido">
+                                        <Cifra valor={c.iva_retenido} signo="−" tono="acento" />
+                                        {' '}de IVA para Hacienda
+                                    </span>
+                                )}
+                                {c.reservado > 0 && (
+                                    <span className="fz-bancos__retenido">
+                                        <Cifra valor={c.reservado} signo="−" tono="acento" />
+                                        {' '}apartados
+                                    </span>
+                                )}
                                 <span className="fz-bancos__gastable">
                                     Puedes gastar <Cifra valor={c.disponible} signo={false} />
                                     <span aria-hidden="true"> ›</span>

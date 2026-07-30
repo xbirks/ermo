@@ -7,7 +7,6 @@ import ermoLogo from '@/app/assets/logo/ERMO_blue.svg';
 
 import Cifra from '@/app/components/finanzas/cifra';
 import Cascada from '@/app/components/finanzas/cascada';
-import ResumenMes from '@/app/components/finanzas/resumen-mes';
 import TiraBancos from '@/app/components/finanzas/tira-bancos';
 import AltaMovimiento from '@/app/components/finanzas/alta-movimiento';
 import ListaMovimientos from '@/app/components/finanzas/lista-movimientos';
@@ -215,18 +214,14 @@ export default function FinanzasPage() {
                     <>
                         {/* Lo primero: cuánto ha entrado y salido, y qué
                             hay en cada banco. Lado a lado en escritorio. */}
-                        <div className="fz-cabeza fz-cabeza--secundaria">
-                            <ResumenMes
-                                resumen={resumen}
-                                historico={historico}
-                                mes={mes}
-                            />
-                            <TiraBancos
-                                cuentas={cuentas}
-                                onCambio={cargar}
-                                onVerApartado={() => setAbrirApartado((n) => n + 1)}
-                            />
-                        </div>
+                        {/* Lo primero y a ancho completo: qué hay en cada
+                            banco. Es la pregunta con la que se abre la
+                            app. */}
+                        <TiraBancos
+                            cuentas={cuentas}
+                            onCambio={cargar}
+                            onVerApartado={() => setAbrirApartado((n) => n + 1)}
+                        />
 
 
                         {/* Por qué el mes salió así, cuando hace falta
