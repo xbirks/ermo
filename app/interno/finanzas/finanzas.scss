@@ -408,10 +408,14 @@ $ancho-dos-columnas: 880px;
         font-family: $texto;
         font-size: $c-media;
         font-weight: $p-ligero;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
         line-height: $lh-titulo;
         font-variant-numeric: tabular-nums;
         text-align: left;
+        color: $acento;
+
+        // Los negativos en rojo: manda sobre el azul del saldo.
+        .fz-cifra--negativo { color: $peligro !important; }
     }
 
     // El desglose de lo retenido, cuando lo hay.
@@ -584,11 +588,20 @@ $ancho-dos-columnas: 880px;
     }
 
     &__etiqueta {
+        display: block;
         font-size: $t-caption-2;
         color: $g-500;
         line-height: 1.25;
         // Las etiquetas de dos palabras no deben partir la caja.
         min-height: 2.5em;
+    }
+
+    // Matiz bajo la etiqueta: "cuota pendiente", "ya pagado"...
+    &__pie {
+        display: block;
+        margin-top: 1px;
+        font-size: 10px;
+        color: $g-400;
     }
 
     &__cifra {
@@ -607,6 +620,27 @@ $ancho-dos-columnas: 880px;
 
     // La cifra del total, más grande porque es la que se busca.
     &__caja--libre &__cifra { font-size: $c-media; }
+}
+
+// El saldo del banco: azul y del mismo tamaño que la cifra destacada
+// del desglose. Va aquí, fuera del bloque .fz-bancos, porque la regla
+// base `.fz button { color }` se declara después y ganaba la cascada.
+.fz .fz-bancos__cifra,
+.fz button.fz-bancos__cifra {
+    font-family: $texto;
+    font-size: $c-media;
+    font-weight: $p-ligero;
+    letter-spacing: -0.035em;
+    line-height: $lh-titulo;
+    color: $acento !important;
+
+    // Un saldo en negativo manda sobre el azul.
+    .fz-cifra--negativo { color: $peligro !important; }
+}
+
+// Las cuentas secundarias, algo menores.
+.fz .fz-bancos__fila--secundaria .fz-bancos__cifra {
+    font-size: $c-normal;
 }
 
 // --- Cabecera ---------------------------------------------------

@@ -37,10 +37,21 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
     // saldo de hoy engaña: el día 1 se cargan los domiciliados y baja
     // de golpe.
     const porSalir = {};
+    // La cuota de autónomos es dinero para Hacienda igual que el IVA,
+    // sólo que se paga desde Santander. Va aparte de los demás recibos.
+    const cuotaHacienda = {};
     for (const f of fijos || []) {
         if (!f.toca || f.ya_apuntado || !f.cuenta) continue;
-        porSalir[f.cuenta] = (porSalir[f.cuenta] || 0) + (f.importe_previsto || 0);
+        const esCuota = /cuota aut[oó]nomo|seguridad social|tgss/i.test(f.nombre);
+        const destino = esCuota ? cuotaHacienda : porSalir;
+        destino[f.cuenta] = (destino[f.cuenta] || 0) + (f.importe_previsto || 0);
     }
+
+    // ¿Se ha traspasado ya el dinero de la cuota a Santander? No es lo
+    // mismo tener que mandarlo que tenerlo ahí esperando el cargo.
+    const cuotaCubierta = (fijos || []).some(
+        (f) => /cuota aut[oó]nomo|seguridad social|tgss/i.test(f.nombre) && f.ya_apuntado
+    );
     const [editando, setEditando] = useState(null);
     const [valor, setValor] = useState('');
     const [ocupado, setOcupado] = useState(false);
@@ -133,7 +144,8 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                 // está disponible aunque el banco aún no lo haya
                 // cargado.
                 const porCargar = porSalir[c.nombre] || 0;
-                const retenido = c.iva_retenido + c.reservado + porCargar;
+                const cuota = cuotaHacienda[c.nombre] || 0;
+                const retenido = c.iva_retenido + c.reservado + porCargar + cuota;
                 const libre = c.saldo_actual - retenido;
                 const enEdicion = editando === c.id;
                 // Imagin y Santander son con las que se opera: van
@@ -192,15 +204,24 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
 
                         {retenido > 0 && !enEdicion && (
                             <div className="fz-desglose">
-                                {c.iva_retenido > 0 && (
+                                {(c.iva_retenido > 0 || cuota > 0) && (
                                     <button
                                         className="fz-desglose__caja"
                                         type="button"
                                         onClick={() => onVerApartado?.()}
                                     >
-                                        <span className="fz-desglose__etiqueta">Para Hacienda</span>
+                                        <span className="fz-desglose__etiqueta">
+                                            Para Hacienda
+                                            {cuota > 0 && !c.iva_retenido && (
+                                                <span className="fz-desglose__pie">
+                                                    {cuotaCubierta
+                                                        ? 'cuota, ya traspasada'
+                                                        : 'cuota, pendiente'}
+                                                </span>
+                                            )}
+                                        </span>
                                         <span className="fz-desglose__cifra fz-desglose__cifra--fuera">
-                                            <Cifra valor={c.iva_retenido} signo={false} />
+                                            <Cifra valor={c.iva_retenido + cuota} signo={false} />
                                         </span>
                                     </button>
                                 )}
