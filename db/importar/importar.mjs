@@ -242,6 +242,23 @@ const parejas = new Set();
     }
 }
 
+// Candado contra duplicados en la propia base. La comprobación en
+// memoria no basta: si el importador se ejecuta dos veces seguidas, la
+// segunda parte de una lista cargada antes de que la primera acabara
+// de escribir, y entran repetidos. Esto lo impide de raíz.
+if (ESCRIBIR) {
+    await q(`CREATE UNIQUE INDEX IF NOT EXISTS idx_transaccion_unica
+             ON transacciones (fecha, cuenta_id, importe, tipo_movimiento, concepto)`)
+        .catch((e) => {
+            // Si ya hay duplicados, el índice no se puede crear: se
+            // avisa en lugar de fallar en silencio.
+            if (e?.code === '23505') {
+                console.log('\n  AVISO: hay duplicados en la base. Ejecuta antes');
+                console.log('  db/migraciones/008-quitar-duplicados.sql\n');
+            } else throw e;
+        });
+}
+
 // Lo ya importado, de una vez. Antes se consultaba por cada
 // movimiento: con 1.900 apuntes eran 1.900 idas y vueltas a Supabase,
 // y la importación no terminaba nunca.
@@ -336,7 +353,8 @@ for (const { cuenta, lista, extra } of fuentes) {
             await q(
                 `INSERT INTO transacciones
                     (fecha, cuenta_id, categoria_id, concepto, importe, tipo_movimiento, notas)
-                 VALUES ${marcas.join(', ')}`,
+                 VALUES ${marcas.join(', ')}
+                 ON CONFLICT DO NOTHING`,
                 valores
             );
         }
