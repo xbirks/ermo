@@ -193,7 +193,7 @@ export default function FinanzasPage() {
 
                         {/* Qué hay en cada banco: se mira de reojo, pero
                             se mira. */}
-                        <TiraBancos cuentas={cuentas} />
+                        <TiraBancos cuentas={cuentas} onCambio={cargar} />
 
                         <Plegable
                             titulo="Anotar movimiento"

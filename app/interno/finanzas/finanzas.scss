@@ -297,6 +297,34 @@ $c-pequena: 12px;   // pareja de $t-footnote
     }
 
     // El desglose de lo retenido, cuando lo hay.
+    // La cifra editable se distingue por ser pulsable.
+    &__cifra--editable {
+        background: none;
+        border: 0;
+        padding: 2px 6px;
+        margin: -2px -6px;
+        border-radius: $romo-s;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        transition: background 0.15s ease;
+
+        &:hover { background: rgba($acento, 0.09); }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: 1px; }
+    }
+
+    &__editor {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-top: 6px;
+
+        .fz-input { flex: 1; padding: 8px 10px; }
+        .fz-boton { padding: 8px 14px; font-size: $t-footnote; }
+    }
+
     // Debajo del nombre, no apretando la fila.
     &__nota {
         grid-column: 1 / -1;
@@ -304,6 +332,8 @@ $c-pequena: 12px;   // pareja de $t-footnote
         font-size: $t-caption-2;
         color: $atencion;
         white-space: nowrap;
+
+        &--fecha { color: $g-400; }
     }
 
     &__total {

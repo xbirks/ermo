@@ -8,6 +8,17 @@ import { sql } from './db';
 
 const num = (v) => (v === null || v === undefined ? 0 : Number(v));
 
+/**
+ * Código de Postgres para "esa columna no existe".
+ *
+ * Se usa para tolerar que una migración aún no esté aplicada: la
+ * pantalla sigue funcionando con lo que sí hay, en lugar de caerse
+ * entera. Sin esto, subir código nuevo antes de migrar deja la app
+ * inservible en vez de degradarla.
+ */
+const COLUMNA_INEXISTENTE = '42703';
+
+
 /** Primer día del mes, en formato YYYY-MM-DD. */
 export function primerDiaDelMes(fecha) {
     const d = new Date(fecha);
@@ -24,11 +35,23 @@ export function primerDiaDelMes(fecha) {
  * las reservas activas.
  */
 export async function getCuentas() {
-    const filas = await sql`
-        SELECT id, nombre, tipo, saldo_actual, iva_retenido, reservado, disponible
-        FROM v_saldo_disponible
-        ORDER BY (SELECT orden FROM cuentas c WHERE c.id = v_saldo_disponible.id)
-    `;
+    let filas;
+    try {
+        filas = await sql`
+            SELECT id, nombre, tipo, saldo_actual, iva_retenido, reservado,
+                   disponible, saldo_manual, saldo_declarado_en
+            FROM v_saldo_disponible
+            ORDER BY (SELECT orden FROM cuentas c WHERE c.id = v_saldo_disponible.id)
+        `;
+    } catch (e) {
+        // Falta la migración 004: se leen sin los campos de saldo manual.
+        if (e?.code !== COLUMNA_INEXISTENTE) throw e;
+        filas = await sql`
+            SELECT id, nombre, tipo, saldo_actual, iva_retenido, reservado, disponible
+            FROM v_saldo_disponible
+            ORDER BY (SELECT orden FROM cuentas c WHERE c.id = v_saldo_disponible.id)
+        `;
+    }
     return filas.map((f) => ({
         ...f,
         saldo_actual: num(f.saldo_actual),
@@ -39,14 +62,21 @@ export async function getCuentas() {
 }
 
 /**
- * Código de Postgres para "esa columna no existe".
+ * Pone a mano el saldo de una cuenta de ahorro o inversión.
  *
- * Se usa para tolerar que una migración aún no esté aplicada: la
- * pantalla sigue funcionando con lo que sí hay, en lugar de caerse
- * entera. Sin esto, subir código nuevo antes de migrar deja la app
- * inservible en vez de degradarla.
+ * Sumar movimientos no vale para estas cuentas: B100 guarda el dinero
+ * en la Hucha, que el extracto no refleja, y una cartera de fondos vale
+ * hoy más que lo aportado. El saldo se dice y la app lo respeta.
  */
-const COLUMNA_INEXISTENTE = '42703';
+export async function declararSaldo(id, saldo) {
+    await sql`
+        UPDATE cuentas
+        SET saldo_declarado = ${saldo}::numeric,
+            saldo_declarado_en = CURRENT_DATE,
+            saldo_manual = true
+        WHERE id = ${id}::uuid
+    `;
+}
 
 export async function getCategorias() {
     let filas;
