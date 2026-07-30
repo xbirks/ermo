@@ -196,7 +196,7 @@ export default function FinanzasPage() {
                         <TiraBancos cuentas={cuentas} onCambio={cargar} />
 
                         <Plegable
-                            titulo="Anotar movimiento"
+                            titulo="Anotar movimiento."
                             resumen="Gasto, ingreso o traspaso"
                         >
                             <AltaMovimiento
@@ -208,14 +208,14 @@ export default function FinanzasPage() {
                         </Plegable>
 
                         <Plegable
-                            titulo="De dónde sale"
+                            titulo="De dónde sale."
                             resumen="Ingresos, gastos e IVA"
                         >
                             <Cascada resumen={resumen} />
                         </Plegable>
 
                         <Plegable
-                            titulo="Movimientos"
+                            titulo="Movimientos."
                             resumen={movimientos.length === 1
                                 ? '1 apunte'
                                 : `${movimientos.length} apuntes`}
@@ -227,7 +227,7 @@ export default function FinanzasPage() {
                         </Plegable>
 
                         <Plegable
-                            titulo="Gastos fijos"
+                            titulo="Gastos fijos."
                             etiqueta={fijosPendientes.length > 0 && (
                                 <span className="fz-tag fz-tag--acento">
                                     {fijosPendientes.length} sin apuntar
@@ -249,7 +249,7 @@ export default function FinanzasPage() {
                         </Plegable>
 
                         <Plegable
-                            titulo="IVA"
+                            titulo="IVA."
                             resumen={
                                 ivaRetenido > 0
                                     ? <><Cifra valor={ivaRetenido} signo={false} tono="acento" /> retenidos</>
@@ -266,7 +266,7 @@ export default function FinanzasPage() {
                         </Plegable>
 
                         <Plegable
-                            titulo="Dinero apartado"
+                            titulo="Dinero apartado."
                             resumen={
                                 totalApartado > 0
                                     ? <><Cifra valor={totalApartado} signo={false} tono="acento" /> sin tocar</>

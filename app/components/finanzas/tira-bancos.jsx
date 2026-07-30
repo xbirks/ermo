@@ -150,7 +150,7 @@ export default function TiraBancos({ cuentas, onCambio }) {
             })}
 
             <div className="fz-bancos__total">
-                <span className="fz-bancos__nombre">Para gastar</span>
+                <span className="fz-bancos__nombre">Para gastar.</span>
                 <span className="fz-bancos__cifra">
                     <Cifra valor={gastable} />
                 </span>
@@ -160,7 +160,7 @@ export default function TiraBancos({ cuentas, onCambio }) {
             </div>
 
             <div className="fz-bancos__total">
-                <span className="fz-bancos__nombre">Ahorrado</span>
+                <span className="fz-bancos__nombre">Ahorrado.</span>
                 <span className="fz-bancos__cifra">
                     <Cifra valor={guardado} />
                 </span>

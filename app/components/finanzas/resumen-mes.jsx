@@ -45,7 +45,7 @@ export default function ResumenMes({ resumen, historico, mes }) {
         <div className="fz-resumen">
             <div className="fz-resumen__par">
                 <div className="fz-resumen__bloque">
-                    <p className="fz-resumen__etiqueta">Ha entrado</p>
+                    <p className="fz-resumen__etiqueta">Ha entrado.</p>
                     <p className="fz-resumen__cifra">
                         <Cifra valor={ingresos_totales} signo={false} tono="entra" />
                     </p>
@@ -55,7 +55,7 @@ export default function ResumenMes({ resumen, historico, mes }) {
                 </div>
 
                 <div className="fz-resumen__bloque">
-                    <p className="fz-resumen__etiqueta">Ha salido</p>
+                    <p className="fz-resumen__etiqueta">Ha salido.</p>
                     <p className="fz-resumen__cifra">
                         <Cifra valor={gastos} signo={false} />
                     </p>
@@ -66,7 +66,7 @@ export default function ResumenMes({ resumen, historico, mes }) {
             </div>
 
             <div className="fz-resumen__limpio">
-                <p className="fz-resumen__etiqueta">Queda limpio</p>
+                <p className="fz-resumen__etiqueta">Queda limpio.</p>
                 <p className="fz-resumen__total">
                     <Cifra valor={total_limpio} />
                 </p>
