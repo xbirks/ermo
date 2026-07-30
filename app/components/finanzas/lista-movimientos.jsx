@@ -7,6 +7,11 @@ import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 // todos negativos, el signo por sí solo no basta para localizar de un
 // vistazo el día que entró dinero.
 
+// La nota que pone el importador a todos los apuntes que vienen del
+// extracto. No aporta nada en la lista: si el apunte está ahí, es
+// porque se importó.
+const NOTA_DE_IMPORTACION = /^\s*Importado del extracto del banco\.?\s*$/i;
+
 export default function ListaMovimientos({ movimientos, onBorrar }) {
     if (!movimientos.length) {
         return <p className="fz-vacio">Todavía no hay movimientos en este mes.</p>;
@@ -59,7 +64,14 @@ export default function ListaMovimientos({ movimientos, onBorrar }) {
                             </button>
                         </div>
 
-                        {m.notas && <p className="fz-movimientos__nota">{m.notas}</p>}
+                        {/* «Importado del extracto del banco.» lo lleva casi
+                            todo apunte y no dice nada que la fila no diga ya:
+                            ocupaba una línea extra en cada una y doblaba el
+                            alto de la lista en el móvil. Las notas escritas a
+                            mano sí se ven. */}
+                        {m.notas && !NOTA_DE_IMPORTACION.test(m.notas) && (
+                            <p className="fz-movimientos__nota">{m.notas}</p>
+                        )}
                     </div>
                 );
             })}

@@ -128,7 +128,13 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                     return (orden[a.nombre] ?? 9) - (orden[b.nombre] ?? 9);
                 })
                 .map((c) => {
-                const retenido = c.iva_retenido + c.reservado;
+                // Lo comprometido: lo de Hacienda, lo apartado y los
+                // recibos que ya se sabe que van a salir. Ese dinero no
+                // está disponible aunque el banco aún no lo haya
+                // cargado.
+                const porCargar = porSalir[c.nombre] || 0;
+                const retenido = c.iva_retenido + c.reservado + porCargar;
+                const libre = c.saldo_actual - retenido;
                 const enEdicion = editando === c.id;
                 // Imagin y Santander son con las que se opera: van
                 // arriba y grandes. El ahorro y el efectivo, debajo.
@@ -185,80 +191,51 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                         )}
 
                         {retenido > 0 && !enEdicion && (
-                            // Cada concepto en su línea: sumarlos en una
-                            // sola cifra hacía imposible saber de dónde
-                            // salía el total.
-                            <button
-                                className="fz-bancos__nota fz-bancos__nota--pulsable"
-                                type="button"
-                                onClick={() => onVerApartado?.()}
-                            >
+                            <div className="fz-desglose">
                                 {c.iva_retenido > 0 && (
-                                    <span className="fz-bancos__retenido">
-                                        <Cifra valor={c.iva_retenido} signo="−" tono="acento" />
-                                        {' '}de IVA para Hacienda
-                                    </span>
-                                )}
-                                {c.reservado > 0 && (
-                                    <span className="fz-bancos__retenido">
-                                        <Cifra valor={c.reservado} signo="−" tono="acento" />
-                                        {' '}apartados
-                                    </span>
-                                )}
-                                <span className="fz-bancos__gastable">
-                                    Puedes gastar <Cifra valor={c.disponible} signo={false} />
-                                    <span aria-hidden="true"> ›</span>
-                                </span>
-                            </button>
-                        )}
-
-                        {/* Ingresar el efectivo en el banco es un
-                            traspaso, no un ingreso: es lo que se hace al
-                            volver del cajero al revés. */}
-                        {c.tipo === 'efectivo' && c.disponible > 0 && !enEdicion && (
-                            ingresando ? (
-                                <span className="fz-bancos__editor">
-                                    <span className="fz-form__pista" style={{ flex: 1 }}>
-                                        ¿En qué cuenta lo has ingresado?
-                                    </span>
-                                    {cuentas
-                                        .filter((x) => x.tipo === 'corriente')
-                                        .map((x) => (
-                                            <button
-                                                key={x.id}
-                                                className="fz-boton"
-                                                type="button"
-                                                disabled={ocupado}
-                                                onClick={() => ingresarEfectivo(c, x.id, c.disponible)}
-                                            >
-                                                {x.nombre}
-                                            </button>
-                                        ))}
                                     <button
-                                        className="fz-boton fz-boton--texto"
+                                        className="fz-desglose__caja"
                                         type="button"
-                                        onClick={() => setIngresando(false)}
+                                        onClick={() => onVerApartado?.()}
                                     >
-                                        Cancelar
+                                        <span className="fz-desglose__etiqueta">Para Hacienda</span>
+                                        <span className="fz-desglose__cifra fz-desglose__cifra--fuera">
+                                            <Cifra valor={c.iva_retenido} signo={false} />
+                                        </span>
                                     </button>
-                                </span>
-                            ) : (
-                                <button
-                                    className="fz-boton fz-boton--texto fz-bancos__accion"
-                                    type="button"
-                                    onClick={() => setIngresando(true)}
-                                >
-                                    Ingresarlo en el banco
-                                </button>
-                            )
-                        )}
+                                )}
 
-                        {porSalir[c.nombre] > 0 && !enEdicion && (
-                            <span className="fz-bancos__porsalir">
-                                Están por salir <Cifra valor={porSalir[c.nombre]} signo={false} />
-                                {' '}de recibos: quedarán{' '}
-                                <b><Cifra valor={c.disponible - porSalir[c.nombre]} signo={false} /></b>
-                            </span>
+                                {c.reservado > 0 && (
+                                    <button
+                                        className="fz-desglose__caja"
+                                        type="button"
+                                        onClick={() => onVerApartado?.()}
+                                    >
+                                        <span className="fz-desglose__etiqueta">Apartado</span>
+                                        <span className="fz-desglose__cifra fz-desglose__cifra--fuera">
+                                            <Cifra valor={c.reservado} signo={false} />
+                                        </span>
+                                    </button>
+                                )}
+
+                                {porCargar > 0 && (
+                                    <div className="fz-desglose__caja">
+                                        <span className="fz-desglose__etiqueta">Recibos del mes</span>
+                                        <span className="fz-desglose__cifra fz-desglose__cifra--fuera">
+                                            <Cifra valor={porCargar} signo={false} />
+                                        </span>
+                                    </div>
+                                )}
+
+                                <div className="fz-desglose__caja fz-desglose__caja--libre">
+                                    <span className="fz-desglose__etiqueta">
+                                        {c.nombre === 'Imagin' ? 'Puedes mover' : 'Queda libre'}
+                                    </span>
+                                    <span className="fz-desglose__cifra">
+                                        <Cifra valor={libre} signo={false} />
+                                    </span>
+                                </div>
+                            </div>
                         )}
 
                         {c.saldo_manual && c.saldo_declarado_en && !enEdicion && (() => {

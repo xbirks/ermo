@@ -279,6 +279,11 @@ $ancho-dos-columnas: 880px;
         padding: 20px;
         background: $hueso;
         border-radius: $romo;
+        // Sin esto, una cifra ancha estira su columna de la rejilla y
+        // saca el bloque fuera de la pantalla.
+        min-width: 0;
+
+        @include hasta(600px) { padding: 16px 14px; }
     }
 
     &__etiqueta {
@@ -294,6 +299,10 @@ $ancho-dos-columnas: 880px;
         letter-spacing: -0.035em;
         line-height: $lh-titulo;
         font-variant-numeric: tabular-nums;
+
+        // «15.061,92 €» a 28 px no cabe en media pantalla de 320 px.
+        @include hasta(600px) { font-size: $t-title-2; }
+        @include hasta(360px) { font-size: $t-title-3; }
     }
 
     // La cifra que manda en toda la pantalla.
@@ -538,6 +547,68 @@ $ancho-dos-columnas: 880px;
     }
 }
 
+// Desglose de una cuenta: cada concepto en su cajón, con la cifra
+// grande. Antes era texto apilado y no se leía de un vistazo.
+.fz-desglose {
+    // Dos columnas fijas: con auto-fit, la caja del total quedaba sola
+    // en su fila y descuadraba la rejilla.
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid $linea;
+
+    &__caja {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 11px 12px;
+        background: $blanco;
+        border: 0;
+        border-radius: $romo-s;
+        text-align: left;
+        transition: background 0.15s ease;
+
+        &:not(div):hover { background: $acento-piso; }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: 1px; }
+
+        // El que queda libre manda sobre el resto y ocupa toda la fila.
+        &--libre {
+            grid-column: 1 / -1;
+            background: $linea-fuerte;
+            .fz-desglose__etiqueta { color: rgba(255,255,255,0.68); min-height: 0; }
+            .fz-desglose__cifra { color: $blanco; }
+            .fz-cifra__dec, .fz-cifra__eur { color: rgba(255,255,255,0.5); }
+        }
+    }
+
+    &__etiqueta {
+        font-size: $t-caption-2;
+        color: $g-500;
+        line-height: 1.25;
+        // Las etiquetas de dos palabras no deben partir la caja.
+        min-height: 2.5em;
+    }
+
+    &__cifra {
+        font-family: $texto;
+        font-size: $c-normal;
+        font-weight: $p-ligero;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        font-variant-numeric: tabular-nums;
+        // Las cifras largas no deben salirse de su caja.
+        overflow-wrap: anywhere;
+
+        // Lo que no es tuyo, en azul.
+        &--fuera { color: $atencion; }
+    }
+
+    // La cifra del total, más grande porque es la que se busca.
+    &__caja--libre &__cifra { font-size: $c-media; }
+}
+
 // --- Cabecera ---------------------------------------------------
 .fz-cabecera {
     display: flex;
@@ -663,6 +734,21 @@ $ancho-dos-columnas: 880px;
         // Un halo tenue en lugar de un borde grueso: marca el foco sin
         // que el campo dé un salto de tamaño.
         box-shadow: 0 0 0 3px rgba($acento, 0.12);
+    }
+
+    // Safari en iPhone hace zoom sobre cualquier campo con letra menor
+    // de 16 px, y al salir del campo la página se queda desplazada. A
+    // 17 px no hay salto, y de paso se teclea un importe sin forzar la
+    // vista.
+    //
+    // El `!important` hace falta porque la regla base de `.fz` pone
+    // `font-size: inherit` en todos los campos —para deshacer el
+    // `all: initial` de la web pública— y va después en la cascada con
+    // la misma especificidad.
+    @include hasta(600px) {
+        font-size: $t-body !important;
+        padding: 13px 14px;
+        min-height: 46px;
     }
 }
 
@@ -1254,8 +1340,8 @@ $ancho-dos-columnas: 880px;
         // En el móvil no hay hover que lo revele, así que se ve
         // siempre, y con sitio para el dedo.
         @include hasta(600px) {
-            min-width: 30px;
-            min-height: 30px;
+            min-width: 32px;
+            min-height: 32px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -1312,6 +1398,18 @@ $ancho-dos-columnas: 880px;
     margin: 4px 0 12px;
     background: $hueso;
     border-radius: $romo;
+
+    // Los campos son del mismo gris que este contenedor, así que
+    // dentro de él desaparecían: no se veía dónde había que escribir.
+    // En blanco y con borde vuelven a leerse como campos.
+    .fz-input,
+    .fz-select,
+    .fz-area {
+        background: $blanco;
+        border-color: $linea;
+
+        &:hover:not(:focus) { border-color: $g-400; background: $blanco; }
+    }
 
     &__acciones {
         display: flex;
