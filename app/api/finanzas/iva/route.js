@@ -2,11 +2,27 @@ import { NextResponse } from 'next/server';
 import {
     getProvisionesIva, getIvaPorTrimestre,
     guardarProvisionIva, pagarTrimestreIva, deshacerPagoIva,
+    borrarProvisionIva,
 } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
 // prerenderiza en el build.
 export const dynamic = 'force-dynamic';
+
+/** DELETE /api/finanzas/iva?id=... borra una provisión anotada. */
+export async function DELETE(request) {
+    try {
+        const id = request.nextUrl.searchParams.get('id');
+        if (!id) {
+            return NextResponse.json({ error: 'Falta el id' }, { status: 400 });
+        }
+        await borrarProvisionIva(id);
+        return NextResponse.json({ ok: true });
+    } catch (error) {
+        console.error('[finanzas/iva DELETE]', error);
+        return NextResponse.json({ error: 'Error al borrar el IVA' }, { status: 500 });
+    }
+}
 
 export async function GET() {
     try {
@@ -37,9 +53,9 @@ export async function POST(request) {
         }
 
         if (datos.accion === 'pagar_trimestre') {
-            if (!datos.trimestre_fiscal || !datos.fecha_pago || !datos.cuenta_id) {
+            if (!datos.trimestre_fiscal || !datos.fecha_pago) {
                 return NextResponse.json(
-                    { error: 'Para liquidar hacen falta trimestre, fecha y cuenta' }, { status: 400 }
+                    { error: 'Para marcarlo hacen falta el trimestre y la fecha' }, { status: 400 }
                 );
             }
             const res = await pagarTrimestreIva(datos);

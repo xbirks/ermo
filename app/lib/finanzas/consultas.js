@@ -418,19 +418,16 @@ export async function pagarTrimestreIva({ trimestre_fiscal, fecha_pago, cuenta_i
         WHERE trimestre_fiscal = ${trimestre_fiscal} AND estado = 'retenido'
     `;
 
-    await sql`
-        INSERT INTO transacciones
-            (fecha, cuenta_id, categoria_id, concepto, importe, tipo_movimiento)
-        VALUES (
-            ${fecha_pago}::date,
-            ${cuenta_id}::uuid,
-            (SELECT id FROM categorias WHERE nombre = 'Impuestos'),
-            ${'Liquidación IVA ' + trimestre_fiscal},
-            ${importe}::numeric,
-            'gasto'
-        )
-    `;
+    // No se crea ningún gasto. El pago a Hacienda sale del banco y
+    // aparecerá en el extracto con su fecha e importe exactos:
+    // inventarlo aquí lo contaría dos veces, y además con el importe
+    // provisionado en lugar del real, que casi nunca coinciden.
     return { pagado: importe };
+}
+
+/** Borra una provisión de IVA anotada por error. */
+export async function borrarProvisionIva(id) {
+    await sql`DELETE FROM provisiones_iva WHERE id = ${id}::uuid`;
 }
 
 /**
@@ -441,8 +438,8 @@ export async function pagarTrimestreIva({ trimestre_fiscal, fecha_pago, cuenta_i
  * revertir las dos, o queda un gasto fantasma descuadrando el mes.
  */
 export async function deshacerPagoIva(trimestre_fiscal) {
-    // El gasto que se creó al liquidar lleva el trimestre en el
-    // concepto, así que se localiza por ahí.
+    // Las versiones anteriores creaban un gasto al liquidar; se borra
+    // si existe, para no dejarlo huérfano.
     await sql`
         DELETE FROM transacciones
         WHERE tipo_movimiento = 'gasto'

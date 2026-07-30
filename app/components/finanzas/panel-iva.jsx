@@ -49,6 +49,21 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
         }
     }
 
+    async function borrarProvision(p) {
+        const aviso =
+            `¿Borrar el IVA de ${nombreMes(p.mes_referencia)} ` +
+            `(${euros(p.importe_calculado)})?`;
+        if (!window.confirm(aviso)) return;
+
+        setOcupado(true);
+        try {
+            await fetch(`/api/finanzas/iva?id=${p.id}`, { method: 'DELETE' });
+            onCambio?.();
+        } finally {
+            setOcupado(false);
+        }
+    }
+
     async function anotar(e) {
         e.preventDefault();
         const ok = await llamar({
@@ -90,7 +105,6 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
             accion: 'pagar_trimestre',
             trimestre_fiscal: trimestre.trimestre_fiscal,
             fecha_pago: hoyISO(),
-            cuenta_id: cuentaId,
         });
     }
 
@@ -152,7 +166,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
                                         className="fz-boton fz-boton--suave"
                                         type="button"
                                         onClick={() => liquidar(t)}
-                                        disabled={ocupado || !cuentaId}
+                                        disabled={ocupado}
                                     >
                                         Marcar como pagado
                                     </button>
