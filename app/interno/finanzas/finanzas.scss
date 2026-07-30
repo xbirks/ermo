@@ -339,10 +339,10 @@ $c-pequena: 12px;   // pareja de $t-footnote
     }
 
     &__total {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2px 12px;
         align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
         padding: 11px 14px;
         background: $hueso;
 

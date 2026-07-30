@@ -37,7 +37,16 @@ export default function TiraBancos({ cuentas, onCambio }) {
     const [valor, setValor] = useState('');
     const [ocupado, setOcupado] = useState(false);
 
-    const total = cuentas.reduce((s, c) => s + c.disponible, 0);
+    // Sumar las cinco cuentas y llamarlo "disponible" engaña: mezcla el
+    // dinero del día a día con el ahorro y la inversión, que no se
+    // tocan. Se separan en dos cifras con nombres honestos.
+    const CORRIENTES = ['corriente', 'efectivo'];
+    const gastable = cuentas
+        .filter((c) => CORRIENTES.includes(c.tipo))
+        .reduce((s, c) => s + c.disponible, 0);
+    const guardado = cuentas
+        .filter((c) => !CORRIENTES.includes(c.tipo))
+        .reduce((s, c) => s + c.disponible, 0);
 
     async function guardar(e) {
         e.preventDefault();
@@ -141,9 +150,22 @@ export default function TiraBancos({ cuentas, onCambio }) {
             })}
 
             <div className="fz-bancos__total">
-                <span className="fz-bancos__nombre">Disponible</span>
+                <span className="fz-bancos__nombre">Para gastar</span>
                 <span className="fz-bancos__cifra">
-                    <Cifra valor={total} />
+                    <Cifra valor={gastable} />
+                </span>
+                <span className="fz-bancos__nota fz-bancos__nota--fecha">
+                    en las cuentas del día a día
+                </span>
+            </div>
+
+            <div className="fz-bancos__total">
+                <span className="fz-bancos__nombre">Ahorrado</span>
+                <span className="fz-bancos__cifra">
+                    <Cifra valor={guardado} />
+                </span>
+                <span className="fz-bancos__nota fz-bancos__nota--fecha">
+                    B100 y MyInvestor, que no se tocan
                 </span>
             </div>
         </div>
