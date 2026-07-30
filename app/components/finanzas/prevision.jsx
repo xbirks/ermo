@@ -21,21 +21,31 @@ import Cifra from './cifra';
  *   = lo que queda libre
  */
 export default function Prevision({ cuentas, fijos, iva, reservas, mes }) {
-    const enCuentas = cuentas
-        .filter((c) => c.tipo === 'corriente' || c.tipo === 'efectivo')
-        .reduce((s, c) => s + c.saldo_actual, 0);
+    // Sólo las cuentas del día a día: Imagin, donde entra el dinero, y
+    // Santander, de donde sale.
+    //
+    // B100 y MyInvestor quedan fuera aunque tengan saldo: son ahorro e
+    // inversión, no dinero para gastar. Y el efectivo tampoco cuenta,
+    // porque es dinero de bolsillo que ya está fuera del banco.
+    const OPERATIVAS = ['Imagin', 'Santander'];
+    const operativas = cuentas.filter((c) => OPERATIVAS.includes(c.nombre));
+    const enCuentas = operativas.reduce((s, c) => s + c.saldo_actual, 0);
 
     // Los recibos que aún no se han apuntado este mes: son los que
     // quedan por salir de la cuenta.
-    const pendientes = (fijos || []).filter((f) => f.toca && !f.ya_apuntado);
+    const pendientes = (fijos || [])
+        .filter((f) => f.toca && !f.ya_apuntado)
+        .filter((f) => !f.cuenta || OPERATIVAS.includes(f.cuenta));
     const totalFijos = pendientes.reduce((s, f) => s + (f.importe_previsto || 0), 0);
 
     // El IVA retenido: dinero que está en la cuenta pero es de Hacienda.
     const ivaPendiente = (iva || []).reduce((s, t) => s + t.pendiente, 0);
 
-    // Lo apartado a propósito.
+    // Lo apartado, sólo lo que está en las cuentas operativas: una
+    // reserva sobre B100 no reduce lo que queda para gastar, porque ese
+    // dinero ya está fuera del cálculo.
     const apartado = (reservas || [])
-        .filter((r) => r.estado === 'activa')
+        .filter((r) => r.estado === 'activa' && OPERATIVAS.includes(r.cuenta))
         .reduce((s, r) => s + r.importe, 0);
 
     const libre = enCuentas - totalFijos - ivaPendiente - apartado;
@@ -52,11 +62,18 @@ export default function Prevision({ cuentas, fijos, iva, reservas, mes }) {
             <p className="fz-prevision__titulo">Qué queda libre.</p>
 
             <div className="fz-cascada">
+                {operativas.map((c) => (
+                    <div className="fz-cascada__fila" key={c.id}>
+                        <span className="fz-cascada__etiqueta">
+                            Hay en {c.nombre}
+                            <span className="fz-cascada__nota">según el banco</span>
+                        </span>
+                        <Cifra className="fz-cascada__cifra" valor={c.saldo_actual} signo={false} />
+                    </div>
+                ))}
+
                 <div className="fz-cascada__fila fz-cascada__fila--subtotal">
-                    <span className="fz-cascada__etiqueta">
-                        Hay ahora en las cuentas
-                        <span className="fz-cascada__nota">según el banco</span>
-                    </span>
+                    <span className="fz-cascada__etiqueta">Con lo que se cuenta</span>
                     <Cifra className="fz-cascada__cifra" valor={enCuentas} signo={false} />
                 </div>
 
