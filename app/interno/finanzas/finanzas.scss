@@ -1297,6 +1297,15 @@ $ancho-dos-columnas: 880px;
     &__cifra { font-size: $c-normal; font-weight: 600; }
 }
 
+// Reservas ya liberadas, apagadas al final de la sección.
+.fz-liberadas {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid $linea;
+
+    .fz-form__etiqueta { margin-bottom: 8px; display: block; }
+}
+
 // --- Login ------------------------------------------------------
 .fz-entrada {
     min-height: 100vh;

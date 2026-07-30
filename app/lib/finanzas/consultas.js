@@ -442,13 +442,32 @@ export async function getReservas() {
     return filas.map((f) => ({ ...f, importe: num(f.importe) }));
 }
 
-export async function crearReserva({ concepto, importe, cuenta_id, motivo }) {
+export async function crearReserva({ id, concepto, importe, cuenta_id, motivo }) {
+    // Con id se edita la que ya existe: cambiar un importe apartado es
+    // tan cotidiano como crearlo, y no debe pasar por la base de datos.
+    if (id) {
+        await sql`
+            UPDATE reservas SET
+                concepto  = ${concepto},
+                importe   = ${importe}::numeric,
+                cuenta_id = ${cuenta_id}::uuid,
+                motivo    = ${motivo || null}
+            WHERE id = ${id}::uuid
+        `;
+        return { id };
+    }
+
     const [fila] = await sql`
         INSERT INTO reservas (concepto, importe, cuenta_id, motivo)
         VALUES (${concepto}, ${importe}::numeric, ${cuenta_id}::uuid, ${motivo || null})
         RETURNING id
     `;
     return fila;
+}
+
+/** Borra una reserva del todo, no sólo la libera. */
+export async function borrarReserva(id) {
+    await sql`DELETE FROM reservas WHERE id = ${id}::uuid`;
 }
 
 export async function liberarReserva(id) {

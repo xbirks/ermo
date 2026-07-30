@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { getReservas, crearReserva, liberarReserva } from '@/app/lib/finanzas/consultas';
+import {
+    getReservas, crearReserva, liberarReserva, borrarReserva,
+} from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
 // prerenderiza en el build.
@@ -47,5 +49,26 @@ export async function PATCH(request) {
     } catch (error) {
         console.error('[finanzas/reservas PATCH]', error);
         return NextResponse.json({ error: 'Error al liberar la reserva' }, { status: 500 });
+    }
+}
+
+/**
+ * DELETE /api/finanzas/reservas?id=...
+ *
+ * Borra la reserva del todo. Distinto de PATCH, que sólo la libera:
+ * liberar conserva el histórico de que ese dinero estuvo apartado,
+ * borrar la hace desaparecer.
+ */
+export async function DELETE(request) {
+    try {
+        const id = request.nextUrl.searchParams.get('id');
+        if (!id) {
+            return NextResponse.json({ error: 'Falta el id' }, { status: 400 });
+        }
+        await borrarReserva(id);
+        return NextResponse.json({ ok: true });
+    } catch (error) {
+        console.error('[finanzas/reservas DELETE]', error);
+        return NextResponse.json({ error: 'Error al borrar la reserva' }, { status: 500 });
     }
 }
