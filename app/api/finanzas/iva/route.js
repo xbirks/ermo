@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import {
     getProvisionesIva, getIvaPorTrimestre,
-    guardarProvisionIva, pagarTrimestreIva,
+    guardarProvisionIva, pagarTrimestreIva, deshacerPagoIva,
 } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -25,8 +25,17 @@ export async function POST(request) {
     try {
         const datos = await request.json();
 
-        // Dos operaciones en el mismo endpoint: anotar el IVA de un mes,
-        // o liquidar un trimestre entero.
+        // Tres operaciones en el mismo endpoint: anotar el IVA de un
+        // mes, liquidar un trimestre, o deshacer una liquidación
+        // marcada por error.
+        if (datos.accion === 'deshacer_pago') {
+            if (!datos.trimestre_fiscal) {
+                return NextResponse.json({ error: 'Falta el trimestre' }, { status: 400 });
+            }
+            await deshacerPagoIva(datos.trimestre_fiscal);
+            return NextResponse.json({ ok: true });
+        }
+
         if (datos.accion === 'pagar_trimestre') {
             if (!datos.trimestre_fiscal || !datos.fecha_pago || !datos.cuenta_id) {
                 return NextResponse.json(

@@ -1,5 +1,17 @@
 import pg from 'pg';
 
+// Las columnas DATE llegan como texto, no como objeto Date.
+//
+// Por defecto `pg` convierte un DATE a Date de JavaScript a medianoche
+// local, y al pasarlo a texto ISO se le resta el desfase horario: una
+// provisión guardada el 1 de septiembre se leía como 31 de agosto y
+// aparecía en el mes anterior.
+//
+// Un DATE de Postgres no tiene hora ni zona horaria, así que tratarlo
+// como texto plano es lo correcto. El 1082 es el identificador del
+// tipo DATE en Postgres.
+pg.types.setTypeParser(1082, (valor) => valor);
+
 // Conexión a Postgres. La URL vive sólo en variables de entorno: nunca
 // en el código, nunca en el repo.
 //

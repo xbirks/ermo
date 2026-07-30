@@ -18,6 +18,10 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
         cuentas.find((c) => c.nombre === 'Imagin')?.id || ''
     );
     const [notas, setNotas] = useState('');
+    // El mes al que se imputa, que no tiene por qué ser el que se está
+    // viendo: la contabilidad se lleva con retraso y hay que poder
+    // apuntar en agosto algo que corresponde a julio.
+    const [mesElegido, setMesElegido] = useState('');
     const [error, setError] = useState('');
     const [ocupado, setOcupado] = useState(false);
 
@@ -48,12 +52,32 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
     async function anotar(e) {
         e.preventDefault();
         const ok = await llamar({
-            mes_referencia: mes,
+            mes_referencia: mesElegido || mes,
             importe_calculado: importe,
             cuenta_id: cuentaId,
             notas,
         });
-        if (ok) { setImporte(''); setNotas(''); }
+        if (ok) { setImporte(''); setNotas(''); setMesElegido(''); }
+    }
+
+    /**
+     * Deshace una liquidación marcada por error.
+     *
+     * Marcar un trimestre como pagado crea además el gasto en la
+     * cuenta, así que deshacerlo tiene que borrar las dos cosas: si no,
+     * queda un gasto fantasma que descuadra el mes.
+     */
+    async function deshacerLiquidacion(trimestre) {
+        const aviso =
+            `¿Deshacer el pago del ${trimestre.trimestre_fiscal}?\n\n` +
+            `Volverá a contar como retenido y se borrará el gasto que se ` +
+            `apuntó al marcarlo como pagado.`;
+        if (!window.confirm(aviso)) return;
+
+        await llamar({
+            accion: 'deshacer_pago',
+            trimestre_fiscal: trimestre.trimestre_fiscal,
+        });
     }
 
     async function liquidar(trimestre) {
@@ -123,14 +147,23 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
                                 <span className={`fz-fila__cifra${pendiente ? ' fz-fila__cifra' : ''}`}>
                                     <Cifra valor={pendiente ? t.pendiente : t.total} signo={false} />
                                 </span>
-                                {pendiente && (
+                                {pendiente ? (
                                     <button
                                         className="fz-boton fz-boton--suave"
                                         type="button"
                                         onClick={() => liquidar(t)}
                                         disabled={ocupado || !cuentaId}
                                     >
-                                        Liquidar
+                                        Marcar como pagado
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="fz-boton fz-boton--texto"
+                                        type="button"
+                                        onClick={() => deshacerLiquidacion(t)}
+                                        disabled={ocupado}
+                                    >
+                                        Deshacer
                                     </button>
                                 )}
                             </div>
@@ -172,13 +205,17 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
 
                     <div className="fz-form">
                         <div className="fz-form__campo">
-                            <label className="fz-form__etiqueta" htmlFor="iva-mes">Mes</label>
+                            <label className="fz-form__etiqueta" htmlFor="iva-mes">
+                                A qué mes va
+                            </label>
                             <input
                                 id="iva-mes"
-                                className="fz-input fz-inicial"
-                                type="text"
-                                value={nombreMes(mes)}
-                                readOnly
+                                className="fz-input"
+                                type="month"
+                                value={(mesElegido || mes).slice(0, 7)}
+                                onChange={(e) =>
+                                    setMesElegido(e.target.value ? `${e.target.value}-01` : '')
+                                }
                             />
                             <p className="fz-form__pista">
                                 Anota el IVA en el mes en que vas a pagarlo, no

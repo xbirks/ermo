@@ -21,6 +21,13 @@ const COLUMNA_INEXISTENTE = '42703';
 
 /** Primer día del mes, en formato YYYY-MM-DD. */
 export function primerDiaDelMes(fecha) {
+    // Si ya viene como texto ISO, se recorta sin pasar por Date: el
+    // constructor interpreta "2026-08-01" como medianoche UTC, que en
+    // España es el 31 de julio, y el apunte acababa en el mes anterior.
+    const texto = String(fecha);
+    const iso = texto.match(/^(\d{4})-(\d{2})/);
+    if (iso) return `${iso[1]}-${iso[2]}-01`;
+
     const d = new Date(fecha);
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
 }
@@ -424,6 +431,30 @@ export async function pagarTrimestreIva({ trimestre_fiscal, fecha_pago, cuenta_i
         )
     `;
     return { pagado: importe };
+}
+
+/**
+ * Deshace la liquidación de un trimestre marcada por error.
+ *
+ * Marcar un trimestre como pagado hace dos cosas: cambia el estado de
+ * las provisiones y crea el gasto en la cuenta. Deshacerlo tiene que
+ * revertir las dos, o queda un gasto fantasma descuadrando el mes.
+ */
+export async function deshacerPagoIva(trimestre_fiscal) {
+    // El gasto que se creó al liquidar lleva el trimestre en el
+    // concepto, así que se localiza por ahí.
+    await sql`
+        DELETE FROM transacciones
+        WHERE tipo_movimiento = 'gasto'
+          AND concepto = ${'Liquidación IVA ' + trimestre_fiscal}
+    `;
+
+    await sql`
+        UPDATE provisiones_iva
+        SET estado = 'retenido', fecha_pago = NULL
+        WHERE trimestre_fiscal = ${trimestre_fiscal}
+          AND estado = 'pagado_hacienda'
+    `;
 }
 
 // -------------------------------------------------------------

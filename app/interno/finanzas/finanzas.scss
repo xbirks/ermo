@@ -642,6 +642,23 @@ $ancho-dos-columnas: 880px;
     &--ancho { width: 100%; }
 }
 
+// --- Previsión --------------------------------------------------
+// Lo que queda libre de aquí a fin de mes. Responde a otra pregunta que
+// la cascada: la cascada mira hacia atrás, esto hacia delante.
+.fz-prevision {
+    padding: 22px;
+    margin-bottom: 26px;
+    background: $hueso;
+    border-radius: $romo;
+
+    &__titulo {
+        @include etiqueta;
+        margin-bottom: 14px;
+    }
+
+    .fz-cascada__limpio { border-top-color: $g-900; }
+}
+
 // --- Nota del mes -----------------------------------------------
 // Por qué el mes salió así. Se pulsa para editarla, como las
 // anotaciones al margen de las hojas de papel.
