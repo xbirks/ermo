@@ -44,3 +44,7 @@ public/_next-video
 
 # MCP config con secretos locales
 .mcp.json
+
+# Extractos bancarios: nunca al repositorio
+datos-bancos/
+.env.local.pruebas

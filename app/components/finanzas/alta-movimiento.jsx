@@ -69,18 +69,16 @@ export default function AltaMovimiento({ cuentas, categorias, mes, onGuardado })
     }
 
     return (
-        <form className="fz-panel" onSubmit={guardar}>
-            <p className="fz-panel__titulo">Nuevo movimiento</p>
-
+        <form onSubmit={guardar}>
             {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
 
             <div className="fz-form">
-                <div className="fz-form__tipos">
+                <div className="fz-pildoras">
                     {TIPOS.map((t) => (
                         <button
                             key={t.valor}
                             type="button"
-                            className={`fz-form__tipo${tipo === t.valor ? ' fz-form__tipo--activo' : ''}`}
+                            className={`fz-pildoras__item${tipo === t.valor ? ' fz-pildoras__item--activo' : ''}`}
                             onClick={() => setTipo(t.valor)}
                         >
                             {t.texto}

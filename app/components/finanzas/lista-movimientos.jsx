@@ -32,15 +32,10 @@ export default function ListaMovimientos({ movimientos, onBorrar }) {
                         <div className="fz-movimientos__concepto">
                             <p className="fz-movimientos__texto">{m.concepto}</p>
                             <p className="fz-movimientos__meta">
-                                {/* En móvil no hay columna de fecha: va aquí. */}
-                                <span className="fz-movimientos__fecha-movil">
-                                    {diaCorto(m.fecha)} ·{' '}
-                                </span>
                                 {m.tipo_movimiento === 'transferencia_interna'
                                     ? `${m.cuenta} → ${m.cuenta_destino}`
                                     : m.cuenta}
                                 {m.categoria && ` · ${m.categoria}`}
-                                {m.es_fijo && <span className="fz-tag">Fijo</span>}
                             </p>
                         </div>
 

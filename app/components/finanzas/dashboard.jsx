@@ -13,7 +13,7 @@ import { euros, nombreMes } from '@/app/lib/finanzas/formato';
 export default function Dashboard({ historico, cuentas, reservas, trimestres }) {
     if (!historico.length) {
         return (
-            <div className="fz-panel">
+            <div className="fz-seccion">
                 <p className="fz-vacio">
                     Cuando anotes el primer mes aparecerán aquí las comparaciones.
                 </p>
@@ -75,8 +75,8 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                 </div>
             </div>
 
-            <div className="fz-panel">
-                <p className="fz-panel__titulo">
+            <div className="fz-seccion">
+                <p className="fz-seccion__titulo">
                     <span>Total limpio por mes</span>
                     <span style={{ letterSpacing: 0, textTransform: 'none' }}>
                         media {euros(mediaLimpio)}
@@ -100,9 +100,9 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                 </div>
             </div>
 
-            <div className="fz-rejilla">
-                <div className="fz-panel">
-                    <p className="fz-panel__titulo">Ingresos por mes</p>
+            <div className="fz-form">
+                <div className="fz-seccion">
+                    <p className="fz-seccion__titulo">Ingresos por mes</p>
                     <div className="fz-barras">
                         {[...historico].reverse().map((h) => {
                             const max = Math.max(...historico.map((x) => x.ingresos_totales), 1);
@@ -124,8 +124,8 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                     </div>
                 </div>
 
-                <div className="fz-panel">
-                    <p className="fz-panel__titulo">Promedios</p>
+                <div className="fz-seccion">
+                    <p className="fz-seccion__titulo">Promedios</p>
                     <div className="fz-cascada">
                         <div className="fz-cascada__fila">
                             <span className="fz-cascada__etiqueta">Ingresos al mes</span>

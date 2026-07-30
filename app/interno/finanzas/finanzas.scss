@@ -2,60 +2,95 @@
 // Finanzas · hoja de estilos autónoma
 //
 // No importa nada de la web pública: ni variables.scss ni
-// style.scss. Aquel fuerza `cursor: none` en todo el documento, y
-// aquí se teclean importes.
+// style.scss. Aquel fuerza `cursor: none` en todo el documento y
+// `user-select: none` en los campos, y aquí se teclean importes.
 //
 // Reglas del diseño:
-//   · Blanco, negro y grises. El color aparece sólo cuando decide
-//     algo: dinero retenido que no se puede tocar, y saldos en
-//     negativo. Nada más lleva color.
-//   · Esquinas romas en paneles y campos. Botones con radio
-//     completo.
-//   · Cifras en tipografía tabular para que las columnas cuadren.
+//   · Fondo blanco puro, siempre. Las secciones se separan con
+//     líneas, no con cajas de otro tono.
+//   · Un solo acento, naranja, para lo activo y lo urgente. Nada más
+//     lleva color salvo los números en negativo.
+//   · Esquinas romas en tarjetas y campos. Botones y píldoras con
+//     radio completo.
+//   · Cifras en JetBrains Mono, con los decimales atenuados.
 // =============================================================
 
-// --- Escala de grises -------------------------------------------
-$g-000: #ffffff;
-$g-025: #fbfbfb;
-$g-050: #f5f5f5;
-$g-100: #ebebeb;
-$g-150: #dedede;
-$g-200: #cfcfcf;
-$g-400: #949494;
-$g-500: #6f6f6f;
-$g-600: #545454;
-$g-800: #2a2a2a;
-$g-900: #121212;
+// --- Grises -----------------------------------------------------
+$blanco:   #ffffff;   // el fondo, invariable
+$hueso:    #f7f7f5;   // sólo para superficies hundidas (tarjetas mate)
+$linea:    #ececea;   // separadores
+$linea-fuerte: #1a1a18;
+$g-400:    #a8a8a3;   // decimales, texto terciario
+$g-500:    #86867f;   // etiquetas
+$g-600:    #5a5a55;   // texto secundario
+$g-900:    #1a1a18;   // texto principal
 
-// --- Los dos únicos colores -------------------------------------
-// Ámbar: retenido, intocable (IVA y reservas).
-$alerta: #a86a00;
-// Rojo: números en negativo y acciones destructivas.
-$peligro: #b32d1c;
+// --- El acento --------------------------------------------------
+// Naranja: lo activo, lo retenido y lo que vence. Un solo color para
+// "esto reclama tu atención" mantiene el resto de la pantalla en calma.
+$acento:      #f26722;
+$acento-piso: #fdf0e9;   // fondo de la píldora activa
+$peligro:     #c8341c;   // sólo números en negativo
 
 // --- Formas -----------------------------------------------------
-$romo:      4px;    // esquinas romas: paneles, campos, tarjetas
-$romo-s:    3px;
-$pastilla:  999px;  // botones
+$romo:     10px;    // tarjetas
+$romo-s:   8px;     // campos
+$pastilla: 999px;   // botones y píldoras
+
+// JetBrains Mono para las cifras: monoespaciada de consola, pero
+// dibujada para leer números en pantalla. Autoalojada, sin depender
+// de Google.
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+    font-weight: 100 800;   // fichero variable: cubre todos los pesos
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+                   U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F,
+                   U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
+    font-weight: 100 800;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+                   U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+                   U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+                   U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 $texto:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-$cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+$cifras: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
 @mixin hasta($px) {
     @media only screen and (max-width: $px) { @content; }
 }
 
+// Etiqueta pequeña en mayúsculas monoespaciadas: se usa en toda la
+// interfaz para nombrar campos y secciones.
+@mixin etiqueta {
+    font-family: $cifras;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $g-500;
+}
+
 // --- Base -------------------------------------------------------
 //
-// style.scss se carga de forma global desde el layout raíz, así que sus
-// reglas llegan hasta aquí. Tres cosas hay que deshacer dentro de .fz:
-//   · `* { cursor: none !important }` esconde el puntero del ratón.
-//   · `user-select: none !important` en inputs impide seleccionar texto.
+// style.scss se carga globalmente desde el layout raíz, así que sus
+// reglas llegan hasta aquí. Hay que deshacer tres cosas dentro de .fz:
+//   · `* { cursor: none !important }` esconde el puntero.
+//   · `user-select: none !important` impide seleccionar texto.
 //   · h1 sale en azul, mayúsculas y fuente Owners a 72px.
 // El `!important` es necesario porque el original también lo lleva.
 .fz {
     min-height: 100vh;
-    background: $g-050;
+    background: $blanco;
     color: $g-900;
     font-family: $texto;
     font-size: 15px;
@@ -71,22 +106,37 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
     *, *::before, *::after { box-sizing: border-box; }
 
-    // Los encabezados heredan la tipografía de la app, no la de la marca.
     h1, h2, h3, h4 {
         font-family: $texto;
         color: inherit;
         text-transform: none;
         letter-spacing: normal;
         font-weight: 600;
+        text-align: left;
     }
 
     &__contenedor {
-        max-width: 1200px;
+        max-width: 760px;      // columna única: el mes se lee de arriba abajo
         margin: 0 auto;
-        padding: 32px 28px 96px;
+        padding: 24px 24px 120px;
 
-        @include hasta(600px) { padding: 20px 16px 80px; }
+        @include hasta(600px) { padding: 16px 16px 96px; }
     }
+}
+
+// --- Cifras -----------------------------------------------------
+// La parte entera manda; los decimales se apagan para que el ojo
+// vaya al número, igual que en las referencias.
+.fz-cifra {
+    font-family: $cifras;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+
+    &__dec { color: $g-400; font-weight: 400; }
+    &__eur { color: $g-400; font-weight: 400; margin-left: 2px; }
+
+    &--negativo { color: $peligro; .fz-cifra__dec, .fz-cifra__eur { color: rgba($peligro, 0.55); } }
+    &--acento   { color: $acento;  .fz-cifra__dec, .fz-cifra__eur { color: rgba($acento, 0.55); } }
 }
 
 // --- Cabecera ---------------------------------------------------
@@ -94,64 +144,79 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid $g-150;
-    margin-bottom: 26px;
+    gap: 16px;
+    padding: 4px 0 22px;
 
-    &__marca { display: flex; align-items: center; gap: 14px; }
+    &__marca { display: flex; align-items: center; gap: 12px; }
 
     // El logo de ERMO es azul; el filtro lo lleva a negro para que
-    // encaje en la escala de grises sin necesitar otro archivo.
+    // encaje sin necesitar otro archivo.
     &__logo {
-        height: 26px;
-        width: auto;
-        filter: grayscale(1) brightness(0.28);
-    }
-
-    &__sep {
-        width: 1px;
         height: 22px;
-        background: $g-200;
-        @include hasta(600px) { display: none; }
+        width: auto;
+        filter: grayscale(1) brightness(0.1);
     }
 
     &__seccion {
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
-        color: $g-500;
-        @include hasta(600px) { display: none; }
+        @include etiqueta;
+        @include hasta(500px) { display: none; }
     }
-
-    &__acciones { display: flex; align-items: center; gap: 8px; }
 }
 
-// --- Barra de mes -----------------------------------------------
+// --- Selector de mes --------------------------------------------
 .fz-mes {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 12px;
+    margin-bottom: 22px;
 
     &__nombre {
-        font-family: $texto;
-        font-size: 27px;
+        font-size: 30px;
         font-weight: 600;
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-        color: $g-900;
-        text-align: left;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
 
-        // Sólo la inicial. Con `capitalize` saldría "Abril De 2026".
         &::first-letter { text-transform: uppercase; }
-
-        @include hasta(600px) { font-size: 22px; }
+        @include hasta(600px) { font-size: 25px; }
     }
 
     &__nav { display: flex; align-items: center; gap: 6px; }
+}
+
+// --- Píldoras (navegación y filtros) ----------------------------
+.fz-pildoras {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: $hueso;
+    border-radius: $pastilla;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+
+    &__item {
+        flex: 1;
+        font-family: $texto;
+        font-size: 13px;
+        font-weight: 550;
+        color: $g-600;
+        background: transparent;
+        border: 0;
+        border-radius: $pastilla;
+        padding: 9px 16px;
+        white-space: nowrap;
+        transition: background 0.18s ease, color 0.18s ease;
+
+        &:hover { color: $g-900; }
+        &--activo {
+            background: $blanco;
+            color: $g-900;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+        }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: 1px; }
+    }
 }
 
 // --- Controles --------------------------------------------------
@@ -159,190 +224,211 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 .fz-input,
 .fz-area {
     font-family: $texto;
-    font-size: 14px;
+    font-size: 15px;
     color: $g-900;
-    background: $g-000;
-    border: 1px solid $g-200;
-    border-radius: $romo;
-    padding: 10px 12px;
+    background: $hueso;
+    border: 1px solid transparent;
+    border-radius: $romo-s;
+    padding: 12px 14px;
     width: 100%;
     appearance: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
 
     &::placeholder { color: $g-400; }
 
     &:focus-visible {
-        outline: 2px solid $g-900;
-        outline-offset: -1px;
-        border-color: $g-900;
+        outline: none;
+        background: $blanco;
+        border-color: $acento;
     }
 }
 
-.fz-area {
-    min-height: 62px;
-    resize: vertical;
-    line-height: 1.45;
-}
+.fz-area { min-height: 68px; resize: vertical; line-height: 1.45; }
 
 .fz-input--importe {
     font-family: $cifras;
-    font-size: 17px;
+    font-size: 19px;
+    font-weight: 500;
     text-align: right;
     font-variant-numeric: tabular-nums;
 }
 
-// Botones: radio completo, como pediste.
 .fz-boton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 8px;
     font-family: $texto;
     font-size: 14px;
     font-weight: 550;
-    padding: 10px 20px;
-    border: 1px solid $g-900;
+    padding: 13px 22px;
+    border: 0;
     border-radius: $pastilla;
-    background: $g-900;
-    color: $g-000;
-    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+    background: $linea-fuerte;
+    color: $blanco;
+    transition: opacity 0.15s ease, background 0.15s ease;
     white-space: nowrap;
 
-    &:hover:not(:disabled) { background: $g-800; }
-    &:disabled { opacity: 0.35; cursor: not-allowed; }
-    &:focus-visible { outline: 2px solid $g-900; outline-offset: 2px; }
+    &:hover:not(:disabled) { opacity: 0.85; }
+    &:disabled { opacity: 0.3; cursor: not-allowed !important; }
+    &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
 
-    &--fantasma {
-        background: transparent;
-        color: $g-600;
-        border-color: $g-200;
-        &:hover:not(:disabled) { background: $g-000; color: $g-900; border-color: $g-400; }
+    &--acento { background: $acento; }
+
+    &--suave {
+        background: $hueso;
+        color: $g-900;
+        &:hover:not(:disabled) { background: darken($hueso, 4%); opacity: 1; }
     }
 
-    // Cuadrado para las flechas de mes anterior y siguiente.
     &--icono {
         padding: 0;
-        width: 34px;
-        height: 34px;
-        font-size: 15px;
-        background: transparent;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        background: $hueso;
         color: $g-600;
-        border-color: $g-200;
-        &:hover:not(:disabled) { background: $g-000; color: $g-900; }
+        &:hover:not(:disabled) { background: darken($hueso, 4%); color: $g-900; opacity: 1; }
     }
 
     &--ancho { width: 100%; }
 }
 
-// --- Tarjetas de cuenta -----------------------------------------
-.fz-cuentas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 10px;
-    margin-bottom: 26px;
-}
+// --- Secciones --------------------------------------------------
+// Sin cajas: una línea arriba y el título en versal pequeña. Es lo
+// que mantiene la página respirando sobre el blanco.
+.fz-seccion {
+    padding-top: 26px;
+    margin-top: 26px;
+    border-top: 1px solid $linea;
 
-.fz-cuenta {
-    background: $g-000;
-    border: 1px solid $g-150;
-    border-radius: $romo;
-    padding: 15px 16px;
+    &:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
 
-    &__nombre {
+    &__titulo {
+        @include etiqueta;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 8px;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    &__extra {
+        font-family: $texto;
+        font-size: 12.5px;
+        letter-spacing: 0;
+        text-transform: none;
+        color: $g-400;
+    }
+}
+
+// Secciones plegables: gastos fijos, IVA, apartado y el formulario de
+// alta van cerrados por defecto. Con todo abierto la página pasaba de
+// 5.000 px en el móvil, seis pantallas de scroll para ver un mes.
+.fz-plegable {
+    padding-top: 22px;
+    margin-top: 22px;
+    border-top: 1px solid $linea;
+
+    &__cabecera {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        padding: 4px 0;
+        background: none;
+        border: 0;
+        text-align: left;
+
+        &:focus-visible { outline: 2px solid $acento; outline-offset: 3px; }
+    }
+
+    &__titulo {
+        @include etiqueta;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+    }
+
+    &__resumen {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: $g-500;
+    }
+
+    // La flecha gira al abrir.
+    &__flecha {
+        display: inline-block;
         font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: $g-500;
+        color: $g-400;
+        transition: transform 0.2s ease;
+    }
+    &--abierta &__flecha { transform: rotate(90deg); }
+
+    &__cuerpo { padding-top: 18px; }
+}
+
+// --- Tarjetas de cuenta -----------------------------------------
+.fz-cuentas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+    gap: 8px;
+}
+
+.fz-cuenta {
+    background: $hueso;
+    border-radius: $romo;
+    padding: 15px 16px;
+
+    // La cuenta con dinero retenido se marca en naranja.
+    &--retenido { background: $acento-piso; }
+
+    &__nombre {
+        @include etiqueta;
+        font-size: 10px;
     }
 
-    &__disponible {
-        margin-top: 9px;
-        font-family: $cifras;
-        font-size: 24px;
+    &__saldo {
+        margin-top: 8px;
+        font-size: 21px;
         font-weight: 600;
-        letter-spacing: -0.025em;
-        font-variant-numeric: tabular-nums;
-
-        // Único uso del rojo en las tarjetas: saldo en negativo.
-        &--negativo { color: $peligro; }
+        letter-spacing: -0.02em;
     }
 
-    // Sólo aparece si hay IVA o reservas. Explica por qué el
-    // disponible no cuadra con el extracto del banco.
+    // Sólo aparece si hay IVA o reservas: explica por qué lo
+    // disponible no coincide con el extracto del banco.
     &__merma {
-        margin-top: 11px;
-        padding-top: 10px;
-        border-top: 1px solid $g-100;
+        margin-top: 10px;
+        padding-top: 9px;
+        border-top: 1px solid rgba($g-900, 0.07);
         font-size: 11.5px;
-        color: $g-500;
+        color: $g-600;
 
         span {
             display: flex;
             justify-content: space-between;
             gap: 8px;
-            & + span { margin-top: 3px; }
+            & + span { margin-top: 2px; }
         }
-        b {
-            font-family: $cifras;
-            font-weight: 550;
-            font-variant-numeric: tabular-nums;
-            color: $g-600;
-        }
-        // Lo retenido va en ámbar: es dinero que no es tuyo.
-        &--retenido b { color: $alerta; }
+        b { font-family: $cifras; font-weight: 500; font-variant-numeric: tabular-nums; }
     }
 }
 
-// --- Paneles ----------------------------------------------------
-.fz-panel {
-    background: $g-000;
-    border: 1px solid $g-150;
-    border-radius: $romo;
-    padding: 24px 26px;
-
-    @include hasta(600px) { padding: 18px 16px; }
-
-    & + & { margin-top: 14px; }
-
-    &__titulo {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: $g-500;
-        margin-bottom: 18px;
-    }
-}
-
-.fz-rejilla {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 14px;
-    align-items: start;
-
-    @include hasta(900px) { grid-template-columns: 1fr; }
-}
-
-// --- Cascada: la hoja de papel ----------------------------------
+// --- Cascada ----------------------------------------------------
 .fz-cascada {
     &__fila {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
         gap: 16px;
-        padding: 8px 0;
+        padding: 9px 0;
     }
 
     &__etiqueta {
-        font-size: 14px;
+        font-size: 14.5px;
         color: $g-600;
         display: flex;
         align-items: baseline;
@@ -350,112 +436,70 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
         flex-wrap: wrap;
     }
 
-    // La nota al margen de la libreta.
-    &__nota {
-        font-size: 11.5px;
-        color: $g-400;
-    }
+    &__nota { font-size: 11.5px; color: $g-400; }
 
-    &__cifra {
-        font-family: $cifras;
-        font-size: 16px;
-        font-variant-numeric: tabular-nums;
-        white-space: nowrap;
-        color: $g-800;
-    }
+    &__cifra { font-size: 16px; color: $g-900; }
 
-    // Las restas no van en rojo: son normales, no un problema. El
-    // signo menos ya lo dice.
-    &__fila--resta &__cifra { color: $g-600; }
-
-    // El IVA sí: es dinero retenido que no puedes gastar.
+    // El IVA en naranja: está en la cuenta pero no es tuyo.
     &__fila--retenido {
-        .fz-cascada__cifra { color: $alerta; }
-        .fz-cascada__etiqueta { color: $alerta; }
+        .fz-cascada__etiqueta { color: $acento; }
     }
 
-    // Donde en el papel hay una raya a bolígrafo antes del subtotal.
+    // Donde en el papel hay una raya a bolígrafo.
     &__fila--subtotal {
-        border-top: 1px solid $g-150;
-        margin-top: 1px;
+        border-top: 1px solid $linea;
         .fz-cascada__etiqueta { color: $g-900; font-weight: 550; }
-        .fz-cascada__cifra { font-weight: 600; color: $g-900; }
+        .fz-cascada__cifra { font-weight: 600; }
     }
 
-    // El "TOTAL LIMPIO", subrayado fuerte como en la libreta.
-    &__fila--limpio {
-        border-top: 2px solid $g-900;
-        margin-top: 10px;
-        padding-top: 14px;
+    // El total limpio: la cifra que manda en toda la pantalla.
+    &__limpio {
+        margin-top: 14px;
+        padding-top: 18px;
+        border-top: 2px solid $linea-fuerte;
 
-        .fz-cascada__etiqueta {
-            color: $g-900;
-            font-weight: 650;
-            font-size: 12px;
-            letter-spacing: 0.11em;
-            text-transform: uppercase;
+        &-etiqueta { @include etiqueta; }
+
+        &-cifra {
+            display: block;
+            margin-top: 4px;
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+
+            @include hasta(600px) { font-size: 34px; }
         }
-        .fz-cascada__cifra {
-            font-size: 28px;
-            font-weight: 650;
-            letter-spacing: -0.03em;
-            color: $g-900;
-            @include hasta(600px) { font-size: 23px; }
-        }
-        &.fz-cascada__fila--negativo .fz-cascada__cifra { color: $peligro; }
-    }
-}
 
-// El reparto ocurre DESPUÉS del total limpio, igual que en la hoja.
-.fz-reparto {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid $g-100;
-
-    &__titulo {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: $g-500;
-        margin-bottom: 6px;
+        &-pie { margin-top: 6px; font-size: 12.5px; color: $g-400; }
     }
 }
 
 // --- Movimientos ------------------------------------------------
+// Filas compactas: con doce o quince apuntes al mes, cada píxel de más
+// por fila se multiplica y obliga a hacer scroll para ver el mes.
 .fz-movimientos {
     &__fila {
         display: grid;
-        grid-template-columns: 52px 1fr auto 28px;
-        gap: 12px;
-        align-items: center;
-        padding: 10px 0;
-        border-bottom: 1px solid $g-100;
+        grid-template-columns: 38px 1fr auto 24px;
+        gap: 10px;
+        align-items: baseline;
+        padding: 7px 0;
+        border-bottom: 1px solid $linea;
 
         &:last-child { border-bottom: 0; }
 
-        @include hasta(600px) {
-            grid-template-columns: 1fr auto 28px;
-            row-gap: 2px;
+        @include hasta(420px) {
+            grid-template-columns: 34px 1fr auto;
+            gap: 8px;
         }
-    }
-
-    // La fecha en móvil, dentro de la línea de detalle.
-    &__fecha-movil {
-        display: none;
-        font-family: $cifras;
-        @include hasta(600px) { display: inline; }
     }
 
     &__fecha {
         font-family: $cifras;
-        font-size: 12px;
+        font-size: 11px;
         color: $g-400;
         font-variant-numeric: tabular-nums;
-
-        // En móvil no hay columna propia para la fecha: se esconde aquí
-        // y se muestra junto a la cuenta, en la línea de detalle.
-        @include hasta(600px) { display: none; }
     }
 
     &__concepto { min-width: 0; }
@@ -468,126 +512,82 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
     }
 
     &__meta {
-        font-size: 11.5px;
+        font-size: 11px;
         color: $g-400;
         margin-top: 1px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-wrap: wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-    // La nota del gasto, cuando la hay. Ocupa toda la fila.
     &__nota {
-        grid-column: 2 / 4;
-        font-size: 12.5px;
-        color: $g-500;
+        grid-column: 2 / -1;
+        font-size: 12px;
+        color: $g-600;
         margin-top: 4px;
-        padding-left: 9px;
-        border-left: 2px solid $g-150;
-        line-height: 1.4;
+        padding: 7px 10px;
+        background: $hueso;
+        border-radius: $romo-s;
+        line-height: 1.35;
         white-space: pre-wrap;
 
-        @include hasta(600px) { grid-column: 1 / -1; padding-left: 0; border-left: 0; }
+        @include hasta(420px) { grid-column: 1 / -1; }
     }
 
-    &__importe {
-        font-family: $cifras;
-        font-size: 15px;
-        font-variant-numeric: tabular-nums;
-        text-align: right;
-        white-space: nowrap;
-        color: $g-900;
-
-        // Ingresos y gastos se distinguen por el signo, no por color.
-        &--gasto { color: $g-600; }
-        &--interna { color: $g-400; }
-    }
-
-    &__acciones { display: flex; justify-content: flex-end; }
+    &__importe { font-size: 14.5px; text-align: right; }
 
     &__borrar {
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1;
         color: $g-400;
         background: none;
         border: 0;
-        padding: 4px 6px;
+        padding: 4px;
         border-radius: $pastilla;
         opacity: 0;
         transition: opacity 0.12s ease, color 0.12s ease;
 
         &:hover { color: $peligro; }
-        &:focus-visible { opacity: 1; outline: 2px solid $g-900; }
+        &:focus-visible { opacity: 1; outline: 2px solid $acento; }
     }
 
-    // Aparece al pasar por encima, para no invitar al clic accidental.
     &__fila:hover &__borrar { opacity: 1; }
-    // En táctil no hay hover: siempre visible.
-    @media (hover: none) { &__borrar { opacity: 0.6; } }
+    @media (hover: none) { &__borrar { opacity: 0.5; } }
 }
 
-// Capitaliza sólo la primera letra. `text-transform: capitalize` haría
-// "Abril De 2026", porque capitaliza cada palabra.
-.fz-inicial::first-letter { text-transform: uppercase; }
-
-// --- Indicador de nota ------------------------------------------
-.fz-clip {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 11px;
-    color: $g-400;
-}
-
-// --- Etiquetas --------------------------------------------------
+// --- Etiquetas de estado ----------------------------------------
 .fz-tag {
     display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
+    font-family: $cifras;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 2px 7px;
+    padding: 3px 8px;
     border-radius: $pastilla;
-    background: $g-100;
+    background: $hueso;
     color: $g-500;
 
-    &--retenido {
-        background: rgba($alerta, 0.12);
-        color: $alerta;
-    }
-    &--pagado {
-        background: $g-900;
-        color: $g-000;
-    }
+    &--acento { background: $acento-piso; color: $acento; }
+    &--negro  { background: $linea-fuerte; color: $blanco; }
 }
 
 // --- Avisos -----------------------------------------------------
 .fz-aviso {
-    padding: 12px 15px;
+    padding: 13px 16px;
     border-radius: $romo;
     font-size: 13.5px;
     line-height: 1.45;
-    background: $g-050;
-    border: 1px solid $g-150;
+    background: $hueso;
     color: $g-600;
     margin-bottom: 14px;
 
-    &--atencion {
-        background: rgba($alerta, 0.07);
-        border-color: rgba($alerta, 0.3);
-        color: $alerta;
-    }
-
-    &--error {
-        background: rgba($peligro, 0.06);
-        border-color: rgba($peligro, 0.28);
-        color: $peligro;
-    }
+    &--atencion { background: $acento-piso; color: darken($acento, 12%); }
+    &--error    { background: rgba($peligro, 0.07); color: $peligro; }
 }
 
 .fz-vacio {
-    padding: 32px 0;
+    padding: 28px 0;
     text-align: center;
     font-size: 13.5px;
     color: $g-400;
@@ -598,20 +598,9 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
     display: grid;
     gap: 12px;
 
-    &__campo { display: grid; gap: 5px; }
-
-    &__etiqueta {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        color: $g-500;
-    }
-
-    &__pista {
-        font-size: 11.5px;
-        color: $g-400;
-    }
+    &__campo { display: grid; gap: 6px; }
+    &__etiqueta { @include etiqueta; }
+    &__pista { font-size: 11.5px; color: $g-400; }
 
     &__par {
         display: grid;
@@ -619,228 +608,108 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
         gap: 10px;
         @include hasta(500px) { grid-template-columns: 1fr; }
     }
-
-    // Los tres tipos de movimiento.
-    &__tipos {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
-        padding: 3px;
-        background: $g-050;
-        border: 1px solid $g-150;
-        border-radius: $pastilla;
-    }
-
-    &__tipo {
-        font-family: $texto;
-        font-size: 12.5px;
-        font-weight: 550;
-        text-align: center;
-        padding: 8px 4px;
-        border: 0;
-        border-radius: $pastilla;
-        background: transparent;
-        color: $g-500;
-        transition: background 0.15s ease, color 0.15s ease;
-
-        &:hover { color: $g-900; }
-        &--activo { background: $g-900; color: $g-000; }
-        &:focus-visible { outline: 2px solid $g-900; outline-offset: 1px; }
-    }
 }
 
-// --- Pestañas ---------------------------------------------------
-.fz-pestanas {
-    display: flex;
-    gap: 2px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid $g-150;
-    overflow-x: auto;
-    // Sin barra visible al desplazar en móvil.
-    scrollbar-width: none;
-    &::-webkit-scrollbar { display: none; }
-
-    &__item {
-        font-family: $texto;
-        font-size: 13.5px;
-        font-weight: 550;
-        color: $g-400;
-        background: none;
-        border: 0;
-        border-bottom: 2px solid transparent;
-        padding: 9px 14px;
-        margin-bottom: -1px;
-        white-space: nowrap;
-
-        &:hover { color: $g-900; }
-        &--activo { color: $g-900; border-bottom-color: $g-900; }
-        &:focus-visible { outline: 2px solid $g-900; outline-offset: -2px; }
-    }
-}
-
-// --- Dashboard: indicadores -------------------------------------
+// --- Ficha del mes (indicadores) --------------------------------
 .fz-kpis {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
-    gap: 10px;
-    margin-bottom: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
 }
 
 .fz-kpi {
-    background: $g-000;
-    border: 1px solid $g-150;
+    background: $hueso;
     border-radius: $romo;
     padding: 15px 16px;
 
-    &__etiqueta {
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        color: $g-500;
-    }
+    &--acento { background: $acento-piso; }
 
-    &__valor {
-        margin-top: 8px;
-        font-family: $cifras;
-        font-size: 22px;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        font-variant-numeric: tabular-nums;
-
-        &--negativo { color: $peligro; }
-        &--retenido { color: $alerta; }
-    }
-
-    &__pie {
-        margin-top: 5px;
-        font-size: 11.5px;
-        color: $g-400;
-    }
+    &__etiqueta { @include etiqueta; font-size: 10px; }
+    &__valor { margin-top: 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+    &__pie { margin-top: 4px; font-size: 11.5px; color: $g-400; }
 }
 
-// --- Barras de comparación mensual ------------------------------
-// Grises, sin librería de gráficos: son divs con un ancho en %.
+// --- Barras -----------------------------------------------------
 .fz-barras {
     display: grid;
-    gap: 9px;
+    gap: 8px;
 
     &__fila {
         display: grid;
-        grid-template-columns: 88px 1fr auto;
+        grid-template-columns: 74px 1fr auto;
         gap: 12px;
         align-items: center;
-
-        @include hasta(600px) { grid-template-columns: 68px 1fr auto; gap: 8px; }
+        @include hasta(600px) { grid-template-columns: 58px 1fr auto; gap: 8px; }
     }
 
     &__mes {
-        font-size: 12px;
+        font-family: $cifras;
+        font-size: 11px;
         color: $g-500;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        // Sólo la inicial. Con `capitalize` saldría "Abril De 2026".
         &::first-letter { text-transform: uppercase; }
     }
 
     &__pista {
-        height: 20px;
-        background: $g-050;
+        height: 22px;
+        background: $hueso;
         border-radius: $romo-s;
         overflow: hidden;
-        position: relative;
     }
 
     &__valor {
         height: 100%;
-        background: $g-800;
+        background: $linea-fuerte;
         border-radius: $romo-s;
-        min-width: 2px;
+        min-width: 3px;
         transition: width 0.4s ease;
 
+        &--acento   { background: $acento; }
         &--negativo { background: $peligro; }
     }
 
-    &__cifra {
-        font-family: $cifras;
-        font-size: 13px;
-        font-variant-numeric: tabular-nums;
-        text-align: right;
-        white-space: nowrap;
-        color: $g-800;
-    }
+    &__cifra { font-size: 13px; text-align: right; }
 }
 
-// --- Trimestres de IVA ------------------------------------------
-.fz-trimestre {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 13px 0;
-    border-bottom: 1px solid $g-100;
-
-    &:last-child { border-bottom: 0; }
-
-    &__nombre {
-        font-size: 14px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__detalle { font-size: 11.5px; color: $g-400; margin-top: 2px; }
-
-    &__cifras { display: flex; align-items: center; gap: 16px; }
-
-    &__total {
-        font-family: $cifras;
-        font-size: 19px;
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-        text-align: right;
-
-        &--pendiente { color: $alerta; }
-    }
-}
-
-// --- Reservas ---------------------------------------------------
-.fz-reserva {
+// --- Filas de detalle (IVA, reservas, avisos) -------------------
+.fz-fila {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 14px;
-    padding: 13px 0;
-    border-bottom: 1px solid $g-100;
+    padding: 14px 0;
+    border-bottom: 1px solid $linea;
 
     &:last-child { border-bottom: 0; }
-    &--liberada { opacity: 0.5; }
+    &--apagada { opacity: 0.45; }
 
-    &__concepto { font-size: 14px; font-weight: 550; }
+    &__titulo {
+        font-size: 14.5px;
+        font-weight: 550;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 
-    &__motivo {
+    &__detalle {
         font-size: 12px;
-        color: $g-500;
+        color: $g-400;
         margin-top: 3px;
-        max-width: 46ch;
         line-height: 1.4;
+        max-width: 48ch;
     }
 
-    &__meta { font-size: 11px; color: $g-400; margin-top: 4px; }
-
-    &__lado { display: flex; align-items: center; gap: 12px; }
-
-    &__importe {
-        font-family: $cifras;
-        font-size: 18px;
-        font-weight: 600;
-        font-variant-numeric: tabular-nums;
-        color: $alerta;
-        white-space: nowrap;
+    &__lado {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
     }
+
+    &__cifra { font-size: 18px; font-weight: 600; }
 }
 
 // --- Login ------------------------------------------------------
@@ -849,32 +718,21 @@ $cifras: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
     display: grid;
     place-items: center;
     padding: 24px;
-    background: $g-050;
+    background: $blanco;
 
-    &__caja {
-        width: 100%;
-        max-width: 340px;
-        background: $g-000;
-        border: 1px solid $g-150;
-        border-radius: $romo;
-        padding: 32px 28px;
-    }
+    &__caja { width: 100%; max-width: 320px; }
 
     &__logo {
-        height: 24px;
+        height: 22px;
         width: auto;
         display: block;
-        margin: 0 auto 18px;
-        filter: grayscale(1) brightness(0.28);
+        margin: 0 auto 16px;
+        filter: grayscale(1) brightness(0.1);
     }
 
     &__sub {
-        margin: 0 0 22px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
-        color: $g-500;
+        @include etiqueta;
         text-align: center;
+        margin-bottom: 26px;
     }
 }

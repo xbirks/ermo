@@ -82,8 +82,8 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
                 </div>
             )}
 
-            <div className="fz-panel">
-                <p className="fz-panel__titulo">Por trimestre</p>
+            <div className="fz-seccion">
+                <p className="fz-seccion__titulo">Por trimestre</p>
 
                 {!trimestres.length && (
                     <p className="fz-vacio">Todavía no hay IVA anotado.</p>
@@ -92,26 +92,26 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
                 {trimestres.map((t) => {
                     const pendiente = t.pendiente > 0;
                     return (
-                        <div className="fz-trimestre" key={t.trimestre_fiscal}>
+                        <div className="fz-fila" key={t.trimestre_fiscal}>
                             <div>
-                                <p className="fz-trimestre__nombre">
+                                <p className="fz-fila__titulo">
                                     {t.trimestre_fiscal}
                                     <span className={`fz-tag fz-tag--${pendiente ? 'retenido' : 'pagado'}`}>
                                         {pendiente ? 'Retenido' : 'Pagado'}
                                     </span>
                                 </p>
-                                <p className="fz-trimestre__detalle">
+                                <p className="fz-fila__detalle">
                                     {t.meses} {t.meses === 1 ? 'mes' : 'meses'} · total {euros(t.total)}
                                 </p>
                             </div>
 
-                            <div className="fz-trimestre__cifras">
-                                <span className={`fz-trimestre__total${pendiente ? ' fz-trimestre__total--pendiente' : ''}`}>
+                            <div className="fz-fila__lado">
+                                <span className={`fz-fila__cifra${pendiente ? ' fz-fila__cifra' : ''}`}>
                                     {euros(pendiente ? t.pendiente : t.total)}
                                 </span>
                                 {pendiente && (
                                     <button
-                                        className="fz-boton fz-boton--fantasma"
+                                        className="fz-boton fz-boton--suave"
                                         type="button"
                                         onClick={() => liquidar(t)}
                                         disabled={ocupado || !cuentaId}
@@ -125,34 +125,34 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
                 })}
             </div>
 
-            <div className="fz-rejilla">
-                <div className="fz-panel">
-                    <p className="fz-panel__titulo">Mes a mes</p>
+            <div className="fz-form">
+                <div className="fz-seccion">
+                    <p className="fz-seccion__titulo">Mes a mes</p>
 
                     {!provisiones.length && <p className="fz-vacio">Sin registros.</p>}
 
                     {provisiones.map((p) => (
-                        <div className="fz-trimestre" key={p.id}>
+                        <div className="fz-fila" key={p.id}>
                             <div>
-                                <p className="fz-trimestre__nombre fz-inicial">
+                                <p className="fz-fila__titulo fz-inicial">
                                     {nombreMes(p.mes_referencia)}
                                 </p>
-                                <p className="fz-trimestre__detalle">
+                                <p className="fz-fila__detalle">
                                     {p.trimestre_fiscal}
                                     {p.cuenta && ` · ${p.cuenta}`}
                                     {p.fecha_pago && ' · pagado'}
                                     {p.notas && ` · ${p.notas}`}
                                 </p>
                             </div>
-                            <span className={`fz-trimestre__total${p.estado === 'retenido' ? ' fz-trimestre__total--pendiente' : ''}`}>
+                            <span className={`fz-fila__cifra${p.estado === 'retenido' ? ' fz-fila__cifra' : ''}`}>
                                 {euros(p.importe_calculado)}
                             </span>
                         </div>
                     ))}
                 </div>
 
-                <form className="fz-panel" onSubmit={anotar}>
-                    <p className="fz-panel__titulo">Anotar IVA del mes</p>
+                <form className="fz-seccion" onSubmit={anotar}>
+                    <p className="fz-seccion__titulo">Anotar IVA del mes</p>
 
                     {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
 

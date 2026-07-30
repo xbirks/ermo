@@ -5,19 +5,23 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ermoLogo from '@/app/assets/logo/ERMO_blue.svg';
 
+import Cifra from '@/app/components/finanzas/cifra';
 import Cascada from '@/app/components/finanzas/cascada';
 import AltaMovimiento from '@/app/components/finanzas/alta-movimiento';
 import ListaMovimientos from '@/app/components/finanzas/lista-movimientos';
 import PanelIva from '@/app/components/finanzas/panel-iva';
 import PanelReservas from '@/app/components/finanzas/panel-reservas';
 import Dashboard from '@/app/components/finanzas/dashboard';
-import { euros, nombreMes } from '@/app/lib/finanzas/formato';
+import GastosFijos from '@/app/components/finanzas/gastos-fijos';
+import Plegable from '@/app/components/finanzas/plegable';
+import { nombreMes } from '@/app/lib/finanzas/formato';
 
-const PESTANAS = [
+// Dos vistas, no cuatro pestañas: el mes que estás llevando y la
+// evolución de todos. Dentro del mes, todo va en una sola columna que
+// se lee de arriba abajo, como la hoja de papel.
+const VISTAS = [
     { id: 'mes', texto: 'El mes' },
-    { id: 'panel', texto: 'Control' },
-    { id: 'iva', texto: 'IVA' },
-    { id: 'reservas', texto: 'Apartado' },
+    { id: 'evolucion', texto: 'Evolución' },
 ];
 
 /** Primer día del mes actual, en formato YYYY-MM-DD y hora local. */
@@ -36,7 +40,7 @@ function desplazarMes(mes, salto) {
 export default function FinanzasPage() {
     const router = useRouter();
     const [mes, setMes] = useState(mesActual);
-    const [pestana, setPestana] = useState('mes');
+    const [vista, setVista] = useState('mes');
     const [datos, setDatos] = useState(null);
     const [error, setError] = useState('');
     const [cargando, setCargando] = useState(true);
@@ -102,8 +106,15 @@ export default function FinanzasPage() {
 
     const {
         cuentas, categorias, resumen, movimientos,
-        reservas, provisiones, trimestres, historico,
+        reservas, provisiones, trimestres, fijos, historico,
     } = datos;
+
+    const ivaRetenido = trimestres.reduce((s, t) => s + t.pendiente, 0);
+    const listaFijos = fijos || [];
+    const fijosPendientes = listaFijos.filter((f) => f.toca && !f.ya_apuntado);
+    const totalPendiente = fijosPendientes.reduce((s, f) => s + (f.importe_previsto || 0), 0);
+    const reservasActivas = reservas.filter((r) => r.estado === 'activa');
+    const totalApartado = reservasActivas.reduce((s, r) => s + r.importe, 0);
 
     return (
         <div className="fz">
@@ -114,17 +125,14 @@ export default function FinanzasPage() {
                             className="fz-cabecera__logo"
                             src={ermoLogo}
                             alt="ERMO"
-                            height={26}
+                            height={22}
                             priority
                         />
-                        <span className="fz-cabecera__sep" />
                         <span className="fz-cabecera__seccion">Finanzas</span>
                     </div>
-                    <div className="fz-cabecera__acciones">
-                        <button className="fz-boton fz-boton--fantasma" type="button" onClick={salir}>
-                            Salir
-                        </button>
-                    </div>
+                    <button className="fz-boton fz-boton--suave" type="button" onClick={salir}>
+                        Salir
+                    </button>
                 </header>
 
                 {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
@@ -141,7 +149,7 @@ export default function FinanzasPage() {
                             ‹
                         </button>
                         <button
-                            className="fz-boton fz-boton--fantasma"
+                            className="fz-boton fz-boton--suave"
                             type="button"
                             onClick={() => setMes(mesActual())}
                         >
@@ -158,104 +166,163 @@ export default function FinanzasPage() {
                     </div>
                 </div>
 
-                {/* Saldos: lo que hay frente a lo que se puede gastar. */}
-                <div className="fz-cuentas">
-                    {cuentas.map((c) => {
-                        const hayMerma = c.iva_retenido > 0 || c.reservado > 0;
-                        return (
-                            <div className="fz-cuenta" key={c.id}>
-                                <p className="fz-cuenta__nombre">
-                                    <span>{c.nombre}</span>
-                                </p>
-                                <p className={`fz-cuenta__disponible${c.disponible < 0 ? ' fz-cuenta__disponible--negativo' : ''}`}>
-                                    {euros(c.disponible)}
-                                </p>
-                                {hayMerma && (
-                                    <div className="fz-cuenta__merma fz-cuenta__merma--retenido">
-                                        <span>
-                                            En el banco <b>{euros(c.saldo_actual)}</b>
-                                        </span>
-                                        {c.iva_retenido > 0 && (
-                                            <span>IVA retenido <b>−{euros(c.iva_retenido)}</b></span>
-                                        )}
-                                        {c.reservado > 0 && (
-                                            <span>Apartado <b>−{euros(c.reservado)}</b></span>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    })}
-                </div>
-
-                <nav className="fz-pestanas">
-                    {PESTANAS.map((p) => (
+                <nav className="fz-pildoras">
+                    {VISTAS.map((v) => (
                         <button
-                            key={p.id}
+                            key={v.id}
                             type="button"
-                            className={`fz-pestanas__item${pestana === p.id ? ' fz-pestanas__item--activo' : ''}`}
-                            onClick={() => setPestana(p.id)}
+                            className={`fz-pildoras__item${vista === v.id ? ' fz-pildoras__item--activo' : ''}`}
+                            onClick={() => setVista(v.id)}
                         >
-                            {p.texto}
+                            {v.texto}
                         </button>
                     ))}
                 </nav>
 
-                {pestana === 'mes' && (
-                    <div className="fz-rejilla">
-                        <div>
-                            <div className="fz-panel">
-                                <p className="fz-panel__titulo">Cascada del mes</p>
-                                <Cascada resumen={resumen} />
-                            </div>
-
-                            <div className="fz-panel">
-                                <p className="fz-panel__titulo">
-                                    <span>Movimientos</span>
-                                    <span style={{ letterSpacing: 0, textTransform: 'none' }}>
-                                        {movimientos.length}
+                {vista === 'mes' && (
+                    <>
+                        {/* Saldos: lo que hay frente a lo que se puede gastar. */}
+                        <section className="fz-seccion">
+                            <p className="fz-seccion__titulo">
+                                <span>Cuentas</span>
+                                {ivaRetenido > 0 && (
+                                    <span className="fz-seccion__extra">
+                                        <Cifra valor={ivaRetenido} signo={false} tono="acento" />
+                                        {' '}retenidos para Hacienda
                                     </span>
-                                </p>
-                                <ListaMovimientos
-                                    movimientos={movimientos}
-                                    onBorrar={borrarMovimiento}
-                                />
+                                )}
+                            </p>
+                            <div className="fz-cuentas">
+                                {cuentas.map((c) => {
+                                    const hayMerma = c.iva_retenido > 0 || c.reservado > 0;
+                                    return (
+                                        <div
+                                            className={`fz-cuenta${hayMerma ? ' fz-cuenta--retenido' : ''}`}
+                                            key={c.id}
+                                        >
+                                            <p className="fz-cuenta__nombre">{c.nombre}</p>
+                                            <p className="fz-cuenta__saldo">
+                                                <Cifra valor={c.disponible} />
+                                            </p>
+                                            {hayMerma && (
+                                                <div className="fz-cuenta__merma">
+                                                    <span>
+                                                        En el banco
+                                                        <b><Cifra valor={c.saldo_actual} signo={false} /></b>
+                                                    </span>
+                                                    {c.iva_retenido > 0 && (
+                                                        <span>
+                                                            IVA retenido
+                                                            <b><Cifra valor={c.iva_retenido} signo="−" /></b>
+                                                        </span>
+                                                    )}
+                                                    {c.reservado > 0 && (
+                                                        <span>
+                                                            Apartado
+                                                            <b><Cifra valor={c.reservado} signo="−" /></b>
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
                             </div>
-                        </div>
+                        </section>
 
-                        <AltaMovimiento
-                            cuentas={cuentas}
-                            categorias={categorias}
-                            mes={mes}
-                            onGuardado={cargar}
-                        />
-                    </div>
+                        <section className="fz-seccion">
+                            <p className="fz-seccion__titulo">Cascada del mes</p>
+                            <Cascada resumen={resumen} />
+                        </section>
+
+                        <section className="fz-seccion">
+                            <p className="fz-seccion__titulo">
+                                <span>Movimientos</span>
+                                <span className="fz-seccion__extra">
+                                    {movimientos.length === 1
+                                        ? '1 apunte'
+                                        : `${movimientos.length} apuntes`}
+                                </span>
+                            </p>
+                            <ListaMovimientos
+                                movimientos={movimientos}
+                                onBorrar={borrarMovimiento}
+                            />
+                        </section>
+
+                        <Plegable
+                            titulo="Gastos fijos"
+                            etiqueta={fijosPendientes.length > 0 && (
+                                <span className="fz-tag fz-tag--acento">
+                                    {fijosPendientes.length} sin apuntar
+                                </span>
+                            )}
+                            resumen={
+                                fijosPendientes.length > 0
+                                    ? <><Cifra valor={totalPendiente} signo={false} tono="acento" /> por apuntar</>
+                                    : `${listaFijos.length} recibos al día`
+                            }
+                        >
+                            <GastosFijos
+                                fijos={listaFijos}
+                                cuentas={cuentas}
+                                mes={mes}
+                                onCambio={cargar}
+                            />
+                        </Plegable>
+
+                        <Plegable
+                            titulo="Anotar movimiento"
+                            resumen="Gasto, ingreso o traspaso"
+                        >
+                            <AltaMovimiento
+                                cuentas={cuentas}
+                                categorias={categorias}
+                                mes={mes}
+                                onGuardado={cargar}
+                            />
+                        </Plegable>
+
+                        <Plegable
+                            titulo="IVA"
+                            resumen={
+                                ivaRetenido > 0
+                                    ? <><Cifra valor={ivaRetenido} signo={false} tono="acento" /> retenidos</>
+                                    : 'Nada retenido'
+                            }
+                        >
+                            <PanelIva
+                                provisiones={provisiones}
+                                trimestres={trimestres}
+                                cuentas={cuentas}
+                                mes={mes}
+                                onCambio={cargar}
+                            />
+                        </Plegable>
+
+                        <Plegable
+                            titulo="Dinero apartado"
+                            resumen={
+                                totalApartado > 0
+                                    ? <><Cifra valor={totalApartado} signo={false} tono="acento" /> sin tocar</>
+                                    : 'Nada apartado'
+                            }
+                        >
+                            <PanelReservas
+                                reservas={reservas}
+                                cuentas={cuentas}
+                                onCambio={cargar}
+                            />
+                        </Plegable>
+                    </>
                 )}
 
-                {pestana === 'panel' && (
+                {vista === 'evolucion' && (
                     <Dashboard
                         historico={historico}
                         cuentas={cuentas}
                         reservas={reservas}
                         trimestres={trimestres}
-                    />
-                )}
-
-                {pestana === 'iva' && (
-                    <PanelIva
-                        provisiones={provisiones}
-                        trimestres={trimestres}
-                        cuentas={cuentas}
-                        mes={mes}
-                        onCambio={cargar}
-                    />
-                )}
-
-                {pestana === 'reservas' && (
-                    <PanelReservas
-                        reservas={reservas}
-                        cuentas={cuentas}
-                        onCambio={cargar}
                     />
                 )}
             </div>

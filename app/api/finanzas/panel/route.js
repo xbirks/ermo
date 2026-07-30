@@ -3,7 +3,7 @@ import { sql } from '@/app/lib/finanzas/db';
 import {
     getCuentas, getCategorias, getResumenMes,
     getTransaccionesDelMes, getReservas,
-    getProvisionesIva, getIvaPorTrimestre,
+    getProvisionesIva, getIvaPorTrimestre, getGastosFijos,
 } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -65,7 +65,7 @@ export async function GET(request) {
 
         const [
             cuentas, categorias, resumen, movimientos,
-            reservas, provisiones, trimestres, historico, meses,
+            reservas, provisiones, trimestres, fijos, historico, meses,
         ] = await Promise.all([
             getCuentas(),
             getCategorias(),
@@ -74,6 +74,7 @@ export async function GET(request) {
             getReservas(),
             getProvisionesIva(),
             getIvaPorTrimestre(),
+            getGastosFijos(mes),
             // Últimos 12 meses, para las barras de comparación.
             sql`SELECT mes, ingresos_totales, gastos_fijos, gastos_variables,
                        iva_provisionado, total_limpio, a_ahorro_inversion
@@ -92,6 +93,7 @@ export async function GET(request) {
             reservas,
             provisiones,
             trimestres,
+            fijos,
             historico: historico.map((h) => ({
                 mes: h.mes,
                 ingresos_totales: num(h.ingresos_totales),

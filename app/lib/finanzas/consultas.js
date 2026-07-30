@@ -40,11 +40,148 @@ export async function getCuentas() {
 
 export async function getCategorias() {
     const filas = await sql`
-        SELECT id, nombre, es_fijo, importe_previsto
+        SELECT id, nombre, es_fijo, importe_previsto, activa
         FROM categorias
+        WHERE activa
         ORDER BY es_fijo DESC, nombre ASC
     `;
     return filas.map((f) => ({ ...f, importe_previsto: f.importe_previsto === null ? null : num(f.importe_previsto) }));
+}
+
+// -------------------------------------------------------------
+// GASTOS FIJOS
+// Los recibos que se repiten. Se editan de vez en cuando (sube el
+// seguro, cambia una tarifa) y se cargan de una vez al empezar el mes.
+// -------------------------------------------------------------
+
+/**
+ * Los recibos fijos con su cuenta, su día y su periodicidad, más si
+ * ya está apuntado el de este mes.
+ *
+ * `toca` dice si corresponde cargarlo en el mes pedido: los mensuales
+ * siempre, el seguro de la moto sólo cada seis meses.
+ */
+export async function getGastosFijos(mes) {
+    const inicio = primerDiaDelMes(mes);
+    const filas = await sql`
+        SELECT
+            c.id, c.nombre, c.importe_previsto, c.dia_cobro,
+            c.cada_meses, c.primer_mes, c.activa, c.notas,
+            c.cuenta_id, cu.nombre AS cuenta,
+            fn_toca_en_mes(c.cada_meses, c.primer_mes, ${inicio}::date) AS toca,
+            -- ¿Ya hay un apunte de esta categoría en el mes?
+            EXISTS (
+                SELECT 1 FROM transacciones t
+                WHERE t.categoria_id = c.id
+                  AND t.fecha >= ${inicio}::date
+                  AND t.fecha <  (${inicio}::date + INTERVAL '1 month')
+            ) AS ya_apuntado
+        FROM categorias c
+        LEFT JOIN cuentas cu ON cu.id = c.cuenta_id
+        WHERE c.es_fijo AND c.activa
+        ORDER BY cu.nombre NULLS LAST, c.dia_cobro NULLS LAST, c.nombre
+    `;
+    return filas.map((f) => ({
+        ...f,
+        importe_previsto: f.importe_previsto === null ? null : num(f.importe_previsto),
+        cada_meses: Number(f.cada_meses),
+        dia_cobro: f.dia_cobro === null ? null : Number(f.dia_cobro),
+    }));
+}
+
+export async function guardarGastoFijo(datos) {
+    const {
+        id, nombre, importe_previsto, cuenta_id,
+        dia_cobro, cada_meses, primer_mes, notas,
+    } = datos;
+
+    if (id) {
+        await sql`
+            UPDATE categorias SET
+                nombre           = ${nombre},
+                importe_previsto = ${importe_previsto}::numeric,
+                cuenta_id        = ${cuenta_id || null}::uuid,
+                dia_cobro        = ${dia_cobro || null}::smallint,
+                cada_meses       = ${cada_meses}::smallint,
+                primer_mes       = ${primer_mes || null}::date,
+                notas            = ${notas || null}
+            WHERE id = ${id}::uuid
+        `;
+        return { id };
+    }
+
+    const [fila] = await sql`
+        INSERT INTO categorias
+            (nombre, es_fijo, importe_previsto, cuenta_id, dia_cobro, cada_meses, primer_mes, notas)
+        VALUES (
+            ${nombre}, true, ${importe_previsto}::numeric, ${cuenta_id || null}::uuid,
+            ${dia_cobro || null}::smallint, ${cada_meses}::smallint,
+            ${primer_mes || null}::date, ${notas || null}
+        )
+        RETURNING id
+    `;
+    return fila;
+}
+
+/**
+ * Da de baja un recibo sin borrarlo.
+ *
+ * Borrarlo dejaría sin categoría los movimientos de meses anteriores,
+ * y el histórico dejaría de cuadrar.
+ */
+export async function desactivarGastoFijo(id) {
+    await sql`UPDATE categorias SET activa = false WHERE id = ${id}::uuid`;
+}
+
+/**
+ * Apunta de una vez los recibos del mes.
+ *
+ * Sólo crea los que tocan y no estén ya apuntados, así que se puede
+ * pulsar dos veces sin duplicar nada. Devuelve cuántos ha creado.
+ */
+export async function cargarFijosDelMes(mes, seleccion) {
+    const inicio = primerDiaDelMes(mes);
+
+    const candidatos = await sql`
+        SELECT c.id, c.nombre, c.importe_previsto, c.cuenta_id, c.dia_cobro
+        FROM categorias c
+        WHERE c.es_fijo AND c.activa
+          AND c.cuenta_id IS NOT NULL
+          AND c.importe_previsto IS NOT NULL
+          AND fn_toca_en_mes(c.cada_meses, c.primer_mes, ${inicio}::date)
+          AND NOT EXISTS (
+              SELECT 1 FROM transacciones t
+              WHERE t.categoria_id = c.id
+                AND t.fecha >= ${inicio}::date
+                AND t.fecha <  (${inicio}::date + INTERVAL '1 month')
+          )
+    `;
+
+    // Si se pasa una selección, sólo esos. Sin ella, todos los que tocan.
+    const lista = Array.isArray(seleccion) && seleccion.length
+        ? candidatos.filter((c) => seleccion.includes(c.id))
+        : candidatos;
+
+    let creados = 0;
+    for (const c of lista) {
+        // El día de cobro no puede salirse del mes: un recibo del 31
+        // en febrero se apunta el último día que existe.
+        const [a, m] = inicio.split('-').map(Number);
+        const ultimoDia = new Date(a, m, 0).getDate();
+        const dia = Math.min(c.dia_cobro || 1, ultimoDia);
+        const fecha = `${a}-${String(m).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+
+        await sql`
+            INSERT INTO transacciones
+                (fecha, cuenta_id, categoria_id, concepto, importe, tipo_movimiento)
+            VALUES (
+                ${fecha}::date, ${c.cuenta_id}::uuid, ${c.id}::uuid,
+                ${c.nombre}, ${c.importe_previsto}::numeric, 'gasto'
+            )
+        `;
+        creados++;
+    }
+    return { creados, total: candidatos.length };
 }
 
 // -------------------------------------------------------------

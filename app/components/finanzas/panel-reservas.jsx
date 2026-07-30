@@ -64,7 +64,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
     const totalActivo = activas.reduce((s, r) => s + r.importe, 0);
 
     return (
-        <div className="fz-rejilla">
+        <div className="fz-form">
             <div>
                 {totalActivo > 0 && (
                     <div className="fz-aviso fz-aviso--atencion">
@@ -72,26 +72,24 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
                     </div>
                 )}
 
-                <div className="fz-panel">
-                    <p className="fz-panel__titulo">Dinero apartado</p>
-
+                <div>
                     {!activas.length && (
                         <p className="fz-vacio">No hay nada reservado ahora mismo.</p>
                     )}
 
                     {activas.map((r) => (
-                        <div className="fz-reserva" key={r.id}>
+                        <div className="fz-fila" key={r.id}>
                             <div>
-                                <p className="fz-reserva__concepto">{r.concepto}</p>
-                                {r.motivo && <p className="fz-reserva__motivo">{r.motivo}</p>}
-                                <p className="fz-reserva__meta">
+                                <p className="fz-fila__titulo">{r.concepto}</p>
+                                {r.motivo && <p className="fz-fila__detalle">{r.motivo}</p>}
+                                <p className="fz-fila__detalle">
                                     {r.cuenta} · desde {diaCorto(r.creada_en)}
                                 </p>
                             </div>
-                            <div className="fz-reserva__lado">
-                                <span className="fz-reserva__importe">{euros(r.importe)}</span>
+                            <div className="fz-fila__lado">
+                                <span className="fz-fila__cifra">{euros(r.importe)}</span>
                                 <button
-                                    className="fz-boton fz-boton--fantasma"
+                                    className="fz-boton fz-boton--suave"
                                     type="button"
                                     onClick={() => liberar(r)}
                                     disabled={ocupado}
@@ -104,25 +102,25 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
                 </div>
 
                 {liberadas.length > 0 && (
-                    <div className="fz-panel">
-                        <p className="fz-panel__titulo">Ya liberadas</p>
+                    <div className="fz-seccion">
+                        <p className="fz-seccion__titulo">Ya liberadas</p>
                         {liberadas.map((r) => (
-                            <div className="fz-reserva fz-reserva--liberada" key={r.id}>
+                            <div className="fz-fila fz-fila--apagada" key={r.id}>
                                 <div>
-                                    <p className="fz-reserva__concepto">{r.concepto}</p>
-                                    <p className="fz-reserva__meta">
+                                    <p className="fz-fila__titulo">{r.concepto}</p>
+                                    <p className="fz-fila__detalle">
                                         {r.cuenta} · liberada el {diaCorto(r.liberada_en)}
                                     </p>
                                 </div>
-                                <span className="fz-reserva__importe">{euros(r.importe)}</span>
+                                <span className="fz-fila__cifra">{euros(r.importe)}</span>
                             </div>
                         ))}
                     </div>
                 )}
             </div>
 
-            <form className="fz-panel" onSubmit={crear}>
-                <p className="fz-panel__titulo">Apartar dinero</p>
+            <form onSubmit={crear} style={{ marginTop: 18 }}>
+                <p className="fz-form__etiqueta" style={{ marginBottom: 10 }}>Apartar dinero</p>
 
                 {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
 
