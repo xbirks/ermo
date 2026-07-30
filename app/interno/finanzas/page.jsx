@@ -14,6 +14,7 @@ import ListaMovimientos from '@/app/components/finanzas/lista-movimientos';
 import PanelIva from '@/app/components/finanzas/panel-iva';
 import PanelReservas from '@/app/components/finanzas/panel-reservas';
 import Dashboard from '@/app/components/finanzas/dashboard';
+import VistaAnual from '@/app/components/finanzas/vista-anual';
 import GastosFijos from '@/app/components/finanzas/gastos-fijos';
 import Plegable from '@/app/components/finanzas/plegable';
 import { nombreMes } from '@/app/lib/finanzas/formato';
@@ -23,6 +24,7 @@ import { nombreMes } from '@/app/lib/finanzas/formato';
 // se lee de arriba abajo, como la hoja de papel.
 const VISTAS = [
     { id: 'mes', texto: 'El mes' },
+    { id: 'anio', texto: 'El año' },
     { id: 'evolucion', texto: 'Evolución' },
 ];
 
@@ -181,7 +183,7 @@ export default function FinanzasPage() {
                             type="button"
                             onClick={() => setMes(mesActual())}
                         >
-                            Hoy
+                            Este mes
                         </button>
                         <button
                             className="fz-boton fz-boton--icono"
@@ -352,6 +354,12 @@ export default function FinanzasPage() {
                         </Plegable>
                         </div>
                     </>
+                )}
+
+                {vista === 'anio' && (
+                    <VistaAnual
+                        onIrAlMes={(m) => { setMes(m); setVista('mes'); }}
+                    />
                 )}
 
                 {vista === 'evolucion' && (

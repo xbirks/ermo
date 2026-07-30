@@ -3,6 +3,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { leerB100 } from './leer-b100.mjs';
 import { leerMyInvestor } from './leer-myinvestor.mjs';
 import { leerSantander } from './leer-santander.mjs';
+import { leerImagin } from './leer-imagin.mjs';
 
 /**
  * Vuelca los extractos de `datos-bancos/` en la base de datos.
@@ -55,7 +56,15 @@ const REGLAS = [
     [/seguro|mapfre|mutua|\baxa\b|allianz|zurich|linea directa/i,  'Seguro'],
 
     // Ingresos: cobros de clientes y pasarelas de pago.
-    [/stripe|paypal|transferencia de/i,             'Honorarios clientes'],
+    [/stripe|transferencia de|transf\. a su favor|transfer inmediata/i,
+                                                    'Honorarios clientes'],
+    // Xolo factura los servicios de autónomo.
+    [/xolo/i,                                       'Gestoría'],
+    // El IVA trimestral aparece como el modelo 303.
+    [/mod\.?\s?303|i\.?v\.?a\.?/i,                  'Impuestos'],
+    // Repsol Waylet es la gasolinera; MyBox, el renting del coche.
+    [/waylet|mybox/i,                               'Coche'],
+    [/movilidad acm|reint\.?cajero/i,               'Gastos varios'],
 
     // Herramientas de trabajo y suscripciones sueltas.
     [/dondominio|namecheap|godaddy|vercel|figma|adobe|github|openai|anthropic/i,
@@ -182,6 +191,7 @@ const categorias = Object.fromEntries(
 // Reúne lo que haya en la carpeta.
 const fuentes = [];
 const ficheros = {
+    'datos-bancos/imagin.csv': ['Imagin', leerImagin],
     'datos-bancos/santander-hasta-2026-07-30.pdf': ['Santander', leerSantander],
     'datos-bancos/b100.csv': ['B100', leerB100],
     'datos-bancos/myinvestor.csv': ['MyInvestor', leerMyInvestor],
@@ -232,6 +242,20 @@ const parejas = new Set();
     }
 }
 
+// Lo ya importado, de una vez. Antes se consultaba por cada
+// movimiento: con 1.900 apuntes eran 1.900 idas y vueltas a Supabase,
+// y la importación no terminaba nunca.
+const yaImportado = new Set(
+    (await q(`SELECT t.fecha, t.cuenta_id, t.importe, t.tipo_movimiento
+              FROM transacciones t`))
+        .map((r) => {
+            const f = r.fecha instanceof Date
+                ? r.fecha.toISOString().slice(0, 10)
+                : String(r.fecha).slice(0, 10);
+            return `${f}|${r.cuenta_id}|${Number(r.importe).toFixed(2)}|${r.tipo_movimiento}`;
+        })
+);
+
 console.log(`\n${ESCRIBIR ? 'IMPORTANDO' : 'SIMULACIÓN (nada se guarda)'}\n${'─'.repeat(52)}`);
 
 let totalNuevos = 0;
@@ -249,18 +273,15 @@ for (const { cuenta, lista, extra } of fuentes) {
 
     let nuevos = 0;
     let repetidos = 0;
+    const porInsertar = [];
 
     for (const [indice, m] of lista.entries()) {
         // Un movimiento ya importado tiene la misma fecha, cuenta e
         // importe. Basta para no duplicar al relanzar con un extracto
         // más reciente.
-        const [ya] = await q(
-            `SELECT 1 FROM transacciones
-             WHERE fecha = $1::date AND cuenta_id = $2::uuid
-               AND importe = $3::numeric AND tipo_movimiento = $4`,
-            [m.fecha, cuentaId, m.importe, m.tipo]
-        );
-        if (ya) { repetidos++; continue; }
+        const clave = `${m.fecha}|${cuentaId}|${m.importe.toFixed(2)}|${m.tipo}`;
+        if (yaImportado.has(clave)) { repetidos++; continue; }
+        yaImportado.add(clave);
 
         const texto = m.conceptoOriginal || m.concepto;
 
@@ -293,15 +314,32 @@ for (const { cuenta, lista, extra } of fuentes) {
         });
 
         if (ESCRIBIR) {
+            porInsertar.push([
+                m.fecha, cuentaId, catId, m.concepto.slice(0, 120),
+                m.importe, m.tipo, 'Importado del extracto del banco.',
+            ]);
+        }
+        nuevos++;
+    }
+
+    // Inserción por lotes: mil INSERT sueltos tardan minutos.
+    if (ESCRIBIR && porInsertar.length) {
+        const TAM = 200;
+        for (let i = 0; i < porInsertar.length; i += TAM) {
+            const lote = porInsertar.slice(i, i + TAM);
+            const valores = [];
+            const marcas = lote.map((fila, j) => {
+                const b = j * 7;
+                valores.push(...fila);
+                return `($${b+1}::date, $${b+2}::uuid, $${b+3}::uuid, $${b+4}, $${b+5}::numeric, $${b+6}, $${b+7})`;
+            });
             await q(
                 `INSERT INTO transacciones
                     (fecha, cuenta_id, categoria_id, concepto, importe, tipo_movimiento, notas)
-                 VALUES ($1::date, $2::uuid, $3::uuid, $4, $5::numeric, $6, $7)`,
-                [m.fecha, cuentaId, catId, m.concepto.slice(0, 120),
-                 m.importe, m.tipo, 'Importado del extracto del banco.']
+                 VALUES ${marcas.join(', ')}`,
+                valores
             );
         }
-        nuevos++;
     }
 
     console.log(`\n  ${cuenta}`);

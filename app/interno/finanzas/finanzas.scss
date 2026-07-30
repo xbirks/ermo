@@ -1047,6 +1047,99 @@ $ancho-dos-columnas: 880px;
     &__pie { margin-top: 4px; font-size: $t-caption-2; color: $g-400; }
 }
 
+// --- Vista anual ------------------------------------------------
+// Selector de año y los doce meses. Con tres años importados, la
+// navegación mes a mes no permite ver la evolución.
+.fz-anios {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+
+    &__item {
+        font-family: $texto;
+        font-size: $t-subhead;
+        font-weight: $p-medio;
+        color: $g-600 !important;
+        background: $hueso;
+        border: 0;
+        border-radius: $pastilla;
+        padding: 9px 18px;
+        transition: background 0.15s ease, color 0.15s ease;
+
+        &:hover { background: darken($hueso, 4%); }
+        &--activo { background: $g-900; color: $blanco !important; }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
+    }
+}
+
+.fz-anual {
+    display: grid;
+    gap: 2px;
+
+    &__mes {
+        display: grid;
+        grid-template-columns: 78px 1fr auto;
+        gap: 16px;
+        align-items: center;
+        width: 100%;
+        padding: 14px 16px;
+        background: none;
+        border: 0;
+        border-radius: $romo-s;
+        text-align: left;
+        transition: background 0.15s ease;
+
+        &:hover:not(:disabled) { background: $hueso; }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: -2px; }
+
+        &--vacio { opacity: 0.45; }
+
+        @include hasta(560px) {
+            grid-template-columns: 62px 1fr auto;
+            gap: 10px;
+        }
+    }
+
+    &__nombre {
+        font-size: $t-subhead;
+        color: $g-900;
+        &::first-letter { text-transform: uppercase; }
+    }
+
+    // Dos barras superpuestas: lo que entró y lo que salió, para ver de
+    // un vistazo si el mes fue bien o mal.
+    &__barras {
+        display: grid;
+        gap: 3px;
+        min-width: 0;
+    }
+
+    &__barra {
+        display: block;
+        height: 7px;
+        border-radius: $pastilla;
+        min-width: 3px;
+        transition: width 0.4s ease;
+
+        &--entra { background: $entra; }
+        &--sale  { background: $g-400; }
+    }
+
+    &__cifra {
+        font-size: $c-normal;
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    &__sin {
+        grid-column: 2 / -1;
+        font-size: $t-footnote;
+        color: $g-400;
+    }
+}
+
 // --- Barras -----------------------------------------------------
 .fz-barras {
     display: grid;

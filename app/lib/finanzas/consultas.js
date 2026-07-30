@@ -517,3 +517,83 @@ export async function getMesesDisponibles() {
     `;
     return filas.map((f) => f.mes);
 }
+
+// -------------------------------------------------------------
+// VISTA ANUAL
+// Con tres años de histórico, la navegación mes a mes no basta para
+// ver la evolución. Aquí van los doce meses de un año, con sus totales.
+// -------------------------------------------------------------
+
+/** Los años que tienen movimientos, del más reciente al más antiguo. */
+export async function getAniosDisponibles() {
+    const filas = await sql`
+        SELECT DISTINCT EXTRACT(YEAR FROM fecha)::int AS anio
+        FROM transacciones
+        ORDER BY anio DESC
+    `;
+    return filas.map((f) => f.anio);
+}
+
+/**
+ * Los doce meses de un año, con lo que entró, salió y quedó.
+ *
+ * Incluye los meses sin movimientos, para que la tabla no tenga huecos
+ * y se vea que ese mes estuvo vacío en lugar de faltar.
+ */
+export async function getResumenAnual(anio) {
+    const filas = await sql`
+        WITH meses AS (
+            SELECT generate_series(
+                make_date(${anio}::int, 1, 1),
+                make_date(${anio}::int, 12, 1),
+                INTERVAL '1 month'
+            )::date AS mes
+        )
+        SELECT
+            m.mes,
+            COALESCE(r.ingresos_totales, 0)   AS ingresos,
+            COALESCE(r.gastos_fijos, 0)
+              + COALESCE(r.gastos_variables, 0) AS gastos,
+            COALESCE(r.iva_provisionado, 0)   AS iva,
+            COALESCE(r.total_limpio, 0)       AS limpio,
+            COALESCE(r.a_ahorro_inversion, 0) AS a_ahorro,
+            EXISTS (
+                SELECT 1 FROM transacciones t
+                WHERE t.fecha >= m.mes AND t.fecha < m.mes + INTERVAL '1 month'
+            ) AS tiene_datos
+        FROM meses m
+        LEFT JOIN v_resumen_mensual r ON r.mes = m.mes
+        ORDER BY m.mes
+    `;
+    return filas.map((f) => ({
+        mes: f.mes,
+        ingresos: num(f.ingresos),
+        gastos: num(f.gastos),
+        iva: num(f.iva),
+        limpio: num(f.limpio),
+        a_ahorro: num(f.a_ahorro),
+        tiene_datos: f.tiene_datos,
+    }));
+}
+
+/** Lo que se debe: préstamos y créditos pendientes. */
+export async function getDeudas() {
+    try {
+        const filas = await sql`
+            SELECT d.id, d.concepto, d.pendiente, d.cuota, d.dia_cobro,
+                   d.actualizada_en, d.notas, c.nombre AS cuenta
+            FROM deudas d
+            LEFT JOIN cuentas c ON c.id = d.cuenta_id
+            ORDER BY d.pendiente DESC
+        `;
+        return filas.map((f) => ({
+            ...f,
+            pendiente: num(f.pendiente),
+            cuota: f.cuota === null ? null : num(f.cuota),
+        }));
+    } catch (e) {
+        // Falta la migración 006.
+        if (e?.code !== '42P01') throw e;
+        return [];
+    }
+}
