@@ -319,6 +319,14 @@ $ancho-dos-columnas: 880px;
         border-top: 1px solid $linea;
     }
 
+    // Versión discreta: cuando la cifra es contexto y no el titular.
+    &__total--suave {
+        font-size: $c-media !important;
+        color: $g-600;
+    }
+
+    &__limpio--suave { border-top-color: $linea; }
+
     &__total {
         margin-top: 8px;
         font-family: $texto;
@@ -646,17 +654,31 @@ $ancho-dos-columnas: 880px;
 // Lo que queda libre de aquí a fin de mes. Responde a otra pregunta que
 // la cascada: la cascada mira hacia atrás, esto hacia delante.
 .fz-prevision {
-    padding: 22px;
-    margin-bottom: 26px;
+    padding: 24px;
+    margin-bottom: 28px;
     background: $hueso;
     border-radius: $romo;
 
     &__titulo {
         @include etiqueta;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
     }
 
-    .fz-cascada__limpio { border-top-color: $g-900; }
+    // Ésta es la cifra que manda en toda la pantalla: lo que queda para
+    // gastar. El resto de números son el camino hasta ella.
+    .fz-cascada__limpio {
+        border-top-color: $g-900;
+        border-top-width: 2px;
+        padding-top: 20px;
+        margin-top: 14px;
+    }
+    .fz-cascada__limpio-cifra {
+        font-size: $c-grande;
+        font-weight: $p-ligero;
+        letter-spacing: -0.05em;
+        line-height: 1;
+        @include hasta(430px) { font-size: 44px; }
+    }
 }
 
 // --- Nota del mes -----------------------------------------------

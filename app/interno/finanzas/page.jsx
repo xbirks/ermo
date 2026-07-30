@@ -214,9 +214,20 @@ export default function FinanzasPage() {
 
                 {vista === 'mes' && (
                     <>
+                        {/* Lo que queda libre de lo que hay hoy, una vez
+                            pagados los recibos que vienen. Es el cálculo
+                            que se hace a mano en la libreta. */}
+                        <Prevision
+                            cuentas={cuentas}
+                            fijos={listaFijos}
+                            iva={trimestres}
+                            reservas={reservas}
+                            mes={mes}
+                        />
+
                         {/* Lo primero: cuánto ha entrado y salido, y qué
                             hay en cada banco. Lado a lado en escritorio. */}
-                        <div className="fz-cabeza">
+                        <div className="fz-cabeza fz-cabeza--secundaria">
                             <ResumenMes
                                 resumen={resumen}
                                 historico={historico}
@@ -229,16 +240,6 @@ export default function FinanzasPage() {
                             />
                         </div>
 
-                        {/* Lo que queda libre de lo que hay hoy, una vez
-                            pagados los recibos que vienen. Es el cálculo
-                            que se hace a mano en la libreta. */}
-                        <Prevision
-                            cuentas={cuentas}
-                            fijos={listaFijos}
-                            iva={trimestres}
-                            reservas={reservas}
-                            mes={mes}
-                        />
 
                         {/* Por qué el mes salió así, cuando hace falta
                             explicarlo. */}

@@ -65,13 +65,16 @@ export default function ResumenMes({ resumen, historico, mes }) {
                 </div>
             </div>
 
-            <div className="fz-resumen__limpio">
-                <p className="fz-resumen__etiqueta">Queda limpio.</p>
-                <p className="fz-resumen__total">
+            {/* Lo que dio el mes. Es contexto: la cifra que manda es la
+                previsión de arriba, que dice cuánto queda para gastar. */}
+            <div className="fz-resumen__limpio fz-resumen__limpio--suave">
+                <p className="fz-resumen__etiqueta">Dio de sí el mes.</p>
+                <p className="fz-resumen__total fz-resumen__total--suave">
                     <Cifra valor={total_limpio} />
                 </p>
                 <p className="fz-resumen__pie">
-                    Ya descontados los gastos y el IVA del mes.
+                    Lo que entró menos lo que salió, sin contar lo que aún
+                    está por pagar.
                 </p>
             </div>
         </div>
