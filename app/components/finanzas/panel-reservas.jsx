@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Cifra from './cifra';
 import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 
 /**
@@ -46,7 +47,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
 
     async function liberar(r) {
         const aviso =
-            `¿Liberar "${r.concepto}" (${euros(r.importe)})? ` +
+            `¿Liberar "${r.concepto}" ($<Cifra valor={r.importe} signo={false} />)? ` +
             `Ese dinero volverá a contar como disponible.`;
         if (!window.confirm(aviso)) return;
 
@@ -68,7 +69,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
             <div>
                 {totalActivo > 0 && (
                     <div className="fz-aviso fz-aviso--atencion">
-                        {euros(totalActivo)} apartados y sin tocar.
+                        <Cifra valor={totalActivo} signo={false} /> apartados y sin tocar.
                     </div>
                 )}
 
@@ -87,7 +88,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
                                 </p>
                             </div>
                             <div className="fz-fila__lado">
-                                <span className="fz-fila__cifra">{euros(r.importe)}</span>
+                                <span className="fz-fila__cifra"><Cifra valor={r.importe} signo={false} /></span>
                                 <button
                                     className="fz-boton fz-boton--suave"
                                     type="button"
@@ -112,7 +113,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
                                         {r.cuenta} · liberada el {diaCorto(r.liberada_en)}
                                     </p>
                                 </div>
-                                <span className="fz-fila__cifra">{euros(r.importe)}</span>
+                                <span className="fz-fila__cifra"><Cifra valor={r.importe} signo={false} /></span>
                             </div>
                         ))}
                     </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { euros, nombreMes } from '@/app/lib/finanzas/formato';
+import Cifra from './cifra';
+import { euros, nombreMes, mesCorto } from '@/app/lib/finanzas/formato';
 
 /**
  * Dashboard de control.
@@ -47,7 +48,7 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                 <div className="fz-kpi">
                     <p className="fz-kpi__etiqueta">Disponible real</p>
                     <p className={`fz-kpi__valor${kpi(disponibleTotal)}`}>
-                        {euros(disponibleTotal)}
+                        <Cifra valor={disponibleTotal} signo={false} />
                     </p>
                     <p className="fz-kpi__pie">Sumando las cinco cuentas</p>
                 </div>
@@ -55,20 +56,20 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                 <div className="fz-kpi">
                     <p className="fz-kpi__etiqueta">IVA pendiente</p>
                     <p className="fz-kpi__valor fz-kpi__valor--retenido">
-                        {euros(ivaPendiente)}
+                        <Cifra valor={ivaPendiente} signo={false} />
                     </p>
                     <p className="fz-kpi__pie">Retenido para Hacienda</p>
                 </div>
 
                 <div className="fz-kpi">
                     <p className="fz-kpi__etiqueta">Apartado</p>
-                    <p className="fz-kpi__valor fz-kpi__valor--retenido">{euros(reservado)}</p>
+                    <p className="fz-kpi__valor fz-kpi__valor--retenido"><Cifra valor={reservado} signo={false} /></p>
                     <p className="fz-kpi__pie">Reservas activas</p>
                 </div>
 
                 <div className="fz-kpi">
                     <p className="fz-kpi__etiqueta">Limpio medio</p>
-                    <p className={`fz-kpi__valor${kpi(mediaLimpio)}`}>{euros(mediaLimpio)}</p>
+                    <p className={`fz-kpi__valor${kpi(mediaLimpio)}`}><Cifra valor={mediaLimpio} signo={false} /></p>
                     <p className="fz-kpi__pie">
                         Media de {meses} {meses === 1 ? 'mes' : 'meses'}
                     </p>
@@ -79,7 +80,7 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                 <p className="fz-seccion__titulo">
                     <span>Total limpio por mes</span>
                     <span style={{ letterSpacing: 0, textTransform: 'none' }}>
-                        media {euros(mediaLimpio)}
+                        media <Cifra valor={mediaLimpio} signo={false} />
                     </span>
                 </p>
 
@@ -87,20 +88,20 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                     {/* Del más antiguo al más reciente: se lee como una línea de tiempo. */}
                     {[...historico].reverse().map((h) => (
                         <div className="fz-barras__fila" key={h.mes}>
-                            <span className="fz-barras__mes">{nombreMes(h.mes)}</span>
+                            <span className="fz-barras__mes">{mesCorto(h.mes)}</span>
                             <div className="fz-barras__pista">
                                 <div
                                     className={`fz-barras__valor${h.total_limpio < 0 ? ' fz-barras__valor--negativo' : ''}`}
                                     style={{ width: ancho(h.total_limpio) }}
                                 />
                             </div>
-                            <span className="fz-barras__cifra">{euros(h.total_limpio)}</span>
+                            <span className="fz-barras__cifra"><Cifra valor={h.total_limpio} signo={false} /></span>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="fz-form">
+            <>
                 <div className="fz-seccion">
                     <p className="fz-seccion__titulo">Ingresos por mes</p>
                     <div className="fz-barras">
@@ -108,7 +109,7 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                             const max = Math.max(...historico.map((x) => x.ingresos_totales), 1);
                             return (
                                 <div className="fz-barras__fila" key={h.mes}>
-                                    <span className="fz-barras__mes">{nombreMes(h.mes)}</span>
+                                    <span className="fz-barras__mes">{mesCorto(h.mes)}</span>
                                     <div className="fz-barras__pista">
                                         <div
                                             className="fz-barras__valor"
@@ -116,7 +117,7 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                                         />
                                     </div>
                                     <span className="fz-barras__cifra">
-                                        {euros(h.ingresos_totales)}
+                                        <Cifra valor={h.ingresos_totales} signo={false} />
                                     </span>
                                 </div>
                             );
@@ -129,18 +130,18 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                     <div className="fz-cascada">
                         <div className="fz-cascada__fila">
                             <span className="fz-cascada__etiqueta">Ingresos al mes</span>
-                            <span className="fz-cascada__cifra">{euros(mediaIngresos)}</span>
+                            <span className="fz-cascada__cifra"><Cifra valor={mediaIngresos} signo={false} /></span>
                         </div>
                         <div className="fz-cascada__fila">
                             <span className="fz-cascada__etiqueta">
                                 Gastos fijos
                                 <span className="fz-cascada__nota">recibos que no cambian</span>
                             </span>
-                            <span className="fz-cascada__cifra">{euros(mediaFijos)}</span>
+                            <span className="fz-cascada__cifra"><Cifra valor={mediaFijos} signo={false} /></span>
                         </div>
                         <div className="fz-cascada__fila fz-cascada__fila--subtotal">
                             <span className="fz-cascada__etiqueta">Último mes limpio</span>
-                            <span className="fz-cascada__cifra">{euros(ultimo.total_limpio)}</span>
+                            <span className="fz-cascada__cifra"><Cifra valor={ultimo.total_limpio} signo={false} /></span>
                         </div>
                     </div>
 
@@ -151,7 +152,7 @@ export default function Dashboard({ historico, cuentas, reservas, trimestres }) 
                         </p>
                     )}
                 </div>
-            </div>
+            </>
         </>
     );
 }

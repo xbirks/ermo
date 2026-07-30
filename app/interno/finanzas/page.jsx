@@ -7,6 +7,7 @@ import ermoLogo from '@/app/assets/logo/ERMO_blue.svg';
 
 import Cifra from '@/app/components/finanzas/cifra';
 import Cascada from '@/app/components/finanzas/cascada';
+import ResumenMes from '@/app/components/finanzas/resumen-mes';
 import AltaMovimiento from '@/app/components/finanzas/alta-movimiento';
 import ListaMovimientos from '@/app/components/finanzas/lista-movimientos';
 import PanelIva from '@/app/components/finanzas/panel-iva';
@@ -110,6 +111,7 @@ export default function FinanzasPage() {
     } = datos;
 
     const ivaRetenido = trimestres.reduce((s, t) => s + t.pendiente, 0);
+    const disponibleTotal = cuentas.reduce((s, c) => s + c.disponible, 0);
     const listaFijos = fijos || [];
     const fijosPendientes = listaFijos.filter((f) => f.toca && !f.ya_apuntado);
     const totalPendiente = fijosPendientes.reduce((s, f) => s + (f.importe_previsto || 0), 0);
@@ -181,17 +183,37 @@ export default function FinanzasPage() {
 
                 {vista === 'mes' && (
                     <>
-                        {/* Saldos: lo que hay frente a lo que se puede gastar. */}
-                        <section className="fz-seccion">
-                            <p className="fz-seccion__titulo">
-                                <span>Cuentas</span>
-                                {ivaRetenido > 0 && (
-                                    <span className="fz-seccion__extra">
-                                        <Cifra valor={ivaRetenido} signo={false} tono="acento" />
-                                        {' '}retenidos para Hacienda
-                                    </span>
-                                )}
-                            </p>
+                        {/* Lo primero: cuánto ha entrado y salido este mes. */}
+                        <ResumenMes
+                            resumen={resumen}
+                            historico={historico}
+                            mes={mes}
+                        />
+
+                        <Plegable
+                            titulo="Anotar movimiento"
+                            resumen="Gasto, ingreso o traspaso"
+                        >
+                            <AltaMovimiento
+                                cuentas={cuentas}
+                                categorias={categorias}
+                                mes={mes}
+                                onGuardado={cargar}
+                            />
+                        </Plegable>
+
+                        <Plegable
+                            titulo="De dónde sale"
+                            resumen="Ingresos, gastos e IVA"
+                        >
+                            <Cascada resumen={resumen} />
+                        </Plegable>
+
+                        <Plegable
+                            titulo="Cuentas"
+                            resumen={<><Cifra valor={disponibleTotal} signo={false} /> disponible</>}
+                        >
+                        <div>
                             <div className="fz-cuentas">
                                 {cuentas.map((c) => {
                                     const hayMerma = c.iva_retenido > 0 || c.reservado > 0;
@@ -228,27 +250,21 @@ export default function FinanzasPage() {
                                     );
                                 })}
                             </div>
-                        </section>
+                        </div>
 
-                        <section className="fz-seccion">
-                            <p className="fz-seccion__titulo">Cascada del mes</p>
-                            <Cascada resumen={resumen} />
-                        </section>
+                        </Plegable>
 
-                        <section className="fz-seccion">
-                            <p className="fz-seccion__titulo">
-                                <span>Movimientos</span>
-                                <span className="fz-seccion__extra">
-                                    {movimientos.length === 1
-                                        ? '1 apunte'
-                                        : `${movimientos.length} apuntes`}
-                                </span>
-                            </p>
+                        <Plegable
+                            titulo="Movimientos"
+                            resumen={movimientos.length === 1
+                                ? '1 apunte'
+                                : `${movimientos.length} apuntes`}
+                        >
                             <ListaMovimientos
                                 movimientos={movimientos}
                                 onBorrar={borrarMovimiento}
                             />
-                        </section>
+                        </Plegable>
 
                         <Plegable
                             titulo="Gastos fijos"
@@ -260,7 +276,7 @@ export default function FinanzasPage() {
                             resumen={
                                 fijosPendientes.length > 0
                                     ? <><Cifra valor={totalPendiente} signo={false} tono="acento" /> por apuntar</>
-                                    : `${listaFijos.length} recibos al día`
+                                    : `${listaFijos.length} recibos, todos al día`
                             }
                         >
                             <GastosFijos
@@ -272,23 +288,11 @@ export default function FinanzasPage() {
                         </Plegable>
 
                         <Plegable
-                            titulo="Anotar movimiento"
-                            resumen="Gasto, ingreso o traspaso"
-                        >
-                            <AltaMovimiento
-                                cuentas={cuentas}
-                                categorias={categorias}
-                                mes={mes}
-                                onGuardado={cargar}
-                            />
-                        </Plegable>
-
-                        <Plegable
                             titulo="IVA"
                             resumen={
                                 ivaRetenido > 0
                                     ? <><Cifra valor={ivaRetenido} signo={false} tono="acento" /> retenidos</>
-                                    : 'Nada retenido'
+                                    : <><Cifra valor={0} signo={false} /> retenidos</>
                             }
                         >
                             <PanelIva
@@ -305,7 +309,7 @@ export default function FinanzasPage() {
                             resumen={
                                 totalApartado > 0
                                     ? <><Cifra valor={totalApartado} signo={false} tono="acento" /> sin tocar</>
-                                    : 'Nada apartado'
+                                    : <><Cifra valor={0} signo={false} /> apartado</>
                             }
                         >
                             <PanelReservas

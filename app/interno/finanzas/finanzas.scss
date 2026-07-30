@@ -95,6 +95,21 @@ $t-caption-2:   11px;   // la etiqueta más pequeña
 $lh-cuerpo:  1.47;
 $lh-titulo:  1.15;
 
+// Corrección óptica de las cifras.
+//
+// JetBrains Mono tiene la altura de x un 4 % mayor que la fuente del
+// sistema, y al ser monoespaciada ocupa bastante más ancho. A igual
+// tamaño en píxeles se ve mayor, así que un importe y su concepto
+// puestos ambos a 15 px no parecen del mismo nivel: el número aplasta
+// al texto.
+//
+// Estas variables van un escalón por debajo de su pareja de texto, de
+// forma que concepto e importe se lean como iguales.
+$c-grande:  30px;   // pareja de $t-title-1 (el número que manda)
+$c-media:   19px;   // pareja de $t-title-2
+$c-normal:  14px;   // pareja de $t-subhead (listas)
+$c-pequena: 12px;   // pareja de $t-footnote
+
 @mixin hasta($px) {
     @media only screen and (max-width: $px) { @content; }
 }
@@ -169,6 +184,62 @@ $lh-titulo:  1.15;
     // "acento" en una cifra significa dinero retenido: ámbar, no azul.
     // El azul se reserva para lo que se puede pulsar.
     &--acento   { color: $atencion; .fz-cifra__dec, .fz-cifra__eur { color: rgba($atencion, 0.55); } }
+}
+
+// --- Resumen del mes --------------------------------------------
+// Lo primero que se ve: cuánto ha entrado, cuánto ha salido y qué
+// queda. Es la respuesta a la pregunta con la que se abre la app.
+.fz-resumen {
+    margin-bottom: 28px;
+
+    &__par {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    &__bloque {
+        padding: 16px;
+        background: $hueso;
+        border-radius: $romo;
+    }
+
+    &__etiqueta {
+        @include etiqueta;
+        font-size: $t-caption-2;
+    }
+
+    &__cifra {
+        margin-top: 6px;
+        font-family: $cifras;
+        font-size: $c-media;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        font-variant-numeric: tabular-nums;
+    }
+
+    // La cifra que manda en toda la pantalla.
+    &__limpio {
+        padding-top: 20px;
+        border-top: 2px solid $linea-fuerte;
+    }
+
+    &__total {
+        margin-top: 4px;
+        font-family: $cifras;
+        font-size: $c-grande;
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        line-height: $lh-titulo;
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__pie {
+        margin-top: 6px;
+        font-size: $t-footnote;
+        color: $g-500;
+    }
 }
 
 // --- Cabecera ---------------------------------------------------
@@ -438,7 +509,7 @@ $lh-titulo:  1.15;
 
     &__saldo {
         margin-top: 8px;
-        font-size: $t-title-2;
+        font-size: $c-media;
         font-weight: 600;
         letter-spacing: -0.02em;
     }
@@ -483,7 +554,7 @@ $lh-titulo:  1.15;
 
     &__nota { font-size: $t-caption-2; color: $g-400; }
 
-    &__cifra { font-size: $t-subhead; color: $g-900; }
+    &__cifra { font-size: $c-normal; color: $g-900; }
 
     // El IVA en naranja: está en la cuenta pero no es tuyo.
     &__fila--retenido {
@@ -508,7 +579,7 @@ $lh-titulo:  1.15;
         &-cifra {
             display: block;
             margin-top: 4px;
-            font-size: $t-large-title;
+            font-size: $c-media;
             font-weight: 600;
             letter-spacing: -0.04em;
             line-height: 1.05;
@@ -578,7 +649,7 @@ $lh-titulo:  1.15;
         @include hasta(420px) { grid-column: 2 / -1; }
     }
 
-    &__importe { font-size: $t-subhead; text-align: right; }
+    &__importe { font-size: $c-normal; text-align: right; }
 
     &__borrar {
         font-size: $t-subhead;
@@ -699,10 +770,10 @@ $lh-titulo:  1.15;
 
     &__fila {
         display: grid;
-        grid-template-columns: 74px 1fr auto;
-        gap: 12px;
+        grid-template-columns: 62px 1fr auto;
+        gap: 10px;
         align-items: center;
-        @include hasta(600px) { grid-template-columns: 58px 1fr auto; gap: 8px; }
+        @include hasta(600px) { grid-template-columns: 54px 1fr auto; gap: 8px; }
     }
 
     &__mes {
@@ -733,7 +804,7 @@ $lh-titulo:  1.15;
         &--negativo { background: $peligro; }
     }
 
-    &__cifra { font-size: $t-footnote; text-align: right; }
+    &__cifra { font-size: $c-pequena; text-align: right; }
 }
 
 // --- Filas de detalle (IVA, reservas, avisos) -------------------
@@ -777,7 +848,7 @@ $lh-titulo:  1.15;
         flex-shrink: 0;
     }
 
-    &__cifra { font-size: $t-title-3; font-weight: 600; }
+    &__cifra { font-size: $c-normal; font-weight: 600; }
 }
 
 // --- Login ------------------------------------------------------

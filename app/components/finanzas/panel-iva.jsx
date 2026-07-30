@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Cifra from './cifra';
 import { euros, nombreMes, hoyISO } from '@/app/lib/finanzas/formato';
 
 /**
@@ -58,7 +59,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
     async function liquidar(trimestre) {
         const aviso =
             `Vas a marcar como pagado a Hacienda el ${trimestre.trimestre_fiscal}, ` +
-            `${euros(trimestre.pendiente)}. Se apuntará también el gasto en la cuenta elegida.`;
+            `$<Cifra valor={trimestre.pendiente} signo={false} />. Se apuntará también el gasto en la cuenta elegida.`;
         if (!window.confirm(aviso)) return;
 
         await llamar({
@@ -77,7 +78,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
         <>
             {retenidoTotal > 0 && (
                 <div className="fz-aviso fz-aviso--atencion">
-                    Tienes {euros(retenidoTotal)} de IVA retenido. Ese dinero está en la
+                    Tienes <Cifra valor={retenidoTotal} signo={false} /> de IVA retenido. Ese dinero está en la
                     cuenta pero no es tuyo.
                 </div>
             )}
@@ -101,13 +102,13 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
                                     </span>
                                 </p>
                                 <p className="fz-fila__detalle">
-                                    {t.meses} {t.meses === 1 ? 'mes' : 'meses'} · total {euros(t.total)}
+                                    {t.meses} {t.meses === 1 ? 'mes' : 'meses'} · total <Cifra valor={t.total} signo={false} />
                                 </p>
                             </div>
 
                             <div className="fz-fila__lado">
                                 <span className={`fz-fila__cifra${pendiente ? ' fz-fila__cifra' : ''}`}>
-                                    {euros(pendiente ? t.pendiente : t.total)}
+                                    <Cifra valor={pendiente ? t.pendiente : t.total} signo={false} />
                                 </span>
                                 {pendiente && (
                                     <button
@@ -145,7 +146,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, onCamb
                                 </p>
                             </div>
                             <span className={`fz-fila__cifra${p.estado === 'retenido' ? ' fz-fila__cifra' : ''}`}>
-                                {euros(p.importe_calculado)}
+                                <Cifra valor={p.importe_calculado} signo={false} />
                             </span>
                         </div>
                     ))}

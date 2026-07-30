@@ -23,6 +23,12 @@ export const nombreMes = (fecha) =>
     new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' })
         .format(new Date(fecha));
 
+/** "jun 26": para columnas estrechas, como las barras del dashboard. */
+export const mesCorto = (fecha) =>
+    new Intl.DateTimeFormat('es-ES', { month: 'short', year: '2-digit' })
+        .format(new Date(fecha))
+        .replace('.', '');
+
 export const diaCorto = (fecha) =>
     new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: '2-digit' })
         .format(new Date(fecha));
