@@ -298,7 +298,12 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                                     type="button"
                                     onClick={() => setIngresando(true)}
                                 >
-                                    Llevarlo a una cuenta
+                                    {/* La tarjeta de efectivo mide poco más de
+                                        110 px en el móvil: «Llevarlo a una
+                                        cuenta» no cabe de ninguna manera. Al
+                                        pulsar se pregunta a qué cuenta, así
+                                        que una palabra basta. */}
+                                    Ingresar
                                 </button>
                             )
                         )}

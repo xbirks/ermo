@@ -447,15 +447,50 @@ $ancho-dos-columnas: 880px;
         }
     }
 
+    // El selector de «¿a qué cuenta lo llevas?» y el campo de corregir
+    // un saldo. En la tarjeta de efectivo, que es estrecha, las cuentas
+    // se apilan una por línea: en fila salían apretadas y sin forma de
+    // botón.
     &__editor {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
         align-items: center;
         margin-top: 10px;
+        // Sin esto, un nombre de cuenta largo estira la tarjeta.
+        min-width: 0;
 
-        .fz-input { flex: 1; padding: 8px 10px; }
-        .fz-boton { padding: 8px 14px; font-size: $t-footnote; }
+        .fz-input { flex: 1; min-width: 0; padding: 8px 10px; }
+
+        .fz-boton {
+            padding: 8px 14px;
+            font-size: $t-footnote;
+            max-width: 100%;
+            white-space: normal !important;
+            overflow-wrap: anywhere;
+        }
+
+        // `.fz-boton--suave` usa el mismo gris que la tarjeta, así que
+        // las cuentas se veían como texto suelto en negrita, sin forma
+        // de botón. En blanco vuelven a leerse como algo que se pulsa.
+        .fz-boton--suave {
+            background: $blanco;
+            border: 1px solid $linea;
+            &:hover:not(:disabled) { background: darken($blanco, 4%); }
+        }
+
+        // En la tarjeta pequeña cada cuenta ocupa su propia línea, con
+        // el fondo de pastilla bien visible.
+        @include hasta(560px) {
+            gap: 5px;
+            .fz-boton {
+                width: 100%;
+                justify-content: flex-start;
+                min-height: 38px;
+                font-size: $t-caption-2;
+                padding: 8px 12px;
+            }
+        }
     }
 
     // Acción de la tarjeta, al pie.
@@ -463,17 +498,21 @@ $ancho-dos-columnas: 880px;
     // `.fz-boton` lleva `white-space: nowrap`, así que «Ingresarlo en
     // el banco» medía más que la tarjeta y se salía por la derecha.
     // Aquí se le deja partir en dos líneas.
+    // Acción de la tarjeta, al pie.
+    //
+    // `.fz-boton` lleva `white-space: nowrap` y su variante `--texto`
+    // se declara después que esta regla, así que con la misma
+    // especificidad ganaba el `nowrap` y el texto se salía de la
+    // tarjeta por los dos lados. El `!important` es lo que hace que
+    // aquí mande el ajuste de línea.
     &__accion {
         align-self: stretch;
         justify-content: flex-start;
         max-width: 100%;
         margin: 10px 0 0 -10px;
         font-size: $t-footnote;
-        white-space: normal;
+        white-space: normal !important;
         text-align: left;
-        // La tarjeta de efectivo mide poco más de 100 px en el móvil y
-        // el texto del botón es largo: sin esto se salía por la
-        // derecha, encima de la tarjeta vecina.
         overflow-wrap: anywhere;
         line-height: 1.3;
 
