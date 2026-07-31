@@ -992,6 +992,87 @@ $ancho-dos-columnas: 880px;
     margin-bottom: 30px;
 
     @include hasta(460px) { grid-template-columns: 1fr; }
+
+    // Desde que anotar vive en el botón flotante, aquí queda una sola
+    // tarjeta: a media columna se veía coja.
+    &--una { grid-template-columns: 1fr; }
+}
+
+// --- Botones flotantes ------------------------------------------
+//
+// Anotar un movimiento es lo que más se hace, y con las secciones
+// desplegadas el botón quedaba a veinte pantallas de scroll. Aquí
+// está siempre, en la esquina donde cae el pulgar.
+//
+// La flecha de subir se le pone encima cuando hay recorrido hecho.
+.fz-flotantes {
+    position: fixed;
+    // `env(safe-area-inset-*)` deja sitio a la barra de gestos del
+    // iPhone: sin esto el botón queda debajo y no se puede pulsar.
+    right: calc(20px + env(safe-area-inset-right, 0px));
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    @include hasta(600px) {
+        right: calc(16px + env(safe-area-inset-right, 0px));
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+.fz-flotante {
+    @include glifo-centrado;
+    width: 56px;
+    height: 56px;
+    border: 0;
+    border-radius: $pastilla;
+    // La sombra es lo que lo separa del contenido que pasa por debajo:
+    // sobre tanto blanco, un círculo plano se confunde con la página.
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+    transition: transform 0.18s ease, background 0.15s ease,
+                box-shadow 0.18s ease, opacity 0.15s ease;
+
+    &:active { transform: scale(0.94); }
+    &:focus-visible { outline: 2px solid $acento; outline-offset: 3px; }
+
+    // El de anotar: negro, como el resto de acciones principales.
+    &--anotar {
+        background: $linea-fuerte;
+        color: $blanco !important;
+        font-size: 30px;
+        font-weight: $p-ligero;
+
+        &:hover { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22); }
+    }
+
+    // Con el formulario abierto el mismo botón lo cierra: el «+» gira
+    // hasta la «×» en lugar de cambiar de glifo, que salta menos.
+    &--abierto {
+        transform: rotate(45deg);
+        &:active { transform: rotate(45deg) scale(0.94); }
+    }
+
+    // El de subir: discreto, que no compite con el de anotar.
+    &--subir {
+        width: 46px;
+        height: 46px;
+        background: $blanco;
+        color: $g-900 !important;
+        font-size: $t-title-3;
+        border: 1px solid $linea;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+
+        &:hover { background: $hueso; }
+    }
+
+    // Quien haya pedido menos movimiento no quiere que un botón gire.
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
 }
 
 .fz-accion {
@@ -1408,6 +1489,20 @@ $ancho-dos-columnas: 880px;
 
         &:hover { background: $hueso; color: $g-900; }
         &:focus-visible { outline: 2px solid $acento; }
+
+        // Con el dedo se quedaba en 31 px de alto y se fallaba el
+        // toque. Es la puerta de entrada a corregir un apunte, así que
+        // conviene que se acierte a la primera.
+        @include hasta(600px) {
+            min-width: 34px;
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: $t-body;
+            // Los puntos suspensivos se ven muy tenues a este tamaño.
+            color: $g-500;
+        }
     }
 
     // El editor, bajo la fila que se corrige.

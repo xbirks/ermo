@@ -17,6 +17,7 @@ import VistaAnual from '@/app/components/finanzas/vista-anual';
 import NotaMes from '@/app/components/finanzas/nota-mes';
 import GastosFijos from '@/app/components/finanzas/gastos-fijos';
 import Plegable from '@/app/components/finanzas/plegable';
+import Flotantes from '@/app/components/finanzas/flotantes';
 import { nombreMes } from '@/app/lib/finanzas/formato';
 
 // Dos vistas, no cuatro pestañas: el mes que estás llevando y la
@@ -229,23 +230,11 @@ export default function FinanzasPage() {
                             explicarlo. */}
                         <NotaMes mes={mes} nota={nota} onGuardado={cargar} />
 
-                        {/* Las dos cosas que se hacen a diario, destacadas
-                            sobre lo que sólo se consulta. */}
-                        <div className="fz-acciones">
-                            <button
-                                className="fz-accion"
-                                type="button"
-                                onClick={() => setAnotando((v) => !v)}
-                            >
-                                <span className="fz-accion__texto">
-                                    {anotando ? 'Cerrar' : 'Anotar movimiento'}
-                                    <span className="fz-accion__pie">
-                                        Un gasto, un cobro o un traspaso
-                                    </span>
-                                </span>
-                                <span className="fz-accion__signo">{anotando ? '×' : '+'}</span>
-                            </button>
-
+                        {/* Anotar un movimiento ya vive en el botón
+                            flotante de la esquina, que está siempre a
+                            mano: tenerlo también aquí era el mismo botón
+                            dos veces. Queda lo de los recibos. */}
+                        <div className="fz-acciones fz-acciones--una">
                             {fijosPendientes.length > 0 ? (
                                 <button
                                     className="fz-accion fz-accion--pendiente"
@@ -275,7 +264,17 @@ export default function FinanzasPage() {
                         </div>
 
                         {anotando && (
-                            <div className="fz-editor" style={{ marginBottom: 30 }}>
+                            <div
+                                className="fz-editor"
+                                style={{ marginBottom: 30 }}
+                                ref={(el) => {
+                                    // El botón flotante vive abajo del todo y el
+                                    // formulario está a media página: sin traerlo
+                                    // a la vista, pulsar el «+» desde el pie
+                                    // parece no hacer nada.
+                                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }}
+                            >
                                 <AltaMovimiento
                                     cuentas={cuentas}
                                     categorias={categorias}
@@ -383,6 +382,16 @@ export default function FinanzasPage() {
                     />
                 )}
             </div>
+
+            {/* Fuera del contenedor: van fijos a la ventana, no al
+                ancho de la página. El «+» sólo en la vista del mes, que
+                es donde está el formulario que abre; la flecha de subir
+                aparece sola en cualquiera de las tres. */}
+            <Flotantes
+                anotando={anotando}
+                conAnotar={vista === 'mes'}
+                onAnotar={() => setAnotando((v) => !v)}
+            />
         </div>
     );
 }
