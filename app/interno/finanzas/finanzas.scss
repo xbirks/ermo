@@ -229,7 +229,9 @@ $ancho-dos-columnas: 880px;
         margin: 0 auto;
         padding: 24px 24px 120px;
 
-        @include hasta(600px) { padding: 16px 16px 96px; }
+        // Hueco al pie para que el botón flotante no tape la última
+        // tarjeta: mide 56 px más su separación del borde.
+        @include hasta(600px) { padding: 16px 16px 120px; }
     }
 }
 
