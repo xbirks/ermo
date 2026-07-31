@@ -175,6 +175,10 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                                 <button className="fz-boton" type="submit" disabled={ocupado}>
                                     {ocupado ? '…' : 'Guardar'}
                                 </button>
+                                <span className="fz-form__pista" style={{ width: '100%' }}>
+                                    A partir de hoy, la app suma y resta lo que
+                                    apuntes sobre esta cifra.
+                                </span>
                                 <button
                                     className="fz-boton fz-boton--texto"
                                     type="button"
