@@ -61,6 +61,14 @@ export async function GET(request) {
                     SELECT 1 FROM transacciones t WHERE t.categoria_id = c.id
                       AND t.fecha >= ${mes}::date AND t.fecha < (${mes}::date + INTERVAL '1 month')
                   )
+                  -- Si la categoría es la cuota de una deuda (el coche),
+                  -- ya avisa la parte de "deuda" de abajo, con su día
+                  -- real de cargo. Sin este filtro saldrían dos avisos
+                  -- del mismo pago, en días distintos y con el importe
+                  -- redondeado de un lado y el exacto del otro.
+                  AND c.id NOT IN (
+                    SELECT categoria_id FROM deudas WHERE categoria_id IS NOT NULL
+                  )
 
                 UNION ALL
 
