@@ -657,10 +657,16 @@ $ancho-dos-columnas: 880px;
 
         // Lo que no es tuyo, en azul.
         &--fuera { color: $atencion; }
+
+        @include desde($ancho-dos-columnas) { font-size: 19px; }
     }
 
     // La cifra del total, más grande porque es la que se busca.
-    &__caja--libre &__cifra { font-size: $c-media; }
+    &__caja--libre &__cifra {
+        font-size: $c-media;
+
+        @include desde($ancho-dos-columnas) { font-size: 34px; }
+    }
 }
 
 // El saldo del banco: azul y del mismo tamaño que la cifra destacada
@@ -677,11 +683,17 @@ $ancho-dos-columnas: 880px;
 
     // Un saldo en negativo manda sobre el azul.
     .fz-cifra--negativo { color: $peligro !important; }
+
+    // En escritorio sobra sitio: el saldo que manda puede leerse de
+    // un vistazo desde más lejos. Sólo aquí, no en móvil.
+    @include desde($ancho-dos-columnas) { font-size: 40px; }
 }
 
 // Las cuentas secundarias, algo menores.
 .fz .fz-bancos__fila--secundaria .fz-bancos__cifra {
     font-size: $c-normal;
+
+    @include desde($ancho-dos-columnas) { font-size: 20px; }
 }
 
 // --- Cabecera ---------------------------------------------------
@@ -1125,6 +1137,14 @@ $ancho-dos-columnas: 880px;
         height: 26px;
         font-size: $t-title-3;
         font-weight: $p-ligero;
+
+        // Un poco más grande en escritorio; el círculo crece con ella
+        // para que la cifra no roce el borde.
+        @include desde($ancho-dos-columnas) {
+            width: 34px;
+            height: 34px;
+            font-size: $t-title-2;
+        }
     }
 }
 
