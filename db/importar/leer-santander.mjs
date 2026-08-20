@@ -36,8 +36,8 @@ function aISO(d, m, a) {
  */
 function limpiarConcepto(texto) {
     return texto
-        .replace(/,?\s*Tarj\.?\s*:?\s*\*?\d+/gi, '')     // Tarj. :*988762
-        .replace(/,?\s*Tarjeta\s*\d+/gi, '')             // Tarjeta 5489010390988762
+        .replace(/,?\s*Tarj\.?\s*:?\s*\*?\d+/gi, '')     // Tarj. :*NNNNNN
+        .replace(/,?\s*Tarjeta\s*\d+/gi, '')             // Tarjeta NNNNNNNNNNNNNNNN
         .replace(/,\s*Comision\s*[\d,]+/gi, '')          // Comision 0,00
         .replace(/^Pago Movil En\s+/i, '')
         .replace(/^Compra\s+(Internet\s+En\s+)?/i, '')

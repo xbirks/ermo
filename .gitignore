@@ -48,3 +48,6 @@ public/_next-video
 # Extractos bancarios: nunca al repositorio
 datos-bancos/
 .env.local.pruebas
+
+# Migraciones con datos reales (movimientos, saldos, nombres de terceros)
+db/migraciones/*-datos.sql
