@@ -51,3 +51,5 @@ datos-bancos/
 
 # Migraciones con datos reales (movimientos, saldos, nombres de terceros)
 db/migraciones/*-datos.sql
+
+.env*
