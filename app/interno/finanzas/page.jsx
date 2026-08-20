@@ -221,6 +221,8 @@ export default function FinanzasPage() {
                         <TiraBancos
                             cuentas={cuentas}
                             fijos={listaFijos}
+                            mes={mes}
+                            trimestres={trimestres}
                             onCambio={cargar}
                             onVerApartado={() => setAbrirApartado((n) => n + 1)}
                         />

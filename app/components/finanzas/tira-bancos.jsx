@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Cifra from './cifra';
+import { diaCorto, fechaFijoDelMes, fechaLimiteIva } from '@/app/lib/finanzas/formato';
 
 /**
  * Cuántos días hace que se puso el saldo a mano.
@@ -32,7 +33,7 @@ function diasDesde(fecha) {
  *
  * Se editan pulsando la cifra.
  */
-export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) {
+export default function TiraBancos({ cuentas, fijos, mes, trimestres, onCambio, onVerApartado }) {
     // Lo que aún tiene que salir de cada cuenta este mes. Sin esto, el
     // saldo de hoy engaña: el día 1 se cargan los domiciliados y baja
     // de golpe.
@@ -40,11 +41,15 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
     // La cuota de autónomos es dinero para Hacienda igual que el IVA,
     // sólo que se paga desde Santander. Va aparte de los demás recibos.
     const cuotaHacienda = {};
+    // Cuándo se espera el cargo de esa cuota, para poder decir "el
+    // dinero hace falta el día X" en vez de sólo "hace falta".
+    const cuotaHaciendaFecha = {};
     for (const f of fijos || []) {
         if (!f.toca || f.ya_apuntado || !f.cuenta) continue;
         const esCuota = /cuota aut[oó]nomo|seguridad social|tgss/i.test(f.nombre);
         const destino = esCuota ? cuotaHacienda : porSalir;
         destino[f.cuenta] = (destino[f.cuenta] || 0) + (f.importe_previsto || 0);
+        if (esCuota) cuotaHaciendaFecha[f.cuenta] = fechaFijoDelMes(mes, f.dia_cobro);
     }
 
     // ¿Se ha traspasado ya el dinero de la cuota a Santander? No es lo
@@ -52,6 +57,14 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
     const cuotaCubierta = (fijos || []).some(
         (f) => /cuota aut[oó]nomo|seguridad social|tgss/i.test(f.nombre) && f.ya_apuntado
     );
+
+    // El trimestre de IVA más antiguo que sigue retenido: es el que
+    // toca liquidar primero. Los trimestres llegan del más reciente al
+    // más antiguo, así que es el último que quede tras filtrar.
+    const trimestresPendientes = (trimestres || []).filter((t) => t.pendiente > 0);
+    const ivaFechaLimite = trimestresPendientes.length
+        ? fechaLimiteIva(trimestresPendientes[trimestresPendientes.length - 1].trimestre_fiscal)
+        : null;
     const [editando, setEditando] = useState(null);
     const [valor, setValor] = useState('');
     const [ocupado, setOcupado] = useState(false);
@@ -145,6 +158,12 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                 // cargado.
                 const porCargar = porSalir[c.nombre] || 0;
                 const cuota = cuotaHacienda[c.nombre] || 0;
+                // De dónde sale la fecha prevista: si hay cuota, la
+                // suya; si no, la del IVA. En esta app nunca coinciden
+                // las dos en la misma cuenta.
+                const fechaHacienda = cuota > 0
+                    ? cuotaHaciendaFecha[c.nombre]
+                    : (c.iva_retenido > 0 ? ivaFechaLimite : null);
                 const retenido = c.iva_retenido + c.reservado + porCargar + cuota;
                 const libre = c.saldo_actual - retenido;
                 const enEdicion = editando === c.id;
@@ -216,13 +235,22 @@ export default function TiraBancos({ cuentas, fijos, onCambio, onVerApartado }) 
                                     >
                                         <span className="fz-desglose__etiqueta">
                                             Para Hacienda
-                                            {cuota > 0 && !c.iva_retenido && (
-                                                <span className="fz-desglose__pie">
-                                                    {cuotaCubierta
+                                            {(() => {
+                                                const trozos = [];
+                                                if (cuota > 0 && !c.iva_retenido) {
+                                                    trozos.push(cuotaCubierta
                                                         ? 'cuota, ya traspasada'
-                                                        : 'cuota, pendiente'}
-                                                </span>
-                                            )}
+                                                        : 'cuota, pendiente');
+                                                }
+                                                if (fechaHacienda) {
+                                                    trozos.push(`previsto ${diaCorto(fechaHacienda)}`);
+                                                }
+                                                return trozos.length > 0 && (
+                                                    <span className="fz-desglose__pie">
+                                                        {trozos.join(' · ')}
+                                                    </span>
+                                                );
+                                            })()}
                                         </span>
                                         <span className="fz-desglose__cifra fz-desglose__cifra--fuera">
                                             <Cifra valor={c.iva_retenido + cuota} signo={false} />
