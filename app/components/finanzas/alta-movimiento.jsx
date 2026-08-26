@@ -230,7 +230,7 @@ export default function AltaMovimiento({
                     </button>
                     {editando && onBorrar && (
                         <button
-                            className="fz-boton fz-boton--texto"
+                            className="fz-boton fz-boton--texto fz-boton--peligro"
                             type="button"
                             onClick={onBorrar}
                             disabled={guardando}

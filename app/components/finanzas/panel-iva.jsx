@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Cifra from './cifra';
+import { useConfirmar } from './confirmar';
 import { euros, nombreMes, hoyISO } from '@/app/lib/finanzas/formato';
 
 /**
@@ -24,6 +25,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
     const [mesElegido, setMesElegido] = useState('');
     const [error, setError] = useState('');
     const [ocupado, setOcupado] = useState(false);
+    const confirmar = useConfirmar();
 
     async function llamar(cuerpo) {
         setOcupado(true);
@@ -53,7 +55,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
         const aviso =
             `¿Borrar el IVA de ${nombreMes(p.mes_referencia)} ` +
             `(${euros(p.importe_calculado)})?`;
-        if (!window.confirm(aviso)) return;
+        if (!(await confirmar(aviso, { peligroso: true, textoAceptar: 'Borrar' }))) return;
 
         setOcupado(true);
         try {
@@ -87,7 +89,7 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
             `¿Deshacer el pago del ${trimestre.trimestre_fiscal}?\n\n` +
             `Volverá a contar como retenido y se borrará el gasto que se ` +
             `apuntó al marcarlo como pagado.`;
-        if (!window.confirm(aviso)) return;
+        if (!(await confirmar(aviso, { textoAceptar: 'Deshacer' }))) return;
 
         await llamar({
             accion: 'deshacer_pago',
@@ -98,8 +100,8 @@ export default function PanelIva({ provisiones, trimestres, cuentas, mes, resume
     async function liquidar(trimestre) {
         const aviso =
             `Vas a marcar como pagado a Hacienda el ${trimestre.trimestre_fiscal}, ` +
-            `$<Cifra valor={trimestre.pendiente} signo={false} />. Se apuntará también el gasto en la cuenta elegida.`;
-        if (!window.confirm(aviso)) return;
+            `${euros(trimestre.pendiente)}. Se apuntará también el gasto en la cuenta elegida.`;
+        if (!(await confirmar(aviso, { textoAceptar: 'Marcar como pagado' }))) return;
 
         await llamar({
             accion: 'pagar_trimestre',

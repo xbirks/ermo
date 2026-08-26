@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import { Plus } from 'lucide-react';
 
 /**
  * Sección que se abre al pulsar el título.
@@ -51,7 +52,9 @@ export default function Plegable({
                     {!abierta && resumen && (
                         <span className="fz-plegable__resumen">{resumen}</span>
                     )}
-                    <span className="fz-plegable__abrir" aria-hidden="true">+</span>
+                    <span className="fz-plegable__abrir" aria-hidden="true">
+                        <Plus size={16} />
+                    </span>
                 </span>
             </button>
 

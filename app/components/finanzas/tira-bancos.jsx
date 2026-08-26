@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { Pencil } from 'lucide-react';
 import Cifra from './cifra';
 import { diaCorto, fechaFijoDelMes, fechaLimiteIva } from '@/app/lib/finanzas/formato';
 
@@ -222,6 +223,10 @@ export default function TiraBancos({ cuentas, fijos, mes, trimestres, onCambio, 
                                 {/* Lo que dice el banco. Si hay dinero
                                     retenido, se detalla debajo. */}
                                 <Cifra valor={c.saldo_actual} />
+                                {/* Señal permanente de que es pulsable: el
+                                    `title` de arriba no se ve nunca en
+                                    móvil, donde no hay tooltips. */}
+                                <Pencil className="fz-bancos__lapiz" aria-hidden="true" />
                             </button>
                         )}
 

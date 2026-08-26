@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Cifra from './cifra';
+import { useConfirmar } from './confirmar';
 import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 
 /**
@@ -21,6 +22,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
     const [editando, setEditando] = useState(null);
     const [error, setError] = useState('');
     const [ocupado, setOcupado] = useState(false);
+    const confirmar = useConfirmar();
 
     const set = (campo) => (e) =>
         setEditando((f) => ({ ...f, [campo]: e.target.value }));
@@ -53,7 +55,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
         const texto =
             `¿Liberar "${r.concepto}" (${euros(r.importe)})?\n\n` +
             `Ese dinero volverá a contar como disponible.`;
-        if (!window.confirm(texto)) return;
+        if (!(await confirmar(texto, { textoAceptar: 'Liberar' }))) return;
 
         setOcupado(true);
         try {
@@ -69,7 +71,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
             `¿Borrar "${r.concepto}" (${euros(r.importe)})?\n\n` +
             `Desaparece del todo. Si sólo quieres dejar de retenerlo, ` +
             `usa "Liberar" en su lugar.`;
-        if (!window.confirm(texto)) return;
+        if (!(await confirmar(texto, { peligroso: true, textoAceptar: 'Borrar' }))) return;
 
         setOcupado(true);
         try {
@@ -164,7 +166,7 @@ export default function PanelReservas({ reservas, cuentas, onCambio }) {
                     </button>
                     {editando?.id && (
                         <button
-                            className="fz-boton fz-boton--texto"
+                            className="fz-boton fz-boton--texto fz-boton--peligro"
                             type="button"
                             onClick={() => borrar(editando)}
                             disabled={ocupado}

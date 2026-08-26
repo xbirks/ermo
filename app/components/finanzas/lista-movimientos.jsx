@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from 'react';
+import { Pencil, X } from 'lucide-react';
 import Cifra from './cifra';
 import AltaMovimiento from './alta-movimiento';
+import { useConfirmar } from './confirmar';
 import { euros, diaCorto } from '@/app/lib/finanzas/formato';
 
 // Los ingresos van en verde. En una lista de treinta apuntes casi
@@ -16,13 +18,14 @@ const NOTA_DE_IMPORTACION = /^\s*Importado del extracto del banco\.?\s*$/i;
 
 export default function ListaMovimientos({ movimientos, cuentas, categorias, onBorrar, onCambio }) {
     const [editando, setEditando] = useState(null);
+    const confirmar = useConfirmar();
     if (!movimientos.length) {
         return <p className="fz-vacio">Todavía no hay movimientos en este mes.</p>;
     }
 
     async function borrar(m) {
         const aviso = `¿Borrar "${m.concepto}" de ${euros(m.importe)}?`;
-        if (!window.confirm(aviso)) return;
+        if (!(await confirmar(aviso, { peligroso: true, textoAceptar: 'Borrar' }))) return;
         onBorrar(m.id);
     }
 
@@ -61,10 +64,12 @@ export default function ListaMovimientos({ movimientos, cuentas, categorias, onB
                                 className="fz-movimientos__editar"
                                 type="button"
                                 onClick={() => setEditando(editando?.id === m.id ? null : m)}
-                                aria-label={`Corregir ${m.concepto}`}
+                                aria-label={editando?.id === m.id ? 'Cerrar edición' : `Corregir ${m.concepto}`}
                                 title="Corregir"
                             >
-                                {editando?.id === m.id ? '×' : '⋯'}
+                                {editando?.id === m.id
+                                    ? <X size={16} aria-hidden="true" />
+                                    : <Pencil size={15} aria-hidden="true" />}
                             </button>
                         </div>
 

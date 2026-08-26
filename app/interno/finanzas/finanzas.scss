@@ -43,11 +43,12 @@ $acento-piso: #e8f0ff;
 // distinguen por el signo, y en una lista larga no basta.
 $entra:       #0f7a3d;
 
-// Lo retenido y lo pendiente usan el mismo azul que lo pulsable, en un
-// tono más oscuro. El ámbar daba aire de aviso de error a cosas que son
-// normales: tener IVA retenido no es un problema, es lo correcto.
-$atencion:      #0040bf;
-$atencion-piso: #eaf1ff;
+// Ámbar para lo que reclama atención (dinero retenido, recibos sin
+// apuntar): con el mismo azul que lo pulsable, un botón y un aviso
+// informativo se leían igual, y no se distinguía "esto se pulsa" de
+// "esto es un dato a tener en cuenta".
+$atencion:      #b5590a;
+$atencion-piso: #fdf1e4;
 
 $peligro:     #d92b1c;   // negativos y acciones destructivas
 
@@ -288,23 +289,26 @@ $ancho-dos-columnas: 880px;
         @include hasta(600px) { padding: 16px 14px; }
     }
 
+    // Sin el `font-size` propio: a 11 px quedaba más pequeña que
+    // `.fz-seccion__titulo` (13 px), que cumple el mismo papel de
+    // etiqueta en el resto de la app, incluida "El mes".
     &__etiqueta {
         @include etiqueta;
-        font-size: $t-caption-2;
     }
 
+    // Mismo tamaño que el saldo de una cuenta secundaria en "El mes":
+    // ahí son cifras de apoyo, no la que manda, y antes esta vivía en
+    // una escala distinta (28 → 22 → 20 px) sin relación con esa.
     &__cifra {
         margin-top: 10px;
         font-family: $texto;
-        font-size: $c-media;
+        font-size: 18px;
         font-weight: $p-ligero;
         letter-spacing: -0.035em;
         line-height: $lh-titulo;
         font-variant-numeric: tabular-nums;
 
-        // «15.061,92 €» a 28 px no cabe en media pantalla de 320 px.
-        @include hasta(600px) { font-size: $t-title-2; }
-        @include hasta(360px) { font-size: $t-title-3; }
+        @include desde($ancho-dos-columnas) { font-size: 20px; }
     }
 
     // La cifra que manda en toda la pantalla.
@@ -322,16 +326,19 @@ $ancho-dos-columnas: 880px;
 
     &__limpio--suave { border-top-color: $linea; }
 
+    // Mismo tamaño que el saldo de una cuenta principal en "El mes"
+    // (28 → 40 px): antes iba a 64 px, la cifra más grande de toda la
+    // app, sin relación con la escala del resto de las vistas.
     &__total {
         margin-top: 8px;
         font-family: $texto;
-        font-size: $c-grande;
+        font-size: $c-media;
         font-weight: $p-ligero;
         letter-spacing: -0.05em;
         line-height: 1;
         font-variant-numeric: tabular-nums;
 
-        @include hasta(430px) { font-size: 46px; }
+        @include desde($ancho-dos-columnas) { font-size: 40px; }
     }
 
     &__pie {
@@ -421,8 +428,13 @@ $ancho-dos-columnas: 880px;
     }
 
     // El desglose de lo retenido, cuando lo hay.
-    // La cifra editable se distingue por ser pulsable.
+    // La cifra editable se distingue por ser pulsable. El lápiz es la
+    // señal permanente: antes sólo lo decía un `title`, que en el móvil
+    // no se ve nunca porque los tooltips no existen en touch.
     &__cifra--editable {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         background: none;
         border: 0;
         padding: 2px 6px;
@@ -442,11 +454,24 @@ $ancho-dos-columnas: 880px;
         // el control que más se usa de la pantalla.
         @include hasta(600px) {
             min-height: 44px;
-            display: inline-flex;
-            align-items: center;
             padding: 2px 8px;
             margin: -2px -8px;
         }
+    }
+
+    // Tamaño fijo, no relativo a la letra: en la fila secundaria (letra
+    // más pequeña) un lápiz en `em` se quedaba en unos 9 px, invisible
+    // y difícil de acertar con el dedo.
+    &__lapiz {
+        flex-shrink: 0;
+        width: 15px;
+        height: 15px;
+        color: $g-400;
+        transition: color 0.15s ease;
+    }
+    &__cifra--editable:hover &__lapiz,
+    &__cifra--editable:focus-visible &__lapiz {
+        color: $acento;
     }
 
     // El selector de «¿a qué cuenta lo llevas?» y el campo de corregir
@@ -689,9 +714,11 @@ $ancho-dos-columnas: 880px;
     @include desde($ancho-dos-columnas) { font-size: 40px; }
 }
 
-// Las cuentas secundarias, algo menores.
+// Las cuentas secundarias, algo menores. A 16 px se leían diminutas en
+// el móvil, sobre todo con el lápiz al lado: 18 px sigue siendo menor
+// que la cuenta principal pero se lee sin acercar el teléfono.
 .fz .fz-bancos__fila--secundaria .fz-bancos__cifra {
-    font-size: $c-normal;
+    font-size: 18px;
 
     @include desde($ancho-dos-columnas) { font-size: 20px; }
 }
@@ -721,41 +748,49 @@ $ancho-dos-columnas: 880px;
 }
 
 // --- Selector de mes --------------------------------------------
+// El mes que se está mirando es lo importante, y vive junto a los
+// controles con los que se cambia: un H1 genérico arriba, el nombre
+// del mes dentro de la navegación, no repetido y separado de ella.
 .fz-mes {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    flex-direction: column;
+    gap: 14px;
     margin-bottom: 22px;
+
+    &__titulo {
+        @include etiqueta;
+    }
+
+    &__nav { display: flex; align-items: center; gap: 10px; }
+
+    &__actual {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
 
     &__nombre {
         font-size: $t-title-1;
         font-weight: $p-fuerte;
         letter-spacing: -0.03em;
         line-height: 1.1;
-        min-width: 0;
 
         &::first-letter { text-transform: uppercase; }
         @include hasta(600px) { font-size: $t-title-2; }
     }
 
-    &__nav { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-
-    // En el móvil, «Julio de 2026» más las dos flechas y «Este mes»
-    // competían por 358 px y quedaba todo apretado contra los bordes.
-    // El nombre del mes se queda solo en su línea y la navegación baja
-    // debajo, repartida a lo ancho: cada control gana sitio y el pulgar
-    // los alcanza sin apuntar.
+    // En el móvil, «Julio de 2026» más las dos flechas competían por
+    // 358 px. Aquí la navegación pasa a rejilla de tres columnas: las
+    // flechas a los lados, el mes centrado entre ellas, cada control
+    // gana sitio y el pulgar los alcanza sin apuntar.
     @include hasta(600px) {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-
         &__nav {
             display: grid;
             grid-template-columns: auto 1fr auto;
             gap: 8px;
         }
+        &__actual { align-items: center; text-align: center; }
     }
 }
 
@@ -765,6 +800,7 @@ $ancho-dos-columnas: 880px;
     gap: 4px;
     padding: 4px;
     background: $hueso;
+    border: 1px solid $linea;
     border-radius: $pastilla;
     margin-bottom: 24px;
     overflow-x: auto;
@@ -872,16 +908,45 @@ $ancho-dos-columnas: 880px;
     &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
 
     // Variante de texto: para acciones secundarias dentro de una fila,
-    // donde un botón con fondo pesa demasiado.
+    // donde un botón con fondo pesa demasiado. Sin borde, sólo texto de
+    // color, no se leía como botón hasta pasar el ratón por encima, y
+    // en el móvil no hay hover: «Ingresar» parecía una etiqueta suelta.
     &--texto {
         background: transparent;
+        border: 1px solid rgba($acento, 0.3);
         color: $acento !important;
         padding: 8px 10px;
-        &:hover:not(:disabled) { background: $acento-piso; opacity: 1; }
+        &:hover:not(:disabled) {
+            background: $acento-piso;
+            border-color: rgba($acento, 0.5);
+            opacity: 1;
+        }
     }
 
+    // Se combina con `--texto` para acciones que borran o dan de baja
+    // algo: mismo contorno, en rojo en vez de azul.
+    &--peligro {
+        color: $peligro !important;
+        border-color: rgba($peligro, 0.3);
+        &:hover:not(:disabled) {
+            background: rgba($peligro, 0.08);
+            border-color: rgba($peligro, 0.5);
+        }
+    }
+
+    // El botón de aceptar en una confirmación cuando la acción borra
+    // algo: mismo peso visual que el botón por defecto, en rojo.
+    &--peligro-lleno {
+        background: $peligro;
+        &:hover:not(:disabled) { background: $peligro; opacity: 0.85; }
+    }
+
+    // Fondo `$hueso` sobre página `$blanco`: sin borde la diferencia es
+    // casi imperceptible y el botón se leía como una superficie más de
+    // la página, no como algo pulsable.
     &--suave {
         background: $hueso;
+        border: 1px solid $linea;
         color: $g-900 !important;
         &:hover:not(:disabled) { background: darken($hueso, 4%); opacity: 1; }
     }
@@ -895,6 +960,7 @@ $ancho-dos-columnas: 880px;
         height: 38px;
         font-size: $t-title-3;
         background: $hueso;
+        border: 1px solid $linea;
         color: $g-900 !important;
         &:hover:not(:disabled) {
             background: darken($hueso, 5%);
@@ -965,7 +1031,10 @@ $ancho-dos-columnas: 880px;
     border-radius: $romo;
     font-size: $t-footnote;
     line-height: $lh-cuerpo;
-    color: $atencion !important;
+    // Azul, no ámbar: la nota es pulsable, no un aviso de dinero
+    // retenido. Con fondo y texto de la misma familia se lee como un
+    // único bloque coherente.
+    color: $acento !important;
     white-space: pre-wrap;
     transition: background 0.15s ease;
 
@@ -1215,7 +1284,7 @@ $ancho-dos-columnas: 880px;
             display: grid;
             grid-template-columns: 1fr auto;
             align-items: center;
-            gap: 4px 12px;
+            gap: 6px 12px;
             padding: 16px;
         }
     }
@@ -1497,7 +1566,14 @@ $ancho-dos-columnas: 880px;
         @include hasta(420px) { grid-column: 2 / -1; }
     }
 
-    &__importe { font-size: $c-normal; text-align: right; }
+    // En el resto de listas de la app (recibos, IVA, reservas) el
+    // importe sube a 17 px en el móvil; aquí se había quedado en 16 en
+    // todos los tamaños, la lista que más se mira de toda la sección.
+    &__importe {
+        font-size: $c-normal;
+        text-align: right;
+        @include hasta(600px) { font-size: $t-body; }
+    }
 
     &__editar {
         font-size: 15px;
@@ -1514,10 +1590,11 @@ $ancho-dos-columnas: 880px;
 
         // Con el dedo se quedaba en 31 px de alto y se fallaba el
         // toque. Es la puerta de entrada a corregir un apunte, así que
-        // conviene que se acierte a la primera.
+        // conviene que se acierte a la primera. 44 px, el mínimo de las
+        // guías de Apple, igual que el resto de controles del sistema.
         @include hasta(600px) {
-            min-width: 34px;
-            min-height: 34px;
+            min-width: 44px;
+            min-height: 44px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -1735,7 +1812,9 @@ $ancho-dos-columnas: 880px;
 
     &--acento { background: $atencion-piso; }
 
-    &__etiqueta { @include etiqueta; font-size: $t-caption-2; }
+    // Misma etiqueta que el resto de la app: a 11 px desentonaba con
+    // `.fz-seccion__titulo` (13 px), justo debajo en esta misma vista.
+    &__etiqueta { @include etiqueta; }
     &__valor { margin-top: 8px; font-size: $t-title-3; font-weight: 600; letter-spacing: -0.02em; }
     &__pie { margin-top: 4px; font-size: $t-caption-2; color: $g-400; }
 }
@@ -1755,13 +1834,13 @@ $ancho-dos-columnas: 880px;
         font-weight: $p-medio;
         color: $g-600 !important;
         background: $hueso;
-        border: 0;
+        border: 1px solid $linea;
         border-radius: $pastilla;
         padding: 9px 18px;
         transition: background 0.15s ease, color 0.15s ease;
 
         &:hover { background: darken($hueso, 4%); }
-        &--activo { background: $g-900; color: $blanco !important; }
+        &--activo { background: $g-900; color: $blanco !important; border-color: $g-900; }
         &:focus-visible { outline: 2px solid $acento; outline-offset: 2px; }
     }
 }
@@ -1972,7 +2051,11 @@ $ancho-dos-columnas: 880px;
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: start;
-        gap: 8px 12px;
+        // Más aire vertical que horizontal: con nombre + etiquetas +
+        // detalle a menudo en dos o tres líneas, 8 px dejaba los
+        // botones pegados justo debajo del texto.
+        gap: 14px 12px;
+        padding: 16px 12px;
 
         > div:first-child { grid-column: 1; grid-row: 1; }
 
@@ -1994,7 +2077,7 @@ $ancho-dos-columnas: 880px;
         // Los botones comparten la segunda línea, a la izquierda.
         &__lado .fz-boton {
             grid-row: 2;
-            min-height: 40px;
+            min-height: 44px;
             padding: 9px 16px;
             font-size: $t-footnote;
             justify-self: start;
@@ -2040,4 +2123,56 @@ $ancho-dos-columnas: 880px;
         text-align: center;
         margin-bottom: 26px;
     }
+}
+
+// --- Confirmación -------------------------------------------------
+// Sustituye a `window.confirm()`: mismo lenguaje visual que el resto
+// de la app. El diálogo del sistema no se puede estilizar ni controlar
+// el salto de línea, y en el móvil desentona con todo lo demás.
+.fz-confirmar {
+    &__fondo {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 10, 11, 0.45);
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        z-index: 100;
+    }
+
+    &__caja {
+        width: 100%;
+        max-width: 380px;
+        background: $blanco;
+        border-radius: $romo;
+        padding: 22px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    &__texto {
+        font-size: $t-body;
+        line-height: $lh-cuerpo;
+        color: $g-900;
+        white-space: pre-wrap;
+    }
+
+    &__acciones {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        &__fondo { animation: fz-confirmar-fondo 0.15s ease; }
+        &__caja { animation: fz-confirmar-caja 0.18s ease; }
+    }
+}
+
+@keyframes fz-confirmar-fondo {
+    from { opacity: 0; }
+}
+@keyframes fz-confirmar-caja {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
 }

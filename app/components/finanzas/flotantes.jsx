@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { ArrowUp, Plus } from 'lucide-react';
 
 /**
  * Los dos botones que van pegados a la esquina, siempre a mano.
@@ -48,7 +49,7 @@ export default function Flotantes({ anotando, conAnotar = true, onAnotar }) {
                     aria-label="Volver arriba"
                     title="Volver arriba"
                 >
-                    <span aria-hidden="true">↑</span>
+                    <ArrowUp size={20} aria-hidden="true" />
                 </button>
             )}
 
@@ -60,7 +61,7 @@ export default function Flotantes({ anotando, conAnotar = true, onAnotar }) {
                     aria-label={anotando ? 'Cerrar el formulario' : 'Anotar un movimiento'}
                     title={anotando ? 'Cerrar' : 'Anotar movimiento'}
                 >
-                    <span aria-hidden="true">+</span>
+                    <Plus size={26} aria-hidden="true" />
                 </button>
             )}
         </div>

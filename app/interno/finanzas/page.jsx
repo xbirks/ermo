@@ -3,9 +3,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ermoLogo from '@/app/assets/logo/ERMO_blue.svg';
 
 import Cifra from '@/app/components/finanzas/cifra';
+import { ConfirmarProvider } from '@/app/components/finanzas/confirmar';
 import Cascada from '@/app/components/finanzas/cascada';
 import TiraBancos from '@/app/components/finanzas/tira-bancos';
 import AltaMovimiento from '@/app/components/finanzas/alta-movimiento';
@@ -59,16 +61,25 @@ export default function FinanzasPage() {
         return /^\d{4}-\d{2}-01$/.test(enUrl || '') ? enUrl : mesActual();
     });
 
-    // Refleja el mes en la barra de direcciones sin recargar la página.
+    // La pestaña también vive en la URL: recargar o volver atrás no
+    // debe devolver siempre a "El mes" si se estaba mirando "El año".
+    const [vista, setVista] = useState(() => {
+        if (typeof window === 'undefined') return 'mes';
+        const enUrl = new URLSearchParams(window.location.search).get('vista');
+        return VISTAS.some((v) => v.id === enUrl) ? enUrl : 'mes';
+    });
+
+    // Refleja el mes y la pestaña en la barra de direcciones sin
+    // recargar la página.
     useEffect(() => {
-        const actual = new URLSearchParams(window.location.search).get('mes');
-        if (actual === mes) return;
-        const url = mes === mesActual()
-            ? '/interno/finanzas'
-            : `/interno/finanzas?mes=${mes}`;
+        const params = new URLSearchParams();
+        if (mes !== mesActual()) params.set('mes', mes);
+        if (vista !== 'mes') params.set('vista', vista);
+        const query = params.toString();
+        const url = query ? `/interno/finanzas?${query}` : '/interno/finanzas';
+        if (url === `${window.location.pathname}${window.location.search}`) return;
         window.history.replaceState(null, '', url);
-    }, [mes]);
-    const [vista, setVista] = useState('mes');
+    }, [mes, vista]);
     const [anotando, setAnotando] = useState(false);
     // Sube al cambiar para abrir la sección de fijos desde el botón.
     const [abrirFijos, setAbrirFijos] = useState(0);
@@ -150,6 +161,7 @@ export default function FinanzasPage() {
     const totalApartado = reservasActivas.reduce((s, r) => s + r.importe, 0);
 
     return (
+        <ConfirmarProvider>
         <div className="fz">
             <div className="fz__contenedor">
                 <header className="fz-cabecera">
@@ -171,7 +183,7 @@ export default function FinanzasPage() {
                 {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
 
                 <div className="fz-mes">
-                    <h1 className="fz-mes__nombre">{nombreMes(mes)}</h1>
+                    <h1 className="fz-mes__titulo">Resumen.</h1>
                     <div className="fz-mes__nav">
                         <button
                             className="fz-boton fz-boton--icono"
@@ -179,22 +191,27 @@ export default function FinanzasPage() {
                             onClick={() => setMes((m) => desplazarMes(m, -1))}
                             aria-label="Mes anterior"
                         >
-                            ‹
+                            <ChevronLeft size={20} aria-hidden="true" />
                         </button>
-                        <button
-                            className="fz-boton fz-boton--suave"
-                            type="button"
-                            onClick={() => setMes(mesActual())}
-                        >
-                            Este mes
-                        </button>
+                        <div className="fz-mes__actual">
+                            <span className="fz-mes__nombre">{nombreMes(mes)}</span>
+                            {mes !== mesActual() && (
+                                <button
+                                    className="fz-boton fz-boton--texto"
+                                    type="button"
+                                    onClick={() => setMes(mesActual())}
+                                >
+                                    Volver a hoy
+                                </button>
+                            )}
+                        </div>
                         <button
                             className="fz-boton fz-boton--icono"
                             type="button"
                             onClick={() => setMes((m) => desplazarMes(m, 1))}
                             aria-label="Mes siguiente"
                         >
-                            ›
+                            <ChevronRight size={20} aria-hidden="true" />
                         </button>
                     </div>
                 </div>
@@ -408,5 +425,6 @@ export default function FinanzasPage() {
                 onAnotar={() => setAnotando((v) => !v)}
             />
         </div>
+        </ConfirmarProvider>
     );
 }

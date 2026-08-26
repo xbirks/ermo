@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Cifra from './cifra';
+import { useConfirmar } from './confirmar';
 import { nombreMes } from '@/app/lib/finanzas/formato';
 
 /**
@@ -39,6 +40,7 @@ export default function GastosFijos({ fijos, deBaja = [], cuentas, mes, onCambio
     const [error, setError] = useState('');
     const [aviso, setAviso] = useState('');
     const [ocupado, setOcupado] = useState(false);
+    const confirmar = useConfirmar();
 
     const set = (campo) => (e) =>
         setEditando((f) => ({ ...f, [campo]: e.target.value }));
@@ -82,7 +84,7 @@ export default function GastosFijos({ fijos, deBaja = [], cuentas, mes, onCambio
             `¿Dar de baja "${recibo.nombre}"?\n\n` +
             `Dejará de aparecer en la lista y de apuntarse cada mes. ` +
             `Los movimientos ya registrados se conservan.`;
-        if (!window.confirm(texto)) return;
+        if (!(await confirmar(texto, { peligroso: true, textoAceptar: 'Dar de baja' }))) return;
 
         setOcupado(true);
         try {
@@ -245,7 +247,7 @@ export default function GastosFijos({ fijos, deBaja = [], cuentas, mes, onCambio
                     </button>
                     {editando?.id && (
                         <button
-                            className="fz-boton fz-boton--texto"
+                            className="fz-boton fz-boton--texto fz-boton--peligro"
                             type="button"
                             onClick={() => darDeBaja(editando)}
                             disabled={ocupado}
@@ -265,9 +267,7 @@ export default function GastosFijos({ fijos, deBaja = [], cuentas, mes, onCambio
 
             {!fijos.length && (
                 <div className="fz-aviso">
-                    No hay recibos fijos configurados. Si acabas de actualizar la
-                    app, puede que falte ejecutar{' '}
-                    <code>db/migraciones/001-gastos-fijos.sql</code> en Supabase.
+                    Todavía no hay recibos fijos configurados.
                 </div>
             )}
 
