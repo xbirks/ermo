@@ -34,7 +34,7 @@ function aISO(d, m, a) {
  * Los conceptos vienen con el número de tarjeta, la ciudad y coletillas
  * que no aportan nada al leerlos en una lista.
  */
-function limpiarConcepto(texto) {
+export function limpiarConcepto(texto) {
     return texto
         .replace(/,?\s*Tarj\.?\s*:?\s*\*?\d+/gi, '')     // Tarj. :*NNNNNN
         .replace(/,?\s*Tarjeta\s*\d+/gi, '')             // Tarjeta NNNNNNNNNNNNNNNN

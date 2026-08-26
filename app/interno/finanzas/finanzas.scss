@@ -1633,6 +1633,70 @@ $ancho-dos-columnas: 880px;
     }
 }
 
+// --- Importar del banco -------------------------------------------
+// La tabla de revisión tras pegar el extracto: una fila editable por
+// movimiento, con la categoría ya sugerida. En escritorio son seis
+// columnas en rejilla; en móvil se apilan, porque no hay sitio para
+// tanto campo en línea y esto es sobre todo una tarea de escritorio.
+.fz-importar {
+    &__resumen {
+        font-size: $t-footnote;
+        color: $g-500;
+        margin-bottom: 10px;
+    }
+
+    &__tabla {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    &__fila {
+        display: grid;
+        grid-template-columns: 20px 130px 1fr 100px 100px 1fr;
+        gap: 8px;
+        align-items: center;
+        padding: 8px;
+        border-radius: $romo-s;
+        background: $hueso;
+
+        .fz-input, .fz-select { background: $blanco; padding: 8px 10px; font-size: $t-footnote; }
+
+        &--fuera { opacity: 0.5; }
+
+        @include hasta(900px) {
+            grid-template-columns: 20px 1fr;
+            grid-template-areas:
+                "check fecha"
+                "check concepto"
+                "check importe"
+                "check tipo"
+                "check categoria"
+                "check pista";
+            row-gap: 6px;
+
+            input[type="checkbox"] { grid-area: check; align-self: start; margin-top: 10px; }
+            .fz-importar__fecha     { grid-area: fecha; }
+            .fz-importar__concepto  { grid-area: concepto; }
+            .fz-importar__importe   { grid-area: importe; }
+            .fz-importar__tipo      { grid-area: tipo; }
+            .fz-importar__categoria { grid-area: categoria; }
+        }
+    }
+
+    &__importe { font-family: $cifras; text-align: right; }
+
+    &__pista {
+        grid-column: 1 / -1;
+        font-size: $t-caption; // nota corta bajo la fila
+        color: $atencion;
+        padding-left: 28px;
+
+        @include hasta(900px) { grid-area: pista; padding-left: 0; }
+    }
+}
+
 // Recibos dados de baja, ocultos tras un enlace.
 .fz-bajas {
     margin-top: 12px;

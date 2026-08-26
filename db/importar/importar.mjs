@@ -4,6 +4,7 @@ import { leerB100 } from './leer-b100.mjs';
 import { leerMyInvestor } from './leer-myinvestor.mjs';
 import { leerSantander } from './leer-santander.mjs';
 import { leerImagin } from './leer-imagin.mjs';
+import { clasificar, esTraspasoPropio } from '../../app/lib/finanzas/clasificar.mjs';
 
 /**
  * Vuelca los extractos de `datos-bancos/` en la base de datos.
@@ -22,135 +23,6 @@ import { leerImagin } from './leer-imagin.mjs';
 
 const RAIZ = new URL('../..', import.meta.url).pathname;
 const ESCRIBIR = process.argv.includes('--escribir');
-
-// --- Clasificación ----------------------------------------------
-// Reglas por palabra clave sobre el concepto del banco. Lo que no
-// encaje se queda sin categoría, para revisarlo a mano en la app: es
-// preferible a colocarlo mal.
-const REGLAS = [
-    // Recibos fijos, tal como aparecen en los extractos.
-    [/netflix/i,                                    'Netflix'],
-    [/vodafone/i,                                   'Vodafone'],
-    [/lowi/i,                                       'Lowi'],
-    [/apple\.com|itunes|iphone/i,                   'iPhone'],
-    [/\bdigi\b/i,                                   'Internet Digi'],
-    [/seguridad social|tgss|aut[oó]nomo/i,          'Cuota autónomos'],
-    [/gestor[ií]a|asesor[ií]a/i,                    'Gestoría'],
-
-    // Coche: el renting aparece como "Renting Tec.", y la gasolinera
-    // habitual como "Petroprix".
-    [/renting|petroprix|gasolin|repsol|cepsa|shell|carburant|galp/i, 'Coche'],
-    [/movilidad mmd|parking|aparcamient|garaje/i,   'Coche'],
-
-    // Compra y comida: los supermercados y sitios que se repiten.
-    [/mercadona|consum|charter|carref|lidl|alcampo|ahorramas|supercor/i,
-                                                    'Comida y supervivencia'],
-    [/horno|panader|casona|restaurant|\bbar\b|cafeter|kebab|pizz|burger|mcdonald/i,
-                                                    'Comida y supervivencia'],
-    [/glovo|just ?eat|uber ?eats|deliveroo/i,       'Comida y supervivencia'],
-
-    // Transporte que no es taxi (los taxis van aparte: ver esTaxi).
-    [/cabify|uber(?! ?eats)|\bemt\b|metrovalencia|renfe|blablacar/i, 'Gastos varios'],
-
-    [/hacienda|a\.?e\.?a\.?t|tributaria|impuesto|circulaci[oó]n/i, 'Impuestos'],
-    [/seguro|mapfre|mutua|\baxa\b|allianz|zurich|linea directa/i,  'Seguro'],
-
-    // Ingresos: cobros de clientes y pasarelas de pago.
-    [/stripe|transferencia de|transf\. a su favor|transfer inmediata/i,
-                                                    'Honorarios clientes'],
-    // Xolo factura los servicios de autónomo.
-    [/xolo/i,                                       'Gestoría'],
-    // El IVA trimestral aparece como el modelo 303.
-    [/mod\.?\s?303|i\.?v\.?a\.?/i,                  'Impuestos'],
-    // Repsol Waylet es la gasolinera; MyBox, el renting del coche.
-    [/waylet|mybox/i,                               'Coche'],
-    [/movilidad acm|reint\.?cajero/i,               'Gastos varios'],
-
-    // Herramientas de trabajo y suscripciones sueltas.
-    [/dondominio|namecheap|godaddy|vercel|figma|adobe|github|openai|anthropic/i,
-                                                    'Gastos varios'],
-
-    // Ocio.
-    [/kinepolis|cinesa|yelmo|spotify|hbo|disney|filmin|prime video/i, 'Gastos varios'],
-];
-
-// Comercios que nunca son un taxi por mucho que el importe encaje.
-// Sin esta lista, "Consum", "Apple.com/bill" o un Starbucks caían
-// dentro sólo por costar cinco euros y llevar un nombre propio.
-const NO_ES_TAXI = new RegExp([
-    'consum', 'mercadona', 'charter', 'carref', 'lidl', 'super',
-    'horno', 'forn', 'panader', 'verdur', 'fruter', 'pescader', 'carnicer',
-    'starbuk', 'starbucks', 'cafe', 'bar ', 'restaurant', 'kebab', 'pizz',
-    'apple', 'paypal', 'vodafone', 'lowi', 'netflix', 'digitalocea',
-    'movilidad', 'moeve', 'repsol', 'cepsa', 'petroprix', 'gasolin',
-    'farmac', 'estanc', 'peluquer', 'melenas', 'centre', 'expsfructu',
-    // Comercios y transporte público que se colaban por importe:
-    'decathlon', 'pollos', 'reino 64', '\\bfgv\\b', 'metro', 'renfe',
-    'quinin', 'burger', 'domino', 'telepizza', 'ale-hop', 'primark',
-    'zara', 'amazon', 'aliexpress', 'correos', 'ikea', 'leroy',
-    // Servicios en línea y comercios con código numérico delante, que
-    // parecían licencias de taxi ("329302699 Consu" es un Consum).
-    'google', 'cloud', 'kinepolis', 'marina port', 'mercader',
-    '\\bbk\\d', 'heron', 'stripe', 'shopify', 'notion', 'dropbox',
-    '\\d+ ?consu', 'anar i tornar',
-].join('|'), 'i');
-
-/**
- * ¿Es una carrera de taxi?
- *
- * Tras el accidente de moto hay muchos taxis en los extractos, y no
- * todos dicen "taxi": algunos taxistas facturan a nombre propio ("Amin
- * Khan", "Pedro Monfort S") o con su número de licencia.
- *
- * Reconocerlos por "importe pequeño + nombre propio" resultó ser
- * demasiado amplio: metía dentro supermercados, panaderías y hasta
- * Vodafone, y disparaba el total de 280 € a 813 €. Ahora se exige que
- * el concepto diga taxi o licencia, o bien que sea un nombre de persona
- * con un importe dentro del rango real de una carrera (4-8 €, con algo
- * de margen), y nunca un comercio conocido.
- */
-function esTaxi(concepto, importe) {
-    if (NO_ES_TAXI.test(concepto)) return false;
-
-    // Lo que se identifica solo, sin depender del importe.
-    if (/\btaxi\b/i.test(concepto)) return true;
-    if (/licencia\s*\d/i.test(concepto)) return true;
-
-    // Un nombre de persona dentro del rango de una carrera. El margen
-    // hasta 10 € cubre trayectos algo más largos sin tragarse compras.
-    if (importe < 3.5 || importe > 10) return false;
-    const nombrePropio = /^[A-ZÁ-Ú][a-zá-ú]+[\s-][A-ZÁ-Ú][a-zá-ú.]/.test(concepto);
-    const numeroLicencia = /^\d{6,}/.test(concepto);
-    return nombrePropio || numeroLicencia;
-}
-
-function clasificar(concepto, importe) {
-    // Los taxis se comprueban antes que las reglas generales: si no,
-    // "Pedro Monfort S" no encajaría en ninguna y quedaría suelto.
-    if (esTaxi(concepto, importe)) return 'Taxis del accidente';
-
-    for (const [patron, categoria] of REGLAS) {
-        if (patron.test(concepto)) return categoria;
-    }
-    return null;
-}
-
-/**
- * ¿Es dinero moviéndose entre cuentas propias?
- *
- * "Transferencia Inmediata De Andres Ortega Montoya" no es un ingreso:
- * es dinero que ya estaba en otra cuenta. Importarlo como ingreso
- * inflaría los ingresos del mes con dinero que no ha entrado de fuera,
- * y el total limpio saldría más alto de lo real.
- *
- * Estos movimientos se marcan para revisarlos a mano: la app no puede
- * saber de qué cuenta salieron, y un traspaso necesita origen y destino.
- */
-const NOMBRE_TITULAR = /ortega montoya|andres ortega/i;
-
-function esTraspasoPropio(concepto) {
-    return NOMBRE_TITULAR.test(concepto);
-}
 
 // --- Conexión ---------------------------------------------------
 function leerEnv() {

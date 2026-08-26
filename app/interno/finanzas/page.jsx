@@ -9,6 +9,7 @@ import Cifra from '@/app/components/finanzas/cifra';
 import Cascada from '@/app/components/finanzas/cascada';
 import TiraBancos from '@/app/components/finanzas/tira-bancos';
 import AltaMovimiento from '@/app/components/finanzas/alta-movimiento';
+import ImportarExtracto from '@/app/components/finanzas/importar-extracto';
 import ListaMovimientos from '@/app/components/finanzas/lista-movimientos';
 import PanelIva from '@/app/components/finanzas/panel-iva';
 import PanelReservas from '@/app/components/finanzas/panel-reservas';
@@ -305,6 +306,18 @@ export default function FinanzasPage() {
                                 categorias={categorias}
                                 onBorrar={borrarMovimiento}
                                 onCambio={cargar}
+                            />
+                        </Plegable>
+
+                        {/* Pegar el extracto del banco y guardar en un par
+                            de minutos, sin pasar por SQL. */}
+                        <Plegable
+                            titulo="Importar del banco."
+                            resumen="Pega el extracto y se apunta solo"
+                        >
+                            <ImportarExtracto
+                                categorias={categorias}
+                                onGuardado={cargar}
                             />
                         </Plegable>
 
