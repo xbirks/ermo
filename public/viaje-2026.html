@@ -69,7 +69,7 @@ section + section{border-top:1px solid var(--line)}
 .jump a:active{background:var(--pine);color:#fff}
 
 /* ---------- portada ---------- */
-.hero img{height:clamp(230px,42vw,480px);object-fit:cover}
+.hero img{aspect-ratio:16/9;height:auto;object-fit:cover}
 .hero .band{background:var(--pine);color:#fff;padding:var(--pad)}
 .hero .band .eyebrow{color:var(--clay-l)}
 .hero h1{color:#fff}
@@ -137,20 +137,25 @@ section + section{border-top:1px solid var(--line)}
 .lvl.b{background:#EDE4D5;color:#6B4E36}
 .swipehint{display:none}
 
-/* ---------- tablas de texto ---------- */
-table.plain{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.55}
-table.plain thead th{
-  text-align:left;font-size:11px;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--grey);padding:0 14px 10px 0;
-  border-bottom:2px solid var(--pine);
-}
-table.plain tbody td{padding:16px 14px 16px 0;border-bottom:1px solid var(--line);vertical-align:top}
-table.plain tbody tr:last-child td{border-bottom:none}
-table.plain td:last-child,table.plain th:last-child{padding-right:0}
+/* ---------- tarjetas de hotel ---------- */
+.hotelscroll{grid-auto-columns:minmax(250px,1fr)}
+.hcard header span::before{content:' · '}
+.hprice{padding:16px 15px;background:var(--cream);border-bottom:1px solid var(--line);
+        font-size:30px;font-weight:800;color:var(--pine);letter-spacing:-.03em;line-height:1}
+.hprice em{display:block;font-style:normal;font-size:12.5px;font-weight:500;
+           color:var(--grey);margin-top:6px;letter-spacing:0}
+.hprice .best{display:inline-block;margin-top:10px;background:var(--pine);color:#fff;
+              font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+              padding:5px 11px;border-radius:999px}
+.hblock{padding:13px 15px;border-bottom:1px solid var(--line)}
+.hblock.last{border-bottom:none}
+.hblock span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.12em;
+             text-transform:uppercase;color:var(--grey);margin-bottom:5px}
+.hblock p{margin:0;font-size:14.5px;line-height:1.5;max-width:none}
 
 /* ---------- mapa ---------- */
 .mapwrap{position:relative;z-index:0}
-#map{height:clamp(300px,55vw,500px);border:1px solid var(--line);z-index:0}
+#map{aspect-ratio:16/9;height:auto;border:1px solid var(--line);z-index:0}
 .mapveil{
   position:absolute;inset:0;z-index:400;display:none;align-items:flex-end;
   justify-content:center;padding-bottom:18px;background:transparent;cursor:pointer;
@@ -163,56 +168,97 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
 
 /* ---------- avisos ---------- */
 .note{background:var(--sand);border-left:3px solid var(--alert);
-      padding:var(--gap);margin:var(--gap) 0 0;font-size:15px;line-height:1.62}
+      padding:clamp(22px,4vw,32px);margin:var(--gap) 0 0;font-size:15px;line-height:1.62}
 .note.calm{background:var(--cream);border-left-color:var(--pine)}
 .note .eyebrow{margin-bottom:11px;color:var(--alert)}
 .note.calm .eyebrow{color:var(--pine)}
 .note p:last-child{margin-bottom:0}
 .note ol{margin:0;padding-left:19px}
-.note ol li{margin-bottom:10px}
+.note ol li{margin-bottom:16px}
 .note ol li:last-child{margin-bottom:0}
 
+/* ---------- lista desplegable ---------- */
+.acclist{margin-top:var(--gap);border-top:2px solid var(--pine)}
+.acc{border-bottom:1px solid var(--line)}
+.acc summary{
+  list-style:none;cursor:pointer;display:block;position:relative;
+  padding:19px 40px 19px 0;
+}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary b{display:block;font-size:17.5px;font-weight:700;color:var(--pine);line-height:1.3}
+.acc summary span{display:block;font-size:13.5px;color:var(--grey);margin-top:4px}
+.acc summary::after{
+  content:'+';position:absolute;right:4px;top:50%;transform:translateY(-50%);
+  font-size:24px;font-weight:400;line-height:1;color:var(--clay);
+}
+.acc[open] summary::after{content:'–'}
+.acc[open] summary b{color:var(--clay)}
+.accbody{padding:0 40px 22px 0}
+.accbody p{margin:0;font-size:15px;line-height:1.62;max-width:none}
+
+/* ---------- subsecciones ---------- */
+.subsec{margin-top:clamp(56px,10vw,104px);padding-top:clamp(30px,5vw,46px);
+        border-top:1px solid var(--line)}
+.subsec:first-of-type{margin-top:clamp(34px,5vw,56px);padding-top:0;border-top:none}
+.subsec h3{margin-bottom:12px}
+.sublead{font-size:16px;line-height:1.6;color:var(--grey);margin:0 0 clamp(24px,4vw,34px);
+         max-width:60ch}
+.subsec .note{margin-top:0}
+.subsec .kit{margin-top:0}
+.subsec .btns{margin-top:0}
+
 /* ---------- maleta ---------- */
-.packing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-         gap:0 clamp(24px,5vw,48px);margin-top:var(--gap)}
-.packing div{
-  display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;
-  padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5;
+.kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+     gap:clamp(30px,5vw,44px) clamp(28px,4.5vw,52px);margin-top:var(--gap)}
+.kitcol h4{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+           color:var(--clay);padding-bottom:11px;border-bottom:2px solid var(--pine);margin:0 0 4px}
+.kitcol ul{list-style:none;margin:0;padding:0}
+.kitcol li{
+  position:relative;padding:14px 0 14px 30px;border-bottom:1px solid var(--line);
+  font-size:15px;font-weight:600;line-height:1.4;
 }
-.packing div::before{
-  content:'';width:9px;height:9px;margin-top:8px;margin-left:5px;
-  background:var(--clay);border-radius:2px;transform:rotate(45deg);
+.kitcol li:last-child{border-bottom:none}
+.kitcol li::before{
+  content:'';position:absolute;left:0;top:15px;width:13px;height:13px;
+  border:1.5px solid var(--clay);border-radius:3px;
 }
-.packing b{display:block;font-weight:600}
-.packing span{display:block;color:var(--grey);font-size:13.5px;font-weight:400;margin-top:2px}
+.kitcol li i{display:block;font-style:normal;font-weight:400;font-size:13px;
+             color:var(--grey);margin-top:3px;line-height:1.4}
+.kitcol + .kitcol{margin-top:clamp(0px,3vw,0px)}
 
 /* ---------- galerías ---------- */
 .gal{display:grid;gap:8px;margin:var(--gap) 0 0}
+.galgap{margin-top:clamp(34px,6vw,52px)}
 .g1{grid-template-columns:1fr}
 .g2{grid-template-columns:1fr 1fr}
 .g3{grid-template-columns:1fr 1fr 1fr}
 .g21{grid-template-columns:1.9fr 1fr}
 .gal figure{margin:0;background:var(--sand);overflow:hidden}
-.gal img{height:clamp(150px,24vw,250px);object-fit:cover;transition:transform .45s ease}
-.g1 img{height:clamp(210px,38vw,420px)}
-.g3 img{height:clamp(120px,18vw,185px)}
+.gal img{aspect-ratio:1/1;height:auto;object-fit:cover;transition:transform .45s ease}
+.g1 img{aspect-ratio:16/9}
+.g21 figure:first-child img{aspect-ratio:4/5}
 @media (hover:hover){.gal figure:hover img{transform:scale(1.04)}}
 
-/* ---------- línea de tiempo ---------- */
-.timeline{margin-top:var(--gap);border-top:2px solid var(--pine)}
-.stop{padding:clamp(20px,3.4vw,28px) 0;border-bottom:1px solid var(--line)}
-.stop:last-child{border-bottom:none}
-.what h4{margin-bottom:9px;line-height:1.25}
-.what h4 .h{color:var(--clay);font-variant-numeric:tabular-nums;
-            font-weight:800;margin-right:10px;white-space:nowrap}
-.what h4 .h::after{content:' ·';color:var(--line);font-weight:400}
-.what p{font-size:clamp(15.5px,2.3vw,16.5px);margin-bottom:0}
-.what .btns{margin-top:16px}
+/* ---------- paradas del día ---------- */
+.stopscroll{grid-auto-columns:minmax(270px,300px);
+            margin:clamp(52px,9vw,90px) 0 clamp(52px,9vw,90px)}
+.scard header{
+  background:var(--pine);color:#fff;padding:13px 16px;font-size:19px;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+}
+.sbody{padding:16px 16px 18px;display:flex;flex-direction:column;height:100%}
+.sbody h4{margin:0 0 9px;line-height:1.25;font-size:18.5px}
+.sbody p{margin:0;font-size:15px;line-height:1.58;max-width:none}
+.sbody p:last-child{margin-bottom:0}
+.sbody .btns{margin-top:auto;padding-top:14px}
+.sbody .btn{flex:1 1 100%;justify-content:space-between;font-size:13.5px;
+            padding:10px 14px;min-height:42px}
 
 /* ---------- desplegable ---------- */
-.fold{margin-top:var(--gap);border:1.5px solid var(--pine);border-radius:12px;overflow:hidden}
+.fold{margin:clamp(44px,8vw,72px) 0;border:1.5px solid var(--pine);
+      border-radius:14px;overflow:hidden}
 .fold summary{
-  list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;font-size:15px;
+  list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;font-size:16px;
   color:var(--pine);display:flex;align-items:center;justify-content:space-between;gap:12px;
   min-height:50px;
 }
@@ -220,7 +266,7 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
 .fold summary::after{content:'+';font-size:22px;font-weight:600;line-height:1;color:var(--clay)}
 .fold[open] summary::after{content:'–'}
 .fold[open] summary{border-bottom:1px solid var(--line);background:var(--cream)}
-.foldbody{padding:18px}
+.foldbody{padding:20px}
 .foldbody p{margin:0;font-size:15.5px;line-height:1.65}
 
 /* ---------- fecha del día ---------- */
@@ -245,7 +291,7 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
 .dirrow .tel a{color:var(--pine);text-decoration:none;border-bottom:1px solid var(--line)}
 
 /* ---------- cierre ---------- */
-.closing img{height:clamp(200px,36vw,420px);object-fit:cover}
+.closing img{aspect-ratio:16/9;height:auto;object-fit:cover}
 .closing .band{background:var(--pine);color:#CFD9D2;padding:var(--pad);text-align:center;font-size:16px}
 .closing .band b{color:#fff;display:block;font-size:clamp(20px,4vw,24px);margin-bottom:6px;letter-spacing:-.02em}
 
@@ -263,55 +309,33 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   .lead{font-size:16.5px;line-height:1.6;margin-top:12px}
   p{margin-bottom:13px}
 
-  /* paradas del día */
-  .what h4 .h{display:block;margin:0 0 5px;font-size:15px;letter-spacing:.01em}
-  .what h4 .h::after{content:''}
-  .what p{font-size:15.5px}
+  /* paradas del día: tarjetas que asoman */
+  #map{aspect-ratio:4/5}
+  .stopscroll{grid-auto-columns:minmax(84%,84%);
+              margin:clamp(48px,10vw,76px) calc(var(--pad) * -1)}
+  .scard header{font-size:18px;padding:12px 15px}
+  .sbody{padding:15px}
+  .sbody h4{font-size:18px}
+  .sbody p{font-size:15px}
 
   /* hoja de ruta: tarjetas que asoman */
-  .routescroll{grid-auto-columns:minmax(78%,78%);margin:0 calc(var(--pad) * -1);
+  .routescroll{grid-auto-columns:minmax(80%,80%);margin:0 calc(var(--pad) * -1);
                padding:0 var(--pad) 10px;gap:10px}
   .swipehint{display:block;margin-top:12px}
 
-  /* tabla de hoteles a fichas */
-  table.hotels{display:block;border-collapse:separate}
-  table.hotels thead{display:none}
-  table.hotels tbody,table.hotels tr,table.hotels td{display:block;width:100%}
-  table.hotels tr{border:1px solid var(--line);border-radius:12px;
-                  margin-bottom:16px;overflow:hidden}
-  table.hotels td{border:none!important;padding:12px 16px}
-  table.hotels td + td{border-top:1px solid var(--line)!important}
-  table.hotels td:first-child{background:var(--sand);font-size:17.5px;font-weight:700;
-                              color:var(--pine);padding:14px 16px}
-  table.hotels td:first-child .small{display:inline;font-weight:400}
-  table.hotels td:first-child br{display:none}
-  table.hotels td:first-child .small::before{content:' · '}
-  table.hotels td::before{
-    content:attr(data-l);display:block;font-size:10.5px;font-weight:700;
-    letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:5px;
-  }
-  table.hotels td:first-child::before{display:none}
-  table.hotels td:nth-child(2){background:var(--cream)}
-  table.hotels td:nth-child(2) b{font-size:22px;color:var(--pine)}
-
-  /* tabla de comodines a bloques */
-  table.extras,table.extras tbody,table.extras tr,table.extras td{display:block;width:100%}
-  table.extras tr{border-bottom:1px solid var(--line);padding:18px 0}
-  table.extras tr:last-child{border-bottom:none}
-  table.extras td{border:none!important;padding:0;width:auto!important}
-  table.extras td:first-child{font-size:17.5px;margin-bottom:7px;color:var(--pine)}
-
-  /* galerías */
+  /* galerías: destacadas verticales, el resto cuadradas */
   .g21,.g1{grid-template-columns:1fr}
   .g2,.g3{grid-template-columns:1fr 1fr}
-  .gal img,.g3 img,.g2 img{height:150px}
-  .g1 img{height:210px}
+  .hero img{aspect-ratio:4/5}
+  .g1 img{aspect-ratio:4/5}
+  .g21 figure:first-child img{aspect-ratio:4/5}
+  .closing img{aspect-ratio:4/5}
 
   /* botones a ancho completo */
   .btn{flex:1 1 100%;justify-content:space-between}
 
   .pick{grid-template-columns:1fr;gap:14px}
-  .packing div{padding:12px 0}
+  .kitcol{margin-bottom:6px}
 
   .dirrow{grid-template-columns:1fr;gap:2px;padding:15px 0}
   .dirrow .tel{text-align:left;font-size:18px;font-weight:700}
@@ -324,7 +348,6 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
 
 @media (max-width:400px){
   .g2,.g3{grid-template-columns:1fr}
-  .gal img,.g2 img,.g3 img{height:175px}
   .hero .meta{grid-template-columns:1fr}
 }
 
@@ -336,16 +359,20 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   .day{break-before:page}
   .hero img{height:230px}
   h1{font-size:34px} h2{font-size:24px} .lead{font-size:15px}
-  #map{height:330px}
-  .gal img{height:145px} .g1 img{height:215px} .g3 img{height:115px}
-  .note,.stop,.pick,.dirrow,figure,.fold{break-inside:avoid}
+  #map{aspect-ratio:16/9;height:auto;max-height:340px}
+  .gal img{aspect-ratio:1/1;max-height:140px}
+  .g1 img,.g21 figure:first-child img,.hero img{aspect-ratio:16/9;max-height:210px}
+  .note,.rcard,.pick,.dirrow,figure,.fold{break-inside:avoid}
   .btn{border-color:#ccc;color:#555;min-height:0;padding:6px 10px}
   .routescroll{grid-auto-flow:row;grid-template-columns:1fr 1fr;overflow:visible;gap:8px}
+  .stopscroll{grid-template-columns:1fr 1fr}
   .rcard{break-inside:avoid}
   .swipehint{display:none!important}
   .fold{border:none}
   .fold summary{display:none}
   .foldbody{padding:0;display:block!important}
+  .acc summary::after{display:none}
+  .accbody{display:block!important;padding-bottom:14px}
   .closing img{height:220px}
 }
 </style>
@@ -489,43 +516,42 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   <p class="cap">El estany de Puigcerdà desde dos orillas; abajo, las vistas del
   pueblo sobre el llano de la Cerdanya y Llívia desde el castillo.</p>
 
-  <div class="timeline">
-    <div class="stop">
-      <div class="what"><h4><span class="h">07:00</span> Salida de Valencia</h4>
-      <p>AP-7 hasta Barcelona y después C-16 y túnel del Cadí. Parada larga para
-      desayunar a mitad de camino, por Tarragona o Manresa.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">13:00</span> Llegada a Puigcerdà y comida</h4>
-      <p>Dejad el coche en el hotel y subid al centro. Si os alojáis abajo, en la
-      plaza de la Estación, hay funicular hasta la parte alta del pueblo.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">16:00</span> Vuelta al estany y el campanario</h4>
-      <p>El lago está documentado desde 1260 y se hizo para regar; lo que lo hace
-      bonito son las casas de veraneo del siglo XIX y el parque Schierbeck, que le
-      añadió un cónsul danés. La vuelta completa es llana, media hora larga.
-      Después, en el centro, el <b>campanario de Santa Maria</b>: cuarenta y dos
-      metros que se quedaron solos cuando la iglesia fue destruida en 1936. Hoy
-      dentro está la oficina de turismo.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">17:30</span> Llívia</h4>
-      <p>A diez minutos en coche. Es territorio español rodeado enteramente de
-      Francia: quedó así porque el Tratado de los Pirineos de 1659 cedió a Francia
-      solo los <i>pueblos</i> del Pirineo, y Llívia tenía título de <i>villa</i>,
-      con lo que se libró por una palabra. El casco antiguo se ve en una hora, y
-      merece mucho la pena el <b>Museu de la Farmàcia Esteva</b>, una de las
-      boticas más antiguas de Europa, con sus botes y sus armarios originales.</p>
-      <div class="btns">
-        <a class="btn" href="https://www.llivia.org" target="_blank" rel="noopener">Ayuntamiento de Llívia</a>
-      </div></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">20:30</span> Cena en Puigcerdà</h4>
-      <p>Ventaja de dormir en el lado español: se cena a hora española y en
-      castellano.</p></div>
-    </div>
+  <div class="routescroll stopscroll">
+    <article class="rcard scard">
+      <header><b>07:00</b></header>
+      <div class="sbody">
+        <h4>Salida de Valencia</h4>
+        <p>AP-7 hasta Barcelona y después C-16 y túnel del Cadí. Parada larga para desayunar a mitad de camino, por Tarragona o Manresa.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>13:00</b></header>
+      <div class="sbody">
+        <h4>Llegada a Puigcerdà y comida</h4>
+        <p>Dejad el coche en el hotel y subid al centro. Si os alojáis abajo, en la plaza de la Estación, hay funicular hasta la parte alta del pueblo.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>16:00</b></header>
+      <div class="sbody">
+        <h4>Vuelta al estany y el campanario</h4>
+        <p>Un lago documentado desde 1260, rodeado de casas de veraneo del siglo XIX y de un parque arbolado. La vuelta completa es llana y se hace en media hora larga. Después, en el centro, el <b>campanario de Santa Maria</b>: cuarenta y dos metros que se quedaron solos cuando la iglesia fue destruida en 1936.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>17:30</b></header>
+      <div class="sbody">
+        <h4>Llívia</h4>
+        <p>Territorio español rodeado enteramente de Francia. Quedó así porque el Tratado de los Pirineos de 1659 cedió solo los <i>pueblos</i> del Pirineo, y Llívia tenía título de <i>villa</i>: se libró por una palabra. Merece la pena el <b>Museu de la Farmàcia Esteva</b>, una de las boticas más antiguas de Europa.</p> <div class="btns"> <a class="btn" href="https://www.llivia.org" target="_blank" rel="noopener">Ayuntamiento de Llívia</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>20:30</b></header>
+      <div class="sbody">
+        <h4>Cena en Puigcerdà</h4>
+        <p>Ventaja de dormir en el lado español: se cena a hora española y en castellano. El centro está en la parte alta, así que subid en funicular si no os apetece la cuesta.</p>
+      </div>
+    </article>
   </div>
 
   <div class="note">
@@ -550,69 +576,66 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   <p class="cap">Villefranche-de-Conflent. El pueblo, las murallas y el fuerte de
   arriba se visitan todo el mismo día.</p>
 
-  <div class="timeline">
-    <div class="stop">
-      <div class="what"><h4><span class="h">09:00</span> Bajada por la N116</h4>
-      <p>Carretera bonita siguiendo el valle de la Têt. Parada corta en el mirador
-      del <b>viaducto Séjourné</b> si os apetece estirar las piernas.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">10:30</span> Villefranche-de-Conflent</h4>
-      <p>Pueblo amurallado del siglo XI, refortificado por Vauban y declarado
-      Patrimonio de la Humanidad. Se recorre entero en una hora larga: dos calles,
-      las murallas y las torres. Se puede subir al camino de ronda cubierto, que
-      es lo mejor de la visita.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">12:00</span> Fort Libéria</h4>
-      <p>La fortaleza que domina el pueblo desde 150 metros más arriba. Doce
-      salas, capilla, prisiones y unas vistas enormes sobre el Canigó.
-      <b>Subid en la lanzadera 4x4</b>, 14 € con la entrada incluida: las
-      alternativas son la escalera subterránea de 734 peldaños o un sendero de
-      20 a 30 minutos con 180 metros de desnivel. Curiosidad para vosotros: el
-      fuerte alberga una colonia de <b>murciélagos</b>, y hay cámaras para verlos
-      sin molestarlos.</p>
-      <div class="btns">
-        <a class="btn" href="https://www.tourisme-canigo.com/unesco/fort-liberia/" target="_blank" rel="noopener">Todo sobre el Fort Libéria</a>
-      </div></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">14:00</span> Comida en el pueblo</h4>
-      <p>Ojo con la hora: en Francia muchas cocinas cierran a las 14:00. Si vais
-      justos, comed antes de subir al fuerte.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">15:30</span> Grotte des Grandes Canalettes</h4>
-      <p>A 300 metros del pueblo, y probablemente lo que más os va a gustar del
-      viaje. Es la visita que os recordará a las Güixas, pero a otra escala: un
-      kilómetro de recorrido, ida y vuelta, por salas gigantescas con nombres como
-      la Sala Blanca o el Templo de Angkor, con pasarelas, barandillas y bancos
-      para descansar en cada nivel. Visita libre, sin guía ni reserva, algo menos
-      de una hora. Dentro se está a unos 14 °C todo el año, así que llevad
-      chaqueta.</p>
-      <div class="btns">
-        <a class="btn solid" href="https://www.grottescanalettes.com/" target="_blank" rel="noopener">Web de las grutas</a>
-      </div></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">17:30</span> Mont-Louis, de vuelta</h4>
-      <p>Parada final en la otra plaza fuerte de Vauban, también Patrimonio de la
-      Humanidad, con su ciudadela y su pozo de los forzados. Media hora basta.</p></div>
-    </div>
+  <div class="routescroll stopscroll">
+    <article class="rcard scard">
+      <header><b>09:00</b></header>
+      <div class="sbody">
+        <h4>Bajada por la N116</h4>
+        <p>Carretera bonita siguiendo el valle de la Têt. Parada corta en el mirador del <b>viaducto Séjourné</b> si os apetece estirar las piernas.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>10:30</b></header>
+      <div class="sbody">
+        <h4>Villefranche-de-Conflent</h4>
+        <p>Pueblo amurallado del siglo XI, refortificado por Vauban y declarado Patrimonio de la Humanidad. Se recorre entero en una hora larga: dos calles, las murallas y las torres. Se puede subir al camino de ronda cubierto, que es lo mejor de la visita.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>12:00</b></header>
+      <div class="sbody">
+        <h4>Fort Libéria</h4>
+        <p>La fortaleza que domina el pueblo desde 150 metros más arriba: doce salas, capilla, prisiones y unas vistas enormes sobre el Canigó. <b>Subid en la lanzadera 4x4</b>, 14 € con la entrada incluida; si no, son 734 peldaños o un sendero de media hora. Dentro vive una colonia de <b>murciélagos</b>.</p> <div class="btns"> <a class="btn" href="https://www.tourisme-canigo.com/unesco/fort-liberia/" target="_blank" rel="noopener">Todo sobre el Fort Libéria</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>14:00</b></header>
+      <div class="sbody">
+        <h4>Comida en el pueblo</h4>
+        <p>Ojo con la hora: en Francia muchas cocinas cierran a las 14:00. Si vais justos, comed antes de subir al fuerte. En las dos calles del recinto hay varios sitios con menú cerrado.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>15:30</b></header>
+      <div class="sbody">
+        <h4>Grotte des Grandes Canalettes</h4>
+        <p>Probablemente lo mejor del viaje, a 300 metros del pueblo. Como las Güixas pero a otra escala: un kilómetro de galerías por salas gigantescas, con pasarelas, barandillas y bancos en cada nivel. Visita libre, sin guía ni reserva, una hora escasa. Se está a 14 °C: llevad chaqueta.</p> <div class="btns"> <a class="btn solid" href="https://www.grottescanalettes.com/" target="_blank" rel="noopener">Web de las grutas</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>17:30</b></header>
+      <div class="sbody">
+        <h4>Mont-Louis, de vuelta</h4>
+        <p>Parada final en la otra plaza fuerte de Vauban, también Patrimonio de la Humanidad, con su ciudadela y su pozo de los forzados. Media hora basta.</p>
+      </div>
+    </article>
   </div>
 
-  <div class="gal g3">
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grotte%20des%20Grandes%20Canalettes%2001082014%2001.jpg?width=1000" alt="Grutas de las Canalettes"></figure>
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grotte%20des%20Grandes%20Canalettes%2001082014%2004.jpg?width=1000" alt="Sala de las grutas"></figure>
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grotte%20des%20Grandes%20Canalettes%2001082014%2005.jpg?width=1000" alt="Formaciones de las grutas"></figure>
+  <div class="gal g2">
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Remparts%20de%20Villefranche%20de%20Conflent%20et%20Fort%20Lib%C3%A9ria.jpg?width=1300" alt="Murallas de Villefranche y Fort Libéria"></figure>
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Villefranche-de-Conflent%2010.jpg?width=1100" alt="Calle de Villefranche"></figure>
   </div>
-  <div class="gal g3">
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Remparts%20de%20Villefranche%20de%20Conflent%20et%20Fort%20Lib%C3%A9ria.jpg?width=1200" alt="Murallas de Villefranche y Fort Libéria"></figure>
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Villefranche-de-Conflent%2010.jpg?width=1000" alt="Calle de Villefranche"></figure>
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cova%20de%20les%20Grans%20Canaletes.jpg?width=1200" alt="Interior de las grutas"></figure>
+  <p class="cap"><b>El pueblo y el fuerte.</b> Las murallas con el Fort Libéria
+  coronando el cerro, y una de las dos calles del recinto.</p>
+
+  <div class="gal g2 galgap">
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grotte%20des%20Grandes%20Canalettes%2001082014%2001.jpg?width=1100" alt="Grutas de las Canalettes"></figure>
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cova%20de%20les%20Grans%20Canaletes.jpg?width=1300" alt="Interior de las grutas"></figure>
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grotte%20des%20Grandes%20Canalettes%2001082014%2004.jpg?width=1100" alt="Sala de las grutas"></figure>
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grotte%20des%20Grandes%20Canalettes%2001082014%2005.jpg?width=1100" alt="Formaciones de las grutas"></figure>
   </div>
-  <p class="cap">Las murallas con el Fort Libéria coronando el cerro, una calle
-  del pueblo y las grutas por dentro, iluminadas a conciencia.</p>
+  <p class="cap"><b>Las grutas.</b> Un kilómetro de galerías iluminadas a
+  conciencia, con pasarelas y bancos en cada nivel.</p>
 
   <div class="note">
     <p class="eyebrow">Datos útiles del día</p>
@@ -646,48 +669,42 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   <p class="cap">La meseta de las Bouillouses: prados, pino negro y agua por todas
   partes. Es lo más verde de todo el viaje.</p>
 
-  <div class="timeline">
-    <div class="stop">
-      <div class="what"><h4><span class="h">08:30</span> Subida a la presa</h4>
-      <p>Desde Puigcerdà por Mont-Louis y la carretera D60. En verano el acceso en
-      coche está prohibido y hay que subir en lanzadera, pero <b>en 2026 las
-      lanzaderas terminaron el fin de semana del 19 y 20 de septiembre</b>, así
-      que en octubre se sube en coche hasta el mismo lago. Los últimos nueve
-      kilómetros son estrechos y con curvas: sin prisa.</p>
-      <div class="btns">
-        <a class="btn" href="https://www.ledepartement66.fr/le-lac-des-bouillouses/" target="_blank" rel="noopener">Accesos y normas del lago</a>
-      </div></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">09:45</span> Vuelta al lago</h4>
-      <p>Es el lago más alto de los Pirineos al que se llega por carretera, a
-      2.016 metros, al pie del Carlit. La presa se construyó entre 1903 y 1910
-      para dar electricidad al Tren Groc. La vuelta completa a la orilla son unos
-      cinco kilómetros sin apenas desnivel, entre pino negro, prados y bloques de
-      granito, y se hace en dos horas largas parando a mirar. <b>Si preferís
-      acortar</b>, llegando hasta el refugio y volviendo ya tenéis las mejores
-      vistas: cuarenta minutos ida y vuelta.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">13:00</span> Comida en la presa o bajada a Mont-Louis</h4>
-      <p>Arriba hay un par de refugios que dan comidas, pero en temporada baja
-      conviene llamar antes. La alternativa segura es bajar a Mont-Louis.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">16:00</span> El horno solar de Odeillo</h4>
-      <p>Un espejo parabólico de cincuenta metros de alto alimentado por 63
-      heliostatos, en marcha desde 1969, que concentra la luz del sol hasta pasar
-      de los 3.000 °C. La exposición Héliodyssée lo explica y hace demostraciones.
-      Y aunque el centro esté cerrado ese día, el edificio se ve perfectamente
-      desde fuera y la foto merece la pena igual.</p>
-      <div class="btns">
-        <a class="btn" href="https://www.foursolaire-fontromeu.fr" target="_blank" rel="noopener">Visitas al horno solar</a>
-      </div></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">18:00</span> Vuelta a Puigcerdà</h4>
-      <p>Media hora escasa.</p></div>
-    </div>
+  <div class="routescroll stopscroll">
+    <article class="rcard scard">
+      <header><b>08:30</b></header>
+      <div class="sbody">
+        <h4>Subida a la presa</h4>
+        <p>Desde Puigcerdà por Mont-Louis y la carretera D60. En verano el acceso en coche está prohibido, pero <b>en 2026 las lanzaderas terminaron el 20 de septiembre</b>, así que en octubre se sube hasta el mismo lago. Los últimos nueve kilómetros son estrechos: sin prisa.</p> <div class="btns"> <a class="btn" href="https://www.ledepartement66.fr/le-lac-des-bouillouses/" target="_blank" rel="noopener">Accesos y normas del lago</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>09:45</b></header>
+      <div class="sbody">
+        <h4>Vuelta al lago</h4>
+        <p>El lago más alto de los Pirineos al que se llega por carretera, a 2.016 metros y al pie del Carlit. La vuelta completa a la orilla son cinco kilómetros sin apenas desnivel, entre prados, pino negro y granito. <b>Si preferís acortar</b>, con llegar al refugio ya tenéis las mejores vistas.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>13:00</b></header>
+      <div class="sbody">
+        <h4>Comida en la presa o bajada a Mont-Louis</h4>
+        <p>Arriba hay un par de refugios que dan comidas, pero en temporada baja conviene llamar antes. La alternativa segura es bajar a Mont-Louis.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>16:00</b></header>
+      <div class="sbody">
+        <h4>El horno solar de Odeillo</h4>
+        <p>Un espejo parabólico de cincuenta metros alimentado por 63 heliostatos, en marcha desde 1969, que concentra el sol hasta pasar de los 3.000 °C. La exposición lo explica y hace demostraciones; y aunque esté cerrada, el edificio se ve perfectamente desde fuera.</p> <div class="btns"> <a class="btn" href="https://www.foursolaire-fontromeu.fr" target="_blank" rel="noopener">Visitas al horno solar</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>18:00</b></header>
+      <div class="sbody">
+        <h4>Vuelta a Puigcerdà</h4>
+        <p>Media hora escasa de bajada por la misma carretera. Llegaréis con tiempo de sobra para cenar sin prisa, que es el último día completo del viaje.</p>
+      </div>
+    </article>
   </div>
 
   <div class="gal g2">
@@ -735,44 +752,42 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   Bellver y su iglesia gótica. A la derecha, Cardona: el desvío opcional de la
   vuelta.</p>
 
-  <div class="timeline">
-    <div class="stop">
-      <div class="what"><h4><span class="h">09:00</span> Desayuno y equipaje al coche</h4>
-      <p>Dejad la habitación antes de salir. Desde aquí ya no se vuelve al hotel.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">10:00</span> Bellver de Cerdanya</h4>
-      <p>El nombre significa, en catalán antiguo, <i>bella vista de la Cerdanya</i>,
-      y se entiende en cuanto llegas: la villa se fundó en 1225 sobre un
-      promontorio encima del Segre, con el Cadí cerrando el horizonte. El casco
-      antiguo, el <b>Barri de la Plaça</b>, tiene un itinerario circular
-      señalizado con ocho paradas que se hace en poco más de media hora: la plaça
-      Major porticada con la antigua aduana, la iglesia gótica de Santa Maria i
-      Sant Jaume, la torre de la Presó y el mirador del Castell. Bécquer pasó por
-      aquí y se llevó de vuelta una de sus leyendas, <i>La cruz del diablo</i>.
-      Aviso: se empieza subiendo unas escaleras de piedra empinadas, pero arriba
-      es todo llano. Aparcamiento gratuito.</p>
-      <div class="btns">
-        <a class="btn" href="https://www.bellver.org/turisme/que-visitar" target="_blank" rel="noopener">Qué visitar en Bellver</a>
-      </div></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">11:30</span> Santa Maria de Talló</h4>
-      <p>A cinco minutos, a las afueras. La llaman <i>la catedral de la Cerdanya</i>
-      por su tamaño, desproporcionado para el caserío de treinta habitantes que la
-      rodea. Es románica del siglo XII, de una sola nave, con el Moixeró de fondo,
-      y fue durante siglos el centro religioso de toda la comarca.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">12:15</span> Comida en Bellver</h4>
-      <p>Alrededor de la plaça Major. Comer aquí en vez de en Puigcerdà os ahorra
-      volver atrás.</p></div>
-    </div>
-    <div class="stop">
-      <div class="what"><h4><span class="h">14:00</span> Salida hacia Valencia</h4>
-      <p>Túnel del Cadí, C-16 y AP-7. Llegada sobre las 20:00 contando una parada
-      por el camino.</p></div>
-    </div>
+  <div class="routescroll stopscroll">
+    <article class="rcard scard">
+      <header><b>09:00</b></header>
+      <div class="sbody">
+        <h4>Desayuno y equipaje al coche</h4>
+        <p>Dejad la habitación antes de salir, porque desde aquí ya no se vuelve al hotel. Comprobad que no queda nada en los cajones ni en el baño.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>10:00</b></header>
+      <div class="sbody">
+        <h4>Bellver de Cerdanya</h4>
+        <p>El nombre significa <i>bella vista de la Cerdanya</i> en catalán antiguo, y se entiende al llegar: la villa se fundó en 1225 sobre un promontorio encima del Segre. El casco antiguo tiene un itinerario circular señalizado de ocho paradas que se hace en media hora, con la plaça Major porticada, la torre de la Presó y el mirador del Castell.</p> <div class="btns"> <a class="btn" href="https://www.bellver.org/turisme/que-visitar" target="_blank" rel="noopener">Qué visitar en Bellver</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>11:30</b></header>
+      <div class="sbody">
+        <h4>Santa Maria de Talló</h4>
+        <p>A cinco minutos, a las afueras. La llaman <i>la catedral de la Cerdanya</i> por su tamaño, desproporcionado para el caserío de treinta habitantes que la rodea. Románica del siglo XII, con el Moixeró de fondo.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>12:15</b></header>
+      <div class="sbody">
+        <h4>Comida en Bellver</h4>
+        <p>Alrededor de la plaça Major, bajo los porches. Comer aquí en vez de volver a Puigcerdà os ahorra media hora de coche y ya salís encarados hacia el túnel.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>14:00</b></header>
+      <div class="sbody">
+        <h4>Salida hacia Valencia</h4>
+        <p>Túnel del Cadí, C-16 y AP-7. Llegada sobre las 20:00 contando una parada por el camino. Si preferís estirar las piernas antes, Bagà queda justo al salir del túnel.</p>
+      </div>
+    </article>
   </div>
 
   <div class="note">
@@ -805,40 +820,40 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
   <p class="cap">Les Orgues d'Ille-sur-Têt, Sant Martí del Canigó, el campanario
   de Cuixà y el patio del castillo de Cardona.</p>
 
-  <table class="plain extras block">
-    <tbody>
-      <tr><td style="width:230px"><b>Cova Bastera</b><br><span class="muted small">Villefranche · 0 min de desvío</span></td>
-          <td>La segunda cueva del pueblo, mucho más pequeña, metida dentro de las
-          propias fortificaciones de Vauban y con escenografía sobre la
-          prehistoria. Si os quedáis con ganas después de las Canalettes, está a
-          cincuenta metros.</td></tr>
-      <tr><td><b>Les Orgues d'Ille-sur-Têt</b><br><span class="muted small">30 min más allá de Villefranche</span></td>
-          <td>Chimeneas de hadas: columnas de arcilla erosionadas que parecen un
-          órgano de catedral, en un paisaje casi desértico. Un paseo corto y
-          señalizado, y de lo más fotogénico de todo el departamento.</td></tr>
-      <tr><td><b>Sant Miquel de Cuixà</b><br><span class="muted small">Codalet · 15 min de Villefranche</span></td>
-          <td>Abadía benedictina del siglo X con uno de los claustros románicos
-          más bonitos del Pirineo, aunque buena parte de sus capiteles acabaron en
-          un museo de Nueva York. Encaja bien en el sábado.</td></tr>
-      <tr><td><b>Sant Martí del Canigó</b><br><span class="muted small">Casteil · 25 min de Villefranche</span></td>
-          <td>Monasterio del siglo XI colgado en un espolón del Canigó. Es
-          espectacular, pero avisa: se sube andando media hora larga con desnivel,
-          o en 4x4 desde el pueblo. Solo con visita guiada.</td></tr>
-      <tr><td><b>Vall d'Eyne</b><br><span class="muted small">30 min de Puigcerdà</span></td>
-          <td>Valle botánico famoso por su flora, con un camino de fondo de valle
-          fácil y muy bonito en otoño. El plan más tranquilo de la lista.</td></tr>
-      <tr><td><b>Museu Cerdà</b><br><span class="muted small">Puigcerdà</span></td>
-          <td>Pequeño, cómodo y bajo techo. El recurso obvio si llueve una tarde.</td></tr>
-      <tr><td><b>Bourg-Madame y Hix</b><br><span class="muted small">al lado de Puigcerdà</span></td>
-          <td>Cruzar la frontera a pie y acercarse a la iglesia románica de Hix,
-          que fue la capital de la Cerdanya antes que Puigcerdà. Curiosidad
-          geográfica más que gran monumento.</td></tr>
-      <tr><td><b>Castillo de Cardona</b><br><span class="muted small">40 min de desvío, a la vuelta</span></td>
-          <td>Castillo y colegiata románica del siglo XI sobre una montaña de sal
-          que se puede visitar por dentro. De todos los comodines, el que más
-          impresiona, pero necesita media jornada.</td></tr>
-    </tbody>
-  </table>
+    <div class="acclist">
+    <details class="acc">
+      <summary><b>Cova Bastera</b><span>Villefranche · 0 min de desvío</span></summary>
+      <div class="accbody"><p>La segunda cueva del pueblo, mucho más pequeña, metida dentro de las propias fortificaciones de Vauban y con escenografía sobre la prehistoria. Si os quedáis con ganas después de las Canalettes, está a cincuenta metros.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Les Orgues d'Ille-sur-Têt</b><span>30 min más allá de Villefranche</span></summary>
+      <div class="accbody"><p>Chimeneas de hadas: columnas de arcilla erosionadas que parecen un órgano de catedral, en un paisaje casi desértico. Un paseo corto y señalizado, y de lo más fotogénico de todo el departamento.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Sant Miquel de Cuixà</b><span>Codalet · 15 min de Villefranche</span></summary>
+      <div class="accbody"><p>Abadía benedictina del siglo X con uno de los claustros románicos más bonitos del Pirineo, aunque buena parte de sus capiteles acabaron en un museo de Nueva York. Encaja bien en el sábado.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Sant Martí del Canigó</b><span>Casteil · 25 min de Villefranche</span></summary>
+      <div class="accbody"><p>Monasterio del siglo XI colgado en un espolón del Canigó. Es espectacular, pero avisa: se sube andando media hora larga con desnivel, o en 4x4 desde el pueblo. Solo con visita guiada.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Vall d'Eyne</b><span>30 min de Puigcerdà</span></summary>
+      <div class="accbody"><p>Valle botánico famoso por su flora, con un camino de fondo de valle fácil y muy bonito en otoño. El plan más tranquilo de la lista.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Museu Cerdà</b><span>Puigcerdà</span></summary>
+      <div class="accbody"><p>Pequeño, cómodo y bajo techo. El recurso obvio si llueve una tarde.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Bourg-Madame y Hix</b><span>al lado de Puigcerdà</span></summary>
+      <div class="accbody"><p>Cruzar la frontera a pie y acercarse a la iglesia románica de Hix, que fue la capital de la Cerdanya antes que Puigcerdà. Curiosidad geográfica más que gran monumento.</p></div>
+    </details>
+    <details class="acc">
+      <summary><b>Castillo de Cardona</b><span>40 min de desvío, a la vuelta</span></summary>
+      <div class="accbody"><p>Castillo y colegiata románica del siglo XI sobre una montaña de sal que se puede visitar por dentro. De todos los comodines, el que más impresiona, pero necesita media jornada.</p></div>
+    </details>
+  </div>
 </section>
 
 <!-- ALOJAMIENTO -->
@@ -849,34 +864,30 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
     la parte baja de Puigcerdà. A la parte alta se sube en ascensor o funicular.</p>
   </div>
 
-  <table class="plain hotels">
-    <thead><tr><th>Opción</th><th>3 noches</th><th>Camas</th><th>A favor</th><th>En contra</th></tr></thead>
-    <tbody>
-      <tr>
-        <td data-l="Opción"><b>Parada</b><br><span class="muted small">dos dobles</span></td>
-        <td data-l="3 noches"><b>694 €</b><br><span class="muted small">58 € por persona y noche</span></td>
-        <td data-l="Camas">Una cama doble grande en cada habitación</td>
-        <td data-l="A favor">Plaza de parking incluida por habitación. Sin prepago, se paga allí.
-            Aire acondicionado e insonorización. 4,2 en Google.</td>
-        <td data-l="En contra">No ofrece dos camas separadas. El desayuno va aparte, 13,90 € por persona.</td>
-      </tr>
-      <tr>
-        <td data-l="Opción"><b>Terminus</b><br><span class="muted small">dos dobles</span></td>
-        <td data-l="3 noches"><b>762 €</b><br><span class="muted small">64 € por persona y noche</span></td>
-        <td data-l="Camas">Cama doble o dos individuales, a elegir</td>
-        <td data-l="A favor">Resuelve el reparto de camas. Bar y comedor propios, red de seguridad
-            para cualquier noche que se tuerza.</td>
-        <td data-l="En contra">La más cara. Habitaciones básicas y baños algo anticuados; 3,9 en Google.</td>
-      </tr>
-      <tr>
-        <td data-l="Opción"><b>Terminus</b><br><span class="muted small">individual + triple</span></td>
-        <td data-l="3 noches"><b>675 €</b><br><span class="muted small">56 € por persona y noche</span></td>
-        <td data-l="Camas">Uno solo y tres en camas individuales</td>
-        <td data-l="A favor">La más barata de las tres.</td>
-        <td data-l="En contra">Reparto incómodo: alguien duerme solo y los otros tres comparten. Descartable.</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="routescroll hotelscroll">
+    <article class="rcard hcard">
+      <header><b>Parada</b> <span>dos dobles</span></header>
+      <div class="hprice">694 €<em>58 € por persona y noche</em><em class="best">Recomendado</em></div>
+      <div class="hblock"><span>Camas</span><p>Una cama doble grande en cada habitación</p></div>
+      <div class="hblock"><span>A favor</span><p>Plaza de parking incluida por habitación. Sin prepago, se paga allí. Aire acondicionado e insonorización. 4,2 en Google.</p></div>
+      <div class="hblock last"><span>En contra</span><p>No ofrece dos camas separadas. El desayuno va aparte, 13,90 € por persona.</p></div>
+    </article>
+    <article class="rcard hcard">
+      <header><b>Terminus</b> <span>dos dobles</span></header>
+      <div class="hprice">762 €<em>64 € por persona y noche</em></div>
+      <div class="hblock"><span>Camas</span><p>Cama doble o dos individuales, a elegir</p></div>
+      <div class="hblock"><span>A favor</span><p>Resuelve el reparto de camas. Bar y comedor propios, red de seguridad para cualquier noche que se tuerza.</p></div>
+      <div class="hblock last"><span>En contra</span><p>La más cara. Habitaciones básicas y baños algo anticuados; 3,9 en Google.</p></div>
+    </article>
+    <article class="rcard hcard">
+      <header><b>Terminus</b> <span>individual + triple</span></header>
+      <div class="hprice">675 €<em>56 € por persona y noche</em></div>
+      <div class="hblock"><span>Camas</span><p>Uno solo y tres en camas individuales</p></div>
+      <div class="hblock"><span>A favor</span><p>La más barata de las tres.</p></div>
+      <div class="hblock last"><span>En contra</span><p>Reparto incómodo: alguien duerme solo y los otros tres comparten. Descartable.</p></div>
+    </article>
+  </div>
+  <p class="cap swipehint">Desliza para comparar las tres opciones →</p>
 
   <div class="pick">
     <div class="price">694 €<span>Parada · dos dobles</span></div>
@@ -898,43 +909,68 @@ table.plain td:last-child,table.plain th:last-child{padding-right:0}
 <section id="reco">
   <div class="section-head">
     <h2>Recomendaciones</h2>
+    <p class="lead">Tres cosas que conviene resolver antes de meter la maleta en
+    el coche.</p>
   </div>
 
-  <div class="note">
-    <p class="eyebrow">Cinco llamadas que ahorran disgustos</p>
-    <ol>
-      <li><b>El Tren Groc no circula.</b> Hay corte de línea entre Villefranche y
-      Latour-de-Carol del 28 de septiembre al 30 de octubre de 2026. No lo metáis
-      en el plan aunque os lo vendan.</li>
-      <li><b>Lanzadera 4x4 del Fort Libéria.</b> En octubre puede no estar
-      operativa, y de ella depende que el fuerte sea fácil o no.</li>
-      <li><b>Horno solar de Odeillo.</b> La exposición cierra en temporada baja
-      según el día.</li>
-      <li><b>Grottes des Canalettes.</b> Confirmad el horario de octubre: las
-      fuentes discrepan entre 10:00-17:00 y 11:00-16:00.</li>
-      <li><b>Camas del hotel Parada.</b> Preguntad por una doble con dos camas
-      separadas.</li>
-    </ol>
-  </div>
-
-  <div class="block">
-    <h3>En la maleta</h3>
-    <div class="packing">
-      <div><b>DNI y tarjeta sanitaria europea<span>Se cruza a Francia los días 2 y 3</span></b></div>
-      <div><b>Capas y cortavientos<span>A 2.000 m puede haber 5 °C aunque abajo haga sol</span></b></div>
-      <div><b>Calzado con suela<span>Adoquín, escaleras de piedra y roca mojada en la cueva</span></b></div>
-      <div><b>Chaqueta para la cueva<span>Dentro se está a 14 °C todo el año</span></b></div>
-      <div><b>Gorro y guantes finos<span>Solo para el domingo, arriba en el lago</span></b></div>
-      <div><b>Efectivo suelto<span>Aparcamientos y taquillas pequeñas sin datáfono</span></b></div>
-      <div><b>Gafas de sol<span>El sol de octubre a esa altura pega de lado y molesta</span></b></div>
-      <div><b>Termo o botella<span>No hay fuentes en la vuelta al lago</span></b></div>
+  <div class="subsec">
+    <h3>Cinco llamadas que ahorran disgustos</h3>
+    <p class="sublead">En octubre casi todo funciona con horario reducido, y hay
+    cosas que solo se confirman por teléfono.</p>
+    <div class="note">
+      <ol>
+        <li><b>El Tren Groc no circula.</b> Hay corte de línea entre Villefranche
+        y Latour-de-Carol del 28 de septiembre al 30 de octubre de 2026. No lo
+        metáis en el plan aunque os lo vendan.</li>
+        <li><b>Lanzadera 4x4 del Fort Libéria.</b> En octubre puede no estar
+        operativa, y de ella depende que el fuerte sea fácil o no.</li>
+        <li><b>Horno solar de Odeillo.</b> La exposición cierra en temporada baja
+        según el día.</li>
+        <li><b>Grottes des Canalettes.</b> Confirmad el horario de octubre: las
+        fuentes discrepan entre 10:00-17:00 y 11:00-16:00.</li>
+        <li><b>Camas del hotel Parada.</b> Preguntad por una doble con dos camas
+        separadas.</li>
+      </ol>
     </div>
   </div>
 
-  <div class="block">
+  <div class="subsec">
+    <h3>En la maleta</h3>
+    <p class="sublead">Quince cosas, con el motivo de cada una. Lo demás va al
+    gusto.</p>
+    <div class="kit">
+      <div class="kitcol">
+        <h4>Imprescindible</h4>
+        <ul>
+          <li>DNI y tarjeta sanitaria europea<i>Se cruza a Francia los días 2 y 3</i></li>
+          <li>Efectivo suelto<i>Aparcamientos y taquillas sin datáfono</i></li>
+          <li>Cargador y batería externa</li>
+        </ul>
+      </div>
+      <div class="kitcol">
+        <h4>Ropa</h4>
+        <ul>
+          <li>Capas y cortavientos<i>A 2.000 m puede haber 5 °C aunque abajo haga sol</i></li>
+          <li>Chaqueta para la cueva<i>Dentro se está a 14 °C todo el año</i></li>
+          <li>Calzado con suela<i>Adoquín, escaleras de piedra y roca húmeda</i></li>
+          <li>Gorro y guantes finos<i>Solo para el domingo, arriba en el lago</i></li>
+        </ul>
+      </div>
+      <div class="kitcol">
+        <h4>Para el día a día</h4>
+        <ul>
+          <li>Gafas de sol<i>A esa altura el sol de octubre pega de lado</i></li>
+          <li>Termo o botella<i>No hay fuentes en la vuelta al lago</i></li>
+          <li>Bastones, si os apetece<i>Opcionales; nada del viaje los exige</i></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsec">
     <h3>Para investigar por vuestra cuenta</h3>
-    <p class="block-tight">Las webs oficiales de las oficinas de turismo de las
-    tres zonas. Todas tienen versión en español o en catalán.</p>
+    <p class="sublead">Las webs oficiales de las tres zonas. Todas tienen versión
+    en español o en catalán.</p>
     <div class="btns">
       <a class="btn solid" href="https://cerdanya.org/territoricerdanya360/" target="_blank" rel="noopener">Turismo de la Cerdanya</a>
       <a class="btn" href="https://www.pyrenees-cerdagne.com/es/le-lac-des-bouillouses-espanol" target="_blank" rel="noopener">Cerdaña francesa</a>
