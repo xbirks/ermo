@@ -12,7 +12,7 @@
 <style>
 :root{
   --pine:#17453A; --pine-m:#2F6B54; --pine-l:#4A8B6E;
-  --clay:#7A5B3E; --clay-l:#C0A181;
+  --clay:#7B6553; --clay-l:#D6C9B7;
   --alert:#BF5B27;
   --sand:#F3E9D9; --ink:#232D2B; --grey:#77837F;
   --cream:#FCF8F2; --line:#E6DCCB;
@@ -32,8 +32,8 @@ body{
 img{display:block;width:100%}
 
 h1,h2,h3,h4{margin:0;line-height:1.14;letter-spacing:-.025em;font-weight:700}
-h1{font-size:clamp(31px,7.6vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.05}
-h2{font-size:clamp(29px,5.6vw,38px);color:var(--pine)}
+h1{font-size:clamp(46px,12vw,72px);font-weight:800;letter-spacing:-.045em;line-height:1.02}
+h2{font-size:clamp(37px,8.8vw,50px);color:var(--pine);line-height:1.08;letter-spacing:-.032em}
 h3{font-size:clamp(22px,3.4vw,25px);color:var(--pine)}
 h4{font-size:clamp(19px,2.9vw,21px);color:var(--pine)}
 .eyebrow{
@@ -70,18 +70,13 @@ section + section{border-top:1px solid var(--line)}
 .jump a:active{background:var(--pine);color:#fff}
 
 /* ---------- portada ---------- */
-.hero img{aspect-ratio:16/9;height:auto;object-fit:cover}
+.hero img{aspect-ratio:4/3;height:auto;object-fit:cover}
 .hero .band{background:var(--pine);color:#fff;padding:var(--pad)}
 .hero .band .eyebrow{color:var(--clay-l)}
 .hero h1{color:#fff}
 .hero .sub{font-size:clamp(16.5px,2.6vw,21px);line-height:1.5;color:#CFD9D2;
            margin:14px 0 0;max-width:58ch}
-.hero .meta{
-  margin-top:var(--gap);padding-top:14px;border-top:1px solid rgba(255,255,255,.18);
-  font-size:14.5px;color:#fff;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px 24px;
-}
-.hero .meta span{color:#9FB3AA}
+
 
 /* ---------- botones ---------- */
 .btns{display:flex;flex-wrap:wrap;gap:9px;margin-top:var(--gap)}
@@ -99,6 +94,7 @@ section + section{border-top:1px solid var(--line)}
 .btn.ghost{border-color:var(--line);color:var(--grey)}
 @media (hover:hover){
   .btn:hover{background:var(--pine);color:#fff}
+  .dark .btn:hover{background:#fff;color:var(--pine);border-color:#fff}
   .btn.solid:hover{background:var(--pine-m);border-color:var(--pine-m)}
   .btn.ghost:hover{background:var(--sand);color:var(--ink);border-color:var(--sand)}
 }
@@ -115,10 +111,12 @@ section + section{border-top:1px solid var(--line)}
   scroll-snap-align:start;border:1px solid var(--line);border-radius:14px;
   overflow:hidden;background:#fff;display:flex;flex-direction:column;
 }
-.rcard header{background:var(--pine);color:#fff;padding:12px 15px;font-size:16px}
+.rcard header{background:var(--pine);color:#fff;padding:12px 15px;font-size:16px;
+              display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .rcard header b{font-weight:700}
 .rcard header span{color:#9FB3AA;font-weight:500}
-.rcard header span::before{content:' · '}
+.rcard header span::before{content:'· '}
+.rcard header .lvl{margin-left:auto;background:rgba(255,255,255,.17);color:#fff;font-style:normal}
 .rplan{
   margin:0;padding:14px 15px;font-size:17px;font-weight:700;color:var(--pine);
   line-height:1.3;border-bottom:1px solid var(--line);max-width:none;
@@ -130,29 +128,39 @@ section + section{border-top:1px solid var(--line)}
 .rrow span{font-size:10.5px;font-weight:700;letter-spacing:.12em;
            text-transform:uppercase;color:var(--grey)}
 .rrow b{font-weight:600;font-variant-numeric:tabular-nums}
-.rfoot{padding:13px 15px;margin-top:auto;background:var(--cream)}
-.rfoot em{display:block;font-style:normal;font-size:13px;color:var(--grey);margin-top:7px;line-height:1.4}
+.rfoot{padding:14px 15px 15px;margin-top:auto;background:var(--cream)}
+.rfoot em{display:block;font-style:normal;font-size:13px;color:var(--grey);
+          margin:0 0 12px;line-height:1.4}
+.rfoot .btn{width:100%;justify-content:space-between;font-size:14px;
+            padding:11px 15px;min-height:44px}
+.btn.inner::after{content:'→'}
 .lvl{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;
      padding:4px 10px;border-radius:999px;text-transform:uppercase}
 .lvl.a{background:#E4EFE7;color:#2C6B4F}
-.lvl.b{background:#EDE4D5;color:#6B4E36}
+.lvl.b{background:#EAE3D8;color:#6B5A49}
 .swipehint{display:none}
 
 /* ---------- tarjetas de hotel ---------- */
-.hotelscroll{grid-auto-columns:minmax(250px,1fr)}
-.hcard header span::before{content:' · '}
-.hprice{padding:16px 15px;background:var(--cream);border-bottom:1px solid var(--line);
-        font-size:30px;font-weight:800;color:var(--pine);letter-spacing:-.03em;line-height:1}
-.hprice em{display:block;font-style:normal;font-size:12.5px;font-weight:500;
-           color:var(--grey);margin-top:6px;letter-spacing:0}
-.hprice .best{display:inline-block;margin-top:10px;background:var(--pine);color:#fff;
-              font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-              padding:5px 11px;border-radius:999px}
-.hblock{padding:13px 15px;border-bottom:1px solid var(--line)}
-.hblock.last{border-bottom:none}
-.hblock span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.12em;
-             text-transform:uppercase;color:var(--grey);margin-bottom:5px}
-.hblock p{margin:0;font-size:14.5px;line-height:1.5;max-width:none}
+.hotelscroll{grid-auto-columns:minmax(268px,1fr)}
+.hcard{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.hcard.best{border:2px solid var(--pine);box-shadow:0 2px 0 rgba(23,69,58,.06)}
+.hhead{padding:20px 18px 14px}
+.htag{display:inline-block;background:var(--pine);color:#fff;font-size:9.5px;
+      font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      padding:5px 11px;border-radius:999px;margin-bottom:13px}
+.hcard h4{font-size:23px;color:var(--pine);line-height:1.15;margin:0}
+.hsub{margin:6px 0 0;font-size:13.5px;color:var(--grey);max-width:none}
+.hprice{padding:0 18px 18px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;
+        border-bottom:1px solid var(--line)}
+.hprice b{font-size:34px;font-weight:800;letter-spacing:-.035em;color:var(--ink);line-height:1}
+.hprice span{font-size:12.5px;color:var(--grey)}
+.hbeds{margin:0;padding:15px 18px;font-size:14px;line-height:1.5;color:var(--ink);
+       background:var(--cream);border-bottom:1px solid var(--line);max-width:none}
+.hlist{list-style:none;margin:0;padding:12px 18px 20px}
+.hlist li{position:relative;padding:8px 0 8px 25px;font-size:14.5px;line-height:1.45}
+.hlist li::before{position:absolute;left:0;top:7px;font-weight:800;font-size:16px;line-height:1.3}
+.hlist li.yes::before{content:'+';color:#2C6B4F}
+.hlist li.no::before{content:'–';color:var(--alert)}
 
 /* ---------- mapa ---------- */
 .mapwrap{position:relative;z-index:0}
@@ -196,6 +204,30 @@ section + section{border-top:1px solid var(--line)}
 .acc[open] summary b{color:var(--clay)}
 .accbody{padding:0 40px 22px 0}
 .accbody p{margin:0;font-size:15px;line-height:1.62;max-width:none}
+
+/* ---------- bloque final oscuro ---------- */
+.dark{background:var(--pine);color:#C3D2CB}
+#reco{border-top:none!important}
+.dark + .dark{border-top:1px solid rgba(255,255,255,.14)!important}
+.dark h2,.dark h3{color:#fff}
+.dark .lead,.dark .sublead,.dark .cap{color:#93A9A0}
+.dark .subsec{border-top-color:rgba(255,255,255,.14)}
+.dark .note{background:rgba(255,255,255,.06);border-left-color:var(--clay-l);color:#C3D2CB}
+.dark .note .eyebrow{color:var(--clay-l)}
+.dark .note b{color:#fff}
+.dark .kitcol h4{color:var(--clay-l);border-bottom-color:rgba(255,255,255,.28)}
+.dark .kitcol li{border-bottom-color:rgba(255,255,255,.12);color:#E4EDE8}
+.dark .kitcol li::before{border-color:var(--clay-l)}
+.dark .kitcol li i{color:#93A9A0}
+.dark .btn{background:transparent;border-color:rgba(255,255,255,.32);color:#fff}
+.dark .btn.solid{background:#fff;border-color:#fff;color:var(--pine)}
+.dark .btn.ghost{border-color:rgba(255,255,255,.16);color:#93A9A0}
+.dark .btn:active{background:#fff;color:var(--pine)}
+.dark .dir h3{border-bottom-color:rgba(255,255,255,.28)}
+.dark .dirrow{border-bottom-color:rgba(255,255,255,.12)}
+.dark .dirrow .who{color:#fff}
+.dark .dirrow .where{color:#93A9A0}
+.dark .dirrow .tel a{color:#fff;border-bottom-color:rgba(255,255,255,.28)}
 
 /* ---------- subsecciones ---------- */
 .subsec{margin-top:clamp(56px,10vw,104px);padding-top:clamp(30px,5vw,46px);
@@ -277,14 +309,6 @@ section + section{border-top:1px solid var(--line)}
 /* ---------- fecha del día ---------- */
 .daydate{font-size:15px;font-weight:600;color:var(--clay);margin:0 0 10px;letter-spacing:0}
 
-/* ---------- alojamiento ---------- */
-.pick{display:grid;grid-template-columns:auto 1fr;gap:var(--gap);align-items:center;
-      background:var(--pine);color:#fff;padding:var(--gap);margin-top:var(--gap)}
-.pick .price{font-size:clamp(32px,6vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1}
-.pick .price span{display:block;font-size:13px;font-weight:500;color:#9FB3AA;margin-top:6px;letter-spacing:0}
-.pick h4{color:#fff;margin-bottom:6px}
-.pick p{color:#CFD9D2;font-size:15px;margin:0}
-
 /* ---------- directorio ---------- */
 .dir h3{margin-top:clamp(28px,5vw,48px);padding-bottom:10px;border-bottom:2px solid var(--pine)}
 .dir h3:first-of-type{margin-top:var(--gap)}
@@ -312,7 +336,7 @@ section + section{border-top:1px solid var(--line)}
   .section-head{margin-bottom:22px}
 
   /* títulos con más presencia, texto algo menor */
-  h2{line-height:1.1;letter-spacing:-.03em}
+  h2{line-height:1.06}
   .lead{font-size:16.5px;line-height:1.6;margin-top:12px}
   p{margin-bottom:13px}
 
@@ -336,7 +360,7 @@ section + section{border-top:1px solid var(--line)}
   /* galerías: destacadas verticales, el resto cuadradas */
   .g21,.g1{grid-template-columns:1fr}
   .g2,.g3{grid-template-columns:1fr 1fr}
-  .hero img{aspect-ratio:4/5}
+  .hero img{aspect-ratio:1/1}
   .g1 img{aspect-ratio:4/5}
   .g21 figure:first-child img{aspect-ratio:4/5}
   .closing img{aspect-ratio:4/5}
@@ -344,7 +368,6 @@ section + section{border-top:1px solid var(--line)}
   /* botones a ancho completo */
   .btn{flex:1 1 100%;justify-content:space-between}
 
-  .pick{grid-template-columns:1fr;gap:14px}
   .kitcol{margin-bottom:6px}
 
   .dirrow{grid-template-columns:1fr;gap:2px;padding:15px 0}
@@ -359,7 +382,6 @@ section + section{border-top:1px solid var(--line)}
 
 @media (max-width:400px){
   .g2,.g3{grid-template-columns:1fr}
-  .hero .meta{grid-template-columns:1fr}
 }
 
 @media print{
@@ -373,7 +395,7 @@ section + section{border-top:1px solid var(--line)}
   #map{aspect-ratio:16/9;height:auto;max-height:340px}
   .gal img{aspect-ratio:1/1;max-height:140px}
   .g1 img,.g21 figure:first-child img,.hero img{aspect-ratio:16/9;max-height:210px}
-  .note,.rcard,.pick,.dirrow,figure,.fold{break-inside:avoid}
+  .note,.rcard,.dirrow,figure,.fold{break-inside:avoid}
   .btn{border-color:#ccc;color:#555;min-height:0;padding:6px 10px}
   .routescroll{grid-auto-flow:row;grid-template-columns:1fr 1fr;overflow:visible;gap:8px}
   .stopscroll{grid-template-columns:1fr 1fr}
@@ -400,12 +422,7 @@ section + section{border-top:1px solid var(--line)}
     <p class="sub">Cuatro días entre dos países, con castillos de Vauban, una
     cueva enorme, lagos a dos mil metros y un espejo gigante que derrite piedras.
     Y sin madrugar más de la cuenta.</p>
-    <div class="meta">
-      <div><span>Base</span> &nbsp;<b>Puigcerdà, 3 noches</b></div>
-      <div><span>Somos</span> &nbsp;<b>4</b></div>
-      <div><span>Coche</span> &nbsp;<b>~1.400 km en total</b></div>
-      <div><span>Ritmo</span> &nbsp;<b>De domingueros</b></div>
-    </div>
+
   </div>
 </div>
 
@@ -430,40 +447,52 @@ section + section{border-top:1px solid var(--line)}
 
   <div class="routescroll">
     <article class="rcard">
-      <header><b>Día 1</b> <span>viernes 9</span></header>
+      <header><b>Día 1</b> <span>viernes 9</span><em class="lvl a">Fácil</em></header>
       <p class="rplan">Viaje, Puigcerdà y Llívia</p>
       <div class="rrow"><span>Zona</span><b>Cerdanya</b></div>
       <div class="rrow"><span>Altitud</span><b>1.200 m</b></div>
       <div class="rrow"><span>A pie</span><b>2 km</b></div>
       <div class="rrow"><span>En coche</span><b>600 km</b></div>
-      <div class="rfoot"><span class="lvl a">Fácil</span><em>Todo llano</em></div>
+      <div class="rfoot">
+        <em>Todo llano</em>
+        <a class="btn inner" href="#d1">Ver el día 1</a>
+      </div>
     </article>
     <article class="rcard">
-      <header><b>Día 2</b> <span>sábado 10</span></header>
+      <header><b>Día 2</b> <span>sábado 10</span><em class="lvl b">Medio</em></header>
       <p class="rplan">Villefranche, Fort Libéria y las grutas</p>
       <div class="rrow"><span>Zona</span><b>Conflent</b></div>
       <div class="rrow"><span>Altitud</span><b>430 m</b></div>
       <div class="rrow"><span>A pie</span><b>3 km</b></div>
       <div class="rrow"><span>En coche</span><b>140 km</b></div>
-      <div class="rfoot"><span class="lvl b">Medio</span><em>Escaleras en la cueva</em></div>
+      <div class="rfoot">
+        <em>Escaleras en la cueva</em>
+        <a class="btn inner" href="#d2">Ver el día 2</a>
+      </div>
     </article>
     <article class="rcard">
-      <header><b>Día 3</b> <span>domingo 11</span></header>
+      <header><b>Día 3</b> <span>domingo 11</span><em class="lvl a">Fácil</em></header>
       <p class="rplan">Lac des Bouillouses y el horno solar</p>
       <div class="rrow"><span>Zona</span><b>Capcir</b></div>
       <div class="rrow"><span>Altitud</span><b>2.016 m</b></div>
       <div class="rrow"><span>A pie</span><b>5 km</b></div>
       <div class="rrow"><span>En coche</span><b>80 km</b></div>
-      <div class="rfoot"><span class="lvl a">Fácil</span><em>Llano, pero hace frío</em></div>
+      <div class="rfoot">
+        <em>Llano, pero hace frío</em>
+        <a class="btn inner" href="#d3">Ver el día 3</a>
+      </div>
     </article>
     <article class="rcard">
-      <header><b>Día 4</b> <span>lunes 12</span></header>
+      <header><b>Día 4</b> <span>lunes 12</span><em class="lvl a">Fácil</em></header>
       <p class="rplan">Bellver de Cerdanya y vuelta a casa</p>
       <div class="rrow"><span>Zona</span><b>Cerdanya</b></div>
       <div class="rrow"><span>Altitud</span><b>1.060 m</b></div>
       <div class="rrow"><span>A pie</span><b>1,5 km</b></div>
       <div class="rrow"><span>En coche</span><b>580 km</b></div>
-      <div class="rfoot"><span class="lvl a">Fácil</span><em>Una cuesta corta</em></div>
+      <div class="rfoot">
+        <em>Una cuesta corta</em>
+        <a class="btn inner" href="#d4">Ver el día 4</a>
+      </div>
     </article>
   </div>
   <p class="cap swipehint">Desliza hacia el lado para ver los cuatro días →</p>
@@ -499,12 +528,6 @@ section + section{border-top:1px solid var(--line)}
   Bellver y el túnel del Cadí, que es por donde se vuelve a casa.</p></div>
   </details>
 
-
-  <div class="btns">
-    <a class="btn" href="https://cerdanya.org/territoricerdanya360/" target="_blank" rel="noopener">Turismo de la Cerdanya</a>
-    <a class="btn" href="https://www.pyrenees-cerdagne.com/es/le-lac-des-bouillouses-espanol" target="_blank" rel="noopener">Cerdaña francesa, en español</a>
-    <a class="btn" href="https://www.tourisme-pyreneesorientales.com/" target="_blank" rel="noopener">Pirineos Orientales</a>
-  </div>
 </section>
 
 <!-- DÍA 1 -->
@@ -587,52 +610,7 @@ section + section{border-top:1px solid var(--line)}
   <p class="cap">Villefranche-de-Conflent. El pueblo, las murallas y el fuerte de
   arriba se visitan todo el mismo día.</p>
 
-  <div class="routescroll stopscroll">
-    <article class="rcard scard">
-      <header><b>09:00</b></header>
-      <div class="sbody">
-        <h4>Bajada por la N116</h4>
-        <p>Carretera bonita siguiendo el valle de la Têt. Parada corta en el mirador del <b>viaducto Séjourné</b> si os apetece estirar las piernas.</p>
-      </div>
-    </article>
-    <article class="rcard scard">
-      <header><b>10:30</b></header>
-      <div class="sbody">
-        <h4>Villefranche-de-Conflent</h4>
-        <p>Pueblo amurallado del siglo XI, refortificado por Vauban y declarado Patrimonio de la Humanidad. Se recorre entero en una hora larga: dos calles, las murallas y las torres. Se puede subir al camino de ronda cubierto, que es lo mejor de la visita.</p>
-      </div>
-    </article>
-    <article class="rcard scard">
-      <header><b>12:00</b></header>
-      <div class="sbody">
-        <h4>Fort Libéria</h4>
-        <p>La fortaleza que domina el pueblo desde 150 metros más arriba: doce salas, capilla, prisiones y unas vistas enormes sobre el Canigó. <b>Subid en la lanzadera 4x4</b>, 14 € con la entrada incluida; si no, son 734 peldaños o un sendero de media hora. Dentro vive una colonia de <b>murciélagos</b>.</p> <div class="btns"> <a class="btn" href="https://www.tourisme-canigo.com/unesco/fort-liberia/" target="_blank" rel="noopener">Todo sobre el Fort Libéria</a> </div>
-      </div>
-    </article>
-    <article class="rcard scard">
-      <header><b>14:00</b></header>
-      <div class="sbody">
-        <h4>Comida en el pueblo</h4>
-        <p>Ojo con la hora: en Francia muchas cocinas cierran a las 14:00. Si vais justos, comed antes de subir al fuerte. En las dos calles del recinto hay varios sitios con menú cerrado.</p>
-      </div>
-    </article>
-    <article class="rcard scard">
-      <header><b>15:30</b></header>
-      <div class="sbody">
-        <h4>Grotte des Grandes Canalettes</h4>
-        <p>Probablemente lo mejor del viaje, a 300 metros del pueblo. Como las Güixas pero a otra escala: un kilómetro de galerías por salas gigantescas, con pasarelas, barandillas y bancos en cada nivel. Visita libre, sin guía ni reserva, una hora escasa. Se está a 14 °C: llevad chaqueta.</p> <div class="btns"> <a class="btn solid" href="https://www.grottescanalettes.com/" target="_blank" rel="noopener">Web de las grutas</a> </div>
-      </div>
-    </article>
-    <article class="rcard scard">
-      <header><b>17:30</b></header>
-      <div class="sbody">
-        <h4>Mont-Louis, de vuelta</h4>
-        <p>Parada final en la otra plaza fuerte de Vauban, también Patrimonio de la Humanidad, con su ciudadela y su pozo de los forzados. Media hora basta.</p>
-      </div>
-    </article>
-  </div>
-
-  <div class="gal g2">
+<div class="gal g2">
     <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Remparts%20de%20Villefranche%20de%20Conflent%20et%20Fort%20Lib%C3%A9ria.jpg?width=1300" alt="Murallas de Villefranche y Fort Libéria"></figure>
     <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Villefranche-de-Conflent%2010.jpg?width=1100" alt="Calle de Villefranche"></figure>
   </div>
@@ -648,13 +626,65 @@ section + section{border-top:1px solid var(--line)}
   <p class="cap"><b>Las grutas.</b> Un kilómetro de galerías iluminadas a
   conciencia, con pasarelas y bancos en cada nivel.</p>
 
+  <div class="routescroll stopscroll">
+    <article class="rcard scard">
+      <header><b>09:00</b></header>
+      <div class="sbody">
+        <h4>Bajada por la N116</h4>
+        <p>Carretera bonita siguiendo el valle de la Têt. Parada corta en el mirador del <b>viaducto Séjourné</b> si os apetece estirar las piernas.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>10:30</b></header>
+      <div class="sbody">
+        <h4>Grotte des Grandes Canalettes</h4>
+        <p>Lo primero del día, porque es lo único que puede cerrar pronto. A 300 metros del pueblo, con aparcamiento propio. Como las Güixas pero a otra escala: un kilómetro de galerías por salas gigantescas, con pasarelas, barandillas y bancos en cada nivel. Una hora escasa. Se está a 14 °C: llevad chaqueta.</p>
+        <div class="btns"> <a class="btn solid" href="https://www.grottescanalettes.com/" target="_blank" rel="noopener">Web de las grutas</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>11:45</b></header>
+      <div class="sbody">
+        <h4>Villefranche-de-Conflent</h4>
+        <p>Pueblo amurallado fundado en 1092 y refortificado por Vauban. Callejearlo es gratis; subir a las murallas cuesta 10 € y merece la pena, porque Vauban montó aquí <b>dos caminos de ronda cubiertos superpuestos</b>, algo que no repitió en ninguna otra plaza suya. Última entrada, una hora antes del cierre.</p>
+        <div class="btns"> <a class="btn" href="https://villefranchedeconflent.fr/tourisme/les-remparts/" target="_blank" rel="noopener">Murallas: horarios y tarifas</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>13:15</b></header>
+      <div class="sbody">
+        <h4>Comida en el pueblo</h4>
+        <p>Sin apurar: en Francia muchas cocinas cierran a las 14:00, así que a esta hora entráis con margen. En las dos calles del recinto hay varios sitios con menú cerrado.</p>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>15:00</b></header>
+      <div class="sbody">
+        <h4>Fort Libéria</h4>
+        <p>La fortaleza que domina el pueblo desde 150 metros más arriba: doce salas, capilla, prisiones y unas vistas enormes sobre el Canigó. <b>Subid en la lanzadera 4x4</b>, 14 € con la entrada incluida; si no, son 734 peldaños o un sendero de media hora. Dentro vive una colonia de <b>murciélagos</b>.</p>
+        <div class="btns"> <a class="btn" href="https://www.tourisme-canigo.com/unesco/fort-liberia/" target="_blank" rel="noopener">Todo sobre el Fort Libéria</a> </div>
+      </div>
+    </article>
+    <article class="rcard scard">
+      <header><b>17:30</b></header>
+      <div class="sbody">
+        <h4>Mont-Louis, de vuelta</h4>
+        <p>La otra plaza fuerte de Vauban, también Patrimonio de la Humanidad. Ojo a un detalle: la ciudadela es hoy un centro de entrenamiento militar y el famoso <b>pozo de los forzados solo se ve con visita guiada</b>, que organiza la oficina de turismo. Si vais por libre, media hora de paseo por las calles y las murallas.</p>
+        <div class="btns"> <a class="btn" href="https://www.mont-louis.net/" target="_blank" rel="noopener">Visitas guiadas de Mont-Louis</a> </div>
+      </div>
+    </article>
+  </div>
+
+
+
   <div class="note">
     <p class="eyebrow">Datos útiles del día</p>
-    <p>Grutas: 14 € por adulto, aparcamiento propio y gratuito. Fort Libéria: 8 €
-    a pie, 14 € con lanzadera, y la última entrada es una hora antes del cierre;
-    la lanzadera sale de la plaza que hay detrás de la oficina de turismo. Si el
-    horario de las grutas resulta ser el corto, de 11:00 a 16:00, adelantad la
-    comida y hacedlas antes que el fuerte.</p>
+    <p>Grutas: 14 € por adulto, aparcamiento propio y gratuito. Su horario de
+    octubre baila entre 10:00-17:00 y 11:00-16:00, y por eso van las primeras: si
+    abren a las 11:00, dais mientras una vuelta por las murallas y no se pierde
+    nada. Fort Libéria: 8 € a pie, 14 € con lanzadera, y la última entrada es una
+    hora antes del cierre; la lanzadera sale de la plaza que hay detrás de la
+    oficina de turismo.</p>
   </div>
 </section>
 
@@ -680,12 +710,22 @@ section + section{border-top:1px solid var(--line)}
   <p class="cap">La meseta de las Bouillouses: prados, pino negro y agua por todas
   partes. Es lo más verde de todo el viaje.</p>
 
+<div class="gal g2">
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Four-solaire-odeillo-01.jpg?width=1300" alt="Horno solar de Odeillo"></figure>
+    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Four-Solaire%20heliostats%20Odeillo.JPG?width=1300" alt="Heliostatos del horno solar"></figure>
+  </div>
+  <p class="cap">El espejo parabólico y el campo de heliostatos que lo alimenta.</p>
+
   <div class="routescroll stopscroll">
     <article class="rcard scard">
       <header><b>08:30</b></header>
       <div class="sbody">
         <h4>Subida a la presa</h4>
-        <p>Desde Puigcerdà por Mont-Louis y la carretera D60. En verano el acceso en coche está prohibido, pero <b>en 2026 las lanzaderas terminaron el 20 de septiembre</b>, así que en octubre se sube hasta el mismo lago. Los últimos nueve kilómetros son estrechos: sin prisa.</p> <div class="btns"> <a class="btn" href="https://www.ledepartement66.fr/le-lac-des-bouillouses/" target="_blank" rel="noopener">Accesos y normas del lago</a> </div>
+        <p>Desde Puigcerdà por Mont-Louis y la carretera D60. De mediados de junio a finales de septiembre la subida en coche está prohibida y hay que dejarlo en el aparcamiento del Pla de Barrès y coger una lanzadera. <b>En 2026 dejaron de circular el 20 de septiembre</b>, así que en octubre subís hasta el mismo lago. Los últimos nueve kilómetros son estrechos: sin prisa.</p> <div class="btns">
+          <a class="btn solid" href="https://www.ledepartement66.fr/dossier/le-lac-des-bouillouses/" target="_blank" rel="noopener">Lanzadera: fechas y tarifas</a>
+          <a class="btn" href="https://font-romeu.fr/es/aficiones/acceso-bouillouses-en-bus/" target="_blank" rel="noopener">La lanzadera, en español</a>
+          <a class="btn" href="https://www.mont-louis.net/terre-de-tr%C3%A9sors/espaces-naturels/" target="_blank" rel="noopener">Normas de acceso al lago</a>
+        </div>
       </div>
     </article>
     <article class="rcard scard">
@@ -718,15 +758,14 @@ section + section{border-top:1px solid var(--line)}
     </article>
   </div>
 
-  <div class="gal g2">
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Four-solaire-odeillo-01.jpg?width=1300" alt="Horno solar de Odeillo"></figure>
-    <figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Four-Solaire%20heliostats%20Odeillo.JPG?width=1300" alt="Heliostatos del horno solar"></figure>
-  </div>
-  <p class="cap">El espejo parabólico y el campo de heliostatos que lo alimenta.</p>
+
 
   <div class="note">
     <p class="eyebrow">El día que más depende del tiempo</p>
-    <p>A dos mil metros en octubre puede haber viento fuerte o nieve temprana.
+    <p>Si algún año cambian las fechas y os toca lanzadera, sale del Pla de Barrès,
+    pasa cada 15 o 30 minutos de 7:00 a 19:00 y el billete se compra allí mismo,
+    en torno a 6 u 8 € por persona ida y vuelta según la tarifa del año. A dos mil
+    metros en octubre puede haber viento fuerte o nieve temprana.
     <b>Plan B si el día amanece feo:</b> el cremallera de <b>Núria</b>, desde
     Ribes de Freser, a hora y cuarto de Puigcerdà. Es un tren de vía estrecha que
     sube por un desfiladero hasta un santuario metido en un circo de montaña a
@@ -876,103 +915,107 @@ section + section{border-top:1px solid var(--line)}
   </div>
 
   <div class="routescroll hotelscroll">
-    <article class="rcard hcard">
-      <header><b>Parada</b> <span>dos dobles</span></header>
-      <div class="hprice">694 €<em>58 € por persona y noche</em><em class="best">Recomendado</em></div>
-      <div class="hblock"><span>Camas</span><p>Una cama doble grande en cada habitación</p></div>
-      <div class="hblock"><span>A favor</span><p>Plaza de parking incluida por habitación. Sin prepago, se paga allí. Aire acondicionado e insonorización. 4,2 en Google.</p></div>
-      <div class="hblock last"><span>En contra</span><p>No ofrece dos camas separadas. El desayuno va aparte, 13,90 € por persona.</p></div>
+    <article class="rcard hcard best">
+      <div class="hhead">
+        <span class="htag">Nuestra opción</span>
+        <h4>Hotel Terminus</h4>
+        <p class="hsub">Individual + triple · 3 noches</p>
+      </div>
+      <div class="hprice"><b>675 €</b><span>56 € por persona y noche</span></div>
+      <p class="hbeds">Una habitación individual y otra triple, con tres camas separadas</p>
+      <ul class="hlist">
+        <li class="yes">La más barata de las tres</li>
+        <li class="yes">Bar y comedor propios en el hotel</li>
+        <li class="yes">Balcón en las dos habitaciones</li>
+        <li class="no">Uno duerme solo y los otros tres comparten cuarto</li>
+        <li class="no">Habitaciones básicas y baños algo anticuados</li>
+      </ul>
     </article>
     <article class="rcard hcard">
-      <header><b>Terminus</b> <span>dos dobles</span></header>
-      <div class="hprice">762 €<em>64 € por persona y noche</em></div>
-      <div class="hblock"><span>Camas</span><p>Cama doble o dos individuales, a elegir</p></div>
-      <div class="hblock"><span>A favor</span><p>Resuelve el reparto de camas. Bar y comedor propios, red de seguridad para cualquier noche que se tuerza.</p></div>
-      <div class="hblock last"><span>En contra</span><p>La más cara. Habitaciones básicas y baños algo anticuados; 3,9 en Google.</p></div>
+      <div class="hhead">
+        <h4>Hotel Parada</h4>
+        <p class="hsub">Dos dobles · 3 noches</p>
+      </div>
+      <div class="hprice"><b>694 €</b><span>58 € por persona y noche</span></div>
+      <p class="hbeds">Una cama doble grande en cada habitación</p>
+      <ul class="hlist">
+        <li class="yes">Plaza de parking incluida por habitación</li>
+        <li class="yes">Sin prepago: se paga al llegar</li>
+        <li class="yes">Aire acondicionado e insonorización</li>
+        <li class="no">Solo cama de matrimonio, no hay dos camas</li>
+        <li class="no">Desayuno aparte, 13,90 € por persona</li>
+      </ul>
     </article>
     <article class="rcard hcard">
-      <header><b>Terminus</b> <span>individual + triple</span></header>
-      <div class="hprice">675 €<em>56 € por persona y noche</em></div>
-      <div class="hblock"><span>Camas</span><p>Uno solo y tres en camas individuales</p></div>
-      <div class="hblock"><span>A favor</span><p>La más barata de las tres.</p></div>
-      <div class="hblock last"><span>En contra</span><p>Reparto incómodo: alguien duerme solo y los otros tres comparten. Descartable.</p></div>
+      <div class="hhead">
+        <h4>Hotel Terminus</h4>
+        <p class="hsub">Dos dobles · 3 noches</p>
+      </div>
+      <div class="hprice"><b>762 €</b><span>64 € por persona y noche</span></div>
+      <p class="hbeds">Cama doble o dos camas individuales, a elegir</p>
+      <ul class="hlist">
+        <li class="yes">Cada pareja en su habitación</li>
+        <li class="yes">Resuelve el reparto de camas</li>
+        <li class="no">87 € más que la otra opción del mismo hotel</li>
+        <li class="no">La más cara de las tres</li>
+      </ul>
     </article>
   </div>
   <p class="cap swipehint">Desliza para comparar las tres opciones →</p>
 
-  <div class="pick">
-    <div class="price">694 €<span>Parada · dos dobles</span></div>
-    <div>
-      <h4>La recomendación, con una llamada de por medio</h4>
-      <p>El Parada sale 68 € más barato que el Terminus con dos dobles y da más
-      por ese dinero. Antes de reservar, llamad y preguntad si tienen alguna doble
-      con dos camas separadas: la ficha solo ofrece cama de matrimonio, y hay una
-      habitación de dos personas a 377 € cuya descripción no se ve. Si os la
-      consiguen, gana sin discusión. Si no, el Terminus con dos dobles.</p>
-    </div>
-  </div>
-
-  <p class="cap">Cancelación gratis hasta el 6 de octubre en los dos, así que se
-  puede reservar hoy sin riesgo.</p>
+  <p class="cap">Cancelación gratis hasta el 6 de octubre y sin pagar nada hasta
+  el 4. Quedan cinco individuales y solo dos triples, así que la triple es la que
+  se puede agotar: conviene reservar pronto.</p>
 </section>
 
 <!-- RECOMENDACIONES -->
-<section id="reco">
+<section id="reco" class="dark">
   <div class="section-head">
     <h2>Recomendaciones</h2>
-    <p class="lead">Tres cosas que conviene resolver antes de meter la maleta en
-    el coche.</p>
+    <p class="lead">Lo que conviene dejar resuelto antes de salir.</p>
   </div>
 
   <div class="subsec">
     <h3>Cinco llamadas que ahorran disgustos</h3>
-    <p class="sublead">En octubre casi todo funciona con horario reducido, y hay
-    cosas que solo se confirman por teléfono.</p>
+    <p class="sublead">En octubre casi todo va con horario reducido.</p>
     <div class="note">
       <ol>
-        <li><b>El Tren Groc no circula.</b> Hay corte de línea entre Villefranche
-        y Latour-de-Carol del 28 de septiembre al 30 de octubre de 2026. No lo
-        metáis en el plan aunque os lo vendan.</li>
-        <li><b>Lanzadera 4x4 del Fort Libéria.</b> En octubre puede no estar
-        operativa, y de ella depende que el fuerte sea fácil o no.</li>
-        <li><b>Horno solar de Odeillo.</b> La exposición cierra en temporada baja
-        según el día.</li>
-        <li><b>Grottes des Canalettes.</b> Confirmad el horario de octubre: las
-        fuentes discrepan entre 10:00-17:00 y 11:00-16:00.</li>
-        <li><b>Camas del hotel Parada.</b> Preguntad por una doble con dos camas
-        separadas.</li>
+        <li><b>El Tren Groc no circula.</b> Línea cortada del 28 de septiembre al 30 de octubre. No lo metáis en el plan aunque os lo vendan.</li>
+        <li><b>Lanzadera 4x4 del Fort Libéria.</b> De ella depende que el fuerte sea fácil o no.</li>
+        <li><b>Horno solar de Odeillo.</b> La exposición cierra según el día.</li>
+        <li><b>Grottes des Canalettes.</b> El horario de octubre baila entre 10:00-17:00 y 11:00-16:00.</li>
+        <li><b>Habitaciones del Terminus.</b> Confirmad que la triple lleva tres camas separadas.</li>
       </ol>
     </div>
   </div>
 
   <div class="subsec">
     <h3>En la maleta</h3>
-    <p class="sublead">Quince cosas, con el motivo de cada una. Lo demás va al
-    gusto.</p>
+    <p class="sublead">Quince cosas con su porqué. Lo demás, al gusto.</p>
     <div class="kit">
       <div class="kitcol">
         <h4>Imprescindible</h4>
         <ul>
           <li>DNI y tarjeta sanitaria europea<i>Se cruza a Francia los días 2 y 3</i></li>
-          <li>Efectivo suelto<i>Aparcamientos y taquillas sin datáfono</i></li>
+          <li>Efectivo suelto<i>Taquillas pequeñas sin datáfono</i></li>
           <li>Cargador y batería externa</li>
         </ul>
       </div>
       <div class="kitcol">
         <h4>Ropa</h4>
         <ul>
-          <li>Capas y cortavientos<i>A 2.000 m puede haber 5 °C aunque abajo haga sol</i></li>
+          <li>Capas y cortavientos<i>Puede haber 5 °C arriba y sol abajo</i></li>
           <li>Chaqueta para la cueva<i>Dentro se está a 14 °C todo el año</i></li>
-          <li>Calzado con suela<i>Adoquín, escaleras de piedra y roca húmeda</i></li>
+          <li>Calzado con suela<i>Adoquín, escaleras y roca húmeda</i></li>
           <li>Gorro y guantes finos<i>Solo para el domingo, arriba en el lago</i></li>
         </ul>
       </div>
       <div class="kitcol">
         <h4>Para el día a día</h4>
         <ul>
-          <li>Gafas de sol<i>A esa altura el sol de octubre pega de lado</i></li>
+          <li>Gafas de sol<i>A esa altura pega de lado</i></li>
           <li>Termo o botella<i>No hay fuentes en la vuelta al lago</i></li>
-          <li>Bastones, si os apetece<i>Opcionales; nada del viaje los exige</i></li>
+          <li>Bastones, si os apetece<i>Nada del viaje los exige</i></li>
         </ul>
       </div>
     </div>
@@ -980,8 +1023,7 @@ section + section{border-top:1px solid var(--line)}
 
   <div class="subsec">
     <h3>Para investigar por vuestra cuenta</h3>
-    <p class="sublead">Las webs oficiales de las tres zonas. Todas tienen versión
-    en español o en catalán.</p>
+    <p class="sublead">Webs oficiales de las tres zonas.</p>
     <div class="btns">
       <a class="btn solid" href="https://cerdanya.org/territoricerdanya360/" target="_blank" rel="noopener">Turismo de la Cerdanya</a>
       <a class="btn" href="https://www.pyrenees-cerdagne.com/es/le-lac-des-bouillouses-espanol" target="_blank" rel="noopener">Cerdaña francesa</a>
@@ -993,11 +1035,10 @@ section + section{border-top:1px solid var(--line)}
 </section>
 
 <!-- DIRECTORIO -->
-<section class="dir" id="tel">
+<section class="dir dark" id="tel">
   <div class="section-head">
     <h2>Índice de teléfonos</h2>
-    <p class="lead">Para llamar a Francia desde España: <b>+33</b> y el número sin
-    el 0 inicial.</p>
+    <p class="lead">Para Francia: <b>+33</b> y el número sin el 0 inicial.</p>
   </div>
 
   <h3>Alojamiento</h3>
@@ -1081,6 +1122,8 @@ line([[42.5083,2.1230],[42.5590,1.9880]],'#2F6B54','7,7');
 line([[42.4313,1.9265],[42.4644,1.9808]],'#4A8B6E','7,7');
 line([[42.4313,1.9265],[42.3708,1.7747]],'#8A8F86','7,7');
 
+// los dos comodines quedan lejos y desencuadraban el mapa: no cuentan para el zoom
+var lejos = ["Les Orgues d'Ille-sur-Têt", "Sant Martí del Canigó"];
 var bounds=[];
 pts.forEach(function(p){
   var main = (p[0]==='Puigcerdà');
@@ -1089,9 +1132,10 @@ pts.forEach(function(p){
   }).addTo(map)
    .bindTooltip(p[0],{direction:'top',opacity:.95})
    .bindPopup('<b>'+p[0]+'</b><br>'+p[4]);
-  bounds.push([p[1],p[2]]);
+  if(lejos.indexOf(p[0]) === -1) bounds.push([p[1],p[2]]);
 });
-map.fitBounds(L.latLngBounds(bounds).pad(touch?0.16:0.1));
+map.fitBounds(L.latLngBounds(bounds).pad(0.04));
+map.setZoom(map.getZoom() + 1);
 </script>
 </body>
 </html>
