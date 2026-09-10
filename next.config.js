@@ -29,7 +29,25 @@ const nextConfig = {
 
 
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      // El itinerario del viaje es una página privada de familia: fuera de
+      // los buscadores aunque alguien comparta la URL.
+      {
+        source: '/viaje-2026',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
+        source: '/viaje-2026.html',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+    ];
+  },
+
+  // El itinerario es un HTML suelto de /public servido tal cual: sin layout,
+  // sin header, sin footer y sin los estilos de la web.
+  async rewrites() {
+    return [{ source: '/viaje-2026', destination: '/viaje-2026.html' }];
   },
 
 
