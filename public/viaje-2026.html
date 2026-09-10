@@ -48,6 +48,7 @@ p{margin:0 0 14px;max-width:72ch}
 .muted{color:var(--grey)}
 
 section{padding:var(--sec) var(--pad);scroll-margin-top:60px}
+section.day{padding-top:clamp(74px,12.5vw,138px)}
 section + section{border-top:1px solid var(--line)}
 .day{border-top:10px solid var(--sand)!important}
 .section-head{margin-bottom:var(--gap)}
@@ -170,11 +171,11 @@ section + section{border-top:1px solid var(--line)}
 .note{background:var(--sand);border-left:3px solid var(--alert);
       padding:clamp(22px,4vw,32px);margin:var(--gap) 0 0;font-size:15px;line-height:1.62}
 .note.calm{background:var(--cream);border-left-color:var(--pine)}
-.note .eyebrow{margin-bottom:11px;color:var(--alert)}
+.note .eyebrow{margin-bottom:8px;color:var(--alert);font-size:9.5px;letter-spacing:.16em}
 .note.calm .eyebrow{color:var(--pine)}
 .note p:last-child{margin-bottom:0}
-.note ol{margin:0;padding-left:19px}
-.note ol li{margin-bottom:16px}
+.note ol{margin:0;padding-left:17px}
+.note ol li{margin-bottom:11px}
 .note ol li:last-child{margin-bottom:0}
 
 /* ---------- lista desplegable ---------- */
@@ -203,7 +204,8 @@ section + section{border-top:1px solid var(--line)}
 .subsec h3{margin-bottom:12px}
 .sublead{font-size:16px;line-height:1.6;color:var(--grey);margin:0 0 clamp(24px,4vw,34px);
          max-width:60ch}
-.subsec .note{margin-top:0}
+.subsec .note{margin-top:0;font-size:15px;line-height:1.62;color:var(--ink);
+              padding:clamp(20px,3.6vw,28px)}
 .subsec .kit{margin-top:0}
 .subsec .btns{margin-top:0}
 
@@ -240,8 +242,11 @@ section + section{border-top:1px solid var(--line)}
 @media (hover:hover){.gal figure:hover img{transform:scale(1.04)}}
 
 /* ---------- paradas del día ---------- */
-.stopscroll{grid-auto-columns:minmax(270px,300px);
-            margin:clamp(52px,9vw,90px) 0 clamp(52px,9vw,90px)}
+.routescroll.stopscroll{
+  grid-auto-columns:minmax(270px,300px);
+  margin-top:clamp(94px,15.5vw,172px);
+  margin-bottom:clamp(94px,15.5vw,172px);
+}
 .scard header{
   background:var(--pine);color:#fff;padding:13px 16px;font-size:19px;
   font-variant-numeric:tabular-nums;letter-spacing:-.02em;
@@ -302,6 +307,8 @@ section + section{border-top:1px solid var(--line)}
   /* separación clara entre secciones */
   section + section{border-top:10px solid var(--sand)}
   .day{border-top:10px solid var(--sand)!important}
+  :root{--sec:clamp(78px,20vw,104px)}
+  section.day{padding-top:clamp(112px,29vw,164px)}
   .section-head{margin-bottom:22px}
 
   /* títulos con más presencia, texto algo menor */
@@ -311,8 +318,6 @@ section + section{border-top:1px solid var(--line)}
 
   /* paradas del día: tarjetas que asoman */
   #map{aspect-ratio:4/5}
-  .stopscroll{grid-auto-columns:minmax(84%,84%);
-              margin:clamp(48px,10vw,76px) calc(var(--pad) * -1)}
   .scard header{font-size:18px;padding:12px 15px}
   .sbody{padding:15px}
   .sbody h4{font-size:18px}
@@ -321,6 +326,11 @@ section + section{border-top:1px solid var(--line)}
   /* hoja de ruta: tarjetas que asoman */
   .routescroll{grid-auto-columns:minmax(80%,80%);margin:0 calc(var(--pad) * -1);
                padding:0 var(--pad) 10px;gap:10px}
+  .routescroll.stopscroll{
+    grid-auto-columns:minmax(84%,84%);
+    margin-top:clamp(84px,18vw,146px);
+    margin-bottom:clamp(84px,18vw,146px);
+  }
   .swipehint{display:block;margin-top:12px}
 
   /* galerías: destacadas verticales, el resto cuadradas */
@@ -341,8 +351,9 @@ section + section{border-top:1px solid var(--line)}
   .dirrow .tel{text-align:left;font-size:18px;font-weight:700}
   .dirrow .tel a{border-bottom:none}
 
-  .note{padding:20px}
-  .note ol{padding-left:17px}
+  .note{padding:16px 17px;font-size:13.5px}
+  .subsec .note{padding:20px;font-size:15px}
+  .note ol{padding-left:16px}
   .foldbody p{font-size:15px}
 }
 
