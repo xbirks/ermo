@@ -71,11 +71,12 @@ section + section{border-top:1px solid var(--line)}
 
 /* ---------- portada ---------- */
 .hero img{aspect-ratio:4/3;height:auto;object-fit:cover}
-.hero .band{background:var(--pine);color:#fff;padding:var(--pad)}
-.hero .band .eyebrow{color:var(--clay-l)}
+.hero .band{background:var(--pine);color:#fff;
+            padding:clamp(30px,6vw,56px) var(--pad) clamp(34px,6vw,58px)}
+.hero .band .eyebrow{color:var(--clay-l);margin-bottom:clamp(26px,6vw,40px)}
 .hero h1{color:#fff}
 .hero .sub{font-size:clamp(16.5px,2.6vw,21px);line-height:1.5;color:#CFD9D2;
-           margin:14px 0 0;max-width:58ch}
+           margin:clamp(26px,6vw,40px) 0 0;max-width:58ch}
 
 
 /* ---------- botones ---------- */
@@ -205,61 +206,6 @@ section + section{border-top:1px solid var(--line)}
 .accbody{padding:0 40px 22px 0}
 .accbody p{margin:0;font-size:15px;line-height:1.62;max-width:none}
 
-/* ---------- bloque final oscuro ---------- */
-.dark{background:var(--pine);color:#C3D2CB}
-#reco{border-top:none!important}
-.dark + .dark{border-top:1px solid rgba(255,255,255,.14)!important}
-.dark h2,.dark h3{color:#fff}
-.dark .lead,.dark .sublead,.dark .cap{color:#93A9A0}
-.dark .subsec{border-top-color:rgba(255,255,255,.14)}
-.dark .note{background:rgba(255,255,255,.06);border-left-color:var(--clay-l);color:#C3D2CB}
-.dark .note .eyebrow{color:var(--clay-l)}
-.dark .note b{color:#fff}
-.dark .kitcol h4{color:var(--clay-l);border-bottom-color:rgba(255,255,255,.28)}
-.dark .kitcol li{border-bottom-color:rgba(255,255,255,.12);color:#E4EDE8}
-.dark .kitcol li::before{border-color:var(--clay-l)}
-.dark .kitcol li i{color:#93A9A0}
-.dark .btn{background:transparent;border-color:rgba(255,255,255,.32);color:#fff}
-.dark .btn.solid{background:#fff;border-color:#fff;color:var(--pine)}
-.dark .btn.ghost{border-color:rgba(255,255,255,.16);color:#93A9A0}
-.dark .btn:active{background:#fff;color:var(--pine)}
-.dark .dir h3{border-bottom-color:rgba(255,255,255,.28)}
-.dark .dirrow{border-bottom-color:rgba(255,255,255,.12)}
-.dark .dirrow .who{color:#fff}
-.dark .dirrow .where{color:#93A9A0}
-.dark .dirrow .tel a{color:#fff;border-bottom-color:rgba(255,255,255,.28)}
-
-/* ---------- subsecciones ---------- */
-.subsec{margin-top:clamp(56px,10vw,104px);padding-top:clamp(30px,5vw,46px);
-        border-top:1px solid var(--line)}
-.subsec:first-of-type{margin-top:clamp(34px,5vw,56px);padding-top:0;border-top:none}
-.subsec h3{margin-bottom:12px}
-.sublead{font-size:16px;line-height:1.6;color:var(--grey);margin:0 0 clamp(24px,4vw,34px);
-         max-width:60ch}
-.subsec .note{margin-top:0;font-size:15px;line-height:1.62;color:var(--ink);
-              padding:clamp(20px,3.6vw,28px)}
-.subsec .kit{margin-top:0}
-.subsec .btns{margin-top:0}
-
-/* ---------- maleta ---------- */
-.kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-     gap:clamp(30px,5vw,44px) clamp(28px,4.5vw,52px);margin-top:var(--gap)}
-.kitcol h4{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-           color:var(--clay);padding-bottom:11px;border-bottom:2px solid var(--pine);margin:0 0 4px}
-.kitcol ul{list-style:none;margin:0;padding:0}
-.kitcol li{
-  position:relative;padding:14px 0 14px 30px;border-bottom:1px solid var(--line);
-  font-size:15px;font-weight:600;line-height:1.4;
-}
-.kitcol li:last-child{border-bottom:none}
-.kitcol li::before{
-  content:'';position:absolute;left:0;top:15px;width:13px;height:13px;
-  border:1.5px solid var(--clay);border-radius:3px;
-}
-.kitcol li i{display:block;font-style:normal;font-weight:400;font-size:13px;
-             color:var(--grey);margin-top:3px;line-height:1.4}
-.kitcol + .kitcol{margin-top:clamp(0px,3vw,0px)}
-
 /* ---------- galerías ---------- */
 .gal{display:grid;gap:8px;margin:var(--gap) 0 0}
 .galgap{margin-top:clamp(34px,6vw,52px)}
@@ -309,20 +255,73 @@ section + section{border-top:1px solid var(--line)}
 /* ---------- fecha del día ---------- */
 .daydate{font-size:15px;font-weight:600;color:var(--clay);margin:0 0 10px;letter-spacing:0}
 
-/* ---------- directorio ---------- */
-.dir h3{margin-top:clamp(28px,5vw,48px);padding-bottom:10px;border-bottom:2px solid var(--pine)}
-.dir h3:first-of-type{margin-top:var(--gap)}
-.dirrow{display:grid;grid-template-columns:1fr 200px 170px;gap:14px;
-        padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px;align-items:baseline}
-.dirrow .who{font-weight:600}
-.dirrow .where{color:var(--grey);font-size:14px}
-.dirrow .tel{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;font-weight:500}
-.dirrow .tel a{color:var(--pine);text-decoration:none;border-bottom:1px solid var(--line)}
+/* ================= PIE ================= */
+footer.dark{
+  background:#0F2C24;color:#CBD8D2;
+  padding:clamp(56px,9vw,96px) var(--pad) 0;
+}
+footer .fsec{max-width:820px;margin:0 auto;padding-bottom:clamp(52px,8vw,84px)}
+footer .fsec + .fsec{border-top:1px solid rgba(255,255,255,.10);
+                     padding-top:clamp(52px,8vw,84px)}
+footer h2{
+  color:#fff;font-size:clamp(26px,5.4vw,34px);letter-spacing:-.03em;
+  line-height:1.1;margin:0;
+}
+footer .fintro{
+  margin:12px 0 clamp(28px,4.5vw,40px);color:#8FA79D;
+  font-size:clamp(15px,2.3vw,17px);line-height:1.55;max-width:56ch;
+}
+footer .fintro b{color:#D6C9B7}
 
-/* ---------- cierre ---------- */
-.closing img{aspect-ratio:16/9;height:auto;object-fit:cover}
-.closing .band{background:var(--pine);color:#CFD9D2;padding:var(--pad);text-align:center;font-size:16px}
-.closing .band b{color:#fff;display:block;font-size:clamp(20px,4vw,24px);margin-bottom:6px;letter-spacing:-.02em}
+/* teléfonos */
+.directory{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+           gap:clamp(28px,4vw,44px)}
+.dirgroup h4{
+  margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:#D6C9B7;padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,.22);
+}
+a.dirrow{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px 0;border-bottom:1px solid rgba(255,255,255,.10);
+  text-decoration:none;
+}
+.dirgroup a.dirrow:last-child{border-bottom:none}
+a.dirrow .who{color:#fff;font-size:15.5px;font-weight:600;line-height:1.35}
+a.dirrow .who em{display:block;font-style:normal;font-weight:400;
+                 font-size:13px;color:#8FA79D;margin-top:2px}
+a.dirrow .num{
+  color:#D6C9B7;font-size:14.5px;font-weight:600;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+a.dirrow:active{opacity:.6}
+
+/* enlaces */
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.links a{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  color:#fff;font-size:14.5px;font-weight:500;padding:12px 18px;
+  border-radius:999px;min-height:46px;
+}
+.links a::after{content:'↗';font-size:11px;color:#8FA79D}
+.links a:active{background:#fff;color:#0F2C24}
+
+/* cierre */
+.signoff{margin:0 calc(var(--pad) * -1);position:relative;isolation:isolate}
+.signoff img{aspect-ratio:16/9;height:auto;object-fit:cover;object-position:center 55%}
+.signoff::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,
+    #0F2C24 0%, rgba(15,44,36,.92) 26%, rgba(15,44,36,.45) 52%, rgba(15,44,36,0) 78%);
+}
+.signoff p{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;margin:0;max-width:none;
+  text-align:center;padding:0 24px clamp(28px,5vw,48px);
+  color:#B9CCC4;font-size:15px;line-height:1.55;
+}
+.signoff p b{color:#fff;font-size:clamp(24px,5.4vw,34px);font-weight:700;
+             letter-spacing:-.03em;margin-bottom:8px;display:block;line-height:1.1}
 
 /* ================= MÓVIL ================= */
 @media (max-width:760px){
@@ -368,11 +367,11 @@ section + section{border-top:1px solid var(--line)}
   /* botones a ancho completo */
   .btn{flex:1 1 100%;justify-content:space-between}
 
-  .kitcol{margin-bottom:6px}
 
-  .dirrow{grid-template-columns:1fr;gap:2px;padding:15px 0}
-  .dirrow .tel{text-align:left;font-size:18px;font-weight:700}
-  .dirrow .tel a{border-bottom:none}
+  footer .fsec{padding-bottom:56px}
+  footer .fsec + .fsec{padding-top:56px}
+  .links a{flex:1 1 100%;justify-content:space-between}
+  .signoff img{aspect-ratio:4/5}
 
   .note{padding:16px 17px;font-size:13.5px}
   .subsec .note{padding:20px;font-size:15px}
@@ -396,6 +395,13 @@ section + section{border-top:1px solid var(--line)}
   .gal img{aspect-ratio:1/1;max-height:140px}
   .g1 img,.g21 figure:first-child img,.hero img{aspect-ratio:16/9;max-height:210px}
   .note,.rcard,.dirrow,figure,.fold{break-inside:avoid}
+  footer.dark{background:#fff;color:#232D2B;padding:0}
+  footer h2,a.dirrow .who{color:#232D2B}
+  footer .fintro,a.dirrow .who em{color:#666}
+  .dirgroup h4,a.dirrow .num{color:#7B6553}
+  a.dirrow,footer .fsec + .fsec{border-color:#ddd}
+  .signoff p{position:static;color:#232D2B}
+  .signoff img{opacity:1}
   .btn{border-color:#ccc;color:#555;min-height:0;padding:6px 10px}
   .routescroll{grid-auto-flow:row;grid-template-columns:1fr 1fr;overflow:visible;gap:8px}
   .stopscroll{grid-template-columns:1fr 1fr}
@@ -435,7 +441,6 @@ section + section{border-top:1px solid var(--line)}
   <a href="#d4">Día 4</a>
   <a href="#extra">Comodines</a>
   <a href="#hotel">Hotel</a>
-  <a href="#reco">Consejos</a>
   <a href="#tel">Teléfonos</a>
 </nav>
 
@@ -679,7 +684,9 @@ section + section{border-top:1px solid var(--line)}
 
   <div class="note">
     <p class="eyebrow">Datos útiles del día</p>
-    <p>Grutas: 14 € por adulto, aparcamiento propio y gratuito. Su horario de
+    <p><b>El Tren Groc no circula:</b> la línea que sale de Villefranche está cortada
+    del 28 de septiembre al 30 de octubre de 2026, así que no lo metáis en el plan
+    aunque os lo vendan. Grutas: 14 € por adulto, aparcamiento propio y gratuito. Su horario de
     octubre baila entre 10:00-17:00 y 11:00-16:00, y por eso van las primeras: si
     abren a las 11:00, dais mientras una vuelta por las murallas y no se pierde
     nada. Fort Libéria: 8 € a pie, 14 € con lanzadera, y la última entrada es una
@@ -969,107 +976,59 @@ section + section{border-top:1px solid var(--line)}
 </section>
 
 <!-- RECOMENDACIONES -->
-<section id="reco" class="dark">
-  <div class="section-head">
-    <h2>Recomendaciones</h2>
-    <p class="lead">Lo que conviene dejar resuelto antes de salir.</p>
-  </div>
+<footer class="dark">
 
-  <div class="subsec">
-    <h3>Cinco llamadas que ahorran disgustos</h3>
-    <p class="sublead">En octubre casi todo va con horario reducido.</p>
-    <div class="note">
-      <ol>
-        <li><b>El Tren Groc no circula.</b> Línea cortada del 28 de septiembre al 30 de octubre. No lo metáis en el plan aunque os lo vendan.</li>
-        <li><b>Lanzadera 4x4 del Fort Libéria.</b> De ella depende que el fuerte sea fácil o no.</li>
-        <li><b>Horno solar de Odeillo.</b> La exposición cierra según el día.</li>
-        <li><b>Grottes des Canalettes.</b> El horario de octubre baila entre 10:00-17:00 y 11:00-16:00.</li>
-        <li><b>Habitaciones del Terminus.</b> Confirmad que la triple lleva tres camas separadas.</li>
-      </ol>
+  <section class="fsec" id="tel">
+    <h2>Teléfonos</h2>
+    <p class="fintro">Toca cualquiera para llamar. Para Francia, el
+    <b>+33</b> ya va puesto.</p>
+    <div class="directory">
+    <div class="dirgroup">
+      <h4>Alojamiento</h4>
+      <a class="dirrow" href="tel:+34972880212"><span class="who">Hotel Terminus<em>Pl. de l'Estació, Puigcerdà</em></span><span class="num">972 88 02 12</span></a>
+      <a class="dirrow" href="tel:+34972140300"><span class="who">Hotel Parada<em>Pl. de l'Estació, Puigcerdà</em></span><span class="num">972 14 03 00</span></a>
     </div>
-  </div>
-
-  <div class="subsec">
-    <h3>En la maleta</h3>
-    <p class="sublead">Quince cosas con su porqué. Lo demás, al gusto.</p>
-    <div class="kit">
-      <div class="kitcol">
-        <h4>Imprescindible</h4>
-        <ul>
-          <li>DNI y tarjeta sanitaria europea<i>Se cruza a Francia los días 2 y 3</i></li>
-          <li>Efectivo suelto<i>Taquillas pequeñas sin datáfono</i></li>
-          <li>Cargador y batería externa</li>
-        </ul>
-      </div>
-      <div class="kitcol">
-        <h4>Ropa</h4>
-        <ul>
-          <li>Capas y cortavientos<i>Puede haber 5 °C arriba y sol abajo</i></li>
-          <li>Chaqueta para la cueva<i>Dentro se está a 14 °C todo el año</i></li>
-          <li>Calzado con suela<i>Adoquín, escaleras y roca húmeda</i></li>
-          <li>Gorro y guantes finos<i>Solo para el domingo, arriba en el lago</i></li>
-        </ul>
-      </div>
-      <div class="kitcol">
-        <h4>Para el día a día</h4>
-        <ul>
-          <li>Gafas de sol<i>A esa altura pega de lado</i></li>
-          <li>Termo o botella<i>No hay fuentes en la vuelta al lago</i></li>
-          <li>Bastones, si os apetece<i>Nada del viaje los exige</i></li>
-        </ul>
-      </div>
+    <div class="dirgroup">
+      <h4>Visitas</h4>
+      <a class="dirrow" href="tel:+33468052020"><span class="who">Grottes des Canalettes<em>Villefranche · día 2</em></span><span class="num">+33 4 68 05 20 20</span></a>
+      <a class="dirrow" href="tel:+33468962296"><span class="who">Fort Libéria<em>Villefranche · día 2</em></span><span class="num">+33 4 68 96 22 96</span></a>
+      <a class="dirrow" href="tel:+33468058705"><span class="who">Murallas de Villefranche<em>Villefranche · día 2</em></span><span class="num">+33 4 68 05 87 05</span></a>
+      <a class="dirrow" href="tel:+33468307786"><span class="who">Héliodyssée · horno solar<em>Odeillo · día 3</em></span><span class="num">+33 4 68 30 77 86</span></a>
+      <a class="dirrow" href="tel:+34972896313"><span class="who">Museu de Llívia<em>Llívia · día 1</em></span><span class="num">972 89 63 13</span></a>
     </div>
-  </div>
-
-  <div class="subsec">
-    <h3>Para investigar por vuestra cuenta</h3>
-    <p class="sublead">Webs oficiales de las tres zonas.</p>
-    <div class="btns">
-      <a class="btn solid" href="https://cerdanya.org/territoricerdanya360/" target="_blank" rel="noopener">Turismo de la Cerdanya</a>
-      <a class="btn" href="https://www.pyrenees-cerdagne.com/es/le-lac-des-bouillouses-espanol" target="_blank" rel="noopener">Cerdaña francesa</a>
-      <a class="btn" href="https://www.tourisme-canigo.com/unesco/fort-liberia/" target="_blank" rel="noopener">Conflent y el Canigó</a>
-      <a class="btn" href="https://www.tourisme-pyreneesorientales.com/" target="_blank" rel="noopener">Pirineos Orientales</a>
-      <a class="btn ghost" href="https://letrainjaune.fr/horaires-et-infos/" target="_blank" rel="noopener">Tren Groc, por si acaso</a>
+    <div class="dirgroup">
+      <h4>Turismo</h4>
+      <a class="dirrow" href="tel:+34972880542"><span class="who">Puigcerdà<em>Pl. de Santa Maria</em></span><span class="num">972 88 05 42</span></a>
+      <a class="dirrow" href="tel:+34973510229"><span class="who">Bellver de Cerdanya<em>Pl. de Sant Roc · día 4</em></span><span class="num">973 51 02 29</span></a>
+      <a class="dirrow" href="tel:+33468042197"><span class="who">Mont-Louis<em>Días 2 y 3</em></span><span class="num">+33 4 68 04 21 97</span></a>
     </div>
+    <div class="dirgroup">
+      <h4>Por si acaso</h4>
+      <a class="dirrow" href="tel:112"><span class="who">Emergencias<em>España y Francia</em></span><span class="num">112</span></a>
+      <a class="dirrow" href="tel:+34972880150"><span class="who">Hospital de Cerdanya<em>Puigcerdà</em></span><span class="num">972 88 01 50</span></a>
+    </div>
+    </div>
+  </section>
+
+  <section class="fsec">
+    <h2>Para investigar</h2>
+    <p class="fintro">Webs oficiales de las tres zonas.</p>
+    <div class="links">
+      <a href="https://cerdanya.org/territoricerdanya360/" target="_blank" rel="noopener">Turismo de la Cerdanya</a>
+      <a href="https://www.pyrenees-cerdagne.com/es/le-lac-des-bouillouses-espanol" target="_blank" rel="noopener">Cerdaña francesa</a>
+      <a href="https://www.tourisme-canigo.com/unesco/fort-liberia/" target="_blank" rel="noopener">Conflent y el Canigó</a>
+      <a href="https://www.tourisme-pyreneesorientales.com/" target="_blank" rel="noopener">Pirineos Orientales</a>
+      <a href="https://letrainjaune.fr/horaires-et-infos/" target="_blank" rel="noopener">Tren Groc</a>
+    </div>
+  </section>
+
+  <div class="signoff">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lacs%20sup%C3%A9rieurs%20des%20Bouillouses.jpg?width=1800" alt="Estanys del Carlit">
+    <p><b>Nos vemos allí arriba</b>Ocho lagunas, dos fortalezas, una cueva y un
+    espejo gigante. Nada mal para cuatro días.</p>
   </div>
-</section>
 
-<!-- DIRECTORIO -->
-<section class="dir dark" id="tel">
-  <div class="section-head">
-    <h2>Índice de teléfonos</h2>
-    <p class="lead">Para Francia: <b>+33</b> y el número sin el 0 inicial.</p>
-  </div>
-
-  <h3>Alojamiento</h3>
-  <div class="dirrow"><div class="who">Hotel Parada</div><div class="where">Pl. de l'Estació, Puigcerdà</div><div class="tel"><a href="tel:+34972140300">972 14 03 00</a></div></div>
-  <div class="dirrow"><div class="who">Hotel Terminus</div><div class="where">Pl. de l'Estació, Puigcerdà</div><div class="tel"><a href="tel:+34972880212">972 88 02 12</a></div></div>
-
-  <h3>Visitas y monumentos</h3>
-  <div class="dirrow"><div class="who">Grottes des Grandes Canalettes</div><div class="where">Villefranche · día 2</div><div class="tel"><a href="tel:+33468052020">+33 4 68 05 20 20</a></div></div>
-  <div class="dirrow"><div class="who">Fort Libéria</div><div class="where">Villefranche · día 2</div><div class="tel"><a href="tel:+33468962296">+33 4 68 96 22 96</a></div></div>
-  <div class="dirrow"><div class="who">Héliodyssée · horno solar</div><div class="where">Odeillo · día 3</div><div class="tel"><a href="tel:+33468307786">+33 4 68 30 77 86</a></div></div>
-  <div class="dirrow"><div class="who">Museu Municipal de Llívia</div><div class="where">Llívia · día 1</div><div class="tel"><a href="tel:+34972896313">972 89 63 13</a></div></div>
-  <div class="dirrow"><div class="who">Abadía de Sant Miquel de Cuixà</div><div class="where">Codalet · comodín</div><div class="tel"><a href="tel:+33468961535">+33 4 68 96 15 35</a></div></div>
-
-  <h3>Oficinas de turismo</h3>
-  <div class="dirrow"><div class="who">Puigcerdà</div><div class="where">Pl. de Santa Maria</div><div class="tel"><a href="tel:+34972880542">972 88 05 42</a></div></div>
-  <div class="dirrow"><div class="who">Bellver de Cerdanya</div><div class="where">Pl. de Sant Roc · día 4</div><div class="tel"><a href="tel:+34973510229">973 51 02 29</a></div></div>
-  <div class="dirrow"><div class="who">Parc Natural del Cadí-Moixeró</div><div class="where">Bagà · a la vuelta</div><div class="tel"><a href="tel:+34938244151">938 24 41 51</a></div></div>
-
-  <h3>Por si acaso</h3>
-  <div class="dirrow"><div class="who">Emergencias, España y Francia</div><div class="where">Número único europeo</div><div class="tel"><a href="tel:112">112</a></div></div>
-  <div class="dirrow"><div class="who">Hospital de Cerdanya</div><div class="where">Puigcerdà · transfronterizo</div><div class="tel"><a href="tel:+34972880150">972 88 01 50</a></div></div>
-</section>
-
-<div class="closing">
-  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Le%20lac%20des%20Bouillouses%20et%20la%20T%C3%AAt.jpg?width=1800" alt="Lac des Bouillouses">
-  <div class="band">
-    <b>Nos vemos allí arriba</b>
-    Ocho lagunas, dos fortalezas, una cueva y un espejo gigante. Nada mal para
-    cuatro días.
-  </div>
-</div>
+</footer>
 
 </div>
 
