@@ -25,7 +25,12 @@ const REGLAS = [
     // Coche: el préstamo aparece como "PRS...", el seguro del coche
     // como Mybox, y la gasolinera habitual como Petroprix o similar.
     [/prs\d{5,}/i,                                  'Coche'],
+    // Mybox es la cuota mensual de CaixaBank (22,07 €); AXA es la
+    // renovación anual del Todo Riesgo (404,52 €). Dos recibos
+    // distintos del mismo coche, y AXA va antes porque la regla
+    // genérica de seguros de más abajo se lo llevaría a la mensual.
     [/mybox/i,                                      'Seguro'],
+    [/\baxa\b/i,                                    'Seguro coche (anual)'],
     [/petroprix|gasolin|repsol|cepsa|shell|carburant|galp|waylet|\blb energia\b/i,
                                                     'Gasolina'],
     [/movilidad mmd|parking|aparcamient/i,          'Gastos varios'],
@@ -42,7 +47,7 @@ const REGLAS = [
     [/cabify|uber(?! ?eats)|\bemt\b|metrovalencia|renfe|blablacar/i, 'Gastos varios'],
 
     [/hacienda|a\.?e\.?a\.?t|tributaria|impuesto|circulaci[oó]n/i, 'Impuestos'],
-    [/\bseguro\b|mapfre|mutua|\baxa\b|allianz|zurich|linea directa/i, 'Seguro'],
+    [/\bseguro\b|mapfre|mutua|allianz|zurich|linea directa/i, 'Seguro'],
 
     // Ingresos: cobros de clientes y pasarelas de pago.
     [/stripe/i,                                     'Ingresos Alergenu'],
@@ -118,11 +123,24 @@ export function esTaxi(concepto, importe) {
     return nombrePropio || numeroLicencia;
 }
 
+/**
+ * ¿Es un viaje al hospital por el accidente?
+ *
+ * Desde septiembre de 2026 la abogada pidió no usar taxi, así que los
+ * desplazamientos son con coche propio y lo que aparece en el extracto
+ * ya no son carreras sino el parking del Hospital 9 de Octubre. Es el
+ * mismo gasto recuperable con otra cara.
+ */
+export function esParkingDelHospital(concepto) {
+    return /hospital\s*9\s*de\s*o|hospital 9 d'octubre/i.test(concepto);
+}
+
 /** Nombre de la categoría sugerida, o null si no encaja en ninguna regla. */
 export function clasificar(concepto, importe) {
     // Los taxis se comprueban antes que las reglas generales: si no,
     // "Pedro Monfort S" no encajaría en ninguna y quedaría suelto.
-    if (esTaxi(concepto, importe)) return 'Taxis del accidente';
+    if (esTaxi(concepto, importe)) return 'Gastos del accidente';
+    if (esParkingDelHospital(concepto)) return 'Gastos del accidente';
 
     for (const [patron, categoria] of REGLAS) {
         if (patron.test(concepto)) return categoria;
