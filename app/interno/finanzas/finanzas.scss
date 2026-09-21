@@ -1455,6 +1455,17 @@ $ancho-dos-columnas: 880px;
         .fz-cascada__cifra { font-weight: 600; }
     }
 
+    // Dinero que entró pero no se ganó este mes. En gris y sangrado,
+    // para que se lea como una nota al margen y no como una línea más
+    // de la suma: si pareciera parte del total, volvería a hacer que
+    // el mes parezca mejor de lo que fue.
+    &__fila--aparte {
+        padding-left: 14px;
+        .fz-cascada__etiqueta,
+        .fz-cascada__cifra { color: $g-400; }
+        .fz-cascada__cifra { font-size: $c-pequena; }
+    }
+
     // El total limpio: la cifra que manda en toda la pantalla.
     &__limpio {
         margin-top: 14px;

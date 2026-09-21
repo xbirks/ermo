@@ -573,6 +573,7 @@ export async function getResumenMes(mes) {
     const vacio = {
         mes: inicio,
         ingresos_banco: 0, ingresos_efectivo: 0, ingresos_totales: 0,
+        ingresos_fuera: 0,
         gastos_fijos: 0, gastos_variables: 0, iva_provisionado: 0,
         total_limpio: 0, a_ahorro_inversion: 0,
     };

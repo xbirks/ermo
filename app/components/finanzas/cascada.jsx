@@ -13,7 +13,7 @@ import Cifra from './cifra';
  */
 export default function Cascada({ resumen }) {
     const {
-        ingresos_banco, ingresos_efectivo, ingresos_totales,
+        ingresos_banco, ingresos_efectivo, ingresos_totales, ingresos_fuera,
         gastos_fijos, gastos_variables, iva_provisionado, iva_pagado,
         total_limpio, a_ahorro_inversion,
     } = resumen;
@@ -39,6 +39,20 @@ export default function Cascada({ resumen }) {
                 <span className="fz-cascada__etiqueta">Total ingresos</span>
                 <Cifra className="fz-cascada__cifra" valor={ingresos_totales} />
             </div>
+
+            {/* Dinero que entró en el banco pero no lo ganaste este mes:
+                una indemnización, por ejemplo. Va después del subtotal y
+                fuera de la suma, para que se vea que está ahí sin hacer
+                que el mes parezca mejor de lo que fue. */}
+            {ingresos_fuera > 0 && (
+                <div className="fz-cascada__fila fz-cascada__fila--aparte">
+                    <span className="fz-cascada__etiqueta">
+                        Entró, pero no es del mes
+                        <span className="fz-cascada__nota">no cuenta como ganado</span>
+                    </span>
+                    <Cifra className="fz-cascada__cifra" valor={ingresos_fuera} />
+                </div>
+            )}
 
             <div className="fz-cascada__fila">
                 <span className="fz-cascada__etiqueta">
