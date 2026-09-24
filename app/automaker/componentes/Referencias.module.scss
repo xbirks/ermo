@@ -85,10 +85,14 @@ $m: 500.46;     // ancho del máster
     mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
+// Capa propia y movimiento en 3D, como la cinta del hero: evita el
+// parpadeo de Safari bajo la máscara de los bordes.
 .cinta {
     display: flex;
     width: max-content;
     animation: cinta-sectores 48s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
 
     .sectores:hover & {
         animation-play-state: paused;
@@ -96,8 +100,12 @@ $m: 500.46;     // ancho del máster
 }
 
 @keyframes cinta-sectores {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
     to {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
     }
 }
 
@@ -461,8 +469,12 @@ $m: 500.46;     // ancho del máster
         inset: 0;
     }
 
+    // El escenario se monta a su tamaño real de Figma y la cámara solo
+    // reduce. Si se montara al ancho del móvil y la cámara ampliara, Safari
+    // estiraría la imagen ya dibujada de cada capa y todo se vería
+    // pixelado al acercarse.
     .escenario {
-        width: 100cqw;
+        width: #{$ancho}px;
         margin: 0;
     }
 }

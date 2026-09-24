@@ -229,7 +229,8 @@ $linea: 1px solid $pizarra;
         z-index: 40;
         left: 10px;
         right: 10px;
-        bottom: 10px;
+        // Separada del borde y de la barra de inicio del iPhone.
+        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -239,7 +240,9 @@ $linea: 1px solid $pizarra;
         background: rgba(249, 249, 249, 0.92);
         box-shadow: 0 16px 40px -20px rgba(20, 57, 75, 0.5);
         backdrop-filter: blur(12px);
-        transform: translateY(140%);
+        // Oculta: lo bastante abajo para salir entera también con la barra
+        // de inicio del iPhone.
+        transform: translateY(calc(100% + 80px));
         transition: transform 0.5s $curva;
     }
 
@@ -248,9 +251,18 @@ $linea: 1px solid $pizarra;
     }
 
     .barraImporte {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-size: 24px;
         letter-spacing: -0.04em;
         color: $tinta;
+
+        // En la barra el "+ IVA" va centrado, no volado como en la tarjeta.
+        .iva {
+            margin-left: 0;
+            vertical-align: middle;
+        }
     }
 
     .barraBoton {
