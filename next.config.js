@@ -15,7 +15,8 @@ const securityHeaders = [
       "style-src-attr 'unsafe-inline'",
       "font-src 'self' data: https:",
       "media-src * data: blob:",
-      "frame-src https://www.youtube-nocookie.com https://*.youtube.com",
+      // player.mediadelivery.net: vídeo de la demo de /automaker (Bunny Stream).
+      "frame-src https://www.youtube-nocookie.com https://*.youtube.com https://player.mediadelivery.net",
       "frame-ancestors 'none'",
     ].join('; '),
   },

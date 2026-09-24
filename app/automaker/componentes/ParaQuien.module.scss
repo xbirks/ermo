@@ -1,0 +1,176 @@
+@use "../estilos/tokens" as *;
+
+// "Para quién es" (Figma: y=10560–11900). Dos columnas de 435 y 433 con
+// 20 de calle; filas de 159 separadas 12. Las tarjetas del no (101 de
+// alto) van centradas en la altura de su fila.
+
+.paraQuien {
+    padding: clamp(96px, 8vw, 140px) 20px clamp(96px, 8vw, 140px);
+    background: $fondo;
+
+    [data-entra] {
+        visibility: hidden;
+    }
+}
+
+.titulo {
+    max-width: 11.6em;
+    margin: 0 auto;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: $tinta;
+}
+
+.gris {
+    color: $pizarra;
+}
+
+.columnas {
+    display: grid;
+    grid-template-columns: 435fr 433fr;
+    gap: 20px;
+    max-width: 888px;
+    margin: 77px auto 0;
+}
+
+.cabecera {
+    margin: 0 0 47px;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: $tinta;
+}
+
+.cabeceraNo {
+    color: $pizarra;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.si {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 159px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: var(--fondo);
+    // El degradado se desplaza muy despacio: da el brillo satinado de
+    // Figma sin llamar la atención.
+    background-size: 200% 200%;
+    animation: brillo 14s ease-in-out infinite alternate;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    color: $tinta;
+}
+
+@keyframes brillo {
+    from {
+        background-position: 0% 0%;
+    }
+
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+.filaNo {
+    display: flex;
+    align-items: center;
+    min-height: 159px;
+}
+
+.no {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 101px;
+    padding: 18px 28px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    color: $pizarra;
+}
+
+.discontinuo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+
+    rect {
+        fill: none;
+        stroke: $pizarra;
+        stroke-width: 1;
+        stroke-dasharray: 12 12;
+    }
+}
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 70px;
+}
+
+// -------------------------------------------------------------- Móvil
+//
+// Una columna debajo de la otra: primero el sí, después el no.
+
+@media (max-width: 760px) {
+    .columnas {
+        grid-template-columns: 1fr;
+        gap: 56px;
+        margin-top: 48px;
+    }
+
+    .cabecera {
+        margin-bottom: 24px;
+        font-size: 28px;
+    }
+
+    .si {
+        min-height: 110px;
+        font-size: 17px;
+    }
+
+    .filaNo {
+        min-height: 0;
+    }
+
+    .no {
+        min-height: 84px;
+        font-size: 17px;
+    }
+
+    .botones {
+        gap: 12px;
+        margin-top: 48px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .si {
+        animation: none;
+    }
+}

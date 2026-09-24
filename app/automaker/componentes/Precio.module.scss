@@ -1,0 +1,266 @@
+@use "../estilos/tokens" as *;
+
+// "Precio" (Figma: y=8623–10400). Tarjeta de 847 de ancho con tres
+// bloques separados por filetes: precio, qué incluye y duración.
+
+$linea: 1px solid $pizarra;
+
+.precio {
+    position: relative;
+    padding: 139px 20px clamp(96px, 8vw, 140px);
+    background: $fondo;
+
+    [data-entra] {
+        visibility: hidden;
+    }
+}
+
+.titulo {
+    margin: 0;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: $tinta;
+}
+
+.intro {
+    max-width: 733px;
+    margin: 20px auto 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.2;
+    text-align: center;
+    color: $tinta;
+}
+
+.tarjeta {
+    max-width: 847px;
+    margin: 32px auto 0;
+    border: $linea;
+    border-radius: 55px;
+    background: $fondo;
+}
+
+// ------------------------------------------------------------- Precio
+
+.cabecera {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 42px 40px 0 57px;
+}
+
+.producto {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $tinta;
+}
+
+.gris {
+    color: $pizarra;
+}
+
+.importe {
+    margin: 23px 0 0;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $tinta;
+}
+
+.iva {
+    margin-left: 6px;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    vertical-align: super;
+}
+
+.letraPequena {
+    max-width: 282px;
+    margin: 15px 0 0;
+    font-size: 12px;
+    line-height: 1.2;
+    color: $pizarra;
+}
+
+.cta {
+    flex: none;
+    margin-top: 65px;
+}
+
+.amortiza {
+    margin: 43px 40px 42px 43px;
+    padding: 25px 33px;
+    border: 1px solid #76B5D5;
+    border-radius: 25px;
+    background: #CBE1EB;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: $tinta;
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+// ------------------------------------------------ Qué incluye / Duración
+
+.bloque {
+    padding: 43px 57px 48px;
+    border-top: $linea;
+}
+
+.pastilla {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 54px;
+    background: #D9D9D9;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: $tinta;
+}
+
+.incluye {
+    display: flex;
+    flex-direction: column;
+    gap: 27px;
+    margin: 42px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.puntoTitulo {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: $tinta;
+}
+
+.puntoTexto {
+    max-width: 733px;
+    margin: 9px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: $tinta;
+}
+
+.duracion {
+    max-width: 582px;
+    margin: 20px 0 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: $tinta;
+}
+
+.nota {
+    max-width: 547px;
+    margin: 23px auto 0;
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: center;
+    color: $pizarra;
+}
+
+// ------------------------------------------------ Barra fija (móvil)
+
+.barra {
+    display: none;
+}
+
+// -------------------------------------------------------------- Móvil
+
+@media (max-width: 760px) {
+    .precio {
+        padding-top: 96px;
+    }
+
+    .tarjeta {
+        border-radius: 32px;
+    }
+
+    .cabecera {
+        flex-direction: column;
+        padding: 32px 24px 0;
+    }
+
+    .producto {
+        font-size: 30px;
+    }
+
+    .cta {
+        margin-top: 4px;
+    }
+
+    .amortiza {
+        margin: 28px 16px;
+        padding: 20px;
+    }
+
+    .bloque {
+        padding: 32px 24px 36px;
+    }
+
+    .incluye {
+        margin-top: 28px;
+        gap: 22px;
+    }
+
+    .puntoTitulo,
+    .duracion {
+        font-size: 18px;
+    }
+
+    // Aparece solo mientras se lee la tarjeta (ver Precio.jsx).
+    .barra {
+        position: fixed;
+        z-index: 40;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 8px 8px 22px;
+        border: 1px solid rgba(20, 57, 75, 0.12);
+        border-radius: 50px;
+        background: rgba(249, 249, 249, 0.92);
+        box-shadow: 0 16px 40px -20px rgba(20, 57, 75, 0.5);
+        backdrop-filter: blur(12px);
+        transform: translateY(140%);
+        transition: transform 0.5s $curva;
+    }
+
+    .barraVisible {
+        transform: translateY(0);
+    }
+
+    .barraImporte {
+        font-size: 24px;
+        letter-spacing: -0.04em;
+        color: $tinta;
+    }
+
+    .barraBoton {
+        padding: 11px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .barra {
+        transition: none;
+    }
+}

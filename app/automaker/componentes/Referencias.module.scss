@@ -1,0 +1,516 @@
+@use "sass:math";
+@use "../estilos/tokens" as *;
+
+// "1 diseño, 200 referencias" (Figma: y=4320–5687).
+//
+// Sin JavaScript (o con "reducir movimiento") se ve la composición final
+// de Figma. Con JS, Referencias.jsx la anima sola al verse entera; en
+// móvil (.movil) además una cámara recorre el escenario.
+
+$ancho: 1728;   // ancho del frame de Figma
+$y0: 4680;      // arriba del escenario, en coordenadas del frame
+$alto: 750;     // alto del escenario
+$m: 500.46;     // ancho del máster
+
+// Píxeles de Figma → unidades que escalan con el escenario / el máster.
+@function cq($px) {
+    @return math.div($px, $ancho) * 100cqw;
+}
+
+@function mq($px) {
+    @return math.div($px, $m) * 100cqw;
+}
+
+.referencias {
+    position: relative;
+    background: linear-gradient(29deg, #CFD5DA 0%, #F5FAFF 83%, #BFCDDA 100%);
+
+    [data-entra] {
+        visibility: hidden;
+    }
+}
+
+.ventana {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+}
+
+// El lienzo del degradado se desvanece arriba y abajo para fundirse con
+// el degradado CSS de la sección.
+.fondo {
+    mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+// ------------------------------------------------------------- Cabecera
+
+.cabecera {
+    position: relative;
+    z-index: 1;
+    padding: clamp(96px, 7vw, 110px) 20px 0;
+    text-align: center;
+}
+
+.titulo {
+    margin: 0;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $tinta;
+}
+
+.gris {
+    color: $pizarra;
+}
+
+.subtitulo {
+    max-width: 733px;
+    margin: 19px auto 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.35;
+    color: $tinta;
+}
+
+// Cinta infinita de sectores con los bordes desvanecidos. Se para al
+// pasar el ratón o el dedo.
+.sectores {
+    max-width: 900px;
+    margin: 12px auto 0;
+    // Aire para que el recorte no se coma el borde de las pastillas.
+    padding-block: 4px;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.cinta {
+    display: flex;
+    width: max-content;
+    animation: cinta-sectores 48s linear infinite;
+
+    .sectores:hover & {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes cinta-sectores {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.grupoSectores {
+    display: flex;
+    gap: 14px;
+    margin: 0;
+    padding: 0 14px 0 0;
+    list-style: none;
+
+    li {
+        white-space: nowrap;
+        padding: 10px 25px;
+        border: 1px solid $tinta;
+        border-radius: 50px;
+        background: #FFFFFF;
+        font-size: 13px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: $tinta;
+    }
+}
+
+// ------------------------------------------------------------ Escenario
+
+.visor {
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(24px, 3vw, 60px);
+    container-type: inline-size;
+}
+
+.camara {
+    position: relative;
+    transform-origin: 0 0;
+}
+
+.escenario {
+    position: relative;
+    container-type: inline-size;
+    width: min(100cqw, 1900px);
+    aspect-ratio: #{$ancho} / #{$alto};
+    margin: 0 auto;
+}
+
+.pieza,
+.master,
+.rotulo,
+.lista {
+    position: absolute;
+    left: calc((var(--x) - var(--s, 0)) / #{$ancho} * 100%);
+    top: calc((var(--y) - var(--s, 0) - #{$y0}) / #{$alto} * 100%);
+    width: calc((var(--w) + 2 * var(--s, 0)) / #{$ancho} * 100%);
+}
+
+.pieza,
+.master {
+    height: calc((var(--h) + 2 * var(--s, 0)) / #{$alto} * 100%);
+}
+
+.pieza {
+    z-index: 1;
+    will-change: transform;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.flota {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.variante img {
+    border-radius: 2px;
+}
+
+// Descuentos y pictos se despegan del máster: van por delante.
+.encima {
+    z-index: 4;
+}
+
+.icono {
+    z-index: 2;
+}
+
+.rotulo {
+    z-index: 2;
+    margin: 0;
+    font-size: cq(40);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $tinta;
+}
+
+.lista {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: cq(3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: cq(16);
+    font-weight: 300;
+    line-height: 1.2;
+    color: #0050A9;
+}
+
+.derecha {
+    text-align: right;
+}
+
+.flechas {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.trazo {
+    fill: none;
+    stroke: $pizarra;
+    stroke-width: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+}
+
+.punta {
+    fill: $pizarra;
+}
+
+// --------------------------------------------------------------- Máster
+//
+// La pieza de ejemplo montada en HTML (Figma 98:649) para poder cambiarle
+// el idioma, el precio y los pictos en directo.
+
+.master {
+    z-index: 3;
+    container-type: inline-size;
+}
+
+.lienzoMaster {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #0050A9;
+    clip-path: inset(var(--r-arriba, 0%) var(--r-derecha, 0%) var(--r-abajo, 0%) var(--r-izquierda, 0%) round var(--r-radio, 0%));
+}
+
+.sandia,
+.chef {
+    position: absolute;
+    max-width: none;
+}
+
+.sandia {
+    left: mq(188.33);
+    top: mq(231.23);
+    width: mq(391.63);
+}
+
+.chef {
+    z-index: 2;
+    left: mq(316.74);
+    top: mq(365.61);
+    width: mq(205.14);
+}
+
+.capaIdioma {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+
+    & + & {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.fecha {
+    position: absolute;
+    top: mq(26.88);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: mq(4.63) mq(10.66);
+    background: #E40911;
+    font-family: var(--f-inter), sans-serif;
+    font-size: mq(14.83);
+    font-weight: 700;
+    line-height: 1.06;
+    white-space: nowrap;
+    color: #FFFFFF;
+}
+
+.titulares {
+    position: absolute;
+    left: mq(19.93);
+    top: mq(72.29);
+    display: flex;
+    flex-direction: column;
+    gap: mq(12.97);
+    width: mq(439.75);
+}
+
+.titular,
+.producto {
+    margin: 0;
+    font-family: var(--f-jaldi), sans-serif;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.titular {
+    font-size: calc(#{mq(59.31)} * var(--escala, 1));
+    line-height: 0.8;
+}
+
+.amarillo {
+    color: #FFF405;
+}
+
+.producto {
+    font-size: mq(18.54);
+    line-height: 1.06;
+}
+
+.etiquetaPrecio {
+    position: absolute;
+    left: mq(19.74);
+    top: mq(229.84);
+    padding: mq(1.39) mq(2.32);
+    background: #FFF405;
+    font-family: var(--f-jaldi), sans-serif;
+    font-size: mq(29.66);
+    font-weight: 700;
+    line-height: 1.06;
+    color: #E40911;
+}
+
+.ranuraPrecio {
+    position: absolute;
+    z-index: 1;
+    left: mq(19.74);
+    top: mq(229.84);
+    width: mq(180);
+    height: mq(125);
+}
+
+.cifra {
+    position: absolute;
+    left: mq(0.19);
+    top: mq(38.46);
+    font-family: var(--f-jaldi), sans-serif;
+    font-size: mq(83.41);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    color: #FFF405;
+}
+
+.dtoRanura {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.ranuraPicto {
+    position: absolute;
+    z-index: 1;
+    left: mq(19.93);
+    top: mq(377.2);
+    width: mq(106.24);
+    height: mq(106.24);
+
+    img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.pictoOculto {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.n1Master {
+    position: absolute;
+    z-index: 1;
+    left: mq(19.93);
+    top: mq(518.53);
+    width: mq(87.58);
+    height: mq(97.61);
+}
+
+// --------------------------------------------------------------- Cierre
+
+.cierre {
+    position: relative;
+    z-index: 1;
+    padding: clamp(40px, 4vw, 60px) 20px clamp(96px, 8vw, 150px);
+    text-align: center;
+}
+
+.cierreTitulo {
+    margin: 0;
+    font-size: clamp(30px, 2.315vw, 40px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $tinta;
+}
+
+.cierreTexto {
+    margin: 17px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.35;
+    color: $tinta;
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+.cierreBoton {
+    margin-top: 37px;
+}
+
+// ------------------------------------------------ Móvil con cámara (JS)
+//
+// En móvil la composición entera no se lee: el escenario mide lo que la
+// pantalla y una cámara se acerca al máster y a cada grupo.
+
+.movil {
+    .visor {
+        height: min(125vw, 64svh);
+        overflow: clip;
+        container-type: size;
+    }
+
+    .camara {
+        position: absolute;
+        inset: 0;
+    }
+
+    .escenario {
+        width: 100cqw;
+        margin: 0;
+    }
+}
+
+@media (max-width: 899px) {
+    .cabecera {
+        padding-top: 88px;
+    }
+
+    .subtitulo {
+        margin-top: 12px;
+        font-size: 14px;
+    }
+
+    .sectores {
+        margin-top: 12px;
+    }
+
+    .grupoSectores {
+        gap: 8px;
+        padding-right: 8px;
+
+        li {
+            padding: 7px 16px;
+            font-size: 12px;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sectores {
+        overflow-x: auto;
+    }
+
+    .cinta {
+        animation: none;
+    }
+}
+
+// Descuentos azules pintados en amarillo con una máscara: el dibujo del
+// SVG recorta un fondo del color que toque (ver DESCUENTOS en el JSX).
+.mascara {
+    background: #FFF405;
+    -webkit-mask: var(--img) no-repeat;
+    mask: var(--img) no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: left center;
+    mask-position: left center;
+}
+

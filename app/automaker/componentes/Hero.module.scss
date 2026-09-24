@@ -1,0 +1,280 @@
+@use "sass:math";
+@use "../estilos/tokens" as *;
+
+// El escenario es la caja que envuelve las piezas en el frame de Figma
+// (x de 363.66 a 1414.08, y de 591 a 1074). Todo lo de dentro se mide
+// en % de esa caja: basta con decidir su ancho para escalar la escena.
+$caja-x: 363.66;
+$caja-y: 591;
+$caja-ancho: 1050.42;
+$caja-alto: 483;
+
+// Medida en píxeles de Figma → unidad que escala con el escenario.
+@function cq($px) {
+    @return math.div($px, $caja-ancho) * 100cqw;
+}
+
+.hero {
+    position: relative;
+    overflow: clip;
+    padding: clamp(130px, 12vw, 210px) 0 clamp(24px, 2.84vw, 49px);
+    background: $fondo;
+
+    // Lo que anima GSAP arranca oculto para que no parpadee antes de
+    // que cargue el JavaScript.
+    [data-entra] {
+        visibility: hidden;
+    }
+}
+
+// ---------------------------------------------------------------- Titular
+
+// Ancho medido para que corte como en Figma: «Maquetar campañas
+// semanales / cuesta 16h por diseñador.» (el em incluye el padding).
+.titular {
+    max-width: calc(13.75em + 40px);
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: $fuente;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    text-transform: none;
+    color: $tinta;
+}
+
+.lineaGris,
+.lineaTinta {
+    display: block;
+}
+
+.lineaGris {
+    color: $pizarra;
+}
+
+// -------------------------------------------------------------- Etiquetas
+
+.etiquetas {
+    margin-top: clamp(28px, 2.49vw, 43px);
+}
+
+.pista {
+    display: flex;
+    justify-content: center;
+}
+
+.grupo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin: 0;
+    padding: 0 20px;
+    list-style: none;
+
+    & + & {
+        display: none;
+    }
+}
+
+.etiqueta {
+    padding: 10px 25px;
+    border: 1px solid $tinta;
+    border-radius: 50px;
+    background: $fondo-etiqueta;
+    font-family: $fuente;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    color: $tinta;
+    // Al apagarse, el texto vuelve a oscuro enseguida: sobre el cian que
+    // se desvanece se lee bien.
+    transition:
+        background-color 0.7s $curva,
+        border-color 0.7s $curva,
+        color 0.25s $curva;
+}
+
+// Al encenderse, el texto espera a que el fondo sea casi cian antes de
+// pasar a blanco; si no, a mitad de camino apenas se lee.
+.etiquetaActiva {
+    border-color: $cian;
+    background: $cian;
+    color: $fondo;
+    transition:
+        background-color 0.7s $curva,
+        border-color 0.7s $curva,
+        color 0.3s $curva 0.3s;
+}
+
+// Cuando ya no caben en una línea: cinta infinita con los bordes
+// desvanecidos. Se para al pasar el ratón o el dedo.
+@media (max-width: 1180px) {
+    // Con el recorte de la cinta, el borde de 1 px de las pastillas quedaba
+    // justo en el límite y en iPhone se comía: unos píxeles de aire.
+    .etiquetas {
+        overflow: hidden;
+        padding-block: 4px;
+        mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+
+    .pista {
+        justify-content: flex-start;
+        width: max-content;
+        animation: cinta 36s linear infinite;
+    }
+
+    .etiquetas:hover .pista {
+        animation-play-state: paused;
+    }
+
+    .grupo {
+        flex-wrap: nowrap;
+        padding: 0 14px 0 0;
+
+        & + & {
+            display: flex;
+        }
+    }
+}
+
+@keyframes cinta {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+// ---------------------------------------------------------------- Escenario
+
+// La escena ocupa casi todo el ancho de la pantalla, con tope para que
+// en monitores 4K no se vuelva desmesurada. En móvil se sale por los
+// lados y se recorta: las piezas siguen leyéndose y el botón mantiene
+// su peso.
+// El botón no está en el centro de la caja de piezas: en Figma queda
+// 34.5 px (de 1050.42) a la izquierda. Se corre la escena esa distancia
+// para que el botón quede centrado en pantalla.
+.escenario {
+    --ancho: min(95vw, 1600px);
+    --centrado: calc(var(--ancho) * 34.5 / #{$caja-ancho});
+    position: relative;
+    container-type: inline-size;
+    width: var(--ancho);
+    aspect-ratio: #{$caja-ancho} / #{$caja-alto};
+    margin: clamp(40px, 5.7vw, 110px) 0 0 calc((100% - var(--ancho)) / 2 + var(--centrado));
+}
+
+@media (max-width: 700px) {
+    .escenario {
+        --ancho: 158vw;
+    }
+}
+
+.capa {
+    position: absolute;
+    left: calc((var(--x) - #{$caja-x}) / #{$caja-ancho} * 100%);
+    top: calc((var(--y) - #{$caja-y}) / #{$caja-alto} * 100%);
+    will-change: transform;
+}
+
+.pieza {
+    z-index: 1;
+    width: calc(var(--w) / #{$caja-ancho} * 100%);
+    height: calc(var(--h) / #{$caja-alto} * 100%);
+}
+
+.salto,
+.flota {
+    width: 100%;
+    height: 100%;
+}
+
+.imagen {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+// ------------------------------------------------------------------ Botón
+
+.capaBoton {
+    z-index: 2;
+}
+
+.boton {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: cq(20.54);
+    padding: cq(30.81) cq(61.61);
+    border-radius: 999px;
+    background: $cian;
+    box-shadow: 0 cq(3.2) cq(17.2) rgba(0, 0, 0, 0.4);
+    font-family: $fuente;
+    font-size: cq(41.08);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    color: $fondo;
+    transition: background-color 0.4s $curva;
+
+    &:hover,
+    &:focus-visible {
+        background: #1ABEFF;
+    }
+}
+
+.flechaBoton {
+    font-size: 0.6em;
+    --grosor: 0.9;
+}
+
+// El icono de Figma va dentro del botón para que se hunda con él.
+.icono {
+    position: absolute;
+    left: cq(265.58);
+    top: cq(-65.64);
+    width: cq(87.25);
+    height: auto;
+    pointer-events: none;
+}
+
+.onda {
+    position: absolute;
+    inset: 0;
+    border: 2px solid $cian;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+}
+
+// ----------------------------------------------------------------- Cursor
+
+.capaCursor {
+    z-index: 3;
+    width: calc(45.74 / #{$caja-ancho} * 100%);
+    pointer-events: none;
+}
+
+.cursor {
+    display: block;
+    width: 100%;
+    height: auto;
+    // La punta de la flecha: el clic se "aprieta" desde ahí.
+    transform-origin: 0 15%;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    .pista {
+        animation: none;
+    }
+
+    .etiquetas {
+        overflow-x: auto;
+    }
+}

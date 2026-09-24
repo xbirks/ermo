@@ -1,0 +1,20 @@
+// Tokens de la landing de Automaker (Figma: ERMO, frame 90:298).
+
+$fuente: "aktiv-grotesk", "Inter", system-ui, sans-serif;
+
+$tinta: #14394B;
+$pizarra: #567888;
+$fondo: #F9F9F9;
+$gris-enlace: #7C7C7C;
+$fondo-etiqueta: #F1F1F1;
+$texto-claro: #EAEAEA;
+$cian: #00B6FF;
+$cian-claro: #AEF3FF;
+
+// Una sola curva para toda la página: es lo que hace que el movimiento
+// se lea como un sistema y no como efectos sueltos.
+$curva: cubic-bezier(0.22, 1, 0.36, 1);
+
+// Tamaño único de los titulares de sección (84 px en el frame de 1728).
+// Todas las secciones lo usan para que en móvil midan lo mismo.
+$titulo-seccion: clamp(40px, 4.861vw, 84px);

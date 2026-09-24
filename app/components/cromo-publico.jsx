@@ -21,9 +21,17 @@ import CookieConsent from './cookies/cookieConsent';
 
 const RUTAS_SIN_CROMO = ['/interno/finanzas'];
 
+// La landing de Automaker trae su propia cabecera y su propio diseño: sin
+// la cabecera, el pie ni el cursor de ERMO. El aviso de cookies sí se
+// queda, porque Google Analytics se carga en toda la web.
+const RUTAS_CROMO_PROPIO = ['/automaker'];
+
+const empiezaPor = (ruta, lista) => lista.some((r) => ruta?.startsWith(r));
+
 export function CabeceraPublica() {
     const ruta = usePathname();
-    if (RUTAS_SIN_CROMO.some((r) => ruta?.startsWith(r))) return null;
+    if (empiezaPor(ruta, RUTAS_SIN_CROMO)) return null;
+    if (empiezaPor(ruta, RUTAS_CROMO_PROPIO)) return <CookieConsent />;
     return (
         <>
             <Header />
@@ -34,7 +42,7 @@ export function CabeceraPublica() {
 
 export function PiePublico() {
     const ruta = usePathname();
-    if (RUTAS_SIN_CROMO.some((r) => ruta?.startsWith(r))) return null;
+    if (empiezaPor(ruta, RUTAS_SIN_CROMO) || empiezaPor(ruta, RUTAS_CROMO_PROPIO)) return null;
     return (
         <>
             <Spacer className="spacer-xl" />
