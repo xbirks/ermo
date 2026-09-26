@@ -9,6 +9,7 @@ import FondoVivo from "./FondoVivo.jsx";
 import Boton from "./Boton.jsx";
 import { cortarEnLineas, esperarFuente, useLayoutIso, alLlegar } from "./movimiento.js";
 import s from "./Referencias.module.scss";
+import { CONTACTO_DEMO } from "../contacto.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -578,7 +579,7 @@ export default function Referencias() {
                 <p className={s.cierreTexto}>
                     Y cuando el diseño cambia, <strong>se cambia una vez</strong>: las 200 se regeneran.
                 </p>
-                <Boton href="#contacto" variante="vivo" className={s.cierreBoton}>
+                <Boton href={CONTACTO_DEMO} variante="vivo" className={s.cierreBoton}>
                     Quiero una demo personalizada
                 </Boton>
             </div>

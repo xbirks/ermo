@@ -7,6 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import Boton from "./Boton.jsx";
 import { cortarEnLineas, esperarFuente, useLayoutIso, alLlegar } from "./movimiento.js";
 import s from "./Precio.module.scss";
+import { CONTACTO_DEMO } from "../contacto.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -140,7 +141,7 @@ export default function Precio() {
                             Pago único. Sin licencia anual, sin cuota por usuario, sin coste por pieza generada.
                         </p>
                     </div>
-                    <Boton href="#contacto" variante="tinta" className={s.cta}>Solicitar demo</Boton>
+                    <Boton href={CONTACTO_DEMO} variante="tinta" className={s.cta}>Solicitar demo</Boton>
                 </div>
 
                 <p className={s.amortiza}>
@@ -179,7 +180,7 @@ export default function Precio() {
                 <span className={s.barraImporte}>
                     6000€ <span className={s.iva}>+ IVA</span>
                 </span>
-                <Boton href="#contacto" variante="tinta" className={s.barraBoton} tabIndex={-1}>
+                <Boton href={CONTACTO_DEMO} variante="tinta" className={s.barraBoton} tabIndex={-1}>
                     Solicitar demo
                 </Boton>
             </div>

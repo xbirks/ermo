@@ -8,6 +8,7 @@ import FondoVivo from "./FondoVivo.jsx";
 import Boton from "./Boton.jsx";
 import { cortarEnLineas, esperarFuente, useLayoutIso, alLlegar } from "./movimiento.js";
 import s from "./Demo.module.scss";
+import { CONTACTO_DEMO } from "../contacto.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -151,7 +152,7 @@ export default function Demo() {
                 </div>
 
                 <div className={s.botones} data-sube data-entra>
-                    <Boton href="#contacto" variante="claro">Quiero una demo personalizada</Boton>
+                    <Boton href={CONTACTO_DEMO} variante="claro">Quiero una demo personalizada</Boton>
                     <Boton href="#precio" variante="cian">Ver precio</Boton>
                 </div>
             </div>

@@ -1,9 +1,10 @@
 import Flecha from "./Flecha.jsx";
 import s from "./Nav.module.scss";
+import { CONTACTO_DEMO } from "../contacto.js";
 
 const ENLACES = [
     { href: "#como-funciona", texto: "¿Cómo funciona?" },
-    { href: "#como-trabajamos", texto: "¿Cómo trabajamos?" },
+    { href: "#preguntas", texto: "Preguntas" },
     { href: "#precio", texto: "Precio" },
 ];
 
@@ -22,7 +23,7 @@ export default function Nav() {
                 ))}
             </ul>
 
-            <a href="#contacto" className={s.cta}>
+            <a href={CONTACTO_DEMO} className={s.cta}>
                 Hablemos
                 <Flecha />
             </a>

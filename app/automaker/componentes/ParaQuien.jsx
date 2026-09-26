@@ -7,6 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import Boton from "./Boton.jsx";
 import { cortarEnLineas, esperarFuente, useLayoutIso, alLlegar } from "./movimiento.js";
 import s from "./ParaQuien.module.scss";
+import { CONTACTO_DEMO } from "../contacto.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -116,7 +117,7 @@ export default function ParaQuien() {
             </div>
 
             <div className={s.botones} data-sube data-entra>
-                <Boton href="#contacto" variante="tinta">Quiero una demo personalizada</Boton>
+                <Boton href={CONTACTO_DEMO} variante="tinta">Quiero una demo personalizada</Boton>
                 <Boton href="#precio" variante="cian">Ver precio</Boton>
             </div>
         </section>

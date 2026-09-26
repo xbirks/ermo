@@ -9,6 +9,7 @@ import Comparativa from "./componentes/Comparativa.jsx";
 import Precio from "./componentes/Precio.jsx";
 import ParaQuien from "./componentes/ParaQuien.jsx";
 import Preguntas from "./componentes/Preguntas.jsx";
+import Medicion from "./Medicion.jsx";
 import "./aislamiento.scss";
 
 // Landing comercial de Automaker. Trae su propia cabecera; la cabecera,
@@ -35,6 +36,7 @@ export default function PaginaAutomaker() {
                 dangerouslySetInnerHTML={{ __html: "<style>[data-entra]{visibility:visible!important}</style>" }}
             />
 
+            <Medicion />
             <Nav />
             <main>
                 <Hero />
