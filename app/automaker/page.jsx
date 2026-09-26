@@ -15,10 +15,39 @@ import "./aislamiento.scss";
 // Landing comercial de Automaker. Trae su propia cabecera; la cabecera,
 // el pie y el cursor de la web de ERMO se quitan en esta ruta (ver
 // components/cromo-publico.jsx).
+const TITULO = "Automaker | Campañas semanales maquetadas en minutos";
+const DESCRIPCION =
+    "Entra el brief de una semana y salen todas las piezas en todos los formatos. Sin IA, respetando la identidad del cliente.";
+const URL = "https://www.ermo.es/automaker";
+
+// Vista previa al compartir (WhatsApp, LinkedIn, Slack…): sin esto se
+// heredaba la de ERMO desde el layout. La imagen va en 1200×630.
+const IMAGEN = {
+    url: "https://www.ermo.es/landing/og-automaker.jpg",
+    width: 1200,
+    height: 630,
+    alt: "Automaker: de un brief semanal a todas las piezas de la campaña en minutos.",
+};
+
 export const metadata = {
-    title: "Automaker | Campañas semanales maquetadas en minutos",
-    description:
-        "Entra el brief de una semana y salen todas las piezas en todos los formatos. Sin IA, respetando la identidad del cliente.",
+    title: TITULO,
+    description: DESCRIPCION,
+    alternates: { canonical: URL },
+    openGraph: {
+        title: TITULO,
+        description: DESCRIPCION,
+        url: URL,
+        type: "website",
+        siteName: "Automaker · ERMO",
+        locale: "es_ES",
+        images: [IMAGEN],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: TITULO,
+        description: DESCRIPCION,
+        images: [IMAGEN.url],
+    },
     // Oculta a los buscadores hasta limpiar imágenes y textos de clientes.
     robots: { index: false, follow: false },
 };
