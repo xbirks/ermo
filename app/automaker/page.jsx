@@ -23,6 +23,11 @@ export const metadata = {
     robots: { index: false, follow: false },
 };
 
+// Color de la barra de Safari (y Chrome en Android): el azul petróleo de
+// la landing. El layout de ERMO fija otro; Medicion.jsx lo sustituye en
+// esta ruta por si el navegador lee primero el del layout.
+export const viewport = { themeColor: "#14394B" };
+
 export default function PaginaAutomaker() {
     return (
         <div className="landing-automaker">

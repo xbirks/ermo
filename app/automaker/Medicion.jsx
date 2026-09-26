@@ -18,6 +18,7 @@ import Script from "next/script";
 // (mapas de calor y grabaciones de sesión).
 
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+const COLOR_TEMA = "#14394B";
 
 function enviar(evento, datos, intento = 0) {
     if (typeof window.gtag === "function") {
@@ -35,6 +36,12 @@ export default function Medicion() {
     useEffect(() => {
         const raiz = document.querySelector(".landing-automaker");
         if (!raiz) return undefined;
+
+        // Color de la barra de Safari: el del layout de ERMO se cambia por
+        // el de la landing mientras se está en ella.
+        const temas = [...document.querySelectorAll("meta[name='theme-color']")];
+        const antes = temas.map((t) => t.content);
+        temas.forEach((t) => (t.content = COLOR_TEMA));
 
         const alHacerClic = (e) => {
             const el = e.target.closest("a, button");
@@ -74,6 +81,7 @@ export default function Medicion() {
         return () => {
             raiz.removeEventListener("click", alHacerClic);
             vigia.disconnect();
+            temas.forEach((t, i) => (t.content = antes[i]));
         };
     }, []);
 
