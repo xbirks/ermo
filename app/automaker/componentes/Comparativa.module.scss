@@ -69,10 +69,13 @@ $linea: 1px solid $pizarra;
 
 // ------------------------------------------------------------- Tabla
 
+// minmax(0, …): cada fila es su propia rejilla y, sin el 0, una celda con
+// una palabra larga ensanchaba su columna solo en esa fila y las líneas
+// verticales dejaban de cuadrar.
 .cabeceras,
 .fila {
     display: grid;
-    grid-template-columns: 268fr 522fr 536fr;
+    grid-template-columns: minmax(0, 268fr) minmax(0, 522fr) minmax(0, 536fr);
 }
 
 .cabeceras {

@@ -4,7 +4,10 @@
 // 20 de calle; filas de 159 separadas 12. Las tarjetas del no (101 de
 // alto) van centradas en la altura de su fila.
 
+// overflow-x: clip: las tarjetas del "no" esperan desplazadas antes de
+// entrar y, sin recorte, ensanchaban la página en móvil (se movía de lado).
 .paraQuien {
+    overflow-x: clip;
     padding: clamp(96px, 8vw, 140px) 20px clamp(96px, 8vw, 140px);
     background: $fondo;
 
