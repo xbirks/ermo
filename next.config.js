@@ -54,6 +54,10 @@ const nextConfig = {
 
   async redirects() {
   return [
+    // --- ATAJOS ---
+    // La firma de correo enseña ermo.es/privacidad
+    { source: '/privacidad', destination: '/legal/politica-de-privacidad', permanent: true },
+
     // --- MUNICIPIOS: LOCAL ---
     { source: '/municipios/local/alboraya/:path*', destination: '/diseno-web-manises', permanent: true },
     { source: '/municipios/local/almussafes/:path*', destination: '/diseno-web-manises', permanent: true },
