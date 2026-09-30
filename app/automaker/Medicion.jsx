@@ -14,10 +14,11 @@ import Script from "next/script";
 //   automaker_abrir_pregunta   pregunta frecuente abierta
 //   automaker_seccion_vista    sección que llega a verse (una vez por visita)
 //
-// Si existe NEXT_PUBLIC_CLARITY_ID se carga además Microsoft Clarity
-// (mapas de calor y grabaciones de sesión).
+// Se carga además Microsoft Clarity (proyecto yqchkq3k32, o el de
+// NEXT_PUBLIC_CLARITY_ID si está definida): mapas de calor y
+// grabaciones de sesión.
 
-const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "yqchkq3k32";
 const COLOR_TEMA = "#14394B";
 
 function enviar(evento, datos, intento = 0) {
