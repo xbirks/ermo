@@ -1,0 +1,235 @@
+@use "../estilos/tokens" as *;
+
+// "Lo que Automaker no hace" (Figma: y=5687–7377).
+//
+// Medidas del árbol en Figma: 1324 de ancho, tarjetas de 536 y el tronco
+// en el centro (252 entre columnas). Los brazos van del tronco al borde
+// superior de cada tarjeta y se meten un poco en ella.
+
+$ancho-arbol: 1324;
+$ancho-tarjeta: 536;
+
+.noHace {
+    position: relative;
+    overflow: clip;
+    padding: 75px 20px clamp(80px, 6.6vw, 115px);
+    background: linear-gradient(180deg, $tinta 0%, #224C60 50%, $tinta 100%);
+    color: $fondo;
+
+    [data-entra] {
+        visibility: hidden;
+    }
+}
+
+.contenido {
+    position: relative;
+    z-index: 1;
+    max-width: 1324px;
+    margin: 0 auto;
+}
+
+.titulo {
+    margin: 0;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: $fondo;
+}
+
+.cian {
+    color: $cian-claro;
+}
+
+// ------------------------------------------------------------ Árbol
+
+.arbol {
+    position: relative;
+    margin-top: 58px;
+    // 50 px de tronco antes del primer brazo y 104 después del último,
+    // hasta la tarjeta blanca.
+    padding: 50px 0 104px;
+}
+
+.tronco {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #FFFFFF;
+}
+
+// Punto de luz en el extremo del tronco mientras crece.
+.punta {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    margin: -4px 0 0 -4px;
+    border-radius: 50%;
+    background: $cian-claro;
+    box-shadow:
+        0 0 10px 2px rgba(174, 243, 255, 0.8),
+        0 0 30px 6px rgba(174, 243, 255, 0.35);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tarjetas {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tarjeta {
+    position: relative;
+    width: calc(#{$ancho-tarjeta} / #{$ancho-arbol} * 100%);
+    margin-top: var(--sube);
+    padding: 31px 54px 36px;
+    border: 1px solid #FFFFFF;
+    border-radius: 25px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.izq {
+    align-self: flex-start;
+}
+
+.der {
+    align-self: flex-end;
+}
+
+// Brazo: del tronco al borde superior de la tarjeta. El tronco queda a
+// 126 px del borde (la mitad de la calle), que en % de la tarjeta es
+// 126/536.
+.rama {
+    position: absolute;
+    top: -1px;
+    height: 1px;
+    background: #FFFFFF;
+
+    .izq & {
+        left: calc(347 / 536 * 100%);
+        right: calc(-126 / 536 * 100%);
+    }
+
+    .der & {
+        left: calc(-126 / 536 * 100%);
+        width: calc(315 / 536 * 100%);
+    }
+}
+
+.tituloTarjeta {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $fondo;
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.textoTarjeta {
+    margin: 18px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: $cian-claro;
+}
+
+// ------------------------------------------------------ Lo que sí hace
+
+.siHace {
+    padding: 44px clamp(24px, 4vw, 60px) 48px;
+    border-radius: 30px;
+    background: #FFFFFF;
+    text-align: center;
+    color: $tinta;
+}
+
+.siHaceTitulo {
+    margin: 0;
+    font-size: clamp(36px, 3.7vw, 64px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $tinta;
+}
+
+.gris {
+    color: $pizarra;
+}
+
+.siHaceTexto {
+    max-width: 921px;
+    margin: 23px auto 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.3;
+    color: $tinta;
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 50px;
+}
+
+// -------------------------------------------------------------- Móvil
+//
+// El tronco baja por la izquierda y las tarjetas se apilan a su derecha.
+
+@media (max-width: 899px) {
+    .arbol {
+        padding: 36px 0 56px;
+    }
+
+    .tronco,
+    .punta {
+        left: 12px;
+    }
+
+    .tarjeta,
+    .tarjeta:first-child {
+        align-self: stretch;
+        width: auto;
+        margin: 0 0 0 36px;
+        padding: 26px 24px 28px;
+    }
+
+    .tarjeta + .tarjeta {
+        margin-top: 28px;
+    }
+
+    .izq .rama,
+    .der .rama {
+        left: -25px;
+        right: auto;
+        width: calc(25px + 40%);
+    }
+
+    .tituloTarjeta {
+        font-size: 24px;
+    }
+
+    .botones {
+        gap: 12px;
+    }
+}
