@@ -1,0 +1,164 @@
+@use "../estilos/tokens" as *;
+
+// "Preguntas que siempre nos hacen" (Figma: y=12073–13319). Lista de 965
+// de ancho; cerradas miden 73 con radio 61, abiertas radio 40.
+
+.preguntas {
+    padding: clamp(96px, 7vw, 120px) 20px clamp(96px, 8vw, 140px);
+    background: linear-gradient(136deg, #D7D7D7 10%, #EFEFEF 59%, #D7D7D7 94%);
+}
+
+.titulo {
+    // Corta como en Figma: "Preguntas que siempre / nos hacen".
+    max-width: 10em;
+    margin: 0 auto;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: $tinta;
+
+    &[data-entra] {
+        visibility: hidden;
+    }
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    max-width: 965px;
+    margin: 76px auto 0;
+    padding: 0;
+    list-style: none;
+}
+
+.item {
+    border: 1px solid $pizarra;
+    border-radius: 36px;
+    background: $fondo;
+    transition: border-radius 0.5s $curva;
+}
+
+.abierta {
+    border-radius: 40px;
+}
+
+.encabezado {
+    margin: 0;
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    min-height: 71px;
+    padding: 20px 45px;
+    border: 0;
+    background: none;
+    font-family: $fuente;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: left;
+    color: $tinta;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: 2px solid $cian;
+        outline-offset: -4px;
+        border-radius: 36px;
+    }
+}
+
+// ↗ cerrada, ↙ abierta: la misma flecha girada.
+.flecha {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: $tinta;
+    stroke-width: 1;
+    transition: transform 0.5s $curva;
+
+    .abierta & {
+        transform: rotate(180deg);
+    }
+}
+
+.panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s $curva;
+
+    .abierta & {
+        grid-template-rows: 1fr;
+    }
+}
+
+.panelInterior {
+    overflow: hidden;
+}
+
+.respuesta {
+    padding: 4px 45px 36px;
+    opacity: 0;
+    transition: opacity 0.4s $curva;
+
+    .abierta & {
+        opacity: 1;
+        transition-delay: 0.12s;
+    }
+
+    p {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.3;
+        color: $tinta;
+    }
+
+    p + p {
+        margin-top: 16px;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    u {
+        text-underline-offset: 2px;
+    }
+}
+
+@media (max-width: 760px) {
+    .lista {
+        gap: 12px;
+        margin-top: 48px;
+    }
+
+    .item {
+        border-radius: 28px;
+    }
+
+    .boton {
+        padding: 18px 24px;
+        font-size: 17px;
+    }
+
+    .respuesta {
+        padding: 0 24px 26px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panel,
+    .respuesta,
+    .flecha,
+    .item {
+        transition: none;
+    }
+}

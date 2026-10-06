@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -11,43 +11,39 @@ import { CONTACTO_DEMO } from "../contacto.js";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-// "Precio" (Figma: y=8623–10400). Es el punto donde se decide: todo el
-// contenido está a la vista desde el principio. El movimiento solo
-// acompaña (entradas cortas, una vez) y nunca esconde nada.
+// "Precio" del modelo V3: puesta en marcha de pago único (se instala, se
+// forma al equipo y se va) + mantenimiento mensual obligatorio (el plugin
+// depende de nuestro servidor y de que Figma no cambie). Precios cerrados
+// el 6/10/2026. La rebaja por caso de éxito (−500 €, primeros clientes) y
+// las cifras de las cuotas no se publican: se ofrecen solo en la reunión.
 
-const INCLUYE = [
-    {
-        titulo: "Diagnóstico",
-        texto: "Análisis de la producción actual de una marca o cuenta: piezas, formatos, brief y flujo de trabajo.",
-    },
-    {
-        titulo: "3 campañas máster parametrizadas",
-        texto: "La campaña de ofertas, el lanzamiento o la promo de temporada… De cada máster salen todas sus referencias: tamaños, idiomas, descuentos y categorías. Un máster son tantas piezas como necesites.",
-    },
-    {
-        titulo: "Plugin",
-        texto: "Instalado en vuestro Figma y mapeado contra las claves de vuestra biblioteca publicada, con las reglas de composición, ajuste de texto y jerarquía de vuestras piezas.",
-    },
-    {
-        titulo: "Entrada de datos",
-        texto: "Hoja de cálculo o formulario con validación de campos y control de estado, desde donde se lanza cada campaña y se sabe qué está listo para generar.",
-    },
-    {
-        titulo: "Formación al equipo, construyendo",
-        texto: "Las plantillas restantes las hacen vuestros diseñadores con nosotros al lado. No es un manual: salís habiendo ampliado el sistema con vuestras manos. Formatos nuevos, cambios globales y detección de errores antes de publicar.",
-    },
-    {
-        titulo: "Revisión y checklist de publicación",
-        texto: "Validamos las primeras plantillas que hagáis solos, para que la autonomía sea de verdad.",
-    },
-    {
-        titulo: "Campañas ilimitadas",
-        texto: "Generad 40 piezas o 4.000 a la semana: el precio no cambia nunca.",
-    },
+// Lo que incluye cada pago, en una línea por punto: la tarjeta tiene que
+// leerse de un vistazo, el detalle está en las preguntas frecuentes.
+const ALTA = [
+    "Diagnóstico de cómo producís hoy vuestras cuentas",
+    "Plugin instalado y conectado a vuestra librería de Figma y a vuestro Excel",
+    "Los 3 primeros másters de cada cuenta, preparados junto a vuestro diseñador",
+    "Vuestra primera campaña real, generada y entregada",
+    "Formación hasta que vuestro equipo prepara un máster sin ayuda",
 ];
+
+const CUOTA = [
+    "Campañas, piezas e idiomas ilimitados",
+    "Plugin actualizado cuando Figma cambia",
+    "Servidor y conexión con vuestro Excel",
+    "Soporte cuando algo no funciona, con respuesta en un día laborable",
+];
+
+// Mensual o anual: cambia el mantenimiento. El anual son 10 meses: dos gratis.
+const PLANES = {
+    mensual: { importe: "99€", periodo: "/mes", extra: "Mínimo 12 meses; después, mes a mes." },
+    anual: { importe: "990€", periodo: "/año", extra: "Dos meses gratis." },
+};
 
 export default function Precio() {
     const raiz = useRef(null);
+    const [plan, setPlan] = useState("mensual");
+    const p = PLANES[plan];
 
     useLayoutIso(() => {
         const mm = gsap.matchMedia();
@@ -124,61 +120,83 @@ export default function Precio() {
         <section id="precio" className={s.precio} ref={raiz}>
             <h2 className={s.titulo} data-titulo data-entra>Precio</h2>
             <p className={s.intro} data-sube data-entra>
-                Pago único con alcance definido: sabéis qué entra, cuánto cuesta y cuándo estará funcionando. La
-                implementación tiene dos fases: diagnóstico de vuestra producción actual y puesta en marcha.
+                Pagáis una vez por dejarlo funcionando y un mantenimiento pequeño para que siga funcionando. Sin
+                cuota por diseñador: lo puede usar todo el equipo. Las campañas y las piezas no cuentan.
             </p>
+
+            {/* Mensual / anual: cambia el mantenimiento; la puesta en marcha es la misma. */}
+            <div className={s.selector} role="group" aria-label="Forma de pago" data-sube data-entra>
+                {Object.keys(PLANES).map((clave) => (
+                    <button
+                        key={clave}
+                        type="button"
+                        className={`${s.opcion} ${plan === clave ? s.opcionActiva : ""}`}
+                        aria-pressed={plan === clave}
+                        onClick={() => setPlan(clave)}
+                    >
+                        {clave === "mensual" ? "Mensual" : "Anual"}
+                        {clave === "anual" && <span className={s.ahorro}>2 meses gratis</span>}
+                    </button>
+                ))}
+            </div>
 
             <article className={s.tarjeta} data-tarjeta>
                 <div className={s.cabecera}>
-                    <div>
-                        <h3 className={s.producto}>
-                            <span className={s.gris}>Implementación de</span> Automaker
-                        </h3>
-                        <p className={s.importe}>
-                            6000€<span className={s.iva}>+ IVA</span>
-                        </p>
-                        <p className={s.letraPequena}>
-                            Pago único. Sin licencia anual, sin cuota por usuario, sin coste por pieza generada.
-                        </p>
+                    <div className={s.cifras}>
+                        <div className={s.cifra}>
+                            <h3 className={s.etiquetaCifra}>Puesta en marcha</h3>
+                            <p className={s.importe}>
+                                2.900€<span className={s.iva}>+ IVA</span>
+                            </p>
+                            <p className={s.letraPequena}>Una vez, para una cuenta. Para tres cuentas, 3.900 €.</p>
+                        </div>
+                        <span className={s.mas} aria-hidden="true">+</span>
+                        <div className={s.cifra}>
+                            <h3 className={s.etiquetaCifra}>Mantenimiento</h3>
+                            <p className={s.importe}>
+                                {p.importe}
+                                <span className={s.iva}>{p.periodo} + IVA</span>
+                            </p>
+                            <p className={s.letraPequena}>{p.extra}</p>
+                        </div>
                     </div>
                     <Boton href={CONTACTO_DEMO} variante="tinta" className={s.cta}>Solicitar demo</Boton>
                 </div>
 
                 <p className={s.amortiza}>
-                    Un diseñador dedica entre 10 y 16 horas semanales a maquetación repetitiva (entre 1200€ y 1900€ al
-                    mes a precio de agencia). <strong>Automaker se amortiza en 3 a 5 meses con un solo diseñador.</strong>{" "}
-                    Después, esas horas son margen.
+                    Si vuestro equipo dedica 10 horas a la semana a repetir piezas de una cuenta, son unos 700 € al mes
+                    de su tiempo. <strong>La puesta en marcha se recupera en unos cinco meses</strong>, y desde entonces esas horas
+                    vuelven a trabajo de diseño que sí facturáis.
                 </p>
 
-                <div className={s.bloque}>
-                    <span className={s.pastilla}>Qué incluye</span>
-                    <ul className={s.incluye}>
-                        {INCLUYE.map((i) => (
-                            <li key={i.titulo} data-punto>
-                                <h4 className={s.puntoTitulo}>{i.titulo}</h4>
-                                <p className={s.puntoTexto}>{i.texto}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className={s.bloque}>
-                    <span className={s.pastilla}>Duración</span>
-                    <p className={s.duracion} data-punto>
-                        De 30 a 45 días. El plazo exacto se confirma en el diagnóstico, y hay entregas visibles cada
-                        semana.
-                    </p>
+                <div className={`${s.bloque} ${s.columnas}`}>
+                    <div>
+                        <span className={s.pastilla}>La puesta en marcha incluye</span>
+                        <ul className={s.lista}>
+                            {ALTA.map((t) => <li key={t} data-punto>{t}</li>)}
+                        </ul>
+                    </div>
+                    <div>
+                        <span className={s.pastilla}>El mantenimiento incluye</span>
+                        <ul className={s.lista}>
+                            {CUOTA.map((t) => <li key={t} data-punto>{t}</li>)}
+                        </ul>
+                    </div>
                 </div>
             </article>
 
             <p className={s.nota}>
-                Cada tipo de pieza que queráis añadir después es un encargo independiente. Si lo construye vuestro
-                equipo siguiendo el criterio de los componentes, no nos necesitáis para él.
+                Una cuenta es cada marca para la que hacéis piezas. La puesta en marcha se paga la mitad al empezar
+                y la mitad al entregar la primera campaña; si preferís cuotas, también se puede. Cuenta extra más
+                adelante, 700 € (conectada y con sus 3 primeros másters); el mantenimiento no cambia. Los másters
+                siguientes los prepara vuestro equipo, sin coste; si preferís que lo hagamos nosotros, 150 € por
+                máster. Formación de otra persona, 600 €. Adaptamos, no diseñamos desde cero.
             </p>
 
             <div className={s.barra} data-barra aria-hidden="true">
                 <span className={s.barraImporte}>
-                    6000€ <span className={s.iva}>+ IVA</span>
+                    2.900€ + {p.importe}
+                    <span className={s.iva}>{p.periodo}</span>
                 </span>
                 <Boton href={CONTACTO_DEMO} variante="tinta" className={s.barraBoton} tabIndex={-1}>
                     Solicitar demo

@@ -50,7 +50,7 @@ const TARJETAS = [
         sube: 4,
         fuerte: "No decide",
         titulo: " si esta semana toca foto de producto o lifestyle.",
-        texto: "Eso lo dice el brief. Automaker lee la hoja y coloca exactamente lo que pone en ella.",
+        texto: "Eso lo dice el brief. Automaker lee el Excel y coloca exactamente lo que pone en él.",
     },
 ];
 

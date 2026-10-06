@@ -1,0 +1,105 @@
+@use "../estilos/tokens" as *;
+
+.nav {
+    position: fixed;
+    z-index: 50;
+    top: 21px;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: min(736px, calc(100% - 20px));
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px 0 27px;
+    border-radius: 46px;
+    background: linear-gradient(90deg, #F2F2F2 0%, #E6E6E6 52%, #F2F2F2 100%);
+    animation: entra 1s $curva 0.05s both;
+}
+
+.logo {
+    display: block;
+    line-height: 0;
+
+    img {
+        display: block;
+        width: 106px;
+        height: auto;
+    }
+}
+
+.enlaces {
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.enlace {
+    font-family: $fuente;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: $gris-enlace;
+    transition: color 0.35s $curva;
+
+    &:hover,
+    &:focus-visible {
+        color: $tinta;
+    }
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 30px;
+    border-radius: 50px;
+    background: $tinta;
+    font-family: $fuente;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: $texto-claro;
+    transition: background-color 0.4s $curva;
+
+    > span {
+        font-size: 10px;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: #1C4A60;
+    }
+}
+
+@keyframes entra {
+    from {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+}
+
+@media (max-width: 900px) {
+    .enlaces {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .nav {
+        top: 10px;
+        height: 56px;
+        padding: 0 10px 0 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav {
+        animation: none;
+    }
+}

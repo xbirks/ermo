@@ -15,44 +15,55 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 // todos los equipos.
 const mono = IBM_Plex_Mono({ weight: "400", subsets: ["latin"], variable: "--f-mono", display: "swap" });
 
-// "Automaker vs otros" (Figma: y=7377–8623).
+// "Automaker vs otros". En este borrador "otros" son dos familias: las
+// herramientas que rellenan plantillas desde una hoja (algunas dentro del
+// propio Figma) y las plataformas de producción creativa. No se nombra a
+// ninguna marca: comparar precios con un producto que hace otras cosas
+// puede leerse como publicidad engañosa. Datos y fuentes en
+// automaker/docs/negocio/competencia-datos.md (consultados el 1/10/2026).
 const FILAS = [
     {
-        criterio: "Propiedad",
-        otros: "Todo vive dentro del SaaS. Si dejas de pagar, pierdes todo.",
-        automaker: <>El sistema es de <strong>tu propiedad</strong>. Vuestros archivos, vuestras cuentas.</>,
+        criterio: "Qué rellena desde el Excel",
+        otros: "Textos e imágenes.",
+        automaker: <>Textos, imágenes y <strong>componentes de vuestra librería</strong>: pictos, precios, descuentos, logos.</>,
     },
     {
-        criterio: "Coste",
-        otros: "Pago mensual por usuario. Aprox. 7.000 € al año.",
-        automaker: <><strong>Pago único.</strong> Sin licencia por persona.</>,
+        criterio: "Varios tamaños",
+        otros: "Un diseño que se redimensiona solo. Con piezas complejas, la composición se descoloca.",
+        automaker: <><strong>Un máster por formato</strong>, diseñado por una persona. El motor solo rellena.</>,
     },
     {
-        criterio: "Diseño",
-        otros: "Los diseñadores están muy limitados con el diseño, tipografías, efectos.",
-        automaker: <>Los diseñadores mantienen <strong>Figma</strong> como software de diseño.</>,
-    },
-    {
-        criterio: "Creatividad",
-        otros: "Limitados a lo que su editor sabe representar.",
-        automaker: "Todo lo que Figma permite, que es todo lo que ya hacéis.",
-    },
-    {
-        criterio: "Feedback de última hora",
-        otros: "Hay que salir de la plataforma y rehacer la pieza aparte o perder horas modificando plantillas para un ajuste sencillo.",
-        automaker: <>Se ajusta la pieza/componente desde Figma y se vuelve a exportar. <strong>&lt;10 min.</strong></>,
+        criterio: "Textos largos y fotos",
+        otros: "Lo revisa alguien, pieza a pieza.",
+        automaker: <>El texto se ajusta a su caja y <strong>avisa si no cabe</strong>. El recorte de la foto respeta lo importante.</>,
     },
     {
         criterio: "De dónde salen los datos",
-        otros: "El project manager o el propio diseñador tiene que volcarlos a mano.",
-        automaker: <>Del sitio donde ya están: nos adaptamos a <strong>vuestro Excel</strong>, vuestro gestor, vuestro brief.</>,
+        otros: "Un archivo que se vuelve a subir cada vez que algo cambia.",
+        automaker: <>Un <strong>Excel vivo</strong> en Google Sheets: se edita y se vuelve a generar.</>,
+    },
+    {
+        criterio: "Diseño",
+        otros: "Las plataformas traen su propio editor, limitado a lo que sabe representar.",
+        automaker: <>Vuestros diseñadores siguen en <strong>Figma</strong>. Todo lo que Figma permite.</>,
     },
     {
         criterio: "Exportación",
-        otros: "Los formatos de su ecosistema, orientados a display.",
-        automaker: "Lo que vuestro cliente pida. Estático, GIF, Display, PSD, WebP, PNG…",
+        otros: "PNG, JPG o PDF, o los formatos de display de la plataforma.",
+        automaker: <>Zip ordenado por carpetas. <strong>GIF animado, PSD, WebP</strong>, JPG y PNG.</>,
+    },
+    {
+        criterio: "Coste",
+        otros: "Plataformas de producción: desde unos 10.000 $ al año**. La empresa típica paga más de 50.000 $ al año*.",
+        automaker: <><strong>Desde 2.900 € una vez y 99 € al mes</strong> de mantenimiento. Sin cuota por persona; campañas y piezas ilimitadas.</>,
+    },
+    {
+        criterio: "Si os dais de baja",
+        otros: "Las creatividades viven dentro de la plataforma.",
+        automaker: <>Másters y piezas están en <strong>vuestro Figma y vuestras carpetas</strong>. Lo diseñado sigue siendo vuestro.</>,
     },
 ];
+
 
 // Móvil: la tabla se desplaza en horizontal. Para que se descubra, se
 // asoma hacia la izquierda lo justo para enseñar el arranque de la
@@ -164,10 +175,10 @@ export default function Comparativa() {
                     Automaker <span className={s.gris}>vs otros</span>
                 </h2>
                 <p className={s.intro} data-sube data-entra>
-                    Automatizar la maquetación de piezas lo hacen varias plataformas. Muchas, de hecho. Y todas tienen
-                    el mismo problema: <strong>te secuestran como cliente</strong>. Todas tus creatividades viven bajo su
-                    propio sistema. No puedes descargarlas y editarlas, no puedes dejar de pagar o si no, pierdes todos
-                    tus diseños, e incluso te limitan a la hora de ser creativo.
+                    Rellenar plantillas desde un Excel ya lo hacen muchas herramientas, algunas dentro del propio Figma.
+                    Y hay plataformas enteras de producción creativa. <strong>Las plantillas rellenan textos. Automaker
+                    monta campañas</strong>: elige el picto, el precio y el descuento de vuestra librería, respeta el
+                    diseño de cada formato y os entrega el zip ordenado.
                 </p>
 
                 {/* En móvil este contenedor se desplaza en horizontal. */}
@@ -197,6 +208,20 @@ export default function Comparativa() {
                     ))}
                 </div>
                 </div>
+                </div>
+
+                <div className={s.fuentes} data-sube data-entra>
+                    <p>
+                        * Dato real: mediana de lo que pagan las empresas por una plataforma líder de producción
+                        creativa, según compras reales recopiladas por{" "}
+                        <a href="https://www.vendr.com/marketplace/celtra" target="_blank" rel="noopener noreferrer">Vendr</a>.
+                        Consultado en octubre de 2026.
+                    </p>
+                    <p>
+                        ** Estimación del precio mínimo de otra plataforma del sector, según{" "}
+                        <a href="https://www.itqlick.com/bannerflow/pricing" target="_blank" rel="noopener noreferrer">ITQlick</a>.
+                        Consultado en octubre de 2026.
+                    </p>
                 </div>
             </div>
         </section>

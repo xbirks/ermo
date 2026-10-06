@@ -62,8 +62,8 @@ export default function Ahorro() {
 
                 <div className={s.relato} data-entra>
                     <p>
-                        Durante meses construí este sistema mientras seguía maquetando campañas para grandes cuentas
-                        a mano. Estuve una temporada haciendo el mismo trabajo de las dos formas, así que{" "}
+                        Durante meses construí este sistema mientras seguía maquetando a mano campañas semanales para
+                        grandes cuentas de retail. Estuve una temporada haciendo el mismo trabajo de las dos formas, así que{" "}
                         <strong>pude cronometrar las dos</strong>. Con el plugin ya terminado, las piezas de un mes
                         entero salían en diez o quince minutos. Revisadas y enviadas.
                     </p>

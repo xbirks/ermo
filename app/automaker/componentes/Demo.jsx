@@ -108,8 +108,8 @@ export default function Demo() {
                 </h2>
 
                 <p className={s.subtitulo} data-sube data-entra>
-                    Entra el brief de una semana y salen 42 piezas en varios formatos. Sin IA, respetando la
-                    identidad del cliente.
+                    Entra el Excel de la semana y salen 42 piezas en todos sus formatos. Si mañana cambia un
+                    precio, se corrige en la hoja y se vuelven a generar todas. Sin IA y sin tocar el diseño.
                 </p>
 
                 <div className={s.marco} data-marco>

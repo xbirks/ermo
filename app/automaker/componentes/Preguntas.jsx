@@ -9,9 +9,8 @@ import s from "./Preguntas.module.scss";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-// "Preguntas que siempre nos hacen" (Figma: y=12073–13319). La primera
-// respuesta es la de Figma; el resto se redactaron a partir de la propia
-// landing (precio, ahorro, qué no hace) y conviene revisarlas.
+// "Preguntas que siempre nos hacen". Reescritas para el modelo de
+// autoservicio. La de la IA se mantiene de la landing publicada.
 const PREGUNTAS = [
     {
         pregunta: "¿Esto no lo hará la IA sola dentro de poco?",
@@ -25,46 +24,60 @@ const PREGUNTAS = [
                     por definición, y <u>en producción de campañas eso es un defecto</u>.
                 </p>
                 <p>
-                    Donde la IA sí aporta ya es en los bordes: leer un brief escrito en un correo y convertirlo en
-                    datos, avisar de que un titular se desborda, proponer variantes de copy dentro del límite de
-                    caracteres. Todo eso está previsto. Y el día que la IA componga layouts de verdad, va a necesitar
-                    exactamente lo que aquí se instala: una librería bien nombrada, un brief estructurado y una salida
-                    ordenada.
+                    Automaker no inventa nada: repite lo que vuestro equipo ya diseñó y aprobó. Por eso el resultado es
+                    siempre de vuestra marca.
                 </p>
             </>
         ),
     },
     {
-        pregunta: "¿Nuestros diseñadores van a sentir que les quitáis trabajo?",
+        pregunta: "¿De verdad lo podemos llevar solos?",
         respuesta: (
             <>
                 <p>
-                    Les quitáis la parte que nadie quiere: cambiar el precio en la pieza número ochenta, renombrar
-                    archivos y revisar que el legal no se haya movido. <strong>El criterio sigue siendo suyo</strong>:
-                    ellos diseñan los másters, deciden la composición y aprueban lo que sale.
+                    Sí, es la idea. En la puesta en marcha preparamos con vuestro diseñador los tres primeros másters
+                    y montamos juntos la primera campaña real. Después, <strong>una campaña es rellenar el Excel y
+                    pulsar un botón</strong>. Lo único que lleva trabajo es preparar un máster nuevo, y eso vuestro
+                    diseñador lo aprende con nosotros al lado.
                 </p>
                 <p>
-                    Además, son ellos quienes aprenden a ampliar el sistema durante la implementación. Al terminar,
-                    saben crear formatos nuevos sin depender de nadie. Lo que suele pasar es lo contrario al miedo
-                    inicial: recuperan un día y medio a la semana para trabajo de diseño de verdad.
+                    Basta con alguien que sepa Figma: renombrar capas y abrir el plugin. Si además domina auto layout,
+                    mejor. Y quien rellena el Excel ni siquiera tiene que abrir Figma.
                 </p>
             </>
         ),
     },
     {
-        pregunta: "¿Qué entra exactamente en los 6.000 € y qué no?",
+        pregunta: "¿En qué se diferencia de las herramientas que rellenan plantillas?",
         respuesta: (
             <>
                 <p>
-                    <strong>Entra:</strong> el diagnóstico de vuestra producción, tres campañas máster parametrizadas
-                    con todas sus referencias, el plugin instalado en vuestro Figma, la entrada de datos (hoja o
-                    formulario), la formación a vuestro equipo construyendo plantillas y la revisión de las primeras
-                    que hagáis solos. Sin límite de piezas ni de campañas, y sin cuota mensual.
+                    Las plantillas rellenan textos e imágenes. <strong>Automaker monta campañas</strong>: además del
+                    texto y la foto, pone el picto, el precio, el descuento y el logo de vuestra librería, cada uno en
+                    su hueco.
                 </p>
                 <p>
-                    <strong>No entra:</strong> el diseño creativo de los másters (lo aporta vuestro equipo) ni los
-                    tipos de pieza nuevos que queráis añadir más adelante. Esos son un encargo aparte, o los hace
-                    vuestro equipo siguiendo el criterio de los componentes, sin coste.
+                    Y no redimensiona un diseño a la fuerza: cada formato tiene su máster, diseñado por una persona.
+                    Al final os entrega un zip ordenado por carpetas, con GIF animado, PSD y WebP.
+                </p>
+            </>
+        ),
+    },
+    {
+        pregunta: "¿Por qué una puesta en marcha y además un mantenimiento?",
+        respuesta: (
+            <>
+                <p>
+                    <strong>La puesta en marcha</strong> (2.900 € + IVA para una cuenta o 3.900 € para tres, una
+                    sola vez) es el trabajo de dejarlo
+                    funcionando con vuestras piezas: conectar vuestra librería y vuestro Excel, preparar los primeros
+                    másters con vuestro diseñador y entregar la primera campaña real. Cuando acaba, vuestro equipo
+                    sabe preparar másters nuevos sin nosotros.
+                </p>
+                <p>
+                    <strong>El mantenimiento</strong> (99 € al mes) existe porque Figma y Google cambian, y cuando
+                    cambian el plugin hay que actualizarlo. Incluye eso, el servidor y el soporte. No es una cuota
+                    por diseñador ni por pieza: lo usa todo el equipo, tantas veces como quiera.
                 </p>
             </>
         ),
@@ -80,8 +93,8 @@ const PREGUNTAS = [
                     de un mes entero salían en diez o quince minutos.
                 </p>
                 <p>
-                    La cifra depende de cuántas campañas, formatos e idiomas manejéis. En el diagnóstico la medimos
-                    con vuestra producción real antes de empezar.
+                    La cifra depende de cuántas campañas, formatos e idiomas manejéis. En la demo hacemos la cuenta
+                    con vuestra producción real.
                 </p>
             </>
         ),
@@ -91,34 +104,44 @@ const PREGUNTAS = [
         respuesta: (
             <>
                 <p>
-                    Se cambia una vez. Las piezas no son dibujos sueltos: salen de los componentes de vuestra librería
-                    de Figma. Si cambia el máster o un componente, <strong>todas las referencias se regeneran</strong>{" "}
-                    con el diseño nuevo al volver a generar.
+                    Depende del cambio. Si cambia un color, una tipografía, un logo o un componente de vuestra
+                    librería, <strong>se cambia una vez y todas las piezas salen con el diseño nuevo</strong> al
+                    volver a generar.
                 </p>
                 <p>
-                    Si el cambio es de estilo (colores, tipografía, fotografía), lo hace vuestro equipo en Figma como
-                    siempre. Si aparece un tipo de pieza que no existía, se añade como una plantilla más.
+                    Si el cambio es de composición (mover el precio a otra esquina, recolocar el texto), vuestro
+                    diseñador lo ajusta en el máster de cada formato. Es trabajo de diseño, y se hace una vez: a
+                    partir de ahí, todas las campañas salen ya con la composición nueva.
                 </p>
             </>
         ),
     },
     {
-        pregunta: "¿Qué pasa si dejamos de trabajar con vosotros?",
+        pregunta: "¿Podéis poner las fotos de producto por SKU?",
         respuesta: (
             <>
                 <p>
-                    Nada. <strong>El sistema es vuestro</strong>: las plantillas están en vuestro Figma, los datos en
-                    vuestra hoja y las piezas en vuestras carpetas. No hay licencia que caduque ni cuenta que se
-                    cierre.
+                    Hoy no. Las fotos salen de vuestra librería de Figma, que funciona bien con decenas de productos.
+                    Si trabajáis con cientos o miles, <strong>contádnoslo antes de empezar</strong> y os diremos con
+                    sinceridad si hoy os encaja.
                 </p>
+            </>
+        ),
+    },
+    {
+        pregunta: "¿Qué pasa si dejamos de pagar el mantenimiento?",
+        respuesta: (
+            <>
                 <p>
-                    Es justo la diferencia con las plataformas de pago mensual: ahí, si dejas de pagar, pierdes los
-                    diseños. Aquí seguís generando campañas igual que el primer día.
+                    El plugin deja de generar piezas. <strong>Todo lo demás es vuestro</strong>: los másters y la
+                    librería siguen en vuestro Figma, los Excels en vuestro Google Drive y las piezas exportadas en
+                    vuestras carpetas.
                 </p>
             </>
         ),
     },
 ];
+
 
 function Pregunta({ item, abierta, alternar }) {
     const id = useId();

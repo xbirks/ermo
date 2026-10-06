@@ -156,6 +156,97 @@ $linea: 1px solid $pizarra;
     color: $tinta;
 }
 
+// ------------------------------------------- Mensual / anual (borrador v2)
+
+.selector {
+    display: flex;
+    width: fit-content;
+    margin: 28px auto 0;
+    padding: 5px;
+    border: $linea;
+    border-radius: 54px;
+    gap: 4px;
+}
+
+.opcion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border: 0;
+    border-radius: 54px;
+    background: transparent;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: $tinta;
+    transition: background 0.3s $curva, color 0.3s $curva;
+}
+
+.opcionActiva {
+    background: $tinta;
+    color: $fondo;
+
+    .ahorro {
+        background: $cian-claro;
+        color: $tinta;
+    }
+}
+
+.ahorro {
+    padding: 3px 9px;
+    border-radius: 54px;
+    background: $fondo-etiqueta;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+// Alta + cuota, una al lado de la otra: se ve de un vistazo que son dos
+// pagos y no uno.
+.cifras {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.cifra .importe {
+    margin-top: 12px;
+    font-size: 52px;
+}
+
+.etiquetaCifra {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: $pizarra;
+}
+
+.mas {
+    margin-top: 40px;
+    font-size: 36px;
+    font-weight: 300;
+    color: $pizarra;
+}
+
+.columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 26px 0 0;
+    padding: 0 0 0 18px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: $tinta;
+}
+
 .duracion {
     max-width: 582px;
     margin: 20px 0 0;
@@ -198,6 +289,25 @@ $linea: 1px solid $pizarra;
 
     .producto {
         font-size: 30px;
+    }
+
+    .cifras {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .mas {
+        margin: 0;
+        font-size: 28px;
+    }
+
+    .cifra .importe {
+        font-size: 44px;
+    }
+
+    .columnas {
+        grid-template-columns: 1fr;
+        gap: 32px;
     }
 
     .cta {

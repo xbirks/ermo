@@ -1,0 +1,201 @@
+@use "../estilos/tokens" as *;
+
+// Sección oscura del vídeo (Figma: y=1149, 1728×1075). Debajo del
+// lienzo WebGL va el mismo degradado en CSS, que es lo que se ve si no
+// hay WebGL o mientras arranca.
+// El padding inferior incluye el solape de la tarjeta del ahorro, que
+// se monta encima (ver Ahorro.module.scss, --solape).
+.demo {
+    position: relative;
+    overflow: clip;
+    padding: clamp(72px, 5.6vw, 96px) 20px calc(clamp(56px, 4vw, 70px) + 140px);
+    background: linear-gradient(180deg, $tinta 0%, #224C60 50%, $tinta 100%);
+    color: $fondo;
+
+    [data-entra] {
+        visibility: hidden;
+    }
+}
+
+.contenido {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.titulo {
+    max-width: 12.9em;
+    margin: 0;
+    font-family: $fuente;
+    font-size: $titulo-seccion;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: $fondo;
+}
+
+.cian {
+    color: $cian-claro;
+}
+
+.subrayado {
+    text-decoration: underline;
+    text-decoration-thickness: 0.055em;
+    text-underline-offset: 0.12em;
+}
+
+.subtitulo {
+    max-width: 733px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.35;
+    color: $fondo;
+}
+
+// ------------------------------------------------------------------ Vídeo
+
+.marco {
+    position: relative;
+    width: min(1185px, 100%);
+    aspect-ratio: 16 / 9;
+    margin-top: clamp(36px, 3.1vw, 53px);
+    border-radius: 46px;
+    overflow: hidden;
+    background: #0C2735;
+    box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.55);
+    will-change: transform;
+}
+
+.reproductor,
+.portada {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.portada {
+    display: block;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+
+    // Velo ligero para que el botón de play se lea sobre cualquier
+    // fotograma.
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(20, 57, 75, 0.05) 40%, rgba(20, 57, 75, 0.45) 100%);
+        transition: background-color 0.5s $curva;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+        background-color: rgba(20, 57, 75, 0.15);
+    }
+}
+
+// La imagen y el clip en bucle ocupan el mismo sitio; el clip va encima.
+.poster {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s $curva;
+
+    .portada:hover & {
+        transform: scale(1.02);
+    }
+}
+
+.play {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: clamp(64px, 7vw, 104px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: $cian;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.45);
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s $curva;
+
+    svg {
+        width: 38%;
+        fill: $fondo;
+    }
+
+    // Anillo que se expande al pasar el ratón.
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1.5px solid $cian;
+        border-radius: inherit;
+        opacity: 0;
+        transition: transform 0.7s $curva, opacity 0.7s $curva;
+    }
+
+    .portada:hover &,
+    .portada:focus-visible & {
+        transform: translate(-50%, -50%) scale(1.06);
+
+        &::before {
+            opacity: 0.7;
+            transform: scale(1.35);
+        }
+    }
+}
+
+// Justo debajo del botón de play: más abajo chocaría con los subtítulos
+// que lleva el propio vídeo.
+.duracion {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: calc(50% + clamp(32px, 3.5vw, 52px) + 14px);
+    transform: translateX(-50%);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+    font-family: $fuente;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    color: $fondo;
+}
+
+// ----------------------------------------------------------------- Botones
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
+    margin-top: clamp(36px, 3.1vw, 53px);
+}
+
+// ------------------------------------------------------------------- Móvil
+
+@media (max-width: 700px) {
+    .demo {
+        padding-bottom: calc(56px + 90px);
+    }
+
+    .marco {
+        border-radius: 22px;
+    }
+
+    .botones {
+        gap: 12px;
+    }
+}

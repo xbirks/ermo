@@ -577,7 +577,8 @@ export default function Referencias() {
             <div className={s.cierre}>
                 <h3 className={s.cierreTitulo}>1 máster = campañas ilimitadas</h3>
                 <p className={s.cierreTexto}>
-                    Y cuando el diseño cambia, <strong>se cambia una vez</strong>: las 200 se regeneran.
+                    Y cuando el cliente cambia un precio, una fecha o un idioma, <strong>se cambia una vez en el
+                    Excel</strong>: las 200 se regeneran.
                 </p>
                 <Boton href={CONTACTO_DEMO} variante="vivo" className={s.cierreBoton}>
                     Quiero una demo personalizada

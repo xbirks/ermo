@@ -1,0 +1,62 @@
+@use "./estilos/tokens" as *;
+
+// La landing de Automaker vive dentro de la web de ERMO, cuyos estilos
+// globales (style.scss) son agresivos: titulares en mayúsculas con
+// Owners, colores y tamaños fijos por etiqueta, `button { all: initial }`
+// y el cursor escondido en toda la página. Todo lo de aquí va acotado a
+// .landing-automaker para neutralizar eso sin tocar el resto de la web.
+
+.landing-automaker {
+    min-height: 100vh;
+    background: $fondo;
+    font-family: $fuente;
+    font-size: 16px;
+    line-height: 1.2;
+    color: $tinta;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    // Cursor normal. style.scss aplica `cursor: none !important` a todo.
+    &,
+    * {
+        cursor: auto !important;
+    }
+
+    a,
+    button,
+    [role="button"] {
+        cursor: pointer !important;
+        user-select: auto !important;
+    }
+
+    ::selection {
+        background: $cian-claro;
+        color: $tinta;
+    }
+}
+
+// Deshace las reglas por etiqueta de style.scss (h1, h2, p, a…). Con
+// :where la especificidad queda igual que la de esas reglas (una
+// etiqueta), así que gana esta, que carga después, pero pierde contra
+// las clases de los componentes, que son las que mandan.
+:where(.landing-automaker) :is(h1, h2, h3, h4, h5, p, a, li, span) {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    text-transform: none;
+    color: inherit;
+}
+
+:where(.landing-automaker) a {
+    text-decoration: none;
+}

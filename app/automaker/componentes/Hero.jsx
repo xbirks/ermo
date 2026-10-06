@@ -10,13 +10,14 @@ import s from "./Hero.module.scss";
 gsap.registerPlugin(SplitText);
 
 const ETIQUETAS = [
-    "Campañas recurrentes",
-    "ADS en masa",
-    "Tests A/B sin límite",
-    "Cambios de última hora",
-    "Exportación automática",
-    "Diseño uniforme sin IA",
+    "Plugin para Figma",
+    "Para agencias con campañas que se repiten",
+    "Cambios desde un Excel",
+    "Todos los formatos e idiomas",
+    "Vuestras plantillas, sin IA",
+    "Exporta JPG, PNG, WebP, GIF y PSD",
 ];
+
 
 // Piezas del escenario en píxeles del frame de 1728 de Figma (nodos
 // 90:490–90:509). El SCSS las convierte a porcentajes de la caja que
@@ -243,10 +244,10 @@ export default function Hero() {
         <section className={s.hero} ref={raiz}>
             <h1 className={s.titular} data-titular data-entra>
                 <span className={s.lineaGris} data-linea>
-                    Maquetar campañas semanales cuesta 16h por diseñador.
+                    Cada cambio del cliente cuesta horas de diseño y margen.
                 </span>
                 <span className={s.lineaTinta} data-linea>
-                    Podría costarte 3 minutos.
+                    Con Automaker, cuesta un clic.
                 </span>
             </h1>
 

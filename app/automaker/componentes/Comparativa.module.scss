@@ -274,3 +274,25 @@ $linea: 1px solid $pizarra;
         line-height: 1.25;
     }
 }
+
+// ------------------------------------------------------------- Fuentes
+// Notas de los asteriscos de la fila de coste. Pequeñas pero legibles:
+// son la prueba de que la cifra no está puesta por poner.
+
+.fuentes {
+    max-width: 733px;
+    margin: 32px auto 0;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: $pizarra;
+
+    p + p {
+        margin-top: 6px;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}

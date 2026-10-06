@@ -12,12 +12,14 @@ import Preguntas from "./componentes/Preguntas.jsx";
 import Medicion from "./Medicion.jsx";
 import "./aislamiento.scss";
 
-// Landing comercial de Automaker. Trae su propia cabecera; la cabecera,
-// el pie y el cursor de la web de ERMO se quitan en esta ruta (ver
-// components/cromo-publico.jsx).
-const TITULO = "Automaker | Campañas semanales maquetadas en minutos";
+// Landing comercial de Automaker (modelo: puesta en marcha de pago único +
+// mantenimiento mensual; precios cerrados el 6/10/2026). Trae su propia
+// cabecera; la cabecera, el pie y el cursor de la web de ERMO se quitan en
+// esta ruta (ver components/cromo-publico.jsx). La versión anterior sigue
+// en /automaker-v1 y el borrador de autoservicio en /automaker-v2.
+const TITULO = "Automaker | Los cambios del cliente ya no pasan por diseño";
 const DESCRIPCION =
-    "Entra el brief de una semana y salen todas las piezas en todos los formatos. Sin IA, respetando la identidad del cliente.";
+    "Plugin de Figma para agencias. Vuestro equipo diseña cada formato una vez; precios, fechas, textos e idiomas se cambian en un Excel y salen todas las piezas. Sin IA.";
 const URL = "https://www.ermo.es/automaker";
 
 // Vista previa al compartir (WhatsApp, LinkedIn, Slack…): sin esto se
@@ -78,10 +80,10 @@ export default function PaginaAutomaker() {
                 <Ahorro />
                 <Funciona />
                 <Referencias />
+                <ParaQuien />
                 <NoHace />
                 <Comparativa />
                 <Precio />
-                <ParaQuien />
                 <Preguntas />
             </main>
         </div>

@@ -11,32 +11,20 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const RUTA = "/landing/funciona";
 
-// Los cuatro pasos (Figma 90:315–90:393). Los iconos llevan el alto de
-// Figma (46 px); el ancho sale de la propia imagen.
+// Tres pasos. El del ticket de seguimiento (Basecamp, Asana…) no va aquí:
+// es una integración a medida (hoy solo existe la de Basecamp, hecha para
+// un cliente) y se menciona como extra en la nota del precio.
 const PASOS = [
     {
         captura: "paso-1-brief",
-        alt: "Hoja del brief semanal con todas las campañas de la semana",
-        iconos: [["sheets", "Google Sheets"], ["excel", "Excel"]],
-        titulo: "Entra el brief del cliente",
+        alt: "Excel en Google Sheets con las campañas de la semana, una por fila",
+        iconos: [["sheets", "Google Sheets"]],
+        titulo: "Rellenáis un Excel",
         texto: (
             <>
-                Desde un formulario hecho a vuestra medida, desde el Excel maestro que ya usáis, o desde el gestor de
-                tareas donde vivís hoy. <strong>Vosotros elegís la puerta de entrada.</strong> El sistema se adapta a
-                ella, no al revés.
-            </>
-        ),
-    },
-    {
-        captura: "paso-2-ticket",
-        alt: "Ticket de seguimiento abierto automáticamente con el resumen de las campañas",
-        opcional: true,
-        iconos: [["basecamp", "Basecamp"], ["notion", "Notion"], ["trello", "Trello"], ["jira", "Jira"], ["asana", "Asana"]],
-        titulo: "Abrimos ticket de seguimiento y gestión",
-        texto: (
-            <>
-                <strong>Nos conectamos a cualquier software de gestión</strong> y abrimos las conversaciones / hilos /
-                tickets automáticamente para que el PM no tenga que hacerlo a mano.
+                En Google Sheets. Una fila, una campaña: titular, precio, picto, descuento y los formatos que hacen
+                falta. <strong>Lo puede rellenar la cuenta, el cliente o quien lleve la campaña</strong>, sin abrir
+                Figma. Los desplegables solo dejan elegir lo que existe.
             </>
         ),
     },
@@ -44,11 +32,12 @@ const PASOS = [
         captura: "paso-3-plugin",
         alt: "El plugin de Figma generando las piezas de la campaña",
         iconos: [["figma", "Figma"]],
-        titulo: "El plugin genera automáticamente las piezas con el contenido",
+        titulo: "Un clic en Figma y salen todas las piezas",
         texto: (
             <>
-                Diseñamos y parametrizamos las plantillas para que durante tu día a día puedas{" "}
-                <strong>generar cientos de piezas con tan solo un clic</strong>.
+                Vuestro diseñador diseña cada formato una vez. Después, el plugin pone en cada pieza el texto, la
+                foto, el picto y el descuento de vuestra librería, cada uno en su hueco.{" "}
+                <strong>Si un texto no cabe, avisa</strong>: nunca sale una pieza a medias que parezca terminada.
             </>
         ),
     },
@@ -56,15 +45,16 @@ const PASOS = [
         captura: "paso-4-export",
         alt: "Carpetas exportadas con las piezas ordenadas por formato",
         iconos: [["ps", "Photoshop"], ["jpg", "JPG"], ["png", "PNG"], ["gif", "GIF"], ["webp", "WebP"]],
-        titulo: "Exportación automática en múltiples formatos y envío",
+        titulo: "Exportación lista para entregar",
         texto: (
             <>
-                Cada pieza en su formato, con su nombre y en su carpeta. WebP, JPG, PNG, GIF animado y PSD con capas.{" "}
-                <strong>Sin que nadie renombre nada a mano.</strong> Ordenado tal y como lo solicita el cliente.
+                Cada pieza en su formato, con su nombre y en su carpeta. WebP, JPG, PNG, GIF animado y PSD.{" "}
+                <strong>Sin que nadie renombre nada a mano.</strong> Las carpetas se ordenan como decidáis en el Excel.
             </>
         ),
     },
 ];
+
 
 // Cada paso entra al llegar: primero la captura, luego el texto con los
 // iconos escalonados. La captura, además, se desplaza un poco dentro de

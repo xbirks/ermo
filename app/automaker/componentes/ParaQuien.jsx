@@ -18,7 +18,7 @@ const SI = [
     { texto: "Cada campaña son decenas o cientos de piezas en muchos formatos", fondo: "linear-gradient(29deg, #C3EBC1 0%, #EFFEFF 83%, #C8F1F4 100%)" },
     { texto: "Las piezas se repiten una y otra vez con contenido personalizado", fondo: "linear-gradient(29deg, #BFDAD1 0%, #F5FFFC 83%, #BFDAD1 100%)" },
     { texto: "El mismo mensaje sale en display, redes, web, app… cada uno con sus medidas", fondo: "linear-gradient(29deg, #D3E4E5 0%, #F3F9FA 83%, #C8F1F4 100%)" },
-    { texto: "Tenéis tiendas o franquicias que necesitan su propia versión", fondo: "linear-gradient(29deg, #EBF1D8 0%, #F3F9FA 83%, #DBE7F2 100%)" },
+    { texto: "Lleváis cuentas de retail, alimentación o e-commerce con ofertas cada semana", fondo: "linear-gradient(29deg, #EBF1D8 0%, #F3F9FA 83%, #DBE7F2 100%)" },
 ];
 
 const NO = [
