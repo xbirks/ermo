@@ -14,6 +14,8 @@ import ermoLogo from '@/app/assets/logo/ERMO_blue.svg';
 // viaja en una navegación que viene de otra web; pero los datos los pide
 // por la API, que sí exige sesión.
 
+const CLAVE_VUELTA = 'ermo_banco_vuelta';
+
 const fecha = (v) => (v ? new Date(v).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : '');
 const fechaHora = (v) => (v ? new Date(v).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '');
 const euros = (n) => (n === null || n === undefined ? '' : n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }));
@@ -41,10 +43,21 @@ export default function BancoPage() {
         if (vueltaHecha.current) return;
         vueltaHecha.current = true;
         const q = new URLSearchParams(window.location.search);
-        const code = q.get('code');
-        const state = q.get('state');
+        let code = q.get('code');
+        let state = q.get('state');
         const errorBanco = q.get('error');
         if (code || errorBanco) window.history.replaceState(null, '', '/interno/finanzas/banco');
+
+        // Si el banco devolvió aquí sin sesión abierta (por ejemplo, se
+        // empezó en otro dispositivo o en localhost), el código se guardó
+        // antes de mandar a entrar. Se recupera si tiene menos de 10 min.
+        if (!code) {
+            try {
+                const guardado = JSON.parse(sessionStorage.getItem(CLAVE_VUELTA) || 'null');
+                sessionStorage.removeItem(CLAVE_VUELTA);
+                if (guardado && Date.now() - guardado.t < 10 * 60 * 1000) ({ code, state } = guardado);
+            } catch { /* nada guardado */ }
+        }
 
         if (errorBanco) {
             setAviso({ tipo: 'error', texto: 'El banco no ha completado la autorización. Puedes volver a intentarlo.' });
@@ -61,7 +74,12 @@ export default function BancoPage() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code, state }),
                 });
-                if (res.status === 401) { router.replace('/interno/finanzas/entrar'); return; }
+                if (res.status === 401) {
+                    // Sin sesión: se guarda el código y se vuelve aquí tras entrar.
+                    sessionStorage.setItem(CLAVE_VUELTA, JSON.stringify({ code, state, t: Date.now() }));
+                    router.replace('/interno/finanzas/entrar?volver=banco');
+                    return;
+                }
                 const datos = await res.json().catch(() => ({}));
                 if (!res.ok) {
                     setAviso({ tipo: 'error', texto: datos.error || 'No se ha podido conectar' });

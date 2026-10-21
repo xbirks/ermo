@@ -67,7 +67,12 @@ export default function EntrarPage() {
             const { ok, datos } = await pedir('/api/finanzas/entrar/codigo', { codigo: valor });
             if (ok) {
                 // replace y no push: el botón atrás no debe volver al login.
-                router.replace(datos.cambiarPassword ? '/interno/finanzas/contrasena' : '/interno/finanzas');
+                // Con ?volver=banco se termina una conexión con el banco que
+                // se quedó a medias por llegar sin sesión.
+                const volverBanco = new URLSearchParams(window.location.search).get('volver') === 'banco';
+                const destino = datos.cambiarPassword ? '/interno/finanzas/contrasena'
+                    : volverBanco ? '/interno/finanzas/banco' : '/interno/finanzas';
+                router.replace(destino);
                 return;
             }
             setError(datos.error || 'Código incorrecto');
