@@ -5,7 +5,7 @@ export const metadata = {
 
   //GENERIC
   title: 'Política de cookies | ERMO Estudio',
-  description: 'Consulta nuestra política de cookies para entender cómo utilizamos las cookies en nuestro sitio web y cómo puedes gestionar tus preferencias de navegación. Garantizamos la protección de tu privacidad online.',
+  description: 'Qué cookies usa ermo.es, para qué sirven, cuánto duran y cómo aceptarlas, rechazarlas o cambiar tu elección.',
   keywords: ['política de cookies', 'uso de cookies en el sitio web', 'gestión de cookies', 'cookies y privacidad', 'configuración de cookies', 'tipos de cookies utilizadas', 'control de cookies en la web', 'funcionamiento de las cookies', 'cookies de terceros', 'preferencias de cookies y privacidad']
 
 
@@ -17,7 +17,7 @@ export const metadata = {
   // META 
   openGraph: {
     title: 'Política de cookies | ERMO Estudio',
-    description: 'Consulta nuestra política de cookies para entender cómo utilizamos las cookies en nuestro sitio web y cómo puedes gestionar tus preferencias de navegación. Garantizamos la protección de tu privacidad online.',
+    description: 'Qué cookies usa ermo.es, para qué sirven, cuánto duran y cómo aceptarlas, rechazarlas o cambiar tu elección.',
     url: 'https://ermo.es',
     type: 'website',
     images: [
@@ -38,7 +38,7 @@ export const metadata = {
     site: '@ermo.es',
     creator: '@ermo.es',
     title: 'Política de cookies | ERMO Estudio',
-    description: 'Consulta nuestra política de cookies para entender cómo utilizamos las cookies en nuestro sitio web y cómo puedes gestionar tus preferencias de navegación. Garantizamos la protección de tu privacidad online.',
+    description: 'Qué cookies usa ermo.es, para qué sirven, cuánto duran y cómo aceptarlas, rechazarlas o cambiar tu elección.',
     image: 'https://ermo.es/seo/meta-1200-600.jpg',
     imageAlt: 'Política de cookies | ERMO Estudio',
   },

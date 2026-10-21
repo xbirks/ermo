@@ -7,13 +7,13 @@ function Contacto(){
         <div className="proyectos__split-btn">
        
             <StandardButton
-            link="https://wa.me/message/HJYSEK4RPLOSI1"
-            title="Whatsapp"
+            link="mailto:andresortega@ermo.es"
+            title="Email"
             style=""
-            bg="#25d366"
+            bg="#14394B"
             color="white"
             borderColor="transparent"
-            hoverBg="#075e54"
+            hoverBg="#0C2735"
             hoverColor="white"
             hoverBorderColor=""
             />

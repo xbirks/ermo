@@ -3,117 +3,66 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ermoLogo from '../../assets/logo/ERMO_blue.svg'; 
-import FooterItem from '../../components/footer/footerItem.jsx';
-import StandardButton from '../../buttons/standard-button.jsx';
+import ermoLogo from '../../assets/logo/ERMO_tinta.svg';
+import { abrirPanelCookies } from '../../lib/consentimiento';
+import './pie.scss';
 
+// Pie tipo membrete: sin eslóganes, con el correo como protagonista
+// (grande y seleccionable) y los datos justos debajo. Las clases
+// conservan "footer" en el nombre porque menu-navidad/HideGlobalNav lo
+// busca por esa subcadena.
 
-function Footer(){
+const CORREO = 'andresortega@ermo.es';
 
+function Footer() {
+    const anio = new Date().getFullYear();
 
+    return (
+        <footer className="footer__pie">
+            <div className="footer__contacto">
+                <a className="footer__correo" href={`mailto:${CORREO}`}>{CORREO}</a>
+                <a className="footer__telefono" href="tel:+34675392216">675 392 216</a>
+            </div>
 
-return(
+            <div className="footer__datos">
+                <div className="footer__bloque">
+                    <span className="footer__etiqueta">Estudio</span>
+                    <p>Andrés Ortega<br />Manises, Valencia</p>
+                </div>
 
-    <div className="footer__container">
+                <div className="footer__bloque">
+                    <span className="footer__etiqueta">Trabajo</span>
+                    <Link href="/proyectos/principal">Proyectos</Link>
+                    <Link href="/servicios/principal">Servicios</Link>
+                </div>
 
-        <div className="footer__info">
-            <Link href="/" aria-label="Inicio">
-                <Image className="logoErmo" src={ermoLogo} alt="Logo ERMO" width={128} height={34} />
-            </Link>
-        </div>
+                <div className="footer__bloque">
+                    <span className="footer__etiqueta">Redes</span>
+                    <a href="https://www.instagram.com/ermostudio/" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.linkedin.com/in/andres-ermo" rel="noopener noreferrer">LinkedIn</a>
+                </div>
 
+                <div className="footer__bloque">
+                    <span className="footer__etiqueta">Legal</span>
+                    <Link href="/legal/aviso-legal">Aviso legal</Link>
+                    <Link href="/legal/politica-de-privacidad">Privacidad</Link>
+                    <Link href="/legal/aviso-de-cookies">Cookies</Link>
+                    {/* Retirar el consentimiento tiene que ser tan fácil
+                        como darlo: siempre a mano en el pie. */}
+                    <button type="button" className="footer__boton" onClick={abrirPanelCookies}>
+                        Configurar cookies
+                    </button>
+                </div>
+            </div>
 
-        <div className="footer__info">
-
-            <StandardButton
-                link="/servicios/principal"
-                title="Servicios"
-                style=""
-                bg="#3F52FF"
-                color="white"
-                borderColor="#3F52FF"
-                hoverBg="#0E1C9D"
-                hoverColor="white"
-                hoverBorderColor="#0E1C9D"
-            />
-
-            <StandardButton
-            link="/proyectos/principal"
-            title="Proyectos"
-            style="mt-xs"
-            bg="#3F52FF"
-            color="white"
-            borderColor="#3F52FF"
-            hoverBg="#0E1C9D"
-            hoverColor="white"
-            hoverBorderColor="#0E1C9D"
-            />
-
-        </div>
-
-        <div className="footer__info">
-
-            <FooterItem
-                title="Mándanos un mail"
-                link="mailto:hola@soyandres.es"
-                textButton="hola@soyandres.es"
-            />
-
-            <FooterItem
-                title="Danos un toque"
-                link="tel:675392216"
-                textButton="675 392 216"
-            />
-
-            <FooterItem
-                title="Síguenos en Instagram"
-                link="https://www.instagram.com/ermostudio/"
-                textButton="@ermostudio"
-            />
-
-
-        </div>
-
-
-
-        <div className="footer__info">
-
-            <FooterItem
-                title=""
-                link="/not-found"
-                textButton="FAQ"
-            />
-
-            <FooterItem
-                title=""
-                link="/not-found"
-                textButton="Sobre nosotros"
-            />
-
-            <FooterItem
-                title=""
-                link="/legal/politica-de-privacidad"
-                textButton="Política de privacidad"
-            />
-
-            <FooterItem
-                title=""
-                link="/legal/aviso-de-cookies"
-                textButton="Política de cookies"
-            />
-
-            <FooterItem
-                title=""
-                link="/legal/aviso-legal"
-                textButton="Aviso legal"
-            />
-
-        </div>
-
-
-    </div>
-);
-
+            <div className="footer__base">
+                <Link href="/" aria-label="Inicio" className="footer__logo">
+                    <Image src={ermoLogo} alt="ERMO" width={86} height={22} />
+                </Link>
+                <span>© {anio}</span>
+            </div>
+        </footer>
+    );
 }
 
 export default Footer;

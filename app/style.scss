@@ -1,11 +1,3 @@
-* {
-    cursor: none !important;
-  } a, button, input, textarea {
-    cursor: none !important; 
-    user-select: none !important;
-  }
-
-  
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -33,6 +25,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background: #F9F9F9;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 ol, ul {
 	list-style: none;
@@ -63,35 +58,35 @@ button {
 /* MASTER STYLES */
 
 
+// Tipografía de la landing de Automaker: titulares en caja baja, muy
+// apretados y con interlineado corto; texto corrido en Light con aire.
+
 h1{
     font-size: 72px;
     font-weight: 400;
     font-family: $owners;
-    text-transform: uppercase;
     color: $azul-ermo;
     text-align: left;
-    line-height: 64pt;
-    letter-spacing: 1px;
+    line-height: 1;
+    letter-spacing: -0.04em;
 
     @include media1200px {
-        font-size: 40pt;
-        line-height: 50pt;
+        font-size: 52px;
     }
 
     @include media800px {
         font-size: 2.5rem;
-        line-height: 2.7rem;
+        line-height: 1.05;
     }
 }
 
 h2{
     font-size: 32px;
-    line-height: 36px;
+    line-height: 1.1;
     font-weight: 400;
     font-family: $owners;
-    text-transform: uppercase;
     color: $azul-ermo;
-    letter-spacing: 1px;
+    letter-spacing: -0.03em;
     text-align: left;
 }
 
@@ -100,7 +95,7 @@ h3{
     font-weight: 400;
     font-family: $owners;
     color: $gris-ermo;
-    letter-spacing: 0.5px;
+    letter-spacing: -0.01em;
     text-align: left;
 }
 
@@ -109,24 +104,18 @@ h4{
     font-weight: 400;
     font-family: $owners;
     color: $azul-ermo;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    letter-spacing: -0.01em;
     text-align: left;
 }
 
 p{
     font-size: $fuente-p;
-    font-weight: 400;
+    font-weight: 300;
     font-family: $neue;
     color: $gris-oscuro;
-    line-height: $line-height; 
-    letter-spacing: -0.5px;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
     text-align: left;
-
-    @include media800px {
-        // font-size: 1.05em;
-        // line-height: 1.35em;
-    }
 }
 
 a{
@@ -135,11 +124,9 @@ a{
     line-height: $line-height;
     font-family: $neue;
     color: $gris-ermo;
-    letter-spacing: 0.5px;
+    letter-spacing: -0.01em;
     text-align: left;
     text-decoration: auto;
-
-    
 }
 
 ::selection {
@@ -153,7 +140,7 @@ a{
 }
 
 strong{
-    font-weight: 600;
+    font-weight: 500;
 }
 
 
@@ -279,107 +266,54 @@ strong{
 // }
 
 
+// Botón pastilla, como en la landing de Automaker. Las páginas siguen
+// inyectando colores desde JSX (--btn-*); standard-button.jsx traduce
+// los azules antiguos a la paleta nueva.
 .button {
-  /* Tokens opcionales (se pueden inyectar desde JSX vía style) */
-  /* --btn-bg, --btn-color, --btn-border, --btn-bg-hover, --btn-color-hover, --btn-border-hover */
-
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 24px;
+  gap: 10px;
+  padding: 12px 26px;
   border-radius: 50px;
   width: fit-content;
   max-width: none;
   min-width: 0;
   white-space: nowrap;
-  font-weight: 600;
   position: relative;
 
-  /* Color y borde con fallback a tu sistema */
   color: var(--btn-color, $azul-ermo);
-  border: 1px solid var(--btn-border, transparent);
+  border: 1px solid var(--btn-border, $azul-ermo);
+  background: var(--btn-bg, $nardo);
 
-  /* Fondo:
-     - Si existe --btn-bg → lo usa (sólido, gradiente, lo que sea).
-     - Si no existe → gradiente iOS por defecto (con borde degradado). */
-  background: var(
-    --btn-bg,
-    linear-gradient(180deg, #ffffff, #e2e3e4) padding-box,
-    linear-gradient(180deg, #c5dbf0, #9ea3a8) border-box
-  );
+  transition:
+    background-color 0.4s $curva-ermo,
+    background 0.4s $curva-ermo,
+    color 0.4s $curva-ermo,
+    border-color 0.4s $curva-ermo;
 
-  /* Sombra iOS (sin sombra paralela exterior) */
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    inset 0 -12px 20px rgba(0,0,0,.07),
-    inset 12px 12px 22px rgba(0,0,0,.04);
-
-  transition: $transition-short, transform $transition-short, color $transition-short, border-color $transition-short, background $transition-short;
-
-  /* Texto interno */
   p {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
-    font-family: $owners;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 3px;
-    margin-right: 5px;
+    font-family: $aktiv;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0;
     color: currentColor;
   }
 
-  .arrow__svg {
-    fill: currentColor;
-    transition: transform $transition-short;
-  }
-
-  /* Halo opcional */
-  &::after {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    pointer-events: none;
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,.7) inset;
-  }
-
-  /* Hover:
-     - Si existen vars hover → las usa.
-     - Si no → mantiene fondo y solo anima transform/icono. */
   &:hover {
-    background: var(
-      --btn-bg-hover,
-      var(
-        --btn-bg,
-        linear-gradient(180deg, #ffffff, #e2e3e4) padding-box,
-        linear-gradient(180deg, #c5dbf0, #9ea3a8) border-box
-      )
-    );
+    background: var(--btn-bg-hover, var(--btn-bg, $nardo));
     color: var(--btn-color-hover, var(--btn-color, $azul-ermo));
-    border-color: var(--btn-border-hover, var(--btn-border, transparent));
-    transform: translateY(-1px);
-
-    .arrow__svg { transform: rotateZ(-45deg); }
+    border-color: var(--btn-border-hover, var(--btn-border, $azul-ermo));
   }
 
-  &:active {
-    transform: translateY(0);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.85),
-      inset 0 -10px 18px rgba(0,0,0,.09),
-      inset 12px 12px 20px rgba(0,0,0,.05);
-  }
-
-  /* Responsivo */
   @include media800px {
-    padding: 10px 16px;
-    p { font-size: 16px; }
+    padding: 11px 22px;
+    p { font-size: 15px; }
   }
 
   /* ================== Modificadores ================== */
 
-  /* Equivalente a combo__standard (ancho responsivo y margen inferior en móviles) */
   &--standard {
     @include media500px {
       width: 100%;
@@ -388,47 +322,65 @@ strong{
     }
   }
 
-  /* Espaciado lateral (equivale al margin-right de combo__standard) */
   &--spaced {
     margin-right: 10px;
   }
 
-  /* Equivalente a combo__blue:
-     Define un set por defecto de vars para botón sólido azul,
-     pero si desde JSX pasas --btn-* se respetarán. */
   &--blue {
-    --btn-color: $blanco-ermo;
-    --btn-bg: #0E1C9D;              /* Azul base si no llega var */
-    --btn-border: #0E1C9D;
-    --btn-bg-hover: #0B167D;        /* Azul más oscuro al hover */
-    --btn-color-hover: $blanco-ermo;
-    --btn-border-hover: #0B167D;
+    --btn-color: #{$blanco-ermo};
+    --btn-bg: #{$azul-ermo};
+    --btn-border: #{$azul-ermo};
+    --btn-bg-hover: #{$mar-ermo};
+    --btn-color-hover: #{$blanco-ermo};
+    --btn-border-hover: #{$mar-ermo};
   }
 
-  /* Tamaño ancho (igual a tu .button-large) */
   &.button-large,
   &--large {
     width: 20vw;
     @include media1200px { width: 50vw; }
   }
 
-  /* Variante blanca (mapea a tokens, sin tocar JSX) */
   &.button-white,
   &--white {
-    --btn-border: $blanco-ermo;
-    --btn-color: $blanco-ermo;
+    --btn-border: #{$blanco-ermo};
+    --btn-color: #{$blanco-ermo};
     --btn-bg: transparent;
-    --btn-bg-hover: $blanco-ermo;
-    --btn-color-hover: $azul-ermo;
+    --btn-bg-hover: #{$blanco-ermo};
+    --btn-color-hover: #{$azul-ermo};
   }
 }
 
-/* Cursor grande sobre .button (soporta <a class="button">) */
-.button:hover .curzr-big-circle,
-a.button:hover .curzr-big-circle {
-  width: 90px;
-  height: 90px;
-  transition: width, height 0.3s ease;
+// Flecha ↗ de los botones: dos copias; al pasar el ratón una sale por
+// la esquina y la otra entra por la opuesta.
+.button__flecha {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  overflow: hidden;
+  transform: rotate(var(--arrow-rotation, 0deg));
+
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    transition: transform 0.55s $curva-ermo;
+  }
+
+  svg:last-child {
+    transform: translate(-130%, 130%);
+  }
+}
+
+.button:hover .button__flecha {
+  svg:first-child { transform: translate(130%, -130%); }
+  svg:last-child { transform: translate(0, 0); }
 }
 
 
@@ -471,17 +423,6 @@ a.button:hover .curzr-big-circle {
     margin-right: 10px;
 }
 
-.buton:hover .curzr-big-circle {
-    width: 90px;
-    height: 90px;
-    transition:  width, height 0.3s ease;
-}
-
-a:hover .curzr-big-circle {
-    width: 90px;
-    height: 90px;
-    transition:  width, height 0.3s ease;
-}
 
 
 
@@ -794,6 +735,7 @@ a:hover .curzr-big-circle {
     object-fit: cover;
     object-position: center;
     margin-bottom: 10px;
+    border-radius: 20px;
 } 
 
 .post__thumbnail-img {
@@ -859,17 +801,17 @@ a:hover .curzr-big-circle {
 } 
 
 .title h3{
-    font-size: 48px;
+    font-size: clamp(40px, 4.4vw, 72px);
     font-weight: 400;
     font-family: $owners;
-    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.04em;
     color: $negro-ermo;
-    margin-bottom: 36px;
-    margin-left: 20px;
+    margin-bottom: 40px;
+    margin-left: 0;
 
     @include media600px {
-        font-size: 32px;
-        line-height: 36px;
+        font-size: 36px;
     }
 }
 
@@ -927,12 +869,16 @@ a:hover .curzr-big-circle {
 }
 
 .index__services-container{
-    border:solid 1.5px $azul-ermo;
-    padding: 20px;
+    border: 1px solid #C3C3C3;
+    border-radius: 25px;
+    background-color: #EAEAEA;
+    padding: 28px;
     height: 550px;
     position: relative;
+    transition: background-color 0.4s $curva-ermo, border-color 0.4s $curva-ermo;
     &:hover{
-        background-color: rgb(247, 247, 247);
+        background-color: $nardo;
+        border-color: $azul-ermo;
     }
 
     @include media1400px {
@@ -965,11 +911,11 @@ a:hover .curzr-big-circle {
   }
 
 .index__services-container h3{
-    font-size: 32px;
+    font-size: 30px;
     color: $azul-ermo;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    line-height: 28pt;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    line-height: 1.05;
 }
 
 
@@ -993,7 +939,8 @@ a:hover .curzr-big-circle {
   }
   
   .index__team {
-    background-color: $gris-claro-ermo;
+    background-color: $gris-ermo;
+    border-radius: 25px;
     width: 50vw;
     padding: 30px;
     text-align: center;
@@ -1024,7 +971,8 @@ a:hover .curzr-big-circle {
   }
   
   .index__contact {
-    background-color: $gris-claro-ermo;
+    background-color: $gris-ermo;
+    border-radius: 25px;
     width: 50vw;
     padding: 30px;
     text-align: center;
@@ -1498,6 +1446,159 @@ a:hover .curzr-big-circle {
 
     p{
         margin-bottom: 30px;
+    }
+
+    // Política de privacidad y de cookies: subapartados, listas, fichas
+    // por finalidad y tablas de cookies.
+
+    .legal__fecha {
+        font-size: 14px;
+        color: $gris-ermo;
+    }
+
+    h3 {
+        margin: 34px 0 12px;
+        color: $azul-ermo;
+    }
+
+    a {
+        font-size: inherit;
+        line-height: inherit;
+        color: $azul-ermo;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    ul {
+        margin: 0 0 30px;
+        padding-left: 1.1em;
+        list-style: disc;
+    }
+
+    li {
+        margin-bottom: 8px;
+        font-size: $fuente-p;
+        font-weight: 300;
+        font-family: $neue;
+        line-height: 1.55;
+        color: $gris-oscuro;
+
+        &::marker {
+            color: $gris-ermo;
+        }
+    }
+
+    .legal__ficha {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 10px 24px;
+        margin: 0 0 30px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(20, 57, 75, 0.14);
+        border-bottom: 1px solid rgba(20, 57, 75, 0.14);
+
+        @include media900px {
+            grid-template-columns: 1fr;
+            gap: 4px;
+        }
+
+        dt {
+            font-family: $neue;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.55;
+            color: $azul-ermo;
+
+            @include media900px {
+                margin-top: 10px;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        dd {
+            margin: 0;
+            font-family: $neue;
+            font-size: $fuente-p;
+            font-weight: 300;
+            line-height: 1.55;
+            color: $gris-oscuro;
+        }
+    }
+
+    // En móvil la tabla se desplaza en horizontal en lugar de romper la
+    // página.
+    .legal__tabla {
+        margin: 0 0 30px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    // Anchos fijos para que las tres tablas de cookies queden alineadas.
+    table {
+        width: 100%;
+        min-width: 640px;
+        table-layout: fixed;
+        font-family: $neue;
+        font-size: 14px;
+        line-height: 1.45;
+        color: $gris-oscuro;
+    }
+
+    th,
+    td {
+        padding: 10px 14px 10px 0;
+        border-bottom: 1px solid rgba(20, 57, 75, 0.14);
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        font-weight: 500;
+        color: $azul-ermo;
+
+        &:nth-child(1) { width: 21%; }
+        &:nth-child(2) { width: 25%; }
+        &:nth-child(4) { width: 16%; }
+    }
+
+    td {
+        font-weight: 300;
+    }
+
+    code {
+        font-family: "Roboto Mono", Menlo, Consolas, monospace;
+        font-size: 13px;
+        color: $azul-ermo;
+        overflow-wrap: anywhere;
+    }
+
+    // style.scss hace `all: initial` a todos los botones.
+    .legal__boton {
+        display: inline-block;
+        margin: 0 0 30px;
+        padding: 10px 20px;
+        border: 1px solid $azul-ermo;
+        border-radius: 50px;
+        background: $azul-ermo;
+        color: #F9F9F9;
+        font-family: $neue;
+        font-size: 14px;
+        line-height: 1.1;
+        cursor: pointer;
+        transition: background-color 0.35s $curva-ermo, border-color 0.35s $curva-ermo;
+
+        &:hover {
+            border-color: $mar-ermo;
+            background-color: $mar-ermo;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $azul-ermo;
+            outline-offset: 2px;
+        }
     }
 }
 

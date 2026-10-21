@@ -29,13 +29,13 @@ function IndexIntro({municipio}){
         viewport={{ once: true, amount: 0.1}}   
      >   
     <IndexIntroduction
-        IndexIntro="Estudio de animación, diseño y web en "
+        IndexIntro="Estudio de diseño, web y automatización en "
         IndexIntroLocation={municipio}
         IndexDescription={ <>
-          <strong>Hacemos diseño con propósito.</strong><br></br><br></br>
-          Creamos webs y animaciones que trabajan por ti: captan la atención, transmiten confianza y convierten visitas en clientes.
+          <strong>Diseño que trabaja, no que decora.</strong><br></br><br></br>
+          Hacemos webs rápidas y a medida que convierten visitas en clientes, y sistemas que quitan de en medio el trabajo repetitivo de diseño.
           <br></br>
-          Lo estético importa, pero lo esencial es que tu marca sea reconocida y elegida.
+          Como Automaker: entra el brief semanal de una marca y salen todas sus piezas de campaña, maquetadas en minutos.
           <br></br><br></br>
           Estamos en {municipio}.<br></br>
          Échale un ojo a lo que ya hemos hecho <Link href="/proyectos/principal">aquí.</Link>

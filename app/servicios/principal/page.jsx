@@ -70,7 +70,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="/servicios/fotografia"
         btn1title="ver fotos"
-        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
+        btn2link="mailto:andresortega@ermo.es"
         btn2title="contratar"
     ></ServicioComp> */}
 
@@ -100,7 +100,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="/servicios/ilustracion"
         btn1title="ver más"
-        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
+        btn2link="mailto:andresortega@ermo.es"
         btn2title="contratar"
     ></ServicioComp>
 
@@ -126,7 +126,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="/servicios/web"
         btn1title="ver webs"
-        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
+        btn2link="mailto:andresortega@ermo.es"
         btn2title="contratar"
     ></ServicioComp> */}
 
@@ -152,7 +152,7 @@ export default function ServiciosPrincipalPage() {
 
         btn1link="/servicios/animacion"
         btn1title="ver más"
-        btn2link="https://wa.me/message/HJYSEK4RPLOSI1"
+        btn2link="mailto:andresortega@ermo.es"
         btn2title="contratar"
     ></ServicioComp> */}
 

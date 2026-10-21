@@ -1,7 +1,7 @@
 @import '../variables.scss';
 
 h1{
-    letter-spacing: 0.1rem;
+    letter-spacing: -0.04em;
     
 }
 
@@ -9,11 +9,11 @@ h1{
         font-size: 3.8rem;
         font-weight: 400;
         font-family: $owners;
-        text-transform: uppercase;
+        text-transform: none;
         color: $azul-ermo;
         text-align: left;
-        line-height: 4rem;
-        letter-spacing: 1px;
+        line-height: 1;
+        letter-spacing: -0.04em;
 
         @include media1200px {
             font-size: 2.5rem;
@@ -29,7 +29,7 @@ h1{
      h3{
             font-family: $neue;
             color: #393939;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: -0.5px;
             font-size: 1.6rem;
             margin-bottom: 15px;
@@ -41,7 +41,7 @@ h1{
     h4{
             font-family: $neue;
             color: $azul-ermo;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: -0.5px;
             font-size: 2.4rem;
             margin-bottom: 50px;
@@ -52,7 +52,7 @@ h1{
     h5{
             font-family: $neue;
             color: $azul-ermo;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: -0.5px;
             font-size: 3rem;
             line-height: 1.8rem;

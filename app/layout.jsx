@@ -1,10 +1,10 @@
 import "./style.scss";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Script from 'next/script';
-// El header, el footer, el cursor y el banner de cookies se pintan
+// El header, el footer y el banner de cookies se pintan
 // desde aquí salvo en las herramientas internas. Ver cromo-publico.jsx.
 import { CabeceraPublica, PiePublico } from "./components/cromo-publico.jsx";
+import AplicarConsentimiento from "./components/cookies/aplicar-consentimiento.jsx";
 
  
 
@@ -95,16 +95,19 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://use.typekit.net/ury2gea.css" />
+        {/* Aktiv Grotesk (tirita de estilo): de momento sale del kit de
+            Medworld, que vale en local. Antes de publicar hay que añadirla
+            al kit de ERMO (ury2gea) y quitar esta línea. */}
+        <link rel="stylesheet" href="https://use.typekit.net/cbv1cvv.css" />
 
         {/* LCP poster (si aplica) */}
         <link rel="preload" as="image" href="/assets/test_vid_poster.jpg" />
 
-        {/* GA/Tag Manager preconnect */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+        {/* Sin preconnect a Google: abrir la conexión ya le pasa la IP
+            antes de que la persona acepte las cookies. */}
 
         {/* UI meta */}
-        <meta name="theme-color" content="#3F52FF" />
+        <meta name="theme-color" content="#14394B" />
 
         {/* Favicons */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -127,7 +130,7 @@ export default function RootLayout({ children }) {
                 "@type": "Organization",
                 "name": "Ermo",
                 "description": "Programación y diseño web, motion graphics y generación de imágenes con inteligencia artificial.",
-                "email": "estudio@ermo.es",
+                "email": "andresortega@ermo.es",
                 "logo": "https://ermo.es/favicon_500x500.png",
                 "url": "https://ermo.es",
                 "sameAs": [
@@ -161,40 +164,22 @@ export default function RootLayout({ children }) {
 
 
 
-        <Script
-          id="gtag-src"
-          src="https://www.googletagmanager.com/gtag/js?id=G-XHXYQ2JL9P"
-          strategy="beforeInteractive"
-        />
-        <Script
-          id="gtag-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
+        {/* Google Analytics y Google Ads ya no se cargan aquí: solo se
+            descargan si la persona los acepta. Ver app/lib/consentimiento.js. */}
 
-              // GA4
-              gtag('config', 'G-XHXYQ2JL9P');
-
-              // Google Ads
-              gtag('config', 'AW-11336883443');
-            `,
-          }}
-        />
-
-
-        
       </head>
 
       <body>
 
-        
-    
+
+
         <CabeceraPublica />
           {children}
         <PiePublico />
+        <AplicarConsentimiento />
+        {/* Vercel Analytics y Speed Insights no usan cookies ni guardan
+            nada en el dispositivo: van sin consentimiento (interés
+            legítimo, explicado en la política de privacidad). */}
         <Analytics /><SpeedInsights />
 
       </body>

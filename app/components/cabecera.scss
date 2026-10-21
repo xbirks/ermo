@@ -1,0 +1,213 @@
+@import '../variables.scss';
+
+// Cabecera en pastilla (ver header.jsx).
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.header__pill {
+    position: fixed;
+    z-index: 1000;
+    top: 21px;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: min(760px, calc(100% - 20px));
+    border-radius: 30px;
+    background: linear-gradient(90deg, #F2F2F2 0%, #E6E6E6 52%, #F2F2F2 100%);
+    transition:
+        transform 0.6s $curva-ermo,
+        box-shadow 0.4s $curva-ermo;
+    animation: header-entra 1s $curva-ermo 0.05s both;
+
+    &--oculta {
+        transform: translateY(calc(-100% - 30px));
+    }
+
+    &--flotando {
+        box-shadow: 0 12px 32px -20px rgba(20, 57, 75, 0.5);
+    }
+}
+
+@keyframes header-entra {
+    from {
+        opacity: 0;
+        translate: 0 -14px;
+    }
+}
+
+.header__barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 60px;
+    padding: 0 12px 0 27px;
+}
+
+.header__logo {
+    display: block;
+    line-height: 0;
+
+    img {
+        display: block;
+        width: 106px;
+        height: auto;
+    }
+}
+
+.header__enlaces {
+    display: flex;
+    gap: 32px;
+}
+
+.header__enlace {
+    font-family: $aktiv;
+    font-size: 15px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #7C7C7C;
+    transition: color 0.35s $curva-ermo;
+
+    &:hover,
+    &:focus-visible {
+        color: $azul-ermo;
+    }
+}
+
+.header__acciones {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 30px;
+    border-radius: 50px;
+    background: $azul-ermo;
+    font-family: $aktiv;
+    font-size: 15px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #EAEAEA;
+    transition: background-color 0.4s $curva-ermo;
+
+    &:hover,
+    &:focus-visible {
+        background: #1C4A60;
+        color: #EAEAEA;
+    }
+}
+
+.header__cta:hover .button__flecha,
+.header__panel-enlace:hover .button__flecha {
+    svg:first-child { transform: translate(130%, -130%); }
+    svg:last-child { transform: translate(0, 0); }
+}
+
+// ------------------------------------------------------------- Móvil
+
+.header__hamburguesa {
+    display: none;
+}
+
+// El panel se despliega con la pastilla: la fila pasa de 0 a su alto.
+.header__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s $curva-ermo;
+}
+
+.header__panel-enlaces {
+    overflow: hidden;
+}
+
+.header__panel-enlace {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 27px;
+    border-top: 1px solid rgba(20, 57, 75, 0.1);
+    font-family: $aktiv;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: $azul-ermo;
+
+    .button__flecha {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    .header__enlaces {
+        display: none;
+    }
+
+    .header__hamburguesa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+
+        span {
+            display: block;
+            width: 20px;
+            height: 1.5px;
+            margin: 0 auto;
+            background: $azul-ermo;
+            transition: transform 0.4s $curva-ermo;
+        }
+    }
+
+    .header__pill--abierta {
+        .header__panel {
+            grid-template-rows: 1fr;
+        }
+
+        .header__hamburguesa span:first-child {
+            transform: translateY(3.75px) rotate(45deg);
+        }
+
+        .header__hamburguesa span:last-child {
+            transform: translateY(-3.75px) rotate(-45deg);
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .header__pill {
+        top: 10px;
+    }
+
+    .header__barra {
+        height: 56px;
+        gap: 8px;
+        padding: 0 6px 0 20px;
+    }
+
+    .header__cta {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header__cta {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .header__pill {
+        animation: none;
+        transition: none;
+    }
+}

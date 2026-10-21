@@ -5,19 +5,30 @@ html {
 
 /* VARIABLES */
 
-$azul-ermo: #2136f8;
-$cian-ermo: #3684F6;
-$mar-ermo: #0E1C9D;
-$gris-ermo: #687A7F;
-$gris-oscuro: #393939;
-$nardo: #F3F3F3;
-$gris-claro-ermo: #d8e2e6;
-$negro-ermo: #16161E;
-$morado-ermo: #C4CAFF;
+// Tirita de estilo (septiembre 2026): paleta y tipografía de la landing
+// de Automaker, hasta el rediseño completo. Se conservan los nombres
+// para no tener que tocar cada hoja; lo que cambia es el valor. Entre
+// paréntesis, el valor anterior.
+$azul-ermo: #14394B;        // tinta (#2136f8)
+$cian-ermo: #00B6FF;        // acento (#3684F6)
+$mar-ermo: #0C2735;         // tinta profunda, para hovers (#0E1C9D)
+$gris-ermo: #567888;        // pizarra (#687A7F)
+$gris-oscuro: #2E4A58;      // texto corrido (#393939)
+$nardo: #F1F1F1;            // (#F3F3F3)
+$gris-claro-ermo: #DCE4E8;  // (#d8e2e6)
+$negro-ermo: #14394B;       // (#16161E)
+$morado-ermo: #AEF3FF;      // (#C4CAFF)
 $blanco-ermo: white;
-$amarillo-ermo: #FFC93F;
-$owners: Owners, Arial, Helvetica, sans-serif;
-$neue : neue-haas-unica, Arial, Helvetica, sans-serif;
+$amarillo-ermo: #AEF3FF;    // fondo de la selección de texto (#FFC93F)
+$fondo-ermo: #F9F9F9;
+$cian-claro-ermo: #AEF3FF;
+$curva-ermo: cubic-bezier(0.22, 1, 0.36, 1);
+
+// Una sola familia para todo: Aktiv Grotesk. Owners y Neue Haas quedan
+// como alias para no tocar las hojas que las nombran.
+$aktiv: "aktiv-grotesk", "Inter", Arial, Helvetica, sans-serif;
+$owners: $aktiv;
+$neue : $aktiv;
 $fuente-p: 1.125rem;
 $line-height: 1.6rem;
 $transition-short: 0.4s;

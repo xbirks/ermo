@@ -1,11 +1,13 @@
 'use client';
 import { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import StandardSubmit from '@/app/buttons/standard-submit';
-import { trackFormSubmit } from '../../../app/lib/ga'; 
+import { trackFormSubmit } from '../../../app/lib/ga';
+import { permitePublicidad } from '@/app/lib/consentimiento';
 
-// Ads conversion sin navegación
+// Ads conversion sin navegación (solo con el permiso de publicidad)
 function reportAdsConversion() {
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function' && permitePublicidad()) {
     window.gtag('event', 'conversion', {
       send_to: 'AW-11336883443/i3E3CP6hlpAbEPO57J0q',
       value: 1.0,
@@ -150,6 +152,18 @@ export default function ContactFormLanding() {
 
       {okMsg && <p className="cf__msg ok">{okMsg}</p>}
       {errMsg && <p className="cf__msg err">{errMsg}</p>}
+
+      {/* Primera capa de información (art. 11 LOPDGDD). La segunda es la
+          política de privacidad: si cambia una, revisar la otra. */}
+      <p className="cf__privacidad">
+        <strong>Protección de datos.</strong> Responsable: Andrés Ortega
+        Montoya (ERMO). Finalidad: responder a tu solicitud y, si lo pides,
+        prepararte un presupuesto. Base jurídica: tu propia solicitud
+        (medidas precontractuales). Derechos: acceso, rectificación,
+        supresión, oposición, limitación y portabilidad, escribiendo a
+        andresortega@ermo.es. Más información en la{' '}
+        <Link href="/legal/politica-de-privacidad">política de privacidad</Link>.
+      </p>
     </form>
   );
 }

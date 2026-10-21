@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
+import { leerConsentimiento } from "@/app/lib/consentimiento";
 
-// Medición de la landing. Las visitas ya las cuentan Google Analytics y
-// Vercel Analytics desde el layout de ERMO; aquí se añade qué hace la
-// gente dentro, como eventos de GA4 (todos empiezan por "automaker_"):
+// Medición de la landing. Las visitas las cuenta Vercel Analytics (sin
+// cookies) desde el layout de ERMO, y Google Analytics solo si la persona
+// aceptó la analítica en otra página de ermo.es: aquí no hay aviso de
+// cookies, así que sin elección previa GA no se carga. Los eventos de
+// GA4 (todos empiezan por "automaker_") siguen la misma regla:
 //
 //   automaker_clic_demo        botón de demo / contacto (y desde qué sección)
 //   automaker_clic_ver_precio  botón "Ver precio"
@@ -14,9 +17,9 @@ import Script from "next/script";
 //   automaker_abrir_pregunta   pregunta frecuente abierta
 //   automaker_seccion_vista    sección que llega a verse (una vez por visita)
 //
-// Se carga además Microsoft Clarity (proyecto yqchkq3k32, o el de
-// NEXT_PUBLIC_CLARITY_ID si está definida): mapas de calor y
-// grabaciones de sesión.
+// Si existe NEXT_PUBLIC_CLARITY_ID se carga además Microsoft Clarity
+// (mapas de calor y grabaciones de sesión), también solo con la
+// analítica aceptada.
 
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "yqchkq3k32";
 const COLOR_TEMA = "#14394B";
@@ -34,6 +37,9 @@ const seccionDe = (el) => el.closest("section")?.id || (el.closest("nav") ? "men
 const texto = (el) => el.textContent.trim().replace(/\s+/g, " ").slice(0, 80);
 
 export default function Medicion() {
+    const [consentimiento, setConsentimiento] = useState(null);
+    useEffect(() => setConsentimiento(leerConsentimiento()), []);
+
     useEffect(() => {
         const raiz = document.querySelector(".landing-automaker");
         if (!raiz) return undefined;
@@ -86,12 +92,14 @@ export default function Medicion() {
         };
     }, []);
 
-    if (!CLARITY_ID) return null;
+    if (!CLARITY_ID || !consentimiento?.analitica) return null;
+    // consentv2: la API de consentimiento que Clarity exige en el EEE.
     // El id no puede ser "clarity": el navegador expone los elementos con id
     // como window.<id>, y Clarity creería que ya está cargado.
+    const publicidad = consentimiento.publicidad ? "granted" : "denied";
     return (
         <Script id="clarity-arranque" strategy="afterInteractive">
-            {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");`}
+            {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");window.clarity("consentv2",{ad_Storage:"${publicidad}",analytics_Storage:"granted"});`}
         </Script>
     );
 }

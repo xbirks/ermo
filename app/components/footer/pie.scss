@@ -1,0 +1,155 @@
+@import '../../variables.scss';
+
+// Pie tipo membrete (ver footer.jsx): claro, tipográfico, con filetes
+// finos en lugar de cajas.
+
+.footer__pie {
+    margin: 0;
+    padding: clamp(48px, 6vw, 96px) clamp(20px, 4vw, 64px) 28px;
+    border-top: 1px solid rgba(20, 57, 75, 0.14);
+    background: $nardo;
+    color: $azul-ermo;
+}
+
+// ------------------------------------------------------------ Contacto
+
+.footer__contacto {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 40px;
+}
+
+.footer__correo {
+    font-family: $aktiv;
+    font-size: clamp(30px, 6vw, 96px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    color: $azul-ermo;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 0.04em;
+    text-underline-offset: 0.14em;
+    transition: text-decoration-color 0.4s $curva-ermo;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration-color: currentColor;
+    }
+}
+
+.footer__telefono {
+    font-family: $aktiv;
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: $gris-ermo;
+    transition: color 0.3s $curva-ermo;
+
+    &:hover,
+    &:focus-visible {
+        color: $azul-ermo;
+    }
+}
+
+// -------------------------------------------------------------- Datos
+
+.footer__datos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: clamp(40px, 5vw, 80px);
+    padding-top: 20px;
+    border-top: 1px solid rgba(20, 57, 75, 0.14);
+}
+
+.footer__bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    p,
+    a {
+        margin: 0;
+        font-family: $aktiv;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.4;
+        letter-spacing: 0;
+        color: $azul-ermo;
+    }
+
+    a {
+        width: fit-content;
+        transition: color 0.3s $curva-ermo;
+
+        &:hover,
+        &:focus-visible {
+            color: $gris-ermo;
+        }
+    }
+}
+
+// «Configurar cookies» es un botón (abre el panel, no navega) pero se
+// pinta como los enlaces de al lado. style.scss hace `all: initial` a
+// todos los botones, así que hay que darle la tipografía entera.
+.footer__boton {
+    width: fit-content;
+    font-family: $aktiv;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: $azul-ermo;
+    cursor: pointer;
+    transition: color 0.3s $curva-ermo;
+
+    &:hover,
+    &:focus-visible {
+        color: $gris-ermo;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $azul-ermo;
+        outline-offset: 2px;
+    }
+}
+
+.footer__etiqueta {
+    margin-bottom: 6px;
+    font-family: $aktiv;
+    font-size: 13px;
+    line-height: 1.2;
+    color: $gris-ermo;
+}
+
+// --------------------------------------------------------------- Base
+
+.footer__base {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: clamp(40px, 5vw, 72px);
+    font-family: $aktiv;
+    font-size: 13px;
+    color: $gris-ermo;
+}
+
+.footer__logo {
+    display: block;
+    line-height: 0;
+
+    img {
+        display: block;
+        width: 86px;
+        height: auto;
+    }
+}
+
+@media (max-width: 800px) {
+    .footer__datos {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 28px;
+    }
+}

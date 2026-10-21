@@ -5,7 +5,7 @@ export const metadata = {
 
   //GENERIC
   title: 'Política de privacidad | ERMO Estudio',
-  description: 'Lee nuestra política de privacidad para conocer cómo recopilamos, utilizamos y protegemos tus datos personales. Nos comprometemos a garantizar la seguridad y confidencialidad de tu información.',
+  description: 'Qué datos personales trata ERMO, para qué, con qué base legal, durante cuánto tiempo, con quién los comparte y cómo ejercer tus derechos.',
   keywords: ['política de privacidad', 'protección de datos personales', 'uso de datos personales', 'recopilación de datos en el sitio web', 'privacidad y seguridad', 'gestión de información personal', 'política de privacidad y cookies', 'tratamiento de datos personales', 'confidencialidad de datos', 'uso de información personal en la web']
 
 
@@ -16,7 +16,7 @@ export const metadata = {
   // META 
   openGraph: {
     title: 'Política de privacidad | ERMO Estudio',
-    description: 'Lee nuestra política de privacidad para conocer cómo recopilamos, utilizamos y protegemos tus datos personales. Nos comprometemos a garantizar la seguridad y confidencialidad de tu información.',
+    description: 'Qué datos personales trata ERMO, para qué, con qué base legal, durante cuánto tiempo, con quién los comparte y cómo ejercer tus derechos.',
     url: 'https://ermo.es',
     type: 'website',
     images: [
@@ -37,7 +37,7 @@ export const metadata = {
     site: '@ermo.es',
     creator: '@ermo.es',
     title: 'Política de privacidad | ERMO Estudio',
-    description: 'Lee nuestra política de privacidad para conocer cómo recopilamos, utilizamos y protegemos tus datos personales. Nos comprometemos a garantizar la seguridad y confidencialidad de tu información.',
+    description: 'Qué datos personales trata ERMO, para qué, con qué base legal, durante cuánto tiempo, con quién los comparte y cómo ejercer tus derechos.',
     image: 'https://ermo.es/seo/meta-1200-600.jpg',
     imageAlt: 'Política de privacidad | ERMO Estudio',
   },

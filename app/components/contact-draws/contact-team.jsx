@@ -54,7 +54,7 @@ function ContactTeam() {
  <Spacer className="spacer-m" />
 
             <StandardButton
-            link="https://wa.me/message/HJYSEK4RPLOSI1"
+            link="mailto:andresortega@ermo.es"
             title="¡Café!"
             style="post__button post__button-center"
             bg="transparent"
@@ -69,7 +69,7 @@ function ContactTeam() {
 
 
             <StandardButton
-            link="https://wa.me/message/HJYSEK4RPLOSI1"
+            link="mailto:andresortega@ermo.es"
             title="Refresco :)"
             style="post__button post__button-center"
             bg="transparent"

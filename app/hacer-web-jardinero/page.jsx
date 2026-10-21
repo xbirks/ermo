@@ -356,7 +356,7 @@ const faqSchema = {
               <p className="aviso">Con una permanencia de 12 meses.</p>
    
               <StandardButton
-                link="https://wa.me/message/HJYSEK4RPLOSI1"
+                link="mailto:andresortega@ermo.es"
                 title="Contratar"
                 style="mt-m margin-auto"
                 bg="#3F52FF"
@@ -400,7 +400,7 @@ const faqSchema = {
               {/* <p className="aviso confi_aviso">Si durante los primeros 3 meses no apareces en Google, trabajo GRATIS hasta que aparezcas.</p> */}
 
                <StandardButton
-                link="https://wa.me/message/HJYSEK4RPLOSI1"
+                link="mailto:andresortega@ermo.es"
                 title="Contratar"
                 style="mt-m margin-auto"
                 bg="white"
@@ -446,7 +446,7 @@ const faqSchema = {
               <p className="aviso">Con una permanencia de 3 meses. <br></br>Si durante los primeros 3 meses no apareces en ChatGPT, trabajo GRATIS hasta que aparezcas.</p>
                 
                 <StandardButton
-                link="https://wa.me/message/HJYSEK4RPLOSI1"
+                link="mailto:andresortega@ermo.es"
                 title="Contratar"
                 style="mt-m margin-auto"
                 bg="#3F52FF"

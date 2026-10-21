@@ -3,7 +3,7 @@
 
 
 h1{
-    letter-spacing: 0.1rem;
+    letter-spacing: -0.04em;
     
 }
 
@@ -1292,3 +1292,22 @@ p{
 }
 .cf__msg.ok  { color: #1a7f37; }
 .cf__msg.err { color: #b42318; }
+
+/* Información básica de protección de datos, bajo el botón */
+.cf__privacidad {
+  max-width: 400px;
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: $gris-ermo;
+
+  strong { font-weight: 500; }
+
+  a {
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}

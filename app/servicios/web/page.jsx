@@ -17,7 +17,7 @@ export default function WebPage() {
   const municipio = "Valencia";
 
 const [playIntro, setPlayIntro] = useState(false);
-  const waUrl = 'https://wa.me/message/HJYSEK4RPLOSI1';
+  const contactoUrl = 'mailto:andresortega@ermo.es';
   const telUrl = 'tel:675392216';
 
     
@@ -210,12 +210,12 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
   <div className="contacto__info">
     <div className="contacto__info-text">
 
-    <p className="contacto__info-description" >Déjanos tus datos o habla con nosotros por <strong>WhatsApp</strong> o teléfono. En menos de 48 h te propondremos la reunión para conocer tu proyecto.</p>
+    <p className="contacto__info-description" >Déjanos tus datos o escríbenos por <strong>email</strong> o llámanos. En menos de 48 h te propondremos la reunión para conocer tu proyecto.</p>
 
 
     <StandardButton
-            link="https://wa.me/message/HJYSEK4RPLOSI1"
-            title="Whatsapp"
+            link="mailto:andresortega@ermo.es"
+            title="Email"
             style="mt-xs "
             bg="#3F52FF"
             color="white"
@@ -223,7 +223,7 @@ Usa la calculadora, revisa el resultado y, si encaja con tu presupuesto, mándam
             hoverBg="#0E1C9D"
             hoverColor="white"
             hoverBorderColor="transparent"
-            onClick={(e)=>reportAdsConversionAndGo(e, waUrl)}
+            onClick={(e)=>reportAdsConversionAndGo(e, contactoUrl)}
            />
 
            <StandardButton

@@ -77,7 +77,7 @@ function GridAll() {
     </div>
 
                       <StandardButton
-            link="https://wa.me/message/HJYSEK4RPLOSI1"
+            link="mailto:andresortega@ermo.es"
             title="Pedir presupuesto"
             style="mt-l margin-auto"
             bg="#3F52FF"

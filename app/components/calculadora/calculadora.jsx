@@ -213,18 +213,16 @@ const trackCalcPDF = (total) => {
 };
 
 /* ====== TRACKING CALCULADORA (versión notificación única) ====== */
+// El código de visita y la marca de "ya avisado" viven en memoria, no en
+// sessionStorage: guardarlos en el navegador para medir exigiría
+// consentimiento de cookies. Aguantan igual entre páginas (la navegación
+// de Next no recarga el módulo); solo una recarga completa los reinicia.
+let sidVisita = null;
+let resumenEnviado = false;
+
 function getSessionId() {
-  try {
-    const k = 'calc_sid';
-    let sid = sessionStorage.getItem(k);
-    if (!sid) {
-      sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
-      sessionStorage.setItem(k, sid);
-    }
-    return sid;
-  } catch {
-    return 'sid-' + Date.now();
-  }
+  if (!sidVisita) sidVisita = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  return sidVisita;
 }
 
 const DEBUG = false;
@@ -301,9 +299,7 @@ export function useCalcTracking(state) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-    try {
-      sessionStorage.setItem('calc_summary_sent', '1');
-    } catch {}
+    resumenEnviado = true;
   };
 
   const scheduleSummary = () => {
@@ -314,9 +310,7 @@ export function useCalcTracking(state) {
   };
 
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem('calc_summary_sent') === '1') sentRef.current = true;
-    } catch {}
+    if (resumenEnviado) sentRef.current = true;
     if (!sentRef.current) {
       const t = window.setTimeout(() => sendSummary('view'), 2000);
       return () => clearTimeout(t);

@@ -27,12 +27,12 @@ export default function ServiciosPrincipalPage() {
     <div className="legal">
 
     <h2>Titularidad del Sitio Web</h2>
-    <p>El sitio web <strong>ERMO Estudio</strong>, incluyendo todo su contenido, es propiedad de <strong>Andrés Ortega Montoya</strong>, con NIF <strong>49570884L</strong> y domicilio en <strong>Plaza Rafael Atard 20A piso 2 puerta 3, Manises, Valencia, España, 46940</strong>. Puedes ponerte en contacto con nosotros a través del correo electrónico <strong>hola@soyandres.es</strong> o por teléfono al <strong>675392216</strong>.</p>
+    <p>El sitio web <strong>ERMO Estudio</strong>, incluyendo todo su contenido, es propiedad de <strong>Andrés Ortega Montoya</strong>, con NIF <strong>49570884L</strong> y domicilio en <strong>Plaza Rafael Atard 20A piso 2 puerta 3, Manises, Valencia, España, 46940</strong>. Puedes ponerte en contacto con nosotros a través del correo electrónico <strong>andresortega@ermo.es</strong> o por teléfono al <strong>675392216</strong>.</p>
 
     <Spacer className="spacer-s" />
 
     <h2>Finalidad del Sitio Web</h2>
-    <p><strong>ERMO Estudio</strong> es un estudio que proporciona soluciones creativas a empresas pequeñas y medianas. Ofrecemos servicios que abarcan desde diseño gráfico hasta programación web, incluyendo fotografía profesional de producto. Este sitio web tiene como finalidad informar sobre nuestros servicios y mostrar nuestro portafolio de trabajos.</p>
+    <p><strong>ERMO Estudio</strong> es un estudio que proporciona soluciones creativas a empresas pequeñas y medianas. Ofrecemos servicios que abarcan desde diseño gráfico hasta programación web, incluyendo fotografía profesional de producto. Este sitio web tiene como finalidad informar sobre nuestros servicios, mostrar nuestro portafolio de trabajos y permitir que nos contactes.</p>
 
     <Spacer className="spacer-s" />
 
@@ -41,8 +41,8 @@ export default function ServiciosPrincipalPage() {
 
     <Spacer className="spacer-s" />
 
-    <h2>Política de Privacidad</h2>
-    <p>En <strong>ERMO Estudio</strong>, no recopilamos datos personales de nuestros visitantes ya que es un sitio meramente informativo. Para más detalles sobre cómo tratamos la información, puedes consultar nuestra <Link href="/legal/politica-de-privacidad">Política de Privacidad.</Link></p>
+    <h2>Protección de Datos</h2>
+    <p>Cuando nos escribes por el formulario, por correo o por WhatsApp, o cuando nos contratas, tratamos tus datos personales como responsables del tratamiento. En la <Link href="/legal/politica-de-privacidad">Política de Privacidad</Link> te explicamos qué datos tratamos, para qué, durante cuánto tiempo y cómo ejercer tus derechos. Para cualquier cuestión sobre tus datos, escríbenos a <strong>andresortega@ermo.es</strong>.</p>
 
     <Spacer className="spacer-s" />
     
@@ -52,7 +52,7 @@ export default function ServiciosPrincipalPage() {
     <Spacer className="spacer-s" />
     
     <h2>Política de Cookies</h2>
-    <p>Utilizamos cookies para optimizar la experiencia de nuestros usuarios. Estas cookies no recopilan información personal. Para más detalles sobre el uso de cookies, visita nuestra <Link href="/legal/aviso-de-cookies">Política de Cookies.</Link></p>
+    <p>Esta web usa cookies necesarias, que no requieren tu consentimiento, y, solo si las aceptas, cookies de análisis y de publicidad de Google. Puedes cambiar tu elección cuando quieras desde «Configurar cookies», al pie de cada página. Tienes el detalle en la <Link href="/legal/aviso-de-cookies">Política de Cookies</Link>.</p>
 
     <Spacer className="spacer-s" />
     
@@ -62,7 +62,7 @@ export default function ServiciosPrincipalPage() {
     <Spacer className="spacer-s" />
     
     <h2>Aviso sobre Derechos de Autor</h2>
-    <p>Si crees que cualquier material en nuestro sitio infringe tus derechos de autor, por favor contacta con nosotros a través de <strong>hola@soyandres.es</strong> para abordar el asunto.</p>
+    <p>Si crees que cualquier material en nuestro sitio infringe tus derechos de autor, por favor contacta con nosotros a través de <strong>andresortega@ermo.es</strong> para abordar el asunto.</p>
 
     <Spacer className="spacer-s" />
     

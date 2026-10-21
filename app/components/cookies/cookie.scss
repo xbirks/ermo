@@ -1,61 +1,179 @@
 @import '../../variables.scss';
 
+// Tirita de estilo (septiembre 2026): tarjeta flotante abajo a la
+// izquierda en lugar de franja a todo el ancho.
+
 .cookie-banner {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: $blanco-ermo;
-  color: #000;
-  padding: 1rem;
-  box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
-  display: none;
+  left: 20px;
+  bottom: 20px;
   z-index: 9999;
-  
-  p{
-    color: $negro-ermo;
-    font-family: $neue;
-    font-weight: 400;
-    margin-left: 7px;
+  // La web no fija box-sizing global: sin esto el relleno se suma al
+  // ancho y en móvil la tarjeta se sale por la derecha.
+  box-sizing: border-box;
+  width: min(420px, calc(100% - 20px));
+  display: none;
+  padding: 20px 22px;
+  border: 1px solid rgba(20, 57, 75, 0.14);
+  border-radius: 22px;
+  background: #FFFFFF;
+  box-shadow: 0 24px 60px -24px rgba(20, 57, 75, 0.45);
+
+  p {
+    margin: 0;
+    font-family: $aktiv;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.45;
+    color: $azul-ermo;
   }
 }
 
 .cookie-banner.show {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 14px;
+  animation: cookie-entra 0.8s $curva-ermo 0.6s both;
+}
+
+// Reabierto desde el pie: sin la espera de la primera visita.
+.cookie-banner.is-panel {
+  animation-delay: 0s;
+}
+
+.cookie-banner:focus {
+  outline: none;
+}
+
+.cookie-banner:focus-visible {
+  outline: 2px solid $azul-ermo;
+  outline-offset: 3px;
+}
+
+@keyframes cookie-entra {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 
 .cookie-buttons {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .cookie-buttons button {
-  padding: 0.5rem 2rem;
-  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
   cursor: pointer;
-  font-family: $neue;
-  border-radius: 30px;
-  text-transform: uppercase;
-  font-weight: 300;
+  font-family: $aktiv;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  transition:
+    background-color 0.35s $curva-ermo,
+    border-color 0.35s $curva-ermo;
 }
 
-.cookie-buttons button:nth-child(1) {
+// Aceptar y rechazar comparten estilo: la AEPD no admite que rechazar
+// quede menos visible que aceptar.
+.cookie__boton {
+  border: 1px solid $azul-ermo;
   background: $azul-ermo;
-  color: $blanco-ermo; 
-  transition: 0.3s;
+  color: #F9F9F9;
 
-  &:hover{
+  &:hover {
+    border-color: $mar-ermo;
     background-color: $mar-ermo;
   }
- }
-.cookie-buttons button:nth-child(2) { background: $gris-oscuro; color: $blanco-ermo; }
 
+  &:focus-visible {
+    outline: 2px solid $azul-ermo;
+    outline-offset: 2px;
+  }
+}
 
-.cookie__link{
+.cookie__boton--secundario {
+  border-color: rgba(20, 57, 75, 0.35);
+  background: transparent;
+  color: $azul-ermo;
+
+  &:hover {
+    border-color: $azul-ermo;
+    background-color: transparent;
+  }
+}
+
+.cookie-banner .cookie__titulo {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.cookie__opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cookie__opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+
+  input {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin: 2px 0 0;
+    accent-color: $azul-ermo;
+    cursor: pointer;
+  }
+
+  input:disabled {
+    cursor: default;
+  }
+
+  span {
+    font-family: $aktiv;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.45;
     color: $azul-ermo;
-    font-family: $neue;
-    letter-spacing: -0.4px;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.cookie-banner .cookie__nota {
+  font-size: 12px;
+  color: $gris-ermo;
+}
+
+.cookie__link {
+  font-family: $aktiv;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: 0;
+  color: $azul-ermo;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 500px) {
+  .cookie-banner {
+    left: 10px;
+    bottom: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner.show {
+    animation: none;
+  }
 }
