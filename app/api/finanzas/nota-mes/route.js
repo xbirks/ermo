@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import { guardarNotaMes } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -11,6 +12,9 @@ export const dynamic = 'force-dynamic';
  * Guarda por qué un mes salió como salió. Con el texto vacío, la borra.
  */
 export async function PUT(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const { mes, texto } = await request.json();
 

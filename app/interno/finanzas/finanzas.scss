@@ -745,6 +745,46 @@ $ancho-dos-columnas: 880px;
         @include etiqueta;
         @include hasta(500px) { display: none; }
     }
+
+    &__cuenta { display: flex; align-items: center; gap: 12px; }
+
+    &__usuario {
+        font-size: $t-footnote;
+        color: $g-500;
+        @include hasta(500px) { display: none; }
+    }
+
+    // Menú de cuenta con <details>: se abre y se cierra sin JavaScript.
+    &__menu {
+        position: relative;
+
+        summary { list-style: none; }
+        summary::-webkit-details-marker { display: none; }
+    }
+
+    &__opciones {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        z-index: 50;
+        min-width: 260px;
+        padding: 6px;
+        background: $blanco;
+        border: 1px solid $linea;
+        border-radius: 14px;
+        box-shadow: 0 16px 40px -12px rgba(10, 10, 11, 0.22);
+        display: grid;
+
+        button {
+            all: unset;
+            padding: 11px 12px;
+            border-radius: 9px;
+            font-size: $t-subhead;
+            color: $g-900;
+
+            &:hover, &:focus-visible { background: $hueso; }
+        }
+    }
 }
 
 // --- Selector de mes --------------------------------------------
@@ -2111,28 +2151,222 @@ $ancho-dos-columnas: 880px;
     .fz-form__etiqueta { margin-bottom: 8px; display: block; }
 }
 
-// --- Login ------------------------------------------------------
-.fz-entrada {
+// --- Acceso: entrar, código y cambio de contraseña ---------------
+// Una sola columna estrecha, centrada en la pantalla, sobre blanco.
+// El panel se separa del fondo con una línea fina y una sombra muy
+// abierta, no con un bloque de otro tono. En el móvil el panel
+// desaparece y el contenido ocupa la pantalla.
+.fz-acceso {
     min-height: 100vh;
+    min-height: 100dvh;
     display: grid;
     place-items: center;
     padding: 24px;
-    background: $blanco;
+    background:
+        radial-gradient(1200px 600px at 50% -10%, $hueso 0%, rgba($hueso, 0) 60%),
+        $blanco;
 
-    &__caja { width: 100%; max-width: 320px; }
+    &__panel {
+        width: 100%;
+        max-width: 400px;
+        padding: 36px 32px 28px;
+        background: $blanco;
+        border: 1px solid $linea;
+        border-radius: 22px;
+        box-shadow: 0 1px 2px rgba(10, 10, 11, 0.04), 0 24px 60px -24px rgba(10, 10, 11, 0.18);
+
+        @include hasta(500px) {
+            max-width: none;
+            padding: 28px 4px 20px;
+            border: 0;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            animation: fz-acceso-entra 0.35s ease both;
+        }
+    }
+
+    &__marca {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
 
     &__logo {
-        height: 22px;
+        height: 20px;
         width: auto;
-        display: block;
-        margin: 0 auto 16px;
         filter: grayscale(1) brightness(0.1);
     }
 
-    &__sub {
+    &__seccion {
         @include etiqueta;
+        padding-left: 10px;
+        border-left: 1px solid $linea;
+    }
+
+    // Dos rayas: en qué paso estás sin tener que leer nada.
+    &__pasos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 22px;
+    }
+
+    &__paso {
+        height: 3px;
+        border-radius: $pastilla;
+        background: $linea;
+        transition: background 0.3s ease;
+
+        &--hecho { background: $g-900; }
+    }
+
+    &__titulo {
+        font-size: $t-title-1 !important;
+        font-weight: $p-fuerte;
+        letter-spacing: -0.03em !important;
+        line-height: $lh-titulo !important;
+        color: $g-900 !important;
+        margin: 0 0 8px;
+    }
+
+    &__texto {
+        font-size: $t-subhead;
+        line-height: $lh-cuerpo;
+        color: $g-600;
+        margin: 0 0 24px;
+
+        strong { color: $g-900; font-weight: $p-medio; }
+    }
+
+    .fz-form { gap: 16px; }
+    .fz-boton--ancho { margin-top: 6px; padding: 15px 22px; }
+
+    &__volver {
+        all: unset;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 18px;
+        font-size: $t-footnote;
+        color: $g-500;
+        border-radius: 6px;
+        transition: color 0.15s ease;
+
+        &:hover { color: $g-900; }
+        &:focus-visible { outline: 2px solid $acento; outline-offset: 3px; }
+    }
+
+    &__pie {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 28px 0 0;
+        padding-top: 18px;
+        border-top: 1px solid $linea;
+        font-size: $t-caption;
+        color: $g-400;
+
+        svg { flex: none; }
+    }
+}
+
+@keyframes fz-acceso-entra {
+    from { opacity: 0; transform: translateY(10px); }
+}
+
+// Contraseña con botón para verla.
+.fz-clave {
+    position: relative;
+
+    &__input { padding-right: 46px !important; }
+
+    &__ver {
+        all: unset;
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        color: $g-400;
+        transition: color 0.15s ease, background 0.15s ease;
+
+        &:hover { color: $g-900; background: rgba($g-900, 0.05); }
+    }
+
+    &__aviso {
+        font-size: $t-caption;
+        color: $atencion;
+        margin: 2px 0 0;
+    }
+}
+
+// Seis cajas para el código: se ve de un vistazo cuántos dígitos
+// faltan, y al pegar el código se reparte solo.
+.fz-codigo {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 4px;
+
+    &__caja {
+        width: 100%;
+        aspect-ratio: 5 / 6;
+        min-height: 52px;
         text-align: center;
-        margin-bottom: 26px;
+        font-family: $cifras;
+        font-size: $t-title-2 !important;
+        font-weight: $p-fuerte;
+        font-variant-numeric: tabular-nums;
+        color: $g-900;
+        background: $hueso;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        appearance: none;
+        transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+        caret-color: $acento;
+
+        &:focus {
+            outline: none;
+            background: $blanco;
+            border-color: $acento;
+            box-shadow: 0 0 0 3px rgba($acento, 0.12);
+        }
+
+        &:disabled { opacity: 0.5; }
+    }
+}
+
+// Requisitos de la contraseña nueva: se van marcando al escribir.
+.fz-requisitos {
+    list-style: none;
+    margin: -4px 0 2px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: $t-caption;
+        color: $g-400;
+        transition: color 0.2s ease;
+
+        svg { opacity: 0.35; transition: opacity 0.2s ease; }
+    }
+
+    &__ok {
+        color: $entra !important;
+        svg { opacity: 1 !important; }
     }
 }
 

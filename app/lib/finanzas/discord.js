@@ -4,19 +4,23 @@
 // bot, ni token de aplicación, ni buscar ningún ID. Se crea desde
 // Configuración del servidor → Integraciones → Webhooks, y la URL que
 // da ahí es la única variable que hace falta.
+//
+// Tiene su propia variable y su propio canal. DISCORD_WEBHOOK_URL es
+// el de la calculadora de la web: si se comparte, los recibos del mes
+// salen mezclados con las visitas que configuran un presupuesto.
 
 /**
- * Manda un mensaje de texto al canal del webhook configurado.
+ * Manda un mensaje de texto al canal de finanzas.
  *
  * Si falta la variable de entorno, no lanza error: avisa en los logs
  * y sigue. Un aviso que no llega no debe tumbar el resto del cron ni
  * la comprobación de qué toca hoy.
  */
 export async function enviarDiscord(texto) {
-    const url = process.env.DISCORD_WEBHOOK_URL;
+    const url = process.env.DISCORD_WEBHOOK_FINANZAS;
 
     if (!url) {
-        console.warn('[finanzas/discord] falta DISCORD_WEBHOOK_URL');
+        console.warn('[finanzas/discord] falta DISCORD_WEBHOOK_FINANZAS');
         return { ok: false, motivo: 'sin configurar' };
     }
 

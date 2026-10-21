@@ -315,7 +315,7 @@ export async function getTransaccionesDelMes(mes) {
 export async function crearTransaccion(datos) {
     const {
         fecha, cuenta_id, cuenta_destino_id, categoria_id,
-        concepto, importe, tipo_movimiento, notas,
+        concepto, importe, tipo_movimiento, notas, creada_por,
     } = datos;
 
     const esTransferencia = tipo_movimiento === 'transferencia_interna';
@@ -323,7 +323,7 @@ export async function crearTransaccion(datos) {
     const [fila] = await sql`
         INSERT INTO transacciones
             (fecha, cuenta_id, cuenta_destino_id, categoria_id,
-             concepto, importe, tipo_movimiento, notas)
+             concepto, importe, tipo_movimiento, notas, creada_por)
         VALUES (
             ${fecha}::date,
             ${cuenta_id}::uuid,
@@ -332,11 +332,21 @@ export async function crearTransaccion(datos) {
             ${concepto},
             ${importe}::numeric,
             ${tipo_movimiento}::tipo_movimiento,
-            ${notas || null}
+            ${notas || null},
+            ${creada_por || null}::uuid
         )
         RETURNING id
     `;
     return fila;
+}
+
+/** Un movimiento suelto, con los campos que el asistente no puede tocar. */
+export async function getTransaccion(id) {
+    const [f] = await sql`
+        SELECT id, fecha, cuenta_id, cuenta_destino_id, concepto, importe, tipo_movimiento
+        FROM transacciones WHERE id = ${id}::uuid
+    `;
+    return f ? { ...f, importe: num(f.importe) } : null;
 }
 
 /**
@@ -348,7 +358,7 @@ export async function crearTransaccion(datos) {
 export async function editarTransaccion(datos) {
     const {
         id, fecha, cuenta_id, cuenta_destino_id, categoria_id,
-        concepto, importe, tipo_movimiento, notas,
+        concepto, importe, tipo_movimiento, notas, modificada_por,
     } = datos;
 
     const esTraspaso = tipo_movimiento === 'transferencia_interna';
@@ -362,7 +372,8 @@ export async function editarTransaccion(datos) {
             concepto          = ${concepto},
             importe           = ${importe}::numeric,
             tipo_movimiento   = ${tipo_movimiento}::tipo_movimiento,
-            notas             = ${notas || null}
+            notas             = ${notas || null},
+            modificada_por    = ${modificada_por || null}::uuid
         WHERE id = ${id}::uuid
     `;
     return { id };

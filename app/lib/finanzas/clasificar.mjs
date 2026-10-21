@@ -61,7 +61,7 @@ const REGLAS = [
     // Herramientas de trabajo y suscripciones sueltas.
     [/dondominio|namecheap|godaddy|vercel|figma|adobe|github|openai|anthropic|digitalocea/i,
                                                     'Infraestructura SaaS'],
-    [/anuncios meta|meta ads|ads\.google|google ads/i, 'Anuncios VisualAit'],
+    [/anuncios meta|meta ads|ads\.google|google ads/i, 'Anuncios Visualait'],
 
     // Ocio.
     [/kinepolis|cinesa|yelmo|spotify|hbo|disney|filmin|prime video/i, 'Gastos varios'],

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import {
     getReservas, crearReserva, liberarReserva, borrarReserva,
 } from '@/app/lib/finanzas/consultas';
@@ -7,7 +8,10 @@ import {
 // prerenderiza en el build.
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request) {
+    const acceso = await exigirAcceso(request, 'leer');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         return NextResponse.json(await getReservas());
     } catch (error) {
@@ -17,6 +21,9 @@ export async function GET() {
 }
 
 export async function POST(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const datos = await request.json();
         if (!datos.concepto || !datos.concepto.trim()) {
@@ -39,6 +46,9 @@ export async function POST(request) {
 }
 
 export async function PATCH(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const id = request.nextUrl.searchParams.get('id');
         if (!id) {
@@ -60,6 +70,9 @@ export async function PATCH(request) {
  * borrar la hace desaparecer.
  */
 export async function DELETE(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const id = request.nextUrl.searchParams.get('id');
         if (!id) {

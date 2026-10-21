@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import { sql } from '@/app/lib/finanzas/db';
 import { getCuentas, getCategorias, crearTransaccion } from '@/app/lib/finanzas/consultas';
 import { parseImagin, parseSantander } from '@/app/lib/finanzas/parsear-pegado';
@@ -17,6 +18,9 @@ const NOTA_IMPORTACION = 'Importado del extracto del banco.';
  * vista previa que se revisa antes de guardar.
  */
 export async function POST(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const { cuenta, texto, anio } = await request.json();
 
@@ -92,6 +96,9 @@ export async function POST(request) {
  * formulario de uno en uno.
  */
 export async function PUT(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const { cuenta_id, filas } = await request.json();
 

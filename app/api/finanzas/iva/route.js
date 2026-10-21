@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import {
     getProvisionesIva, getIvaPorTrimestre,
     guardarProvisionIva, pagarTrimestreIva, deshacerPagoIva,
@@ -11,6 +12,9 @@ export const dynamic = 'force-dynamic';
 
 /** DELETE /api/finanzas/iva?id=... borra una provisión anotada. */
 export async function DELETE(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const id = request.nextUrl.searchParams.get('id');
         if (!id) {
@@ -24,7 +28,10 @@ export async function DELETE(request) {
     }
 }
 
-export async function GET() {
+export async function GET(request) {
+    const acceso = await exigirAcceso(request, 'leer');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const [provisiones, trimestres] = await Promise.all([
             getProvisionesIva(),
@@ -38,6 +45,9 @@ export async function GET() {
 }
 
 export async function POST(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const datos = await request.json();
 

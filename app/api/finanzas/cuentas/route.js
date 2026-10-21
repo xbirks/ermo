@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import { declararSaldo } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -12,6 +13,9 @@ export const dynamic = 'force-dynamic';
  * sumar movimientos no da el valor real.
  */
 export async function PATCH(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const { id, saldo } = await request.json();
 

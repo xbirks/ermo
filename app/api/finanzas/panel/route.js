@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import { sql } from '@/app/lib/finanzas/db';
 import {
     getCuentas, getCategorias, getResumenMes,
@@ -61,6 +62,9 @@ function diagnostico(error) {
  * peticiones sueltas desde el navegador.
  */
 export async function GET(request) {
+    const acceso = await exigirAcceso(request, 'leer');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const mes = request.nextUrl.searchParams.get('mes') || new Date().toISOString();
 
@@ -89,6 +93,9 @@ export async function GET(request) {
         ]);
 
         return NextResponse.json({
+            // Quién está dentro: la pantalla lo muestra y adapta lo que
+            // ofrece (el asistente no ve botones que no puede usar).
+            usuario: { nombre: acceso.usuario.nombre, rol: acceso.usuario.rol },
             cuentas,
             categorias,
             resumen,

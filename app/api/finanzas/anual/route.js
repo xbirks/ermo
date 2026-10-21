@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import {
     getResumenAnual, getAniosDisponibles, getDeudas, getNotasDelAnio,
 } from '@/app/lib/finanzas/consultas';
@@ -13,6 +14,9 @@ export const dynamic = 'force-dynamic';
  * Los doce meses de un año, con lo que entró y salió en cada uno.
  */
 export async function GET(request) {
+    const acceso = await exigirAcceso(request, 'leer');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const pedido = Number(request.nextUrl.searchParams.get('anio'));
         const anio = Number.isInteger(pedido) && pedido > 2000 && pedido < 2100

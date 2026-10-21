@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import {
     getGastosFijos, guardarGastoFijo, desactivarGastoFijo,
     reactivarGastoFijo, getGastosFijosDeBaja, cargarFijosDelMes,
@@ -9,6 +10,9 @@ import {
 export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
+    const acceso = await exigirAcceso(request, 'leer');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const mes = request.nextUrl.searchParams.get('mes') || new Date().toISOString();
         const [activos, deBaja] = await Promise.all([
@@ -23,6 +27,9 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const datos = await request.json();
 
@@ -100,6 +107,9 @@ export async function POST(request) {
 }
 
 export async function DELETE(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const id = request.nextUrl.searchParams.get('id');
         if (!id) {

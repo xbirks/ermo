@@ -1,34 +1,35 @@
 import { NextResponse } from 'next/server';
-import { COOKIE_SESION, sesionValida } from '@/app/lib/finanzas/auth';
+import { COOKIE_SESION, verificarTokenSesion } from '@/app/lib/finanzas/auth';
 
-// Puerta de entrada de /interno/finanzas.
+// Puerta de entrada de /interno/finanzas (primera capa).
 //
-// Se ejecuta antes de cualquier página o ruta de API de esa zona, así
-// que no hay forma de llamar a /api/finanzas/... sin sesión válida
-// aunque se conozca la URL.
+// Corre en el runtime Edge, así que sólo comprueba la firma del token:
+// rápido y sin base de datos. La segunda capa está en cada ruta de la
+// API (`exigirAcceso`), que mira en la base que la sesión siga abierta,
+// que el usuario esté activo y que su rol permita la acción. Si esta
+// capa fallara, la otra sigue en pie.
 
 const RUTA_LOGIN = '/interno/finanzas/entrar';
+const RUTA_CAMBIAR = '/interno/finanzas/contrasena';
 
-// Métodos que modifican datos. Son los que hay que proteger de
-// peticiones lanzadas desde otro sitio.
+// Accesibles sin sesión: sin ellas no habría manera de entrar.
+const PUBLICAS = new Set([RUTA_LOGIN, '/api/finanzas/entrar', '/api/finanzas/entrar/codigo']);
+
+// Lo único que puede hacer una sesión con contraseña temporal.
+const PERMITIDAS_AL_CAMBIAR = new Set([RUTA_CAMBIAR, '/api/finanzas/contrasena', '/api/finanzas/entrar']);
+
 const METODOS_ESCRITURA = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 /**
  * Comprueba que una petición de escritura viene de esta misma web.
  *
- * La cookie es `sameSite: lax`, lo que frena a sitios externos, pero no
- * a código que se ejecute dentro de ermo.es: para el navegador eso es el
- * mismo sitio, y viajaría con la sesión activa. Un script de terceros
- * comprometido en la web pública podría, sin esto, llamar a
- * /api/finanzas/* y borrar o alterar apuntes.
- *
- * Comparando Origin con Host se corta esa vía: un `fetch` desde el
- * navegador no puede falsear la cabecera Origin.
+ * Además de sameSite=strict en la cookie: un script de terceros
+ * comprometido dentro de ermo.es es "el mismo sitio" para el navegador.
+ * Comparando Origin con Host se corta esa vía, porque un `fetch` desde
+ * el navegador no puede falsear la cabecera Origin.
  */
 function origenPropio(request) {
     const origin = request.headers.get('origin');
-    // Sin Origin no es una petición de navegador entre sitios (curl, o
-    // una llamada del mismo documento en algunos navegadores antiguos).
     if (!origin) return true;
     try {
         return new URL(origin).host === request.headers.get('host');
@@ -37,34 +38,58 @@ function origenPropio(request) {
     }
 }
 
+/** Cabeceras para que nada de esta zona se cachee, se incruste ni se filtre. */
+function blindar(respuesta) {
+    const h = respuesta.headers;
+    h.set('Cache-Control', 'no-store, max-age=0');
+    h.set('X-Frame-Options', 'DENY');
+    h.set('Content-Security-Policy', "frame-ancestors 'none'");
+    h.set('Referrer-Policy', 'no-referrer');
+    h.set('X-Content-Type-Options', 'nosniff');
+    h.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    h.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    return respuesta;
+}
+
+const json = (cuerpo, status) => blindar(NextResponse.json(cuerpo, { status }));
+
 export async function middleware(request) {
     const { pathname } = request.nextUrl;
+    const esApi = pathname.startsWith('/api/finanzas');
 
     if (METODOS_ESCRITURA.has(request.method) && !origenPropio(request)) {
-        return NextResponse.json({ error: 'Origen no permitido' }, { status: 403 });
+        return json({ error: 'Origen no permitido' }, 403);
     }
 
-    // La pantalla de login y su endpoint tienen que ser accesibles sin
-    // sesión, o no habría manera de entrar nunca.
-    if (pathname === RUTA_LOGIN || pathname === '/api/finanzas/entrar') {
-        return NextResponse.next();
+    if (PUBLICAS.has(pathname)) return blindar(NextResponse.next());
+
+    const sesion = await verificarTokenSesion(request.cookies.get(COOKIE_SESION)?.value);
+
+    if (!sesion) {
+        if (esApi) return json({ error: 'No autorizado' }, 401);
+        const destino = request.nextUrl.clone();
+        destino.pathname = RUTA_LOGIN;
+        destino.search = '';
+        return blindar(NextResponse.redirect(destino));
     }
 
-    const token = request.cookies.get(COOKIE_SESION)?.value;
-    const autorizado = await sesionValida(token);
-
-    if (autorizado) return NextResponse.next();
-
-    // Las llamadas de API reciben un 401 en JSON; redirigirlas a una
-    // página HTML rompería el fetch del cliente.
-    if (pathname.startsWith('/api/finanzas')) {
-        return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+    // Contraseña temporal: sólo la pantalla de cambio.
+    if (sesion.cambiar && !PERMITIDAS_AL_CAMBIAR.has(pathname)) {
+        if (esApi) return json({ error: 'Tienes que cambiar la contraseña antes de seguir.', cambiarPassword: true }, 403);
+        const destino = request.nextUrl.clone();
+        destino.pathname = RUTA_CAMBIAR;
+        destino.search = '';
+        return blindar(NextResponse.redirect(destino));
     }
 
-    const destino = request.nextUrl.clone();
-    destino.pathname = RUTA_LOGIN;
-    destino.search = '';
-    return NextResponse.redirect(destino);
+    // El asistente nunca borra datos. Se para aquí, sin llegar a la ruta.
+    // Cerrar sus propias sesiones sí puede.
+    const cerrarSesion = pathname === '/api/finanzas/entrar' || pathname === '/api/finanzas/sesiones';
+    if (sesion.rol !== 'propietario' && request.method === 'DELETE' && esApi && !cerrarSesion) {
+        return json({ error: 'Tu cuenta no puede borrar.' }, 403);
+    }
+
+    return blindar(NextResponse.next());
 }
 
 export const config = {

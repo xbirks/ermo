@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
+import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import {
     getTransaccionesDelMes, crearTransaccion, borrarTransaccion,
-    editarTransaccion,
+    editarTransaccion, getTransaccion,
 } from '@/app/lib/finanzas/consultas';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
@@ -11,6 +12,9 @@ export const dynamic = 'force-dynamic';
 const TIPOS = ['ingreso', 'gasto', 'transferencia_interna'];
 
 export async function GET(request) {
+    const acceso = await exigirAcceso(request, 'leer');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const mes = request.nextUrl.searchParams.get('mes') || new Date().toISOString();
         return NextResponse.json(await getTransaccionesDelMes(mes));
@@ -21,6 +25,9 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+    const acceso = await exigirAcceso(request, 'apuntar');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const datos = await request.json();
 
@@ -61,6 +68,7 @@ export async function POST(request) {
             ...datos,
             importe,
             concepto: datos.concepto.trim(),
+            creada_por: acceso.usuario.id,
         });
         return NextResponse.json({ ok: true, id: fila.id }, { status: 201 });
     } catch (error) {
@@ -76,6 +84,9 @@ export async function POST(request) {
  * crearlo: la base no debe recibir basura por venir de otra vía.
  */
 export async function PATCH(request) {
+    const acceso = await exigirAcceso(request, 'anotar');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const datos = await request.json();
 
@@ -113,10 +124,34 @@ export async function PATCH(request) {
             }
         }
 
+        // El asistente sólo puede añadir contexto (nota y categoría): el
+        // importe, la fecha, las cuentas, el tipo y el concepto que vienen
+        // del banco no se tocan.
+        if (acceso.usuario.rol !== 'propietario') {
+            const actual = await getTransaccion(datos.id);
+            if (!actual) {
+                return NextResponse.json({ error: 'Ese movimiento no existe' }, { status: 404 });
+            }
+            const cambiaAlgoMas =
+                actual.fecha !== datos.fecha
+                || actual.cuenta_id !== datos.cuenta_id
+                || (actual.cuenta_destino_id || null) !== (datos.cuenta_destino_id || null)
+                || actual.tipo_movimiento !== datos.tipo_movimiento
+                || actual.concepto !== datos.concepto.trim()
+                || Math.abs(actual.importe - importe) > 0.001;
+            if (cambiaAlgoMas) {
+                return NextResponse.json(
+                    { error: 'Tu cuenta sólo puede cambiar la nota y la categoría de un movimiento.' },
+                    { status: 403 }
+                );
+            }
+        }
+
         await editarTransaccion({
             ...datos,
             importe,
             concepto: datos.concepto.trim(),
+            modificada_por: acceso.usuario.id,
         });
         return NextResponse.json({ ok: true });
     } catch (error) {
@@ -126,6 +161,9 @@ export async function PATCH(request) {
 }
 
 export async function DELETE(request) {
+    const acceso = await exigirAcceso(request, 'escribir');
+    if (acceso.respuesta) return acceso.respuesta;
+
     try {
         const id = request.nextUrl.searchParams.get('id');
         if (!id) {

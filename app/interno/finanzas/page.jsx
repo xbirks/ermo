@@ -100,6 +100,10 @@ export default function FinanzasPage() {
             }
 
             const json = await res.json();
+            if (res.status === 403 && json.cambiarPassword) {
+                router.replace('/interno/finanzas/contrasena');
+                return;
+            }
             if (!res.ok) {
                 setError(json.error || 'No se han podido cargar los datos');
                 return;
@@ -121,6 +125,13 @@ export default function FinanzasPage() {
 
     async function salir() {
         await fetch('/api/finanzas/entrar', { method: 'DELETE' });
+        router.replace('/interno/finanzas/entrar');
+    }
+
+    // El botón de pánico: todos los dispositivos tendrán que volver a
+    // entrar con contraseña y código.
+    async function cerrarTodas() {
+        await fetch('/api/finanzas/sesiones', { method: 'DELETE' });
         router.replace('/interno/finanzas/entrar');
     }
 
@@ -175,9 +186,26 @@ export default function FinanzasPage() {
                         />
                         <span className="fz-cabecera__seccion">Finanzas</span>
                     </div>
-                    <button className="fz-boton fz-boton--suave" type="button" onClick={salir}>
-                        Salir
-                    </button>
+                    <div className="fz-cabecera__cuenta">
+                        {datos.usuario && (
+                            <span className="fz-cabecera__usuario">
+                                {datos.usuario.nombre}
+                                {datos.usuario.rol !== 'propietario' && ' · leer y apuntar'}
+                            </span>
+                        )}
+                        <details className="fz-cabecera__menu">
+                            <summary className="fz-boton fz-boton--suave">Cuenta</summary>
+                            <div className="fz-cabecera__opciones">
+                                <button type="button" onClick={() => router.push('/interno/finanzas/contrasena')}>
+                                    Cambiar contraseña
+                                </button>
+                                <button type="button" onClick={cerrarTodas}>
+                                    Cerrar sesión en todos los dispositivos
+                                </button>
+                                <button type="button" onClick={salir}>Salir</button>
+                            </div>
+                        </details>
+                    </div>
                 </header>
 
                 {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
