@@ -23,6 +23,10 @@ export async function POST(request) {
         return NextResponse.json({ url });
     } catch (error) {
         console.error('[finanzas/banco/conectar]', error);
-        return NextResponse.json({ error: 'No se ha podido iniciar la conexión con el banco' }, { status: 500 });
+        // El motivo ayuda a arreglarlo y no lleva secretos: es el mensaje
+        // de Enable Banking o el de una variable mal configurada.
+        return NextResponse.json(
+            { error: `No se ha podido iniciar la conexión con el banco: ${error.message}` }, { status: 500 }
+        );
     }
 }

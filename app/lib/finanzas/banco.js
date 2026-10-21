@@ -29,11 +29,25 @@ const NOTA_IMPORTADO = 'Importado del banco.';
 // --- Firma ----------------------------------------------------------
 
 let clavePrivada;
+
+/**
+ * Rehace el PEM a partir de lo que haya en la variable, venga como venga:
+ * con o sin comillas, con saltos reales, con "\n" escritos o con los
+ * saltos convertidos en espacios al pegarla en un campo de una línea.
+ * Lo único que importa es el bloque base64 entre BEGIN y END.
+ */
+function normalizarPem(bruto) {
+    const sinComillas = String(bruto || '').trim().replace(/^["']|["']$/g, '').replace(/\\n/g, '\n');
+    const cuerpo = sinComillas.replace(/-----(BEGIN|END) PRIVATE KEY-----/g, '').replace(/\s+/g, '');
+    if (!cuerpo || !/^[A-Za-z0-9+/=]+$/.test(cuerpo)) return null;
+    return `-----BEGIN PRIVATE KEY-----\n${cuerpo.match(/.{1,64}/g).join('\n')}\n-----END PRIVATE KEY-----`;
+}
+
 async function getClave() {
     if (clavePrivada) return clavePrivada;
-    const pem = (process.env.ENABLE_BANKING_PRIVATE_KEY || '').replace(/\\n/g, '\n').trim();
-    if (!pem.includes('BEGIN PRIVATE KEY')) {
-        throw new Error('Falta ENABLE_BANKING_PRIVATE_KEY (el .pem entero, con BEGIN y END).');
+    const pem = normalizarPem(process.env.ENABLE_BANKING_PRIVATE_KEY);
+    if (!pem) {
+        throw new Error('ENABLE_BANKING_PRIVATE_KEY falta o está incompleta (hace falta el .pem entero).');
     }
     clavePrivada = await importPKCS8(pem, 'RS256');
     return clavePrivada;
