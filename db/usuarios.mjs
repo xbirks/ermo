@@ -7,6 +7,8 @@
 //   node db/usuarios.mjs alta <email> <nombre> <propietario|asistente> [--archivo ruta]
 //   node db/usuarios.mjs restablecer <email> [--archivo ruta]
 //   node db/usuarios.mjs baja <email>
+//   node db/usuarios.mjs clave <email> [--archivo ruta]     clave de API para /api/finanzas/bot/*
+//   node db/usuarios.mjs revocar-clave <email>
 //   node db/usuarios.mjs lista
 //
 // `alta` y `restablecer` generan una contraseña temporal aleatoria (el
@@ -54,7 +56,7 @@ function entregar(lineas, archivo) {
     if (!archivo) { process.stdout.write(texto); return; }
     fs.mkdirSync(path.dirname(archivo), { recursive: true });
     fs.appendFileSync(archivo, texto, { mode: 0o600 });
-    console.log(`Contraseña guardada en ${archivo}`);
+    console.log(`Guardado en ${archivo}`);
 }
 
 const [orden, ...resto] = process.argv.slice(2);
@@ -99,6 +101,25 @@ try {
         if (!r.rowCount) throw new Error(`No existe ${email}`);
         await c.query(`UPDATE sesiones SET revocada_en = now() WHERE usuario_id = $1 AND revocada_en IS NULL`, [r.rows[0].id]);
         console.log(`${email} dado de baja y sus sesiones cerradas.`);
+    } else if (orden === 'clave') {
+        // Clave de API para /api/finanzas/bot/*. Hereda el rol del usuario.
+        const email = String(resto[0] || '').trim().toLowerCase();
+        const [u] = (await c.query(`SELECT id, nombre, rol FROM usuarios WHERE email = $1 AND activo`, [email])).rows;
+        if (!u) throw new Error(`No existe ${email}`);
+        const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const clave = 'efz_' + Array.from({ length: 40 }, () => abc[crypto.randomInt(abc.length)]).join('');
+        const hash = crypto.createHash('sha256').update(clave).digest('hex');
+        await c.query(
+            `INSERT INTO claves_api (usuario_id, nombre, hash, prefijo) VALUES ($1, $2, $3, $4)`,
+            [u.id, `Clave de ${u.nombre}`, hash, clave.slice(0, 10)]
+        );
+        entregar([`${u.nombre} · ${email} · ${u.rol}`, `Clave de API (Authorization: Bearer …): ${clave}`, ''], archivo);
+    } else if (orden === 'revocar-clave') {
+        const email = String(resto[0] || '').trim().toLowerCase();
+        const r = await c.query(`
+            UPDATE claves_api SET revocada_en = now()
+            WHERE revocada_en IS NULL AND usuario_id = (SELECT id FROM usuarios WHERE email = $1)`, [email]);
+        console.log(`${r.rowCount} clave(s) de ${email} revocada(s).`);
     } else if (orden === 'lista') {
         const r = await c.query(`
             SELECT u.email, u.nombre, u.rol, u.activo, u.debe_cambiar,
@@ -106,7 +127,7 @@ try {
             FROM usuarios u ORDER BY u.creado_en`);
         console.table(r.rows);
     } else {
-        console.log('Órdenes: alta · restablecer · baja · lista');
+        console.log('Órdenes: alta · restablecer · baja · clave · revocar-clave · lista');
     }
 } catch (e) {
     console.error('Error:', e.message);

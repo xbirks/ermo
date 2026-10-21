@@ -207,6 +207,12 @@ export default function TiraBancos({ cuentas, fijos, mes, trimestres, onCambio, 
                                     Cancelar
                                 </button>
                             </form>
+                        ) : c.conectada ? (
+                            // Conectada al banco: el saldo llega en cada
+                            // lectura y no se escribe a mano.
+                            <div className="fz-bancos__cifra" title="Saldo leído del banco">
+                                <Cifra valor={c.saldo_actual} />
+                            </div>
                         ) : (
                             // Cualquier cuenta se corrige pulsando su
                             // cifra: obligar a escribir SQL para cambiar

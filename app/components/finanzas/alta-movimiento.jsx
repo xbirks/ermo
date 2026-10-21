@@ -45,6 +45,9 @@ export default function AltaMovimiento({
         setForm((f) => ({ ...f, [campo]: e.target.value }));
 
     const esTraspaso = tipo === 'transferencia_interna';
+    // Lo que trae el banco es lo que pasó: importe, fecha, cuenta y
+    // concepto quedan fijos. Sí se puede convertir en traspaso y anotar.
+    const delBanco = movimiento?.origen === 'banco';
 
     async function guardar(e) {
         e.preventDefault();
@@ -94,6 +97,12 @@ export default function AltaMovimiento({
             {error && <div className="fz-aviso fz-aviso--error">{error}</div>}
 
             <div className="fz-form">
+                {delBanco && (
+                    <p className="fz-form__pista">
+                        Viene del banco: el importe, la fecha, la cuenta y el concepto no se cambian. Puedes marcarlo como traspaso, ponerle categoría y nota.
+                    </p>
+                )}
+
                 <div className="fz-pildoras">
                     {TIPOS.map((t) => (
                         <button
@@ -116,6 +125,7 @@ export default function AltaMovimiento({
                             type="date"
                             value={form.fecha}
                             onChange={set('fecha')}
+                            disabled={delBanco}
                             required
                         />
                     </div>
@@ -132,6 +142,7 @@ export default function AltaMovimiento({
                             placeholder="0,00"
                             value={form.importe}
                             onChange={set('importe')}
+                            disabled={delBanco}
                             required
                         />
                     </div>
@@ -146,6 +157,7 @@ export default function AltaMovimiento({
                         className="fz-select"
                         value={form.cuenta_id}
                         onChange={set('cuenta_id')}
+                            disabled={delBanco}
                         required
                     >
                         <option value="">Elegir</option>
@@ -205,6 +217,7 @@ export default function AltaMovimiento({
                         type="text"
                         value={form.concepto}
                         onChange={set('concepto')}
+                            disabled={delBanco}
                         maxLength={120}
                         required
                     />

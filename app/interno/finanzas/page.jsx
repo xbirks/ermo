@@ -196,6 +196,9 @@ export default function FinanzasPage() {
                         <details className="fz-cabecera__menu">
                             <summary className="fz-boton fz-boton--suave">Cuenta</summary>
                             <div className="fz-cabecera__opciones">
+                                <button type="button" onClick={() => router.push('/interno/finanzas/banco')}>
+                                    Conexión con los bancos
+                                </button>
                                 <button type="button" onClick={() => router.push('/interno/finanzas/contrasena')}>
                                     Cambiar contraseña
                                 </button>

@@ -303,24 +303,93 @@ export async function exigirAcceso(request, accion) {
 
     // Toda escritura queda registrada con su autor. Si el registro
     // falla, la escritura no se hace.
-    if (accion !== 'leer') {
-        let cuerpo = null;
-        try {
-            const texto = await request.clone().text();
-            if (texto) cuerpo = JSON.parse(texto.slice(0, 20000));
-        } catch { /* cuerpo vacío o no JSON */ }
-        if (cuerpo && typeof cuerpo === 'object') {
-            for (const k of ['password', 'actual', 'nueva', 'codigo']) if (k in cuerpo) cuerpo[k] = '***';
-        }
-        const url = new URL(request.url);
-        await sql`
-            INSERT INTO auditoria (usuario_id, metodo, ruta, cuerpo, ip)
-            VALUES (${usuario.id}::uuid, ${request.method}, ${url.pathname + url.search},
-                    ${cuerpo ? JSON.stringify(cuerpo) : null}::jsonb, ${datosPeticion(request).ip})
-        `;
-    }
+    if (accion !== 'leer') await registrarAuditoria(request, usuario);
 
     return { usuario, sid: fila.sid };
+}
+
+async function registrarAuditoria(request, usuario) {
+    let cuerpo = null;
+    try {
+        const texto = await request.clone().text();
+        if (texto) cuerpo = JSON.parse(texto.slice(0, 20000));
+    } catch { /* cuerpo vacío o no JSON */ }
+    if (cuerpo && typeof cuerpo === 'object') {
+        for (const k of ['password', 'actual', 'nueva', 'codigo']) if (k in cuerpo) cuerpo[k] = '***';
+    }
+    const url = new URL(request.url);
+    await sql`
+        INSERT INTO auditoria (usuario_id, metodo, ruta, cuerpo, ip)
+        VALUES (${usuario.id}::uuid, ${request.method}, ${url.pathname + url.search},
+                ${cuerpo ? JSON.stringify(cuerpo) : null}::jsonb, ${datosPeticion(request).ip})
+    `;
+}
+
+// --- Claves de API (asistente) ---------------------------------------
+//
+// El asistente usa /api/finanzas/bot/* con "Authorization: Bearer efz_…".
+// La clave hereda los permisos de su usuario. Se guarda sólo su sha256:
+// con 40 caracteres aleatorios no hace falta un hash lento.
+
+export const LIMITE_PETICIONES_HORA = 300;
+
+export function hashClave(clave) {
+    return crypto.createHash('sha256').update(clave).digest('hex');
+}
+
+/** Respuesta en texto plano: lo más barato de leer para un modelo. */
+export function texto(cuerpo, status = 200) {
+    return new NextResponse(cuerpo, {
+        status,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
+    });
+}
+
+/**
+ * Como exigirAcceso, pero con clave de API. Uso en /api/finanzas/bot/*:
+ *
+ *   const acceso = await exigirClave(request, 'anotar');
+ *   if (acceso.respuesta) return acceso.respuesta;
+ */
+export async function exigirClave(request, accion) {
+    const m = /^Bearer (efz_[A-Za-z0-9]{40})$/.exec(request.headers.get('authorization') || '');
+    if (!m) return { respuesta: texto('ERROR: falta la clave (Authorization: Bearer efz_…)', 401) };
+
+    // Una sola consulta: valida la clave y cuenta la petición en su
+    // ventana de una hora.
+    const [fila] = await sql`
+        UPDATE claves_api k SET
+            peticiones     = CASE WHEN k.ventana_inicio > now() - interval '1 hour' THEN k.peticiones + 1 ELSE 1 END,
+            ventana_inicio = CASE WHEN k.ventana_inicio > now() - interval '1 hour' THEN k.ventana_inicio ELSE now() END,
+            ultimo_uso     = now()
+        FROM usuarios u
+        WHERE k.hash = ${hashClave(m[1])} AND k.revocada_en IS NULL
+          AND u.id = k.usuario_id AND u.activo
+        RETURNING k.id AS kid, k.peticiones, k.ultimo_aviso, u.id, u.email, u.nombre, u.rol, u.debe_cambiar
+    `;
+    if (!fila) {
+        await new Promise((r) => setTimeout(r, 400));
+        return { respuesta: texto('ERROR: clave no válida o revocada', 401) };
+    }
+    if (fila.peticiones > LIMITE_PETICIONES_HORA) {
+        return { respuesta: texto(`ERROR: más de ${LIMITE_PETICIONES_HORA} peticiones en una hora. Espera un rato.`, 429) };
+    }
+    if (fila.debe_cambiar) return { respuesta: texto('ERROR: la cuenta tiene que cambiar la contraseña en la web', 403) };
+    if (!PERMISOS[fila.rol]?.has(accion)) return { respuesta: texto('ERROR: tu cuenta no tiene permiso para esto', 403) };
+
+    const usuario = { id: fila.id, email: fila.email, nombre: fila.nombre, rol: fila.rol };
+
+    // Un aviso a Discord el primer uso de cada día: si la clave se
+    // filtrara, se vería enseguida un uso que no toca.
+    const [{ hoy }] = await sql`SELECT (now() AT TIME ZONE 'Europe/Madrid')::date::text AS hoy`;
+    if (String(fila.ultimo_aviso || '').slice(0, 10) !== hoy) {
+        await sql`UPDATE claves_api SET ultimo_aviso = ${hoy}::date WHERE id = ${fila.kid}::uuid`;
+        const { ip, lugar } = datosPeticion(request);
+        await avisar(`🤖 Finanzas: ${usuario.nombre} ha empezado a usar su clave de API hoy\nDesde: ${[lugar, ip].filter(Boolean).join(' · ')}`);
+    }
+
+    if (accion !== 'leer') await registrarAuditoria(request, usuario);
+    return { usuario };
 }
 
 // --- Avisos -------------------------------------------------------

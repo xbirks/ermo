@@ -13,7 +13,20 @@ const RUTA_LOGIN = '/interno/finanzas/entrar';
 const RUTA_CAMBIAR = '/interno/finanzas/contrasena';
 
 // Accesibles sin sesión: sin ellas no habría manera de entrar.
-const PUBLICAS = new Set([RUTA_LOGIN, '/api/finanzas/entrar', '/api/finanzas/entrar/codigo']);
+//
+// /interno/finanzas/banco es la vuelta del banco tras autorizar. Llega
+// desde otra web, y la cookie sameSite=strict no viaja en esa
+// navegación: si se exigiera sesión aquí, el código del banco se
+// perdería en la redirección al login. La página no trae datos por sí
+// misma; los pide a la API, que sí exige sesión.
+const PUBLICAS = new Set([
+    RUTA_LOGIN, '/interno/finanzas/banco',
+    '/api/finanzas/entrar', '/api/finanzas/entrar/codigo',
+]);
+
+// La API del asistente se autentica con su clave (Authorization:
+// Bearer), no con cookie. La comprueba cada ruta con exigirClave().
+const PREFIJO_BOT = '/api/finanzas/bot/';
 
 // Lo único que puede hacer una sesión con contraseña temporal.
 const PERMITIDAS_AL_CAMBIAR = new Set([RUTA_CAMBIAR, '/api/finanzas/contrasena', '/api/finanzas/entrar']);
@@ -62,6 +75,13 @@ export async function middleware(request) {
     }
 
     if (PUBLICAS.has(pathname)) return blindar(NextResponse.next());
+    if (pathname.startsWith(PREFIJO_BOT)) {
+        // Sin cabecera Authorization ni siquiera llega a la ruta.
+        if (!/^Bearer efz_[A-Za-z0-9]{40}$/.test(request.headers.get('authorization') || '')) {
+            return json({ error: 'No autorizado' }, 401);
+        }
+        return blindar(NextResponse.next());
+    }
 
     const sesion = await verificarTokenSesion(request.cookies.get(COOKIE_SESION)?.value);
 

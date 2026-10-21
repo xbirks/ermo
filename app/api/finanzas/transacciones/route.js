@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { exigirAcceso } from '@/app/lib/finanzas/acceso';
+import { sql } from '@/app/lib/finanzas/db';
 import {
     getTransaccionesDelMes, crearTransaccion, borrarTransaccion,
     editarTransaccion, getTransaccion,
@@ -64,6 +65,22 @@ export async function POST(request) {
             }
         }
 
+        // En una cuenta que se lee del banco, el movimiento llega solo:
+        // apuntarlo a mano lo duplicaría. Un traspaso que la toque se hace
+        // convirtiendo el movimiento que trae el banco.
+        const [conectada] = await sql`
+            SELECT c.nombre FROM conexiones_banco b JOIN cuentas c ON c.id = b.cuenta_id
+            WHERE b.activa AND b.valida_hasta > now()
+              AND b.cuenta_id IN (${datos.cuenta_id}::uuid, ${datos.cuenta_destino_id || datos.cuenta_id}::uuid)
+            LIMIT 1
+        `;
+        if (conectada) {
+            return NextResponse.json(
+                { error: `${conectada.nombre} se lee del banco: sus movimientos llegan solos. Para un traspaso, edita el movimiento que trae el banco y conviértelo.` },
+                { status: 409 }
+            );
+        }
+
         const fila = await crearTransaccion({
             ...datos,
             importe,
@@ -124,27 +141,35 @@ export async function PATCH(request) {
             }
         }
 
-        // El asistente sólo puede añadir contexto (nota y categoría): el
-        // importe, la fecha, las cuentas, el tipo y el concepto que vienen
-        // del banco no se tocan.
-        if (acceso.usuario.rol !== 'propietario') {
-            const actual = await getTransaccion(datos.id);
-            if (!actual) {
-                return NextResponse.json({ error: 'Ese movimiento no existe' }, { status: 404 });
-            }
-            const cambiaAlgoMas =
-                actual.fecha !== datos.fecha
-                || actual.cuenta_id !== datos.cuenta_id
-                || (actual.cuenta_destino_id || null) !== (datos.cuenta_destino_id || null)
-                || actual.tipo_movimiento !== datos.tipo_movimiento
-                || actual.concepto !== datos.concepto.trim()
-                || Math.abs(actual.importe - importe) > 0.001;
-            if (cambiaAlgoMas) {
-                return NextResponse.json(
-                    { error: 'Tu cuenta sólo puede cambiar la nota y la categoría de un movimiento.' },
-                    { status: 403 }
-                );
-            }
+        const actual = await getTransaccion(datos.id);
+        if (!actual) {
+            return NextResponse.json({ error: 'Ese movimiento no existe' }, { status: 404 });
+        }
+        const cambiaLoDelBanco =
+            actual.fecha !== datos.fecha
+            || actual.cuenta_id !== datos.cuenta_id
+            || actual.concepto !== datos.concepto.trim()
+            || Math.abs(actual.importe - importe) > 0.001;
+        const cambiaTipo =
+            actual.tipo_movimiento !== datos.tipo_movimiento
+            || (actual.cuenta_destino_id || null) !== (datos.cuenta_destino_id || null);
+
+        // Lo que viene del banco es lo que pasó: importe, fecha, cuenta y
+        // concepto no se tocan, ni siquiera el propietario. Sí se puede
+        // convertir en traspaso entre cuentas propias.
+        if (actual.origen === 'banco' && cambiaLoDelBanco) {
+            return NextResponse.json(
+                { error: 'Este movimiento viene del banco: el importe, la fecha, la cuenta y el concepto no se cambian.' },
+                { status: 403 }
+            );
+        }
+
+        // El asistente sólo añade contexto: nota y categoría.
+        if (acceso.usuario.rol !== 'propietario' && (cambiaLoDelBanco || cambiaTipo)) {
+            return NextResponse.json(
+                { error: 'Tu cuenta sólo puede cambiar la nota y la categoría de un movimiento.' },
+                { status: 403 }
+            );
         }
 
         await editarTransaccion({
@@ -169,6 +194,17 @@ export async function DELETE(request) {
         if (!id) {
             return NextResponse.json({ error: 'Falta el id' }, { status: 400 });
         }
+
+        // Si estaba enlazado con el banco, la siguiente lectura lo volvería
+        // a traer: se apunta su referencia como descartada.
+        const actual = await getTransaccion(id);
+        if (actual?.ref_banco) {
+            await sql`INSERT INTO banco_ignorados (cuenta_id, ref) VALUES (${actual.cuenta_id}::uuid, ${actual.ref_banco}) ON CONFLICT DO NOTHING`;
+        }
+        if (actual?.ref_banco_destino && actual.cuenta_destino_id) {
+            await sql`INSERT INTO banco_ignorados (cuenta_id, ref) VALUES (${actual.cuenta_destino_id}::uuid, ${actual.ref_banco_destino}) ON CONFLICT DO NOTHING`;
+        }
+
         await borrarTransaccion(id);
         return NextResponse.json({ ok: true });
     } catch (error) {

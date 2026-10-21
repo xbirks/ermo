@@ -46,7 +46,12 @@ export async function getCuentas() {
     try {
         filas = await sql`
             SELECT id, nombre, tipo, saldo_actual, iva_retenido, reservado,
-                   disponible, saldo_manual, saldo_declarado_en
+                   disponible, saldo_manual, saldo_declarado_en,
+                   -- Si se lee del banco, el saldo no se corrige a mano.
+                   EXISTS (
+                       SELECT 1 FROM conexiones_banco b
+                       WHERE b.cuenta_id = v_saldo_disponible.id AND b.activa AND b.valida_hasta > now()
+                   ) AS conectada
             FROM v_saldo_disponible
             ORDER BY (SELECT orden FROM cuentas c WHERE c.id = v_saldo_disponible.id)
         `;
@@ -292,7 +297,7 @@ export async function getTransaccionesDelMes(mes) {
     const inicio = primerDiaDelMes(mes);
     const filas = await sql`
         SELECT
-            t.id, t.fecha, t.concepto, t.importe, t.tipo_movimiento, t.notas,
+            t.id, t.fecha, t.concepto, t.importe, t.tipo_movimiento, t.notas, t.origen,
             -- Los identificadores hacen falta para poder corregir el
             -- movimiento desde la app: sin ellos el formulario no puede
             -- preseleccionar la cuenta ni la categoría.
@@ -340,10 +345,11 @@ export async function crearTransaccion(datos) {
     return fila;
 }
 
-/** Un movimiento suelto, con los campos que el asistente no puede tocar. */
+/** Un movimiento suelto, con lo que hace falta para decidir qué se puede tocar. */
 export async function getTransaccion(id) {
     const [f] = await sql`
-        SELECT id, fecha, cuenta_id, cuenta_destino_id, concepto, importe, tipo_movimiento
+        SELECT id, fecha, cuenta_id, cuenta_destino_id, concepto, importe, tipo_movimiento,
+               origen, ref_banco, ref_banco_destino
         FROM transacciones WHERE id = ${id}::uuid
     `;
     return f ? { ...f, importe: num(f.importe) } : null;

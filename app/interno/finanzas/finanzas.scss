@@ -2278,6 +2278,63 @@ $ancho-dos-columnas: 880px;
     from { opacity: 0; transform: translateY(10px); }
 }
 
+// --- Conexión con los bancos --------------------------------------
+.fz-bancos-conexion {
+    max-width: 720px;
+
+    > .fz-boton { margin-bottom: 18px; }
+}
+
+.fz-conexiones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.fz-conexion {
+    padding: 20px;
+    border: 1px solid $linea;
+    border-radius: $romo;
+    display: grid;
+    gap: 16px;
+    align-content: start;
+
+    &__cabeza { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+    &__nombre {
+        font-size: $t-title-3 !important;
+        font-weight: $p-fuerte;
+        letter-spacing: -0.02em !important;
+        line-height: $lh-titulo !important;
+        color: $g-900 !important;
+        margin: 0;
+    }
+
+    &__estado {
+        font-size: $t-caption;
+        font-weight: $p-medio;
+        padding: 4px 10px;
+        border-radius: $pastilla;
+        background: $hueso;
+        color: $g-500;
+
+        &--ok { background: rgba($entra, 0.1); color: $entra; }
+    }
+
+    &__datos {
+        margin: 0;
+        display: grid;
+        gap: 10px;
+
+        div { display: flex; justify-content: space-between; gap: 12px; }
+        dt { font-size: $t-footnote; color: $g-500; }
+        dd { margin: 0; font-size: $t-subhead; color: $g-900; font-variant-numeric: tabular-nums; text-align: right; }
+    }
+
+    &__alerta { color: $atencion !important; font-weight: $p-medio; }
+    &__error { font-size: $t-footnote; color: $peligro; margin: 0; }
+}
+
 // Contraseña con botón para verla.
 .fz-clave {
     position: relative;

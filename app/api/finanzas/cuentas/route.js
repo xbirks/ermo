@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { exigirAcceso } from '@/app/lib/finanzas/acceso';
 import { declararSaldo } from '@/app/lib/finanzas/consultas';
+import { sql } from '@/app/lib/finanzas/db';
 
 // Lee la base de datos en cada llamada: nunca se cachea ni se
 // prerenderiza en el build.
@@ -32,6 +33,16 @@ export async function PATCH(request) {
         if (valor < 0) {
             return NextResponse.json(
                 { error: 'El saldo no puede ser negativo' }, { status: 400 }
+            );
+        }
+
+        // Las cuentas conectadas toman el saldo del banco en cada lectura.
+        const [conectada] = await sql`
+            SELECT 1 FROM conexiones_banco WHERE cuenta_id = ${id}::uuid AND activa AND valida_hasta > now()
+        `;
+        if (conectada) {
+            return NextResponse.json(
+                { error: 'El saldo de esta cuenta viene del banco y no se escribe a mano.' }, { status: 409 }
             );
         }
 
